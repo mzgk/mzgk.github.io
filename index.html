@@ -9,13 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="ソース内でアプリのバージョンを取得する方法。 1
-2
-3
-4
-5
-// バージョン：TARGET- General - Identity - Version（Info.plist : Bundle version strings short）
-NSString *version = [[ &hellip;">
+  <meta name="description" content="アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。
+デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。 Supporting Files ｛アプリ名｝-Info.plistを開く &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +69,58 @@ NSString *version = [[ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/share-itunes/">アプリのデータをiTunesで共有する方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T17:11:29+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。<br/>
+デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。</p>
+
+<h2>Supporting Files</h2>
+
+<ul>
+<li>｛アプリ名｝-Info.plistを開く</li>
+<li>Information Property Listの隣の＋をクリックし、行を追加</li>
+<li>Application supports iTunes file sharingを選択</li>
+<li>値のYESを選択</li>
+</ul>
+
+
+<p><img src="/images/2014/0805/iTunes_1.png" alt="iTunes共有1" /></p>
+
+<p>参考：
+<a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -873,45 +920,6 @@ NSString *version = [[ &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/exception-breakpoint/">Xcodeで例外が発生した場所を特定する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T14:00:51+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。<br/>
-そんな時に有効な設定。</p>
-
-<p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -930,6 +938,10 @@ NSString *version = [[ &hellip;">
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/share-itunes/">アプリのデータをiTunesで共有する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/get-app-version/">アプリのバージョン取得</a>
@@ -965,10 +977,6 @@ NSString *version = [[ &hellip;">
     
       <li class="post">
         <a href="/blog/2014/confirm-subview/">対象のビューがサブビューかどうか判断する方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/exception-breakpoint/">Xcodeで例外が発生した場所を特定する</a>
       </li>
     
   </ul>

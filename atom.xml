@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T17:09:01+09:00</updated>
+  <updated>2014-08-05T17:37:55+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[アプリのデータをiTunesで共有する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/share-itunes/"/>
+    <updated>2014-08-05T17:11:29+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/share-itunes</id>
+    <content type="html"><![CDATA[<p>アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。<br/>
+デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。</p>
+
+<h2>Supporting Files</h2>
+
+<ul>
+<li>｛アプリ名｝-Info.plistを開く</li>
+<li>Information Property Listの隣の＋をクリックし、行を追加</li>
+<li>Application supports iTunes file sharingを選択</li>
+<li>値のYESを選択</li>
+</ul>
+
+
+<p><img src="http://mzgk.github.io/images/2014/0805/iTunes_1.png" alt="iTunes共有1" /></p>
+
+<p>参考：
+<a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[アプリのバージョン取得]]></title>
@@ -1602,78 +1627,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 5. 任意の場所に保存<br/>
 6. その絶対パスを指定<br/>
 これで、独自のCSSでプレビューできる。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressのフォントや文字間・行間を変更する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/octopress-font-setting/"/>
-    <updated>2014-01-26T16:11:50+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/octopress-font-setting</id>
-    <content type="html"><![CDATA[<p>Octopressでフォントやフォントサイズ・文字間・行間の変更をする方法。<br/>
-サイドバーにAbout Meを表示させる方法。</p>
-
-<p>デフォルトのフォント周りの設定はちょっとタイトルの文字が大きすぎたり、文章の行間がつまりすぎたりしていると感じていたので、変更してみた。<br/>
-ちなみにサイドバー用の小さいAbout Meはデフォルトで用意されている。</p>
-
-<!-- more -->
-
-
-<h2>フォント</h2>
-
-<p><code>/sass/custom/_fonts.scss</code> にフォントを定義する。<br/>
-今時点で自分が定義している内容は以下。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$sans: "TrebuchetMS", "HiraMaruPro-W4", Arial, sans-serif;
-</span><span class='line'>$serif: "Courier-Oblique", "HiraMaruPro-W4", serif;
-</span><span class='line'>$mono: "Consolas", monospace;
-</span><span class='line'>$heading-font-family: "TrebuchetMS", "HiraMaruPro-W4", Arial, sans-serif;</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>フォントサイズ・文字間・行間</h2>
-
-<p><code>/sass/custom/_styles.scss</code> に定義する。<br/>
-こんな感じ。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>h1.entry-title a {
-</span><span class='line'>  font-size: 0.8em;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>body {
-</span><span class='line'>  letter-spacing: 3px;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>p {
-</span><span class='line'>  line-height: 1.8;
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>サイドバーにAbout meを表示させる</h2>
-
-<p><code>_config.yml</code> を変更する。</p>
-
-<p>53行目あたりにパス <code>custom/asides/about.html,</code> を追加する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>default_asides: [custom/asides/about.html,asides/recent_posts.html, ...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>About Meの内容を作成するには、この<code>custom/asides/about.html</code> をいじる。</p>
 ]]></content>
   </entry>
   
