@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Xcodeで例外が発生した場所を特定する - jubilee</title>
+  <title>UIImageViewにスワイプジェスチャーを適用させる - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Xcodeで例外が発生した場所を特定するための設定">
-  <meta name="keywords" content="Objective-C,iOS,Xcode">
+  <meta name="description" content="通常に設定（コード or Interface Builder）からだけでは、反応しない。
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/exception-breakpoint">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">Xcodeで例外が発生した場所を特定する</h1>
+      <h1 class="entry-title">UIImageViewにスワイプジェスチャーを適用させる</h1>
     
     
       <p class="meta">
@@ -87,17 +89,21 @@
   
 
 
-<time datetime="2014-08-05T14:00:51+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。<br/>
-そんな時に有効な設定。</p>
+<div class="entry-content"><p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
 
-<p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -120,7 +126,7 @@
   
 
 
-<time datetime="2014-08-05T14:00:51+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
@@ -134,7 +140,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/exception-breakpoint/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/exception-breakpoint/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/" >Tweet</a>
   
   
   
@@ -143,10 +149,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/logicaloperator/" title="Previous Post: 論理演算子を使って状態を逆転させる">&laquo; 論理演算子を使って状態を逆転させる</a>
+        <a class="basic-alignment left" href="/blog/2014/set-navigationbar-color/" title="Previous Post: UINavigationBarの色を制御する">&laquo; UINavigationBarの色を制御する</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/confirm-subview/" title="Next Post: 対象のビューがサブビューかどうか判断する方法">対象のビューがサブビューかどうか判断する方法 &raquo;</a>
       
     </p>
   </footer>

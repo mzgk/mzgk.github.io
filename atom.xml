@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:04:32+09:00</updated>
+  <updated>2014-08-05T18:09:07+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIImageViewにスワイプジェスチャーを適用させる]]></title>
+    <link href="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/"/>
+    <updated>2014-08-05T18:06:46+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe</id>
+    <content type="html"><![CDATA[<p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UINavigationBarの色を制御する]]></title>
@@ -1372,137 +1388,6 @@ RBENV_VERSIONを指定しておくと、その環境変数が有効な範囲で�
 </span><span class='line'>$ rbenv versions
 </span><span class='line'>  system
 </span><span class='line'>* 1.9.3-p484 (set by /Users/JohnDoe/mzgk.github.io/.ruby-version)</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressブログ環境の再構築：第２回]]></title>
-    <link href="http://mzgk.github.io/blog/2014/restart-octopress-2/"/>
-    <updated>2014-02-22T12:18:26+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/restart-octopress-2</id>
-    <content type="html"><![CDATA[<p>前回はHomebrewのインストールまでだったので、続きから。<br/>
-Rubyのバージョン管理を行うrbenvやその他必要モジュールをインストール。</p>
-
-<ol>
-<li>Homebrewのインストール</li>
-<li>rbenvのインストール　&lt;&ndash; <strong>いまここ</strong></li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>readline</h2>
-
-<p>Rubyが使用するライブラリで、コマンドラインの１行入力をサポートするライブラリ。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install readline
-</span><span class='line'>...
-</span><span class='line'>LDFLAGS:  -L/usr/local/opt/readline/lib
-</span><span class='line'>CPPFLAGS: -I/usr/local/opt/readline/include
-</span><span class='line'>==&gt; Summary
-</span><span class='line'>🍺  /usr/local/Cellar/readline/6.2.4: 31 files, 1.6M</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>openssl</h2>
-
-<p>Rubyが使用するライブラリ。<br/>
-SSL（Secure Socket Layer）は、ネットワーク通信を暗号化するライブラリで、OpenSSLはそのオープンソースの実装。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install openssl
-</span><span class='line'>...
-</span><span class='line'>    LDFLAGS:  -L/usr/local/opt/openssl/lib
-</span><span class='line'>    CPPFLAGS: -I/usr/local/opt/openssl/include
-</span><span class='line'>
-</span><span class='line'>==&gt; security find-certificate -a -p /Library/Keychains/System.keychain &gt; '/usr/local/etc/openssl/osx_cert.pem.tmp'
-</span><span class='line'>==&gt; security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain &gt;&gt; '/usr/local/etc/openssl/osx_cert.
-</span><span class='line'>==&gt; mv -f /usr/local/etc/openssl/osx_cert.pem.tmp /usr/local/etc/openssl/osx_cert.pem
-</span><span class='line'>==&gt; Summary
-</span><span class='line'>🍺  /usr/local/Cellar/openssl/1.0.1f: 429 files, 15M</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>rbenv</h2>
-
-<p>Rubyのバージョン切り替えを行えるパッケージ。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install rbenv
-</span><span class='line'>...
-</span><span class='line'>==&gt; Caveats
-</span><span class='line'>To use Homebrew's directories rather than ~/.rbenv add to your profile:
-</span><span class='line'>  export RBENV_ROOT=/usr/local/var/rbenv
-</span><span class='line'>
-</span><span class='line'>To enable shims and autocompletion add to your profile:
-</span><span class='line'>  if which rbenv &gt; /dev/null; then eval "$(rbenv init -)"; fi
-</span><span class='line'>==&gt; Summary
-</span><span class='line'>🍺  /usr/local/Cellar/rbenv/0.4.0: 31 files, 152K, built in 2 seconds</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>.bash_profile</h2>
-
-<p>rbenvをインストール時に表示されたスクリプトを.bash_profileに追加。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vim ~/.bash_profile
-</span><span class='line'>...
-</span><span class='line'>// rbenv(to enable shims and autocompletion)
-</span><span class='line'>if which rbenv &gt; /dev/null; then eval "$(rbenv init -)"; fi
-</span><span class='line'>...
-</span><span class='line'>$ source ~/.bash_profile</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ruby-build</h2>
-
-<p>rbenvを使用してRubyをインストールするためのパッケージ。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install ruby-build
-</span><span class='line'>...
-</span><span class='line'>==&gt; Installing ruby-build
-</span><span class='line'>==&gt; Downloading https://github.com/sstephenson/ruby-build/archive/v20140214.tar.gz
-</span><span class='line'>######################################################################## 100.0%
-</span><span class='line'>==&gt; ./install.sh
-</span><span class='line'>🍺  /usr/local/Cellar/ruby-build/20140214: 108 files, 472K, built in 2 seconds</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

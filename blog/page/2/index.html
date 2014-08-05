@@ -9,12 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。 1
-2
-3
-4
-NSString* string = @&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;;
-NSURL* url = [NSURL fileURLWithPath &hellip;">
+  <meta name="description" content="ビューの重なり順をコードで変更する方法。 自分に追加されているサブビューの配列を取得 1
+self.subviews 自分と同じスーパービューをもつサブビューの配列を取得 1
+superview.subviews 挿入位置をインデックス番号で指定する 1
+[self.view &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +71,98 @@ NSURL* url = [NSURL fileURLWithPath &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/chage-view-overlap/">ビューの重なり順を変更する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T15:34:39+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ビューの重なり順をコードで変更する方法。</p>
+
+<h2>自分に追加されているサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">superview</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>挿入位置をインデックス番号で指定する</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">atIndex:</span><span class="mi">1</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定ビューの前／後ろに挿入する</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// _targetViewの下にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">belowSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// _targetViewの上にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">aboveSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ビューを最前面／再背面に移動させる</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 最前面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">bringSubviewToFront:</span><span class="n">_imageView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// 再背面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">sendSubviewToBack:</span><span class="n">_imageView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定したインデックスのビューの重なりを入れ替える</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -567,57 +657,6 @@ GitHub, Biubucketに対して行う。<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-2/">Octopressブログ環境の再構築：第２回</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-22T12:18:26+09:00" pubdate data-updated="true">2014.02.22</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>前回はHomebrewのインストールまでだったので、続きから。<br/>
-Rubyのバージョン管理を行うrbenvやその他必要モジュールをインストール。</p>
-
-<ol>
-<li>Homebrewのインストール</li>
-<li>rbenvのインストール　&lt;&ndash; <strong>いまここ</strong></li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/restart-octopress-2/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -638,6 +677,10 @@ Rubyのバージョン管理を行うrbenvやその他必要モジュールを�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a>
@@ -673,10 +716,6 @@ Rubyのバージョン管理を行うrbenvやその他必要モジュールを�
     
       <li class="post">
         <a href="/blog/2014/singleton/">シングルトン（singleton）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/chage-view-overlap/">ビューの重なり順を変更する</a>
       </li>
     
   </ul>

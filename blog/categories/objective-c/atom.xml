@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:04:32+09:00</updated>
+  <updated>2014-08-05T18:09:07+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIImageViewにスワイプジェスチャーを適用させる]]></title>
+    <link href="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/"/>
+    <updated>2014-08-05T18:06:46+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe</id>
+    <content type="html"><![CDATA[<p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
+
+<p><code>objective-c
+[_imageView setUserInteractionEnabled = YES];
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UINavigationBarの色を制御する]]></title>
@@ -134,43 +149,6 @@ return NO;
 
 <p>参考：
 <a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[アプリのバージョン取得]]></title>
-    <link href="http://mzgk.github.io/blog/2014/get-app-version/"/>
-    <updated>2014-08-05T17:07:29+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/get-app-version</id>
-    <content type="html"><![CDATA[<p>ソース内でアプリのバージョンを取得する方法。</p>
-
-<p>```objective-c
-// バージョン：TARGET- General &ndash; Identity &ndash; Version（Info.plist : Bundle version strings short）
-NSString *version = [[NSBundle mainBundle]infoDictionary][@&ldquo;CFBundleShortVersionString&rdquo;];</p>
-
-<p>// バンドル：TARGET- General &ndash; Identity &ndash; Bundle（Info.plist : Bundle version）
-NSString *bundle = [[NSBundle mainBundle]infoDictionary][@&ldquo;CFBundleVersion&rdquo;];
-```</p>
-
-<p>VersionとBundleの違いについては、理解不足。</p>
-
-<ul>
-<li>Version
-
-<ul>
-<li>表記用のリリースバージョン</li>
-</ul>
-</li>
-<li>Bundle
-
-<ul>
-<li>内部開発用のビルドバージョン</li>
-</ul>
-</li>
-</ul>
-
-
-<p>とのことみたいだが、リリース時は両方が一致している必要があるらしいとのこと。</p>
 ]]></content>
   </entry>
   
