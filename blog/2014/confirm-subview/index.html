@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>MarkdownPreviewで独自CSSを設定する - jubilee</title>
+  <title>対象のビューがサブビューかどうか判断する方法 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Sublime Text3のMarkdownPreviewで独自CSSを設定する方法">
-  <meta name="keywords" content="SublimeText3,MarkdownPreview,css,カスタマイズ">
+  <meta name="description" content="対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。">
+  <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/confirm-subview">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">MarkdownPreviewで独自CSSを設定する</h1>
+      <h1 class="entry-title">対象のビューがサブビューかどうか判断する方法</h1>
     
     
       <p class="meta">
@@ -85,71 +85,53 @@
   
 
 
-<time datetime="2014-02-02T10:21:24+09:00" pubdate data-updated="true">2014.02.02</time>
+<time datetime="2014-08-05T14:26:28+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Sublime Text3の便利なPackage、Markdownで記述したファイルをPreviewできる『Markdown Preview』。<br/>
-GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
-どこで設定できるのか探してたところ・・・</p>
+<div class="entry-content"><p>対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。</p>
 
-<!-- more -->
-
-
-<h2>Package Settingsがある</h2>
-
-<p>Preferencesには <strong>Package Settings</strong> がある。<br/>
-まずは、Markdown PreviewのDefaultの内容を覗いて見ると、それらしき個所が・・・。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/*
-</span><span class='line'>  Sets the default css file to embed in the HTML
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// メモリから破棄されないように&quot;strong&quot;を指定</span>
+</span><span class='line'><span class="err">@</span><span class="n">preoperty</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomatic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">myLabel</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>  default - Use the builtin CSS or github CSS, depending on parser config (markdown.css or github.css)
-</span><span class='line'>  other - Set an absolute path or url to any css file
-</span><span class='line'>*/
-</span><span class='line'>"css": "default",</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">removeAllLabel:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">_mylabel</span> <span class="nl">isDescendantOfView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// ビューから取り除く</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_myLabel</span> <span class="n">removeFromSuperView</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// ビューに追加する</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSuperView:</span><span class="n">_mylabel</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>なるほど。<br/>
-<code>other - Set an absolute path or url to any css file</code> の部分が鍵で、絶対パスで指定しろと。</p>
+<h2>スーパービューを調べる</h2>
 
-<h2>User用のSetting</h2>
+<p><code>_myLabel.superView</code> でも、_myLabelにスーパービューがあるかどうか調べられる。</p>
 
-<p><strong>Preferences > Package Settings > Markdown Preview > Settings-User</strong><br/>
-で表示されたファイルに以下を記述し保存。</p>
+<h2>取り除く≒非表示</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{
-</span><span class='line'>  "css": "CSSファイルの絶対パス",
-</span><span class='line'>}
-</span><span class='line'>※Windowsの場合、パスの\は/に置き換えて絶対パスを書く。</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意するのは、Windowsの場合に <strong>『パスの\（&yen;）は/に置き換えて』</strong> 記述すること。</p>
-
-<h2>自分のやった手順</h2>
-
-<p>自分は、フォント周りを変えたかったので、<br/>
-1. chromeで表示されたPreview結果を <strong>右クリック > 要素を検証</strong> で開発ツールを表示<br/>
-2. <code>&lt;style&gt;...&lt;/style&gt;</code> のCSS定義をコピー<br/>
-3. 自分のCSSファイルに貼付ける<br/>
-4. 変更・追加を加える<br/>
-5. 任意の場所に保存<br/>
-6. その絶対パスを指定<br/>
-これで、独自のCSSでプレビューできる。</p>
+<p><code>_myLabel.hidden = YES;</code> で、取り除くことなく非表示化できる。</p>
 </div>
 
 
@@ -172,12 +154,12 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
   
 
 
-<time datetime="2014-02-02T10:21:24+09:00" pubdate data-updated="true">2014.02.02</time>
+<time datetime="2014-08-05T14:26:28+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/setting/'>Setting</a>
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
   
 </span>
 
@@ -186,7 +168,7 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/confirm-subview/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/confirm-subview/" >Tweet</a>
   
   
   
@@ -195,10 +177,8 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/octopress-font-setting/" title="Previous Post: Octopressのフォントや文字間・行間を変更する">&laquo; Octopressのフォントや文字間・行間を変更する</a>
+        <a class="basic-alignment left" href="/blog/2014/exception-breakpoint/" title="Previous Post: Xcodeで例外が発生した場所を特定する">&laquo; Xcodeで例外が発生した場所を特定する</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/octopress-googlefont/" title="Next Post: OctopressでGoogle Fontsを使う">OctopressでGoogle Fontsを使う &raquo;</a>
       
     </p>
   </footer>

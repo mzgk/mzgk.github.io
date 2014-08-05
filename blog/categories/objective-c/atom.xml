@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T14:03:17+09:00</updated>
+  <updated>2014-08-05T14:29:01+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[対象のビューがサブビューかどうか判断する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/confirm-subview/"/>
+    <updated>2014-08-05T14:26:28+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/confirm-subview</id>
+    <content type="html"><![CDATA[<p>対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。</p>
+
+<p>```objective-c
+// メモリから破棄されないように"strong"を指定
+@preoperty (strong, nonatomatic) IBOutlet UILabel *myLabel;</p>
+
+<ul>
+<li>(IBAction)removeAllLabel:(id)sender
+{
+  if ([<em>mylabel isDescendantOfView:self.view]) {
+      // ビューから取り除く
+      [</em>myLabel removeFromSuperView];
+  }
+  else {
+      // ビューに追加する
+      [self.view addSuperView:_mylabel];
+  }
+}
+```</li>
+</ul>
+
+
+<h2>スーパービューを調べる</h2>
+
+<p><code>_myLabel.superView</code> でも、_myLabelにスーパービューがあるかどうか調べられる。</p>
+
+<h2>取り除く≒非表示</h2>
+
+<p><code>_myLabel.hidden = YES;</code> で、取り除くことなく非表示化できる。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Xcodeで例外が発生した場所を特定する]]></title>
