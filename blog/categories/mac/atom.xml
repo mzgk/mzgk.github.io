@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mac | jubilee]]></title>
+  <link href="http://mzgk.github.io/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://mzgk.github.io/"/>
+  <updated>2014-08-05T18:18:09+09:00</updated>
+  <id>http://mzgk.github.io/</id>
+  <author>
+    <name><![CDATA[mzgk]]></name>
+    <email><![CDATA[mzgkworks@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[OpenSSLのバージョンアップ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/openssl-versionup/"/>
+    <updated>2014-08-05T18:16:03+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/openssl-versionup</id>
+    <content type="html"><![CDATA[<p>2014.8.5現在の最新版は 1.0.1h。</p>
+
+<h2>バージョン確認</h2>
+
+<p>```bash
+$ openssl version
+OpenSSL 1.0.1g 7 Apr 2014  ← Macにインストールされているバージョンが表示される</p>
+
+<p>$ brew info openssl
+openssl: stable 1.0.1g (bottled)  ←　HomeBrewのデータベース上の情報
+```</p>
+
+<h2>Homebrewのデータベースを更新</h2>
+
+<p>```bash
+$ brew update</p>
+
+<p>$ brew info openssl
+openssl: stable 1.0.1h (bottled)　←　更新された
+```</p>
+
+<h2>OpenSSLの更新</h2>
+
+<p><code>bash
+$ brew upgrade openssl
+...
+...
+</code></p>
+
+<h2>利用可能か確認</h2>
+
+<p>```bash
+$ openssl version
+&hellip;</p>
+
+<p>$ which openssl
+/usr/bin/openssl　←　Homebrewでインストールしたものではない
+```</p>
+
+<p><code>$ brew upgrade openssl</code> のログに
+<code>This formula is keg-only, so it was not symlinked into /usr/local.</code> とあるように、まだリンクされていない。</p>
+
+<h2>HoembrewでインストールしたOpenSSLの使用設定</h2>
+
+<p>```bash
+$ brew link openssl &mdash;force
+&hellip;
+$ openssl version
+OpenSSL 1.0.1h 5 Jun 2014　←　変わらない場合は、一度Terminalを再起動</p>
+
+<p>$ which openssl
+/usr/local/bin/openssl
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

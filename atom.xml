@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:15:03+09:00</updated>
+  <updated>2014-08-05T18:18:09+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,91 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OpenSSLのバージョンアップ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/openssl-versionup/"/>
+    <updated>2014-08-05T18:16:03+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/openssl-versionup</id>
+    <content type="html"><![CDATA[<p>2014.8.5現在の最新版は 1.0.1h。</p>
+
+<h2>バージョン確認</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
+</span><span class='line'>OpenSSL 1.0.1g 7 Apr 2014  ← Macにインストールされているバージョンが表示される
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>brew info openssl
+</span><span class='line'>openssl: stable 1.0.1g <span class="o">(</span>bottled<span class="o">)</span>  ←　HomeBrewのデータベース上の情報
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Homebrewのデータベースを更新</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew update
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>brew info openssl
+</span><span class='line'>openssl: stable 1.0.1h <span class="o">(</span>bottled<span class="o">)</span>　←　更新された
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>OpenSSLの更新</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew upgrade openssl
+</span><span class='line'>...
+</span><span class='line'>...
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>利用可能か確認</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
+</span><span class='line'>...
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>which openssl
+</span><span class='line'>/usr/bin/openssl　←　Homebrewでインストールしたものではない
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>$ brew upgrade openssl</code> のログに
+<code>This formula is keg-only, so it was not symlinked into /usr/local.</code> とあるように、まだリンクされていない。</p>
+
+<h2>HoembrewでインストールしたOpenSSLの使用設定</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew link openssl --force
+</span><span class='line'>...
+</span><span class='line'><span class="nv">$ </span>openssl version
+</span><span class='line'>OpenSSL 1.0.1h 5 Jun 2014　←　変わらない場合は、一度Terminalを再起動
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>which openssl
+</span><span class='line'>/usr/local/bin/openssl
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIButtonでタップ毎にボタン画像を切替える]]></title>
@@ -1122,186 +1207,6 @@ L264行目あたり</p>
 <h2>以上</h2>
 
 <p>以上で、無事に終了。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressブログ環境の再構築：第４回]]></title>
-    <link href="http://mzgk.github.io/blog/2014/restart-octopress-4/"/>
-    <updated>2014-02-22T12:38:07+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/restart-octopress-4</id>
-    <content type="html"><![CDATA[<p>Macも新しくなったので、SSH鍵の設定をあらためて実施。<br/>
-GitHub, Biubucketに対して行う。<br/>
-別々の鍵ファイルを用意した方がいいのかもしれないが、今回は一つのファイルでやってみる。</p>
-
-<ol>
-<li>Homebrewのインストール</li>
-<li>rbenvのインストール</li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）　&lt;&ndash; <strong>いまここ</strong></li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>方針</h2>
-
-<ul>
-<li>一つの鍵ファイルをGitHubとBitbucketに使用する</li>
-<li>ファイル名（-f）をつける（誤って上書きしないように）<br/>
-id_rsa.jd-repository</li>
-<li>コメント（-C）は、ユーザ名@マシン名<br/>
-JohnDoe@jd-mbp15</li>
-<li>パスフレーズなし</li>
-</ul>
-
-
-<h2>鍵の作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/.ssh
-</span><span class='line'>No such file or directory
-</span><span class='line'>$ mkdir .ssh
-</span><span class='line'>$ cd .ssh
-</span><span class='line'>$ ssh-keygen -t rsa -C "JohnDoe@jd-mbp15"
-</span><span class='line'>Enter file in witch to save the key: id_rsa.jd-repository &lt;-ここでファイル名をつける
-</span><span class='line'>...
-</span><span class='line'>+--[ RSA 2048]----+
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ssh-keygenコマンドのオプションの内容は以下。<br/>
--t：鍵の種類<br/>
--b：ビット数（デフォルト2048なので指定不要）<br/>
--C：コメント</p>
-
-<h2>ファイル生成確認</h2>
-
-<p>生成されたかを確認する。<br/>
-id_rsa.repository：秘密鍵<br/>
-id_rsa.repository.pub：公開鍵</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ls -la
-</span><span class='line'>-rw-------   1 JohnDoe  staff  1675  2 16 17:03 id_rsa.jd-repository
-</span><span class='line'>-rw-r--r--   1 JohnDoe  staff   396  2 16 17:03 id_rsa.jd-repository.pub</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ファイルのパーミッションを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ chmod 600 id_rsa.jd-repository</span></code></pre></td></tr></table></div></figure>
-
-
-<p>必要であれば行うが、既に600になっている。</p>
-
-<h2>公開鍵の内容をコピー</h2>
-
-<p>GitHub, Bitbucketに登録する公開鍵の内容をクリップボードにコピーする。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ pbcopy &lt; ~/.ssh/id_rsa.jd-repository.pub</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>GitHubに登録</h2>
-
-<p>GitHubにログイン &ndash;> AccountSettings &ndash;> SSH Keys</p>
-
-<ul>
-<li>Title：わかりやすいように。jd-mbp15</li>
-<li>Key：pbcopyでコピーした内容をペースト（Cmd+v）</li>
-<li>Add Key：最後にここを押下</li>
-</ul>
-
-
-<h2>Bitbucketに登録</h2>
-
-<p>Bitbucketにログイン &ndash;> アカウントの管理 &ndash;> SSH キー</p>
-
-<ul>
-<li>鍵を追加：押下（モーダルウィンドウが表示される）</li>
-<li>Label：わかりやすいように。jd-mbp15</li>
-<li>Key：pbcopyでコピーした内容をペースト（Cmd+v）</li>
-<li>鍵を追加：最後にここを押下</li>
-</ul>
-
-
-<h2>コンフィグファイル（local）にSSHホスト情報を登録</h2>
-
-<p>Macにある <code>~/.ssh/config</code> にHOST情報を追加する。<br/>
-ここに登録しておくと、Terminalからのsshコマンドを簡略化できる。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ssh -l git -i ~/.ssh/id_rsa.jd-repository github.com
-</span><span class='line'>↓
-</span><span class='line'>$ ssh github.com</span></code></pre></td></tr></table></div></figure>
-
-
-<p>登録する内容は以下。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host github.com
-</span><span class='line'>  HostName github.com
-</span><span class='line'>  User git
-</span><span class='line'>  Port 22
-</span><span class='line'>  IdentityFile ~/.ssh/id_rsa.jd-repository
-</span><span class='line'>  IdentitiesOnly yes
-</span><span class='line'>
-</span><span class='line'>Host bitbucket.org
-</span><span class='line'>  HostName bitbucket.org
-</span><span class='line'>  User git
-</span><span class='line'>  Port 22
-</span><span class='line'>  IdentityFile ~/.ssh/id_rsa.jd-repository
-</span><span class='line'>  IdentitiesOnly yes</span></code></pre></td></tr></table></div></figure>
-
-
-<p>設定の意味については以下</p>
-
-<ul>
-<li>Host：ホスト名</li>
-<li>HostName：ホストのアドレス or IP</li>
-<li>User：ログインユーザー</li>
-<li>Port：使用ポート（デフォルト：22）</li>
-<li>IdentityFile：利用する秘密鍵のファイル名</li>
-<li>IdentitiesOnly：ファイルに格納された秘密鍵のみを使用</li>
-</ul>
-
-
-<h2>GitHubのリポジトリにアクセスする際は</h2>
-
-<p>GitHubのリポジトリにアクセスする際は注意が必要。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git@[HostName]:[Account name]/[Repository name].git
-</span><span class='line'>// ここの[HostName]にはConfigに設定したHostNameを指定する</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
