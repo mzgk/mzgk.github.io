@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:25:55+09:00</updated>
+  <updated>2014-08-05T19:29:31+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MacのDigitalColor Materで色の値をコピーする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/digitalcolor-mater/"/>
+    <updated>2014-08-05T19:26:44+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/digitalcolor-mater</id>
+    <content type="html"><![CDATA[<p>Mac標準のカラーピッカーである『DigitalColor Mater』。<br/>
+このアプリで色をピックした際にカラー値を16進数で取得したいんだけど、どこに値が表示されるのかわからなかった。</p>
+
+<p>メニュー &ndash;> カラー &ndash;> カラーをテキストでコピー（Shift + Cmd + C）</p>
+
+<p>これで、16進数での値を取得できる。
+あとは、挿入したい場所にペースト（Cmd + v）するだけ。</p>
+
+<h3>おまけ</h3>
+
+<p>アプリなら、Objective-CのUIColorの値も設定できる「Sip」がおすすめ。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[git / GitHubからいらないファイルを削除する]]></title>
@@ -832,54 +851,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <h2>参考</h2>
 
 <p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UITableViewのセル編集をさせない方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell/"/>
-    <updated>2014-08-05T17:42:38+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell</id>
-    <content type="html"><![CDATA[<p>セルスワイプでの削除をやめる方法。<br/>
-セルの編集を許可するかどうかを返すメソッドでNOを返す。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">canEditRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// Return NO if you do not want the specified item to be editable.</span>
-</span><span class='line'>    <span class="c1">// TODO: セル削除を可能にする時はYESに変更すること</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしくは、以下のメソッドをコメントアウト。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">_objects</span> <span class="nl">removeObjectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">tableView</span> <span class="nl">deleteRowsAtIndexPaths:</span><span class="err">@</span><span class="p">[</span><span class="n">indexPath</span><span class="p">]</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationFade</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

@@ -9,9 +9,22 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。
-そんな時に有効な設定。 ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;
-">
+  <meta name="description" content="対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+// メモリから破棄されないように&quot;strong&quot;を指定
+@preoperty (strong, nonatomatic) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +83,81 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/confirm-subview/">対象のビューがサブビューかどうか判断する方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T14:26:28+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// メモリから破棄されないように&quot;strong&quot;を指定</span>
+</span><span class='line'><span class="err">@</span><span class="n">preoperty</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomatic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">myLabel</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">removeAllLabel:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">_mylabel</span> <span class="nl">isDescendantOfView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// ビューから取り除く</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_myLabel</span> <span class="n">removeFromSuperView</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// ビューに追加する</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSuperView:</span><span class="n">_mylabel</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スーパービューを調べる</h2>
+
+<p><code>_myLabel.superView</code> でも、_myLabelにスーパービューがあるかどうか調べられる。</p>
+
+<h2>取り除く≒非表示</h2>
+
+<p><code>_myLabel.hidden = YES;</code> で、取り除くことなく非表示化できる。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -505,49 +593,6 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/sublimetext-markdownpreview-css-hack/">MarkdownPreviewで独自CSSを設定する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-02T10:21:24+09:00" pubdate data-updated="true">2014.02.02</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sublime Text3の便利なPackage、Markdownで記述したファイルをPreviewできる『Markdown Preview』。<br/>
-GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
-どこで設定できるのか探してたところ・・・</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/sublimetext-markdownpreview-css-hack/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -568,6 +613,10 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/digitalcolor-mater/">MacのDigitalColor Materで色の値をコピーする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/remove-file-from-github/">git / GitHubからいらないファイルを削除する</a>
@@ -603,10 +652,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
       <li class="post">
         <a href="/blog/2014/git-branch/">git branchのメモ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/restrict-device/">Appをインストールできるデバイスを制限する方法</a>
       </li>
     
   </ul>

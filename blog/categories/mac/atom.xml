@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:25:55+09:00</updated>
+  <updated>2014-08-05T19:29:31+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MacのDigitalColor Materで色の値をコピーする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/digitalcolor-mater/"/>
+    <updated>2014-08-05T19:26:44+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/digitalcolor-mater</id>
+    <content type="html"><![CDATA[<p>Mac標準のカラーピッカーである『DigitalColor Mater』。<br/>
+このアプリで色をピックした際にカラー値を16進数で取得したいんだけど、どこに値が表示されるのかわからなかった。</p>
+
+<p>メニュー &ndash;> カラー &ndash;> カラーをテキストでコピー（Shift + Cmd + C）</p>
+
+<p>これで、16進数での値を取得できる。
+あとは、挿入したい場所にペースト（Cmd + v）するだけ。</p>
+
+<h3>おまけ</h3>
+
+<p>アプリなら、Objective-CのUIColorの値も設定できる「Sip」がおすすめ。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Macでゴミ箱からファイルを削除できない時の方法]]></title>
