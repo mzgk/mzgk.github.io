@@ -9,15 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="NavigationBarのカラーやアイテムの色を制御する方法。
-NavigationControllerの次のViewControllerで設定を行う。 1
-2
-3
-4
-5
-6
-// 背景色
-self.navigationController.navigationBar.barTintColor &hellip;">
+  <meta name="description" content="通常に設定（コード or Interface Builder）からだけでは、反応しない。
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +70,49 @@ self.navigationController.navigationBar.barTintColor &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -898,98 +935,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/chage-view-overlap/">ビューの重なり順を変更する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T15:34:39+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ビューの重なり順をコードで変更する方法。</p>
-
-<h2>自分に追加されているサブビューの配列を取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">subviews</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">superview</span><span class="p">.</span><span class="n">subviews</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>挿入位置をインデックス番号で指定する</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">atIndex:</span><span class="mi">1</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>指定ビューの前／後ろに挿入する</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// _targetViewの下にする</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">belowSubview:</span><span class="n">_targetView</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// _targetViewの上にする</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">aboveSubview:</span><span class="n">_targetView</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ビューを最前面／再背面に移動させる</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 最前面</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">bringSubviewToFront:</span><span class="n">_imageView</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// 再背面</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">sendSubviewToBack:</span><span class="n">_imageView</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>指定したインデックスのビューの重なりを入れ替える</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1010,6 +955,10 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/autolayout-point/">Autolayout時の注意</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a>
@@ -1045,10 +994,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
     
       <li class="post">
         <a href="/blog/2014/change-image-of-button-to-tap-each/">UIButtonでタップ毎にボタン画像を切替える</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a>
       </li>
     
   </ul>

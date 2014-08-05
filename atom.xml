@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:55:20+09:00</updated>
+  <updated>2014-08-05T18:59:00+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,17 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Autolayout時の注意]]></title>
+    <link href="http://mzgk.github.io/blog/2014/autolayout-point/"/>
+    <updated>2014-08-05T18:56:40+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/autolayout-point</id>
+    <content type="html"><![CDATA[<p>3.5inch / 4inch時の注意点。</p>
+
+<p><img src="http://mzgk.github.io/images/2014/0805/AutoLayout.png" alt="Xcode" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[bashでgitコマンドの補完をする]]></title>
@@ -1142,71 +1153,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <p>参考：<br/>
 <a href="http://ylb.jp/iOSDev/SingletonSample.pdf  ">http://ylb.jp/iOSDev/SingletonSample.pdf  </a>
 <a href="http://qiita.com/yuky_az/items/27031ec5ca55a95d6209">http://qiita.com/yuky_az/items/27031ec5ca55a95d6209</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ビューの重なり順を変更する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/chage-view-overlap/"/>
-    <updated>2014-08-05T15:34:39+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/chage-view-overlap</id>
-    <content type="html"><![CDATA[<p>ビューの重なり順をコードで変更する方法。</p>
-
-<h2>自分に追加されているサブビューの配列を取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">subviews</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">superview</span><span class="p">.</span><span class="n">subviews</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>挿入位置をインデックス番号で指定する</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">atIndex:</span><span class="mi">1</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>指定ビューの前／後ろに挿入する</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// _targetViewの下にする</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">belowSubview:</span><span class="n">_targetView</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// _targetViewの上にする</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">aboveSubview:</span><span class="n">_targetView</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ビューを最前面／再背面に移動させる</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 最前面</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">bringSubviewToFront:</span><span class="n">_imageView</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// 再背面</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">sendSubviewToBack:</span><span class="n">_imageView</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>指定したインデックスのビューの重なりを入れ替える</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

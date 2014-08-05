@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:55:20+09:00</updated>
+  <updated>2014-08-05T18:59:00+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,17 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Autolayout時の注意]]></title>
+    <link href="http://mzgk.github.io/blog/2014/autolayout-point/"/>
+    <updated>2014-08-05T18:56:40+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/autolayout-point</id>
+    <content type="html"><![CDATA[<p>3.5inch / 4inch時の注意点。</p>
+
+<p><img src="/images/2014/0805/AutoLayout.png" alt="Xcode" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CoreDataで使用するsqliteの中身を確認する方法]]></title>
@@ -166,38 +177,6 @@ NSLog(@"Video id: %@", dic[@"Video"][@"id"]);
 参考：<a href="http://hayatomo.com/2013/10/03/1122">http://hayatomo.com/2013/10/03/1122</a></p>
 
 <p><img src="/images/2014/0805/MagicalRecord_Warning.png" alt="Xcode" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Objective-Cの真偽値]]></title>
-    <link href="http://mzgk.github.io/blog/2014/objectivec-boolean/"/>
-    <updated>2014-08-05T18:18:53+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/objectivec-boolean</id>
-    <content type="html"><![CDATA[<h3>通常はBOOLなのでこっちを使う</h3>
-
-<ul>
-<li>真：YES : 1</li>
-<li>偽：NO : 0</li>
-</ul>
-
-
-<h3>Booleanの場合</h3>
-
-<ul>
-<li>真：TRUE : 1</li>
-<li>偽：FALSE : 0</li>
-</ul>
-
-
-<p>```objective-c
-if (!new_flg) {</p>
-
-<pre><code>偽の判断（new_flgの値はNO = 0）
-</code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   
