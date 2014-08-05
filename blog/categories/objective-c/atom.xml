@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:46:59+09:00</updated>
+  <updated>2014-08-05T18:51:40+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CoreDataで使用するsqliteの中身を確認する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata/"/>
+    <updated>2014-08-05T18:50:06+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata</id>
+    <content type="html"><![CDATA[<ul>
+<li>Organaizerを開く</li>
+<li>該当アプリを選択</li>
+<li>DownLoad</li>
+<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
+<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
+<li>sqliteで接続する</li>
+</ul>
+
+
+<p><code>bash
+$ sqlite3 名前.sqlite
+sqlite&gt; .tables　→　テーブル名の確認
+sqlite&gt; .schema テーブル名　→　スキーマの確認
+sqlite&gt; select * from テーブル名;
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Appをインストールできるデバイスを制限する方法]]></title>
@@ -170,77 +194,6 @@ NSLog(@"Video id: %@", dic[@"Video"][@"id"]);
 if (!new_flg) {</p>
 
 <pre><code>偽の判断（new_flgの値はNO = 0）
-</code></pre>
-
-<p>}
-```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIButtonでタップ毎にボタン画像を切替える]]></title>
-    <link href="http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each/"/>
-    <updated>2014-08-05T18:11:27+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each</id>
-    <content type="html"><![CDATA[<p>UIButtonをトグルスイッチのように使う方法。<br/>
-プレイボタン　→　タップ　→　ストップボタン　→　タップ　→　プレイボタン</p>
-
-<h2>ボタンに画像を設定する</h2>
-
-<p>viewDidLoadなど。画像はアセットカタログに登録済み。</p>
-
-<p><code>objective-c
-// 通常（プレイ）
-[_button setImage:[UIImage imageNamed:@"playButton"] forState:UIControlStateNormal];
-// プレイでボタンをタップ中
-[_button setImage:[UIImage imageNamed:@"stopButton"] forState:UIControlStateHighlighted];
-// ストップ
-[_button setImage:[UIImage imageNamed:@"stopButton"] forState:UIControlStateNormal | UIControlStateSelected];
-// ストップでボタンをタップ中
-[_button setImage:[UIImage imageNamed:@"playButton"] forState:UIControlStateHighlighted | UIControlStateSelected];
-</code></p>
-
-<h2>ボタンタップアクション</h2>
-
-<p>```objective-c
-&ndash; (IBAction)userButtonTapped:(UIButton *)sender {</p>
-
-<pre><code>sender.selected = !sender.selected;   // これが重要（状態を入れ替える）
-// プレイをタップ
-if (sender.selected) {
-    _userTimer = [NSTimer scheduledTimerWithTimeInterval:[_userFrameSpeedInfos[0] floatValue]
-                                                  target:self
-                                                selector:@selector(timerUserView:)
-                                                userInfo:nil
-                                                 repeats:YES];
-}
-// ストップをタップ
-else {
-    [_userTimer invalidate];
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<h2>おまけ</h2>
-
-<p>タイマーが停止した時にボタンをプレイに戻す。</p>
-
-<p>```
- &ndash; (void)timerUserView:(NSTimer*)timer
-{</p>
-
-<pre><code>int index = ++_userFramIndex;
-if (index &lt; [_userFrameImageInfos count]) {
-    [self displayFrameImageAtIndex:index userDistinction:USER];
-}
-// タイマーを止める
-else {
-    [timer invalidate];
-    _userFramIndex = 0;
-    [_userButton setSelected:NO];   // これでプレイに戻る
-}
 </code></pre>
 
 <p>}

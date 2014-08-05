@@ -9,10 +9,16 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。
-例えば、
-「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。
-だけど、ダメだった時に追加前に戻せるかが不安。 &hellip;">
+  <meta name="description" content="Organaizerを開く
+該当アプリを選択
+DownLoad
+ターミナルでダウンロードしたファイル内を移動（〜.xcapp）
+.sqlite（DocumentsかLibrary/Application Support/）
+sqliteで接続する 1
+2
+3
+4
+$ sqlite3 名前. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +77,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:50:06+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>Organaizerを開く</li>
+<li>該当アプリを選択</li>
+<li>DownLoad</li>
+<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
+<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
+<li>sqliteで接続する</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sqlite3 名前.sqlite
+</span><span class='line'>sqlite&gt; .tables　→　テーブル名の確認
+</span><span class='line'>sqlite&gt; .schema テーブル名　→　スキーマの確認
+</span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -842,112 +903,6 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/uiscrollview-tapevent/">UIScrollViewでタップ検知を追加</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T17:53:54+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>UIScrollViewはタップを検知しないため、レスポンダチェーンでVIewControllerまでtouchesBegan:withEventが通知されない。<br/>
-なので、TextView入力時にキーボードに隠れないようにView位置を押し上げ、入力終了時に画面タップでキーボード非表示制御ができない。<br/>
-解決法としては、タップイベントを次のレスポンダーに投げるようなUIScrollViewのカテゴリ（touchesBegan:withEvent）を作成する。</p>
-
-<h3>UIScrollView+TouchEvent.h</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &lt;UIKit/UIKit.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@interface</span> <span class="nc">UIScrollView</span> <span class="nl">(TouchEvent)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>UIScrollView+TouchEvent.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;UIScrollView+TouchEvent.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@implementation</span> <span class="nc">UIScrollView</span> <span class="nl">(TouchEvent)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">touchesBegan:</span><span class="p">(</span><span class="n">NSSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">touches</span> <span class="nf">withEvent:</span><span class="p">(</span><span class="n">UIEvent</span> <span class="o">*</span><span class="p">)</span><span class="nv">event</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">self</span> <span class="n">nextResponder</span><span class="p">]</span> <span class="nl">touchesBegan:</span><span class="n">touches</span> <span class="nl">withEvent:</span><span class="n">event</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ViewController.h</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;UIScrollView+TouchEvent.h&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ViewController.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">touchesBegan:</span><span class="p">(</span><span class="n">NSSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">touches</span> <span class="nf">withEvent:</span><span class="p">(</span><span class="n">UIEvent</span> <span class="o">*</span><span class="p">)</span><span class="nv">event</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// タップ時の処理を記述</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">endEditing:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ちなみに、「userInteractionEnabled = YES;」は記述しないでも動作している。</p>
-
-<p>参考：<br/>
-(<a href="http://qiita.com/Potof_/items/1432c39dab083f770e59">http://qiita.com/Potof_/items/1432c39dab083f770e59</a>)<br/>
-(<a href="http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html">http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html</a>)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -966,6 +921,10 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/git-branch/">git branchのメモ</a>
@@ -1001,10 +960,6 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
     
       <li class="post">
         <a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/uiscrollview-tapevent/">UIScrollViewでタップ検知を追加</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:46:59+09:00</updated>
+  <updated>2014-08-05T18:51:40+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CoreDataで使用するsqliteの中身を確認する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata/"/>
+    <updated>2014-08-05T18:50:06+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata</id>
+    <content type="html"><![CDATA[<ul>
+<li>Organaizerを開く</li>
+<li>該当アプリを選択</li>
+<li>DownLoad</li>
+<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
+<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
+<li>sqliteで接続する</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sqlite3 名前.sqlite
+</span><span class='line'>sqlite&gt; .tables　→　テーブル名の確認
+</span><span class='line'>sqlite&gt; .schema テーブル名　→　スキーマの確認
+</span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[git branchのメモ]]></title>
@@ -1173,60 +1201,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 </span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">fileURLWithPath:</span><span class="n">string</span><span class="p">];</span>
 </span><span class='line'><span class="c1">// NGケース（nilが返る）</span>
 </span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">nilUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">string</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[引っ張って更新を使う（UITableViewController / UITableView）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/uirefreshcontrol/"/>
-    <updated>2014-08-05T14:42:13+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/uirefreshcontrol</id>
-    <content type="html"><![CDATA[<p>UITableViewControllerを使うか、UITableViewを直で使うかによって、コードの差異あり。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UITableView</span> <span class="o">*</span><span class="n">postlistTableView</span><span class="p">;</span>
-</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIRefreshControl</span> <span class="o">*</span><span class="n">refreshControl</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">_refreshControl</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIRefreshControl</span> <span class="n">new</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">_postlistTableView</span> <span class="nl">addSubview:</span><span class="n">_refreshControl</span><span class="p">];</span>    <span class="c1">// （差異）UITableViewを直で使う場合</span>
-</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">refreshControl</span> <span class="o">=</span> <span class="n">refreshControl</span><span class="p">;</span>               <span class="c1">// （差異）UITableViewControllerを使う場合</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">_refreshControl</span> <span class="nl">addTarget:</span><span class="n">self</span>
-</span><span class='line'>                        <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">refreshOccured:</span><span class="p">)</span>    <span class="c1">// 更新時の処理を行う自作メソッド名</span>
-</span><span class='line'>              <span class="nl">forControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">_postlistTableView</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>          <span class="c1">// セルが空でも可能とする</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">refreshOccured:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// 更新で行う処理を記述</span>
-</span><span class='line'>    <span class="c1">// 更新処理を終了させる</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">_refreshControl</span> <span class="n">endRefreshing</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">_postlistTableView</span> <span class="n">reloadData</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
