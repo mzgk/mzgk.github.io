@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>SublimeText3 設定２ PackageContorl - jubilee</title>
+  <title>jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="SublimeText3のPackageContorlの手動インストール方法とMarkdownPreviewでGitHubFlavoredを設定する方法">
-  <meta name="keywords" content="SublimeText3,PackageControl,MarkdownPreview,GitHub Flavored">
+  <meta name="description" content="OctopressでBolg開設。GitHub・Bitbucket・localの環境構築とブログの表示まで。 なぜOctopressを選んだか？ ポストファイルを静的ファイルとして管理したかった
+Markdownで記述→generate→deploy→pushの手軽さ
+Git・GitHub・ &hellip;">
+  
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/sublimetext-settings-2">
+  <link rel="canonical" href="http://mzgk.github.io/blog/page/5">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -66,12 +68,15 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
     
-      <h1 class="entry-title">SublimeText3 設定２ PackageContorl</h1>
+      <h1 class="entry-title"><a href="/blog/2013/start-octopress/">Start Octopress OctopressとGitHub・Bitbucket</a></h1>
     
     
       <p class="meta">
@@ -87,117 +92,44 @@
   
 
 
-<time datetime="2014-01-07T06:08:57+09:00" pubdate data-updated="true">2014.01.07</time>
+<time datetime="2013-12-30T06:30:08+09:00" pubdate data-updated="true">2013.12.30</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Sublime Text 3の設定について（Mac）。</p>
+  <div class="entry-content"><p>OctopressでBolg開設。GitHub・Bitbucket・localの環境構築とブログの表示まで。</p>
+
+<h2>なぜOctopressを選んだか？</h2>
 
 <ul>
-<li>Package Controlの手動インストールの方法</li>
-<li>GitHub FlavoredでのMarkdown Previewの方法</li>
+<li>ポストファイルを静的ファイルとして管理したかった</li>
+<li>Markdownで記述→generate→deploy→pushの手軽さ</li>
+<li>Git・GitHub・Markdownのスキルを身につけたい</li>
+<li>A blogging framework for hackers.</li>
 </ul>
 
 
-<!-- more -->
-
-
-<h2>Package Controlの手動インストール</h2>
-
-<p>職場等でのネットワーク環境の関係で、通常インストールが使用できない場合には自分でダウンロードして設定する必要がある。<br/>
-方法は <a href="https://sublime.wbond.net/installation#Manual_Instructions">ここ（英語）</a> に記載してある。<br/>
-要約すると、</p>
-
-<ol>
-<li>MenuBar : Preferences > Browse Packages&hellip; をクリック</li>
-<li><code>~/Liblary/Application Support/Packages</code> が表示される（確認のため）</li>
-<li><code>~/Liblary/Application Support/Install Packages</code> を開く</li>
-<li><a href="https://sublime.wbond.net/installation#Manual_Instructions">ここ（英語）</a> から<code>Package Control.sublime-package</code>をダウンロード</li>
-<li>3で開いた <code>~/Liblary/Application Support/Install Packages</code> ディレクトリに保存</li>
-<li>Sublime Text 3を再起動</li>
-</ol>
-
-
-<h2>Markdown Preview(GitHub Flavored)の設定方法</h2>
-
-<p>Markdown記法で入力しているファイルをブラウザでプレビューする方法。<br/>
-GitHub Flavoredでプレビューできる。</p>
-
-<ol>
-<li>Package Control > Install Package > Markdown Preview</li>
-<li>MenuBar : Preferences > KeyBind(User) をクリック</li>
-<li><code>opt + m</code> で起動するようにショートカットキーを登録する</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// "parser"を"github"とすると、GitHub Flavoredでのプレビューとなる
-</span><span class='line'>[
-</span><span class='line'>{ "keys": ["alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser": "github"} },
-</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
-
 </div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
-
-      
-
-
-
-
-
-
-
-
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/start-octopress/">Read on &rarr;</a>
+    </footer>
   
 
 
-<time datetime="2014-01-07T06:08:57+09:00" pubdate data-updated="true">2014.01.07</time>
-      
-
-<span class="categories">
+    </article>
   
-    <a class='category' href='/blog/categories/setting/'>Setting</a>
-  
-</span>
-
-
-    </p>
+  <div class="pagination">
     
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/sublimetext-settings-2/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/sublimetext-settings-2/" >Tweet</a>
-  
-  
-  
-</div>
-
+    <a href="/blog/archives">Blog Archives</a>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/sublimetext-settings-1/" title="Previous Post: SublimeText3 設定１ キーバインド設定">&laquo; SublimeText3 設定１ キーバインド設定</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/terminal-space-escape/" title="Next Post: Terminalで空白が存在するパスの入力">Terminalで空白が存在するパスの入力 &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
-
+    <a class="next" href="/blog/page/4/">Newer &rarr;</a>
+    
+  </div>
 </div>
-
 <aside class="sidebar">
   
     <section>
@@ -258,7 +190,6 @@ GitHub Flavoredでプレビューできる。</p>
 
   
 </aside>
-
 
     </div>
   </div>

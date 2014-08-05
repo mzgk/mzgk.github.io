@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:51:40+09:00</updated>
+  <updated>2014-08-05T18:55:20+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[bashでgitコマンドの補完をする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash/"/>
+    <updated>2014-08-05T18:53:04+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash</id>
+    <content type="html"><![CDATA[<ul>
+<li>補完用のファイルをダウンロード
+
+<ul>
+<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
+</ul>
+</li>
+<li>~/.git-completion.bashとして設置</li>
+<li>~/.bash_profileにパスを記述</li>
+</ul>
+
+
+<p><code>bash
+source ~/.git-completion.bash
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[git branchのメモ]]></title>

@@ -9,9 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Macではカット＆ペーストはできないと思い込んでいたが、実は標準機能で可能だったのでメモ。
-カット＆ペーストのためだけに、『XtraFinder』などのアプリをインストールする必要もなかった…
-Windowsに慣れていると、ついついMacでもカット＆ペーストを Cmd+x Cmd+v &hellip;">
+  <meta name="description" content="Macを新しくしたので、Octopressブログ環境を再構築する必要がでてきた。
+前のローカル環境はBitbucketで管理しているので $ git clone すればいいが、Rubyその他もろもろのセットアップは必要。
+前のMacではRubyをさわったりで、前準備ができていた状態での構築だったが &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +70,59 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T11:27:04+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Macを新しくしたので、Octopressブログ環境を再構築する必要がでてきた。<br/>
+前のローカル環境はBitbucketで管理しているので $ git clone すればいいが、Rubyその他もろもろのセットアップは必要。<br/>
+前のMacではRubyをさわったりで、前準備ができていた状態での構築だったが、今回はゼロからの構築。<br/>
+まずは、パッケージ管理のHomebrewをインストールまでが目標。</p>
+
+<ol>
+<li>Homebrewのインストール　&lt;&ndash; <strong>いまここ</strong></li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-1/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -501,58 +554,9 @@ titleは英数のみ。文字間に半角空白の使用が可能（-に変換�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/start-octopress/">Start Octopress OctopressとGitHub・Bitbucket</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-30T06:30:08+09:00" pubdate data-updated="true">2013.12.30</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>OctopressでBolg開設。GitHub・Bitbucket・localの環境構築とブログの表示まで。</p>
-
-<h2>なぜOctopressを選んだか？</h2>
-
-<ul>
-<li>ポストファイルを静的ファイルとして管理したかった</li>
-<li>Markdownで記述→generate→deploy→pushの手軽さ</li>
-<li>Git・GitHub・Markdownのスキルを身につけたい</li>
-<li>A blogging framework for hackers.</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/start-octopress/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -570,6 +574,10 @@ titleは英数のみ。文字間に半角空白の使用が可能（-に変換�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a>
@@ -605,10 +613,6 @@ titleは英数のみ。文字間に半角空白の使用が可能（-に変換�
     
       <li class="post">
         <a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a>
       </li>
     
   </ul>

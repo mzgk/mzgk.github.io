@@ -9,28 +9,12 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UITableViewControllerを使うか、UITableViewを直で使うかによって、コードの差異あり。 1
+  <meta name="description" content="日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。 1
 2
 3
 4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-@property (weak, nonatomic) IBOutlet &hellip;">
+NSString* string = @&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;;
+NSURL* url = [NSURL fileURLWithPath &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +73,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/filepath-nsurl/">ファイルパス（NSString）をNSURLに変換する方法（日本語OK）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T15:07:00+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span><span class="o">*</span> <span class="n">string</span> <span class="o">=</span> <span class="s">@&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">fileURLWithPath:</span><span class="n">string</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// NGケース（nilが返る）</span>
+</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">nilUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">string</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -587,59 +618,6 @@ Rubyのバージョン管理を行うrbenvやその他必要モジュールを�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-22T11:27:04+09:00" pubdate data-updated="true">2014.02.22</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Macを新しくしたので、Octopressブログ環境を再構築する必要がでてきた。<br/>
-前のローカル環境はBitbucketで管理しているので $ git clone すればいいが、Rubyその他もろもろのセットアップは必要。<br/>
-前のMacではRubyをさわったりで、前準備ができていた状態での構築だったが、今回はゼロからの構築。<br/>
-まずは、パッケージ管理のHomebrewをインストールまでが目標。</p>
-
-<ol>
-<li>Homebrewのインストール　&lt;&ndash; <strong>いまここ</strong></li>
-<li>rbenvのインストール</li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/restart-octopress-1/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -660,6 +638,10 @@ Rubyのバージョン管理を行うrbenvやその他必要モジュールを�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a>
@@ -695,10 +677,6 @@ Rubyのバージョン管理を行うrbenvやその他必要モジュールを�
     
       <li class="post">
         <a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:51:40+09:00</updated>
+  <updated>2014-08-05T18:55:20+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[bashでgitコマンドの補完をする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash/"/>
+    <updated>2014-08-05T18:53:04+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash</id>
+    <content type="html"><![CDATA[<ul>
+<li>補完用のファイルをダウンロード
+
+<ul>
+<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
+</ul>
+</li>
+<li>~/.git-completion.bashとして設置</li>
+<li>~/.bash_profileにパスを記述</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">source</span> ~/.git-completion.bash
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CoreDataで使用するsqliteの中身を確認する方法]]></title>
@@ -1181,26 +1205,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
 </span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ファイルパス（NSString）をNSURLに変換する方法（日本語OK）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/filepath-nsurl/"/>
-    <updated>2014-08-05T15:07:00+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/filepath-nsurl</id>
-    <content type="html"><![CDATA[<p>日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span><span class="o">*</span> <span class="n">string</span> <span class="o">=</span> <span class="s">@&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">fileURLWithPath:</span><span class="n">string</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// NGケース（nilが返る）</span>
-</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">nilUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">string</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
