@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>対象のビューがサブビューかどうか判断する方法 - jubilee</title>
+  <title>引っ張って更新を使う（UITableViewController / UITableView） - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="引っ張って更新を使う方法（UITableViewController / UITableView）">
+  <meta name="keywords" content="Objective-C,iOS,UIRefreshControl">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/confirm-subview">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/uirefreshcontrol">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">対象のビューがサブビューかどうか判断する方法</h1>
+      <h1 class="entry-title">引っ張って更新を使う（UITableViewController / UITableView）</h1>
     
     
       <p class="meta">
@@ -85,14 +85,14 @@
   
 
 
-<time datetime="2014-08-05T14:26:28+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T14:42:13+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。</p>
+<div class="entry-content"><p>UITableViewControllerを使うか、UITableViewを直で使うかによって、コードの差異あり。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -108,30 +108,34 @@
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// メモリから破棄されないように&quot;strong&quot;を指定</span>
-</span><span class='line'><span class="err">@</span><span class="n">preoperty</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomatic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">myLabel</span><span class="p">;</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UITableView</span> <span class="o">*</span><span class="n">postlistTableView</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIRefreshControl</span> <span class="o">*</span><span class="n">refreshControl</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">removeAllLabel:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">_refreshControl</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIRefreshControl</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">_postlistTableView</span> <span class="nl">addSubview:</span><span class="n">_refreshControl</span><span class="p">];</span>    <span class="c1">// （差異）UITableViewを直で使う場合</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">refreshControl</span> <span class="o">=</span> <span class="n">refreshControl</span><span class="p">;</span>               <span class="c1">// （差異）UITableViewControllerを使う場合</span>
+</span><span class='line'><span class="p">[</span><span class="n">_refreshControl</span> <span class="nl">addTarget:</span><span class="n">self</span>
+</span><span class='line'>                    <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">refreshOccured:</span><span class="p">)</span>    <span class="c1">// 更新時の処理を行う自作メソッド名</span>
+</span><span class='line'>          <span class="nl">forControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+</span><span class='line'><span class="n">_postlistTableView</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>          <span class="c1">// セルが空でも可能とする</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">refreshOccured:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">_mylabel</span> <span class="nl">isDescendantOfView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// ビューから取り除く</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">_myLabel</span> <span class="n">removeFromSuperView</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// ビューに追加する</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSuperView:</span><span class="n">_mylabel</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// 更新で行う処理を記述</span>
+</span><span class='line'>    <span class="c1">// 更新処理を終了させる</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_refreshControl</span> <span class="n">endRefreshing</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_postlistTableView</span> <span class="n">reloadData</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-<h2>スーパービューを調べる</h2>
-
-<p><code>_myLabel.superView</code> でも、_myLabelにスーパービューがあるかどうか調べられる。</p>
-
-<h2>取り除く≒非表示</h2>
-
-<p><code>_myLabel.hidden = YES;</code> で、取り除くことなく非表示化できる。</p>
 </div>
 
 
@@ -154,7 +158,7 @@
   
 
 
-<time datetime="2014-08-05T14:26:28+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T14:42:13+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
@@ -168,7 +172,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/confirm-subview/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/confirm-subview/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/uirefreshcontrol/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/uirefreshcontrol/" >Tweet</a>
   
   
   
@@ -177,10 +181,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/exception-breakpoint/" title="Previous Post: Xcodeで例外が発生した場所を特定する">&laquo; Xcodeで例外が発生した場所を特定する</a>
+        <a class="basic-alignment left" href="/blog/2014/maxim/" title="Previous Post: 作りの格言">&laquo; 作りの格言</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/maxim/" title="Next Post: 作りの格言">作りの格言 &raquo;</a>
       
     </p>
   </footer>

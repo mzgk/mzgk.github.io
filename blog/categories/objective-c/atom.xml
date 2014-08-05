@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T14:39:26+09:00</updated>
+  <updated>2014-08-05T14:47:54+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[引っ張って更新を使う（UITableViewController / UITableView）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/uirefreshcontrol/"/>
+    <updated>2014-08-05T14:42:13+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/uirefreshcontrol</id>
+    <content type="html"><![CDATA[<p>UITableViewControllerを使うか、UITableViewを直で使うかによって、コードの差異あり。</p>
+
+<p>```objective-c
+@property (weak, nonatomic) IBOutlet UITableView <em>postlistTableView;
+@property (strong, nonatomic) UIRefreshControl </em>refreshControl;</p>
+
+<p><em>refreshControl = [UIRefreshControl new];
+[</em>postlistTableView addSubview:<em>refreshControl];    // （差異）UITableViewを直で使う場合
+self.refreshControl = refreshControl;               // （差異）UITableViewControllerを使う場合
+[</em>refreshControl addTarget:self</p>
+
+<pre><code>                action:@selector(refreshOccured:)    // 更新時の処理を行う自作メソッド名
+      forControlEvents:UIControlEventValueChanged];
+</code></pre>
+
+<p>_postlistTableView.alwaysBounceVertical = YES;          // セルが空でも可能とする</p>
+
+<ul>
+<li>(void)refreshOccured:(id)sender
+{
+  // 更新で行う処理を記述
+  // 更新処理を終了させる
+  [<em>refreshControl endRefreshing];
+  [</em>postlistTableView reloadData];
+}
+```</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[対象のビューがサブビューかどうか判断する方法]]></title>

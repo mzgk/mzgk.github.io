@@ -9,9 +9,27 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Do not amaze everyone, But rescure yourself.
-多くの人を感動させようとする前に、まず自分自身を救え。 Done is better than perfect.
-完璧を目指すより、まず終わらせろ。 Eat your own dogfood, and &hellip;">
+  <meta name="description" content="UITableViewControllerを使うか、UITableViewを直で使うかによって、コードの差異あり。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+@property (weak, nonatomic) IBOutlet &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +86,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/uirefreshcontrol/">引っ張って更新を使う（UITableViewController / UITableView）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T14:42:13+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UITableViewControllerを使うか、UITableViewを直で使うかによって、コードの差異あり。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UITableView</span> <span class="o">*</span><span class="n">postlistTableView</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIRefreshControl</span> <span class="o">*</span><span class="n">refreshControl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="n">_refreshControl</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIRefreshControl</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">_postlistTableView</span> <span class="nl">addSubview:</span><span class="n">_refreshControl</span><span class="p">];</span>    <span class="c1">// （差異）UITableViewを直で使う場合</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">refreshControl</span> <span class="o">=</span> <span class="n">refreshControl</span><span class="p">;</span>               <span class="c1">// （差異）UITableViewControllerを使う場合</span>
+</span><span class='line'><span class="p">[</span><span class="n">_refreshControl</span> <span class="nl">addTarget:</span><span class="n">self</span>
+</span><span class='line'>                    <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">refreshOccured:</span><span class="p">)</span>    <span class="c1">// 更新時の処理を行う自作メソッド名</span>
+</span><span class='line'>          <span class="nl">forControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+</span><span class='line'><span class="n">_postlistTableView</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>          <span class="c1">// セルが空でも可能とする</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">refreshOccured:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 更新で行う処理を記述</span>
+</span><span class='line'>    <span class="c1">// 更新処理を終了させる</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_refreshControl</span> <span class="n">endRefreshing</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_postlistTableView</span> <span class="n">reloadData</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -538,49 +635,6 @@ Rubyのバージョン管理を行うrbenvやその他必要モジュールを�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/finder-cut-and-paste/">Macでカット＆ペーストをする</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-19T21:29:35+09:00" pubdate data-updated="true">2014.02.19</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Macではカット＆ペーストはできないと思い込んでいたが、実は標準機能で可能だったのでメモ。<br/>
-カット＆ペーストのためだけに、『XtraFinder』などのアプリをインストールする必要もなかった…<br/>
-Windowsに慣れていると、ついついMacでもカット＆ペーストを <code>Cmd+x Cmd+v</code> としてしまうが、Macではちょっと勝手が違う。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/finder-cut-and-paste/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -599,6 +653,10 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/uirefreshcontrol/">引っ張って更新を使う（UITableViewController / UITableView）</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/maxim/">作りの格言</a>
@@ -634,10 +692,6 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
     
       <li class="post">
         <a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/finder-cut-and-paste/">Macでカット＆ペーストをする</a>
       </li>
     
   </ul>
