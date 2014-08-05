@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>OctopressでGoogle Fontsを使う - jubilee</title>
+  <title>Xcodeで例外が発生した場所を特定する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="OctopressでGoogle Fontsを使う方法">
-  <meta name="keywords" content="Octopress,カスタマイズ,Google Fonts,フォント">
+  <meta name="description" content="Xcodeで例外が発生した場所を特定するための設定">
+  <meta name="keywords" content="Objective-C,iOS,Xcode">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/octopress-googlefont">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/exception-breakpoint">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">OctopressでGoogle Fontsを使う</h1>
+      <h1 class="entry-title">Xcodeで例外が発生した場所を特定する</h1>
     
     
       <p class="meta">
@@ -85,71 +85,17 @@
   
 
 
-<time datetime="2014-02-18T22:13:54+09:00" pubdate data-updated="true">2014.02.18</time>
+<time datetime="2014-08-05T14:00:51+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>OctopressでGoogle Fontsを使えるようにして、気に入ったフォントで表示したい。<br/>
-そして、ブラウザ間でフォントを統一したい。<br/>
-その設定方法を調べたのでメモ。</p>
+<div class="entry-content"><p>Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。<br/>
+そんな時に有効な設定。</p>
 
-<!-- more -->
-
-
-<h2>Google Font</h2>
-
-<p>まず、 <a href="http://www.google.com/fonts">Google Font</a> にアクセスする。</p>
-
-<p>使いたいフォントを選ぶ。<br/>
-<img src="/images/2014/0204/googlefont_1.png" alt="フォントを選ぶ" /></p>
-
-<p>複数選択し、比較も可能。<br/>
-<img src="/images/2014/0204/googlefont_2.png" alt="フォントを比較" /></p>
-
-<p>使うフォントの表示速度を確認。<br/>
-<img src="/images/2014/0204/googlefont_3.png" alt="フォント確認" /></p>
-
-<p>埋め込むコードをコピー。<br/>
-<img src="/images/2014/0204/googlefont_4.png" alt="コードを取得" /></p>
-
-<h2>Octopressに設定</h2>
-
-<p>Octopressの以下のファイルに取得したコードをペーストする。<br/>
-<strong>source/_includes/custom/head.html</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 取得したコード
-</span><span class='line'>&lt;link href="//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css"&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>CSSに使用</h2>
-
-<p>フォントを定義するSCSSファイルに定義する。<br/>
-<strong>sass/custom/_fonts.scss</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Mondaを追加
-</span><span class='line'>$sans: "Monda", "HiraMaruPro-W4", Arial, sans-serif;</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Generate &amp; Deploy</h2>
-
-<p>あとは、</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake generate
-</span><span class='line'>...
-</span><span class='line'>$ rake deploy
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
+<p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
 </div>
 
 
@@ -172,12 +118,12 @@
   
 
 
-<time datetime="2014-02-18T22:13:54+09:00" pubdate data-updated="true">2014.02.18</time>
+<time datetime="2014-08-05T14:00:51+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/setting/'>Setting</a>
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
   
 </span>
 
@@ -186,7 +132,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/octopress-googlefont/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/octopress-googlefont/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/exception-breakpoint/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/exception-breakpoint/" >Tweet</a>
   
   
   
@@ -195,10 +141,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/sublimetext-markdownpreview-css-hack/" title="Previous Post: MarkdownPreviewで独自CSSを設定する">&laquo; MarkdownPreviewで独自CSSを設定する</a>
+        <a class="basic-alignment left" href="/blog/2014/logicaloperator/" title="Previous Post: 論理演算子を使って状態を逆転させる">&laquo; 論理演算子を使って状態を逆転させる</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/finder-cut-and-paste/" title="Next Post: Macでカット＆ペーストをする">Macでカット＆ペーストをする &raquo;</a>
       
     </p>
   </footer>

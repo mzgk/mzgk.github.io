@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T13:21:50+09:00</updated>
+  <updated>2014-08-05T14:03:17+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Xcodeで例外が発生した場所を特定する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/exception-breakpoint/"/>
+    <updated>2014-08-05T14:00:51+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/exception-breakpoint</id>
+    <content type="html"><![CDATA[<p>Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。<br/>
+そんな時に有効な設定。</p>
+
+<p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[論理演算子を使って状態を逆転させる]]></title>
