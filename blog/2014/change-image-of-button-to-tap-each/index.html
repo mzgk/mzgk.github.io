@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>UIButtonでタップ毎にボタン画像を切替える - jubilee</title>
+  <meta name="author" content="mzgk">
+
+  
+  <meta name="description" content="UIButtonをトグルスイッチのように使う方法。
+プレイボタン　→　タップ　→　ストップボタン　→　タップ　→　プレイボタン ボタンに画像を設定する viewDidLoadなど。画像はアセットカタログに登録済み。 1
+2
+3
+4
+5
+6
+7
+8
+// 通常（プレイ）
+[_button &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!-- google webmaster tool -->
+<meta name="google-site-verification" content="aGcvxQw3_CL6cMLGRu0swqLkd4I7xA1KcROCILD30hU" />
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jubilee</a></h1>
+  
+    <h2>Programing, Books and more...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mzgk.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">UIButtonでタップ毎にボタン画像を切替える</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:11:27+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>UIButtonをトグルスイッチのように使う方法。<br/>
+プレイボタン　→　タップ　→　ストップボタン　→　タップ　→　プレイボタン</p>
+
+<h2>ボタンに画像を設定する</h2>
+
+<p>viewDidLoadなど。画像はアセットカタログに登録済み。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 通常（プレイ）</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// プレイでボタンをタップ中</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ストップ</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ストップでボタンをタップ中</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ボタンタップアクション</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">userButtonTapped:</span><span class="p">(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">sender</span><span class="p">.</span><span class="n">selected</span> <span class="o">=</span> <span class="o">!</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">;</span>   <span class="c1">// これが重要（状態を入れ替える）</span>
+</span><span class='line'>    <span class="c1">// プレイをタップ</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">_userTimer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="p">[</span><span class="n">_userFrameSpeedInfos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]</span>
+</span><span class='line'>                                                      <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                                    <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">timerUserView:</span><span class="p">)</span>
+</span><span class='line'>                                                    <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                                     <span class="nl">repeats:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// ストップをタップ</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_userTimer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>おまけ</h2>
+
+<p>タイマーが停止した時にボタンをプレイに戻す。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">timerUserView:</span><span class="p">(</span><span class="n">NSTimer</span><span class="o">*</span><span class="p">)</span><span class="n">timer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">++</span><span class="n">_userFramIndex</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="p">[</span><span class="n">_userFrameImageInfos</span> <span class="n">count</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">displayFrameImageAtIndex:</span><span class="n">index</span> <span class="nl">userDistinction:</span><span class="n">USER</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// タイマーを止める</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">timer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">_userFramIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_userButton</span> <span class="nl">setSelected:</span><span class="n">NO</span><span class="p">];</span>   <span class="c1">// これでプレイに戻る</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:11:27+09:00" pubdate data-updated="true">2014.08.05</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/applied-to-uiimageview-swipe/" title="Previous Post: UIImageViewにスワイプジェスチャーを適用させる">&laquo; UIImageViewにスワイプジェスチャーを適用させる</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>mzgkworks</p>
+  <p>修行中</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/change-image-of-button-to-tap-each/">UIButtonでタップ毎にボタン画像を切替える</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiscrollview-tapevent/">UIScrollViewでタップ検知を追加</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/cell-highlight/">UITableViewのセルのハイライト制御</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/not-allowed-to-edit-cell/">UITableViewのセル編集をさせない方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/share-itunes/">アプリのデータをiTunesで共有する方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/get-app-version/">アプリのバージョン取得</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/make-category/">カテゴリファイルの作り方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/video-devide/">カメラで撮影した動画をフレーム分割する方法</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - mzgk -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

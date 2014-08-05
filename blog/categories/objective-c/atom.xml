@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:09:07+09:00</updated>
+  <updated>2014-08-05T18:15:03+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,77 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIButtonでタップ毎にボタン画像を切替える]]></title>
+    <link href="http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each/"/>
+    <updated>2014-08-05T18:11:27+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each</id>
+    <content type="html"><![CDATA[<p>UIButtonをトグルスイッチのように使う方法。<br/>
+プレイボタン　→　タップ　→　ストップボタン　→　タップ　→　プレイボタン</p>
+
+<h2>ボタンに画像を設定する</h2>
+
+<p>viewDidLoadなど。画像はアセットカタログに登録済み。</p>
+
+<p><code>objective-c
+// 通常（プレイ）
+[_button setImage:[UIImage imageNamed:@"playButton"] forState:UIControlStateNormal];
+// プレイでボタンをタップ中
+[_button setImage:[UIImage imageNamed:@"stopButton"] forState:UIControlStateHighlighted];
+// ストップ
+[_button setImage:[UIImage imageNamed:@"stopButton"] forState:UIControlStateNormal | UIControlStateSelected];
+// ストップでボタンをタップ中
+[_button setImage:[UIImage imageNamed:@"playButton"] forState:UIControlStateHighlighted | UIControlStateSelected];
+</code></p>
+
+<h2>ボタンタップアクション</h2>
+
+<p>```objective-c
+&ndash; (IBAction)userButtonTapped:(UIButton *)sender {</p>
+
+<pre><code>sender.selected = !sender.selected;   // これが重要（状態を入れ替える）
+// プレイをタップ
+if (sender.selected) {
+    _userTimer = [NSTimer scheduledTimerWithTimeInterval:[_userFrameSpeedInfos[0] floatValue]
+                                                  target:self
+                                                selector:@selector(timerUserView:)
+                                                userInfo:nil
+                                                 repeats:YES];
+}
+// ストップをタップ
+else {
+    [_userTimer invalidate];
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<h2>おまけ</h2>
+
+<p>タイマーが停止した時にボタンをプレイに戻す。</p>
+
+<p>```
+ &ndash; (void)timerUserView:(NSTimer*)timer
+{</p>
+
+<pre><code>int index = ++_userFramIndex;
+if (index &lt; [_userFrameImageInfos count]) {
+    [self displayFrameImageAtIndex:index userDistinction:USER];
+}
+// タイマーを止める
+else {
+    [timer invalidate];
+    _userFramIndex = 0;
+    [_userButton setSelected:NO];   // これでプレイに戻る
+}
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIImageViewにスワイプジェスチャーを適用させる]]></title>
@@ -124,31 +195,6 @@ return NO;
 
 <p>}
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[アプリのデータをiTunesで共有する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/share-itunes/"/>
-    <updated>2014-08-05T17:11:29+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/share-itunes</id>
-    <content type="html"><![CDATA[<p>アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。<br/>
-デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。</p>
-
-<h2>Supporting Files</h2>
-
-<ul>
-<li>｛アプリ名｝-Info.plistを開く</li>
-<li>Information Property Listの隣の＋をクリックし、行を追加</li>
-<li>Application supports iTunes file sharingを選択</li>
-<li>値のYESを選択</li>
-</ul>
-
-
-<p><img src="/images/2014/0805/iTunes_1.png" alt="iTunes共有1" /></p>
-
-<p>参考：
-<a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
 ]]></content>
   </entry>
   

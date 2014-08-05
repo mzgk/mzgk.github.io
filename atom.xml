@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:09:07+09:00</updated>
+  <updated>2014-08-05T18:15:03+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,107 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIButtonでタップ毎にボタン画像を切替える]]></title>
+    <link href="http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each/"/>
+    <updated>2014-08-05T18:11:27+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each</id>
+    <content type="html"><![CDATA[<p>UIButtonをトグルスイッチのように使う方法。<br/>
+プレイボタン　→　タップ　→　ストップボタン　→　タップ　→　プレイボタン</p>
+
+<h2>ボタンに画像を設定する</h2>
+
+<p>viewDidLoadなど。画像はアセットカタログに登録済み。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 通常（プレイ）</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// プレイでボタンをタップ中</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ストップ</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ストップでボタンをタップ中</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ボタンタップアクション</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">userButtonTapped:</span><span class="p">(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">sender</span><span class="p">.</span><span class="n">selected</span> <span class="o">=</span> <span class="o">!</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">;</span>   <span class="c1">// これが重要（状態を入れ替える）</span>
+</span><span class='line'>    <span class="c1">// プレイをタップ</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">_userTimer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="p">[</span><span class="n">_userFrameSpeedInfos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]</span>
+</span><span class='line'>                                                      <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                                    <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">timerUserView:</span><span class="p">)</span>
+</span><span class='line'>                                                    <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                                     <span class="nl">repeats:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// ストップをタップ</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_userTimer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>おまけ</h2>
+
+<p>タイマーが停止した時にボタンをプレイに戻す。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">timerUserView:</span><span class="p">(</span><span class="n">NSTimer</span><span class="o">*</span><span class="p">)</span><span class="n">timer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">++</span><span class="n">_userFramIndex</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="p">[</span><span class="n">_userFrameImageInfos</span> <span class="n">count</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">displayFrameImageAtIndex:</span><span class="n">index</span> <span class="nl">userDistinction:</span><span class="n">USER</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// タイマーを止める</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">timer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">_userFramIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_userButton</span> <span class="nl">setSelected:</span><span class="n">NO</span><span class="p">];</span>   <span class="c1">// これでプレイに戻る</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIImageViewにスワイプジェスチャーを適用させる]]></title>
@@ -1200,194 +1301,6 @@ id_rsa.repository.pub：公開鍵</p>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ git@[HostName]:[Account name]/[Repository name].git
 </span><span class='line'>// ここの[HostName]にはConfigに設定したHostNameを指定する</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressブログ環境の再構築：第３回]]></title>
-    <link href="http://mzgk.github.io/blog/2014/restart-octopress-3/"/>
-    <updated>2014-02-22T12:27:31+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/restart-octopress-3</id>
-    <content type="html"><![CDATA[<p>前回のrbenvインストールでRubyインストールの準備が整ったので、Ruby1.9.3-p484をインストールする。</p>
-
-<ol>
-<li>Homebrewのインストール</li>
-<li>rbenvのインストール</li>
-<li>Ruby1.9.3のインストール　&lt;&ndash; <strong>いまここ</strong></li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>Rubyのインストールバージョンの確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rbenv install -l
-</span><span class='line'>...
-</span><span class='line'>  1.9.3-p429
-</span><span class='line'>  1.9.3-p448
-</span><span class='line'>  1.9.3-p484
-</span><span class='line'>  1.9.3-preview1
-</span><span class='line'>  1.9.3-rc1</span></code></pre></td></tr></table></div></figure>
-
-
-<p>今回は、1.9.3-p484をインストールする。</p>
-
-<h2>Rubyのインストール</h2>
-
-<p>単純に、<code>$ rbenv install 1.9.3-p484</code> でもいいが、readlineとopensslを有効にしてRubyをインストールする。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ CONFIGURE_OPTS="--with-readline-dir=$(brew --prefix readline) --with-openssl-dir=$(brew --prefix openssl)" rbenv install 1.9.3-p484
-</span><span class='line'>...
-</span><span class='line'>Downloading yaml-0.1.5.tar.gz...　＞ちょっと時間が掛かる
-</span><span class='line'>-&gt; http://dqw8nmjcqpjn7.cloudfront.net/24f6093c1e840ca5df2eb09291a1dbf1
-</span><span class='line'>Installing yaml-0.1.5...
-</span><span class='line'>Installed yaml-0.1.5 to /Users/JohnDoe/.rbenv/versions/1.9.3-p484
-</span><span class='line'>
-</span><span class='line'>Downloading ruby-1.9.3-p484.tar.gz...
-</span><span class='line'>-&gt; http://dqw8nmjcqpjn7.cloudfront.net/8ac0dee72fe12d75c8b2d0ef5d0c2968
-</span><span class='line'>Installing ruby-1.9.3-p484...
-</span><span class='line'>Installed ruby-1.9.3-p484 to /Users/JohnDoe/.rbenv/versions/1.9.3-p484</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>使用するバージョンの切り替え</h2>
-
-<p>1: まずは、現在のRubyバージョンを確認する</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -v
-</span><span class='line'>ruby 2.0.0p247 (2013-06-27 revision 41674) [universal.x86_64-darwin13]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>2: どのバージョンを使う設定になっているかを調べる</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rbenv version
-</span><span class='line'>system (set by /Users/JohnDoe/.rbenv/version)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>system標準を使用するようになっているのがわかる。</p>
-
-<p>3: 利用可能なバージョンがあるか調べる</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rbenv versions
-</span><span class='line'>* system (set by /Users/JohnDoe/.rbenv/version)
-</span><span class='line'>  1.9.3-p484</span></code></pre></td></tr></table></div></figure>
-
-
-<p>先ほどインストールした1.9.3-p484の使用も可能。</p>
-
-<p>4: 利用するバージョンを切り替える</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rbenv global 1.9.3-p484
-</span><span class='line'>$ rbenv rehash</span></code></pre></td></tr></table></div></figure>
-
-
-<p>5: 切り替わったかどうか、バージョンを調べる</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -v
-</span><span class='line'>ruby 1.9.3p484 (2013-11-22 revision 43786) [x86_64-darwin13.0.2]
-</span><span class='line'>$ rbenv version
-</span><span class='line'>1.9.3-p484 (set by /Users/JohnDoe/.rbenv/version)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>1.9.3-p484を使用するようになっていることが確認できる。</p>
-
-<h2>ディレクトリ単位での切り替え</h2>
-
-<p><strong>ここはBitbucketからのclone後に設定。</strong><br/>
-1.9.3-p484を使いたいのはOctopressを使うディレクトリでの作業のみだと考えると、そのディレクトリにのみ1.9.3を適用することはできるのだろうか？<br/>
-rbenvにディレクトリ単位の切り替え機能はあるのだろうか？<br/>
-googleで調べてみたところ、可能みたいな。</p>
-
-<ul>
-<li>ユーザ毎に使用するRubyのバージョンを変更できる</li>
-<li>プロジェクト毎にRubyのバージョンを指定できる<br/>
-.rbenv-versionファイルを読み取って、特定ディレクトリ以下のRubyバージョンを指定できる。</li>
-<li>環境変数によってRubyのバージョンを指摘できる<br/>
-RBENV_VERSIONを指定しておくと、その環境変数が有効な範囲でだけRubyバージョンを指定できる。</li>
-</ul>
-
-
-<p>２つ目のプロジェクト毎に指定が理想なので、以下を行う。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Rubyのバージョン指定をしたいディレクトリに移動
-</span><span class='line'>$ cd 指定ディレクトリ
-</span><span class='line'>$ rbenv local 1.9.3-p484</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしくは対象のディレクトリに直接.rbenv-versionというファイルを作成。<br/>
-中身は <code>1.9.3-p484</code> と記述。</p>
-
-<p>確認：まずはホームディレクトリ &ndash;> system(2.0.0)の使用になっている</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -v
-</span><span class='line'>ruby 2.0.0p247 (2013-06-27 revision 41674) [universal.x86_64-darwin13]
-</span><span class='line'>$ rbenv version
-</span><span class='line'>system (set by /Users/JohnDoe/.rbenv/version)
-</span><span class='line'>$ rbenv versions
-</span><span class='line'>* system (set by /Users/JohnDoe/.rbenv/version)
-</span><span class='line'>  1.9.3-p484</span></code></pre></td></tr></table></div></figure>
-
-
-<p>確認：対象ディレクトリ &ndash;> 1.9.3の使用になっている</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -v
-</span><span class='line'>ruby 1.9.3p484 (2013-11-22 revision 43786) [x86_64-darwin13.0.2]
-</span><span class='line'>$ rbenv version
-</span><span class='line'>1.9.3-p484 (set by /Users/JohnDoe/mzgk.github.io/.ruby-version)
-</span><span class='line'>$ rbenv versions
-</span><span class='line'>  system
-</span><span class='line'>* 1.9.3-p484 (set by /Users/JohnDoe/mzgk.github.io/.ruby-version)</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
