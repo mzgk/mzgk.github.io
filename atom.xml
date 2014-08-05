@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T17:37:55+09:00</updated>
+  <updated>2014-08-05T17:45:54+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UITableViewのセル編集をさせない方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell/"/>
+    <updated>2014-08-05T17:42:38+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell</id>
+    <content type="html"><![CDATA[<p>セルスワイプでの削除をやめる方法。<br/>
+セルの編集を許可するかどうかを返すメソッドでNOを返す。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">canEditRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Return NO if you do not want the specified item to be editable.</span>
+</span><span class='line'>    <span class="c1">// TODO: セル削除を可能にする時はYESに変更すること</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>もしくは、以下のメソッドをコメントアウト。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_objects</span> <span class="nl">removeObjectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">tableView</span> <span class="nl">deleteRowsAtIndexPaths:</span><span class="err">@</span><span class="p">[</span><span class="n">indexPath</span><span class="p">]</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationFade</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[アプリのデータをiTunesで共有する方法]]></title>
@@ -1561,72 +1609,6 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
 </span><span class='line'>$ rake deploy
 </span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MarkdownPreviewで独自CSSを設定する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack/"/>
-    <updated>2014-02-02T10:21:24+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack</id>
-    <content type="html"><![CDATA[<p>Sublime Text3の便利なPackage、Markdownで記述したファイルをPreviewできる『Markdown Preview』。<br/>
-GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
-どこで設定できるのか探してたところ・・・</p>
-
-<!-- more -->
-
-
-<h2>Package Settingsがある</h2>
-
-<p>Preferencesには <strong>Package Settings</strong> がある。<br/>
-まずは、Markdown PreviewのDefaultの内容を覗いて見ると、それらしき個所が・・・。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/*
-</span><span class='line'>  Sets the default css file to embed in the HTML
-</span><span class='line'>
-</span><span class='line'>  default - Use the builtin CSS or github CSS, depending on parser config (markdown.css or github.css)
-</span><span class='line'>  other - Set an absolute path or url to any css file
-</span><span class='line'>*/
-</span><span class='line'>"css": "default",</span></code></pre></td></tr></table></div></figure>
-
-
-<p>なるほど。<br/>
-<code>other - Set an absolute path or url to any css file</code> の部分が鍵で、絶対パスで指定しろと。</p>
-
-<h2>User用のSetting</h2>
-
-<p><strong>Preferences > Package Settings > Markdown Preview > Settings-User</strong><br/>
-で表示されたファイルに以下を記述し保存。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{
-</span><span class='line'>  "css": "CSSファイルの絶対パス",
-</span><span class='line'>}
-</span><span class='line'>※Windowsの場合、パスの\は/に置き換えて絶対パスを書く。</span></code></pre></td></tr></table></div></figure>
-
-
-<p>注意するのは、Windowsの場合に <strong>『パスの\（&yen;）は/に置き換えて』</strong> 記述すること。</p>
-
-<h2>自分のやった手順</h2>
-
-<p>自分は、フォント周りを変えたかったので、<br/>
-1. chromeで表示されたPreview結果を <strong>右クリック > 要素を検証</strong> で開発ツールを表示<br/>
-2. <code>&lt;style&gt;...&lt;/style&gt;</code> のCSS定義をコピー<br/>
-3. 自分のCSSファイルに貼付ける<br/>
-4. 変更・追加を加える<br/>
-5. 任意の場所に保存<br/>
-6. その絶対パスを指定<br/>
-これで、独自のCSSでプレビューできる。</p>
 ]]></content>
   </entry>
   

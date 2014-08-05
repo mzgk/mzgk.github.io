@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T17:37:55+09:00</updated>
+  <updated>2014-08-05T17:45:54+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UITableViewのセル編集をさせない方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell/"/>
+    <updated>2014-08-05T17:42:38+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell</id>
+    <content type="html"><![CDATA[<p>セルスワイプでの削除をやめる方法。<br/>
+セルの編集を許可するかどうかを返すメソッドでNOを返す。</p>
+
+<p>```objective-c
+&ndash; (BOOL)tableView:(UITableView <em>)tableView canEditRowAtIndexPath:(NSIndexPath </em>)indexPath
+{</p>
+
+<pre><code>// Return NO if you do not want the specified item to be editable.
+// TODO: セル削除を可能にする時はYESに変更すること
+return NO;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>もしくは、以下のメソッドをコメントアウト。</p>
+
+<p>```objective-c
+&ndash; (void)tableView:(UITableView <em>)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath </em>)indexPath
+{</p>
+
+<pre><code>if (editingStyle == UITableViewCellEditingStyleDelete) {
+    [_objects removeObjectAtIndex:indexPath.row];
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+} else if (editingStyle == UITableViewCellEditingStyleInsert) {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+}
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[アプリのデータをiTunesで共有する方法]]></title>
@@ -193,89 +232,6 @@ return result;
 ```</p>
 
 <p>参考：公式の「AVFoundationプログラミングガイド」P17 アセットの使用　ビデオから静止画像の取得　一連の画像の生成</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[シングルトン（singleton）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/singleton/"/>
-    <updated>2014-08-05T16:14:13+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/singleton</id>
-    <content type="html"><![CDATA[<p>シングルトンとは？</p>
-
-<ul>
-<li>デザインパターンの１つ</li>
-<li>「ただ１つの」インスタンスしか持たない→どこからアクセスしても同じインスタンス</li>
-<li>複数のクラス間での変数やオブジェクトの共有が可能</li>
-<li>複数のクラス間でメソッドの共有ができる</li>
-<li>NSUserdefaultsと同様</li>
-</ul>
-
-
-<h3>SingletonManager.h</h3>
-
-<p>```objective-c
-@interface SingletonSample : NSObject
-// このシングルトンが管理するプロパティ
-@property(nonatomic) NSInteger managedParam;
-@property(strong, nonatomic) NSString <em>catName;
-&hellip;
-// インスタンス作成のためのクラスメソッド
-+ (SingletonSample </em>)sharedManager;</p>
-
-<p>// このシングルトンが保有するメソッド
-&ndash; (void)sampleMethod:(NSString*)name;
-@end
-```</p>
-
-<h3>SingletonManager.m</h3>
-
-<p>```objective-c
-@implementation SingletonManager</p>
-
-<p>static id sharedManager_ = nil;
-+ (id)sharedManager
-{</p>
-
-<pre><code>static dispatch_once_t onceToken;
-dispatch_once(&amp;onceToken, ^{
-    sharedData_ = [SingletonManager new];
-});
-return sharedManager_;
-</code></pre>
-
-<p>}</p>
-
-<ul>
-<li>(void)sampleMethod:(NSString*)name
-{
-  &hellip;
-}
-@end
-```</li>
-</ul>
-
-
-<h3>ViewController.m</h3>
-
-<p>```objective-c</p>
-
-<h1>import &ldquo;SingletonManager.h&rdquo;</h1>
-
-<ul>
-<li>(void)viewDidLoad
-{
-  SingletonManager *single = [SingletonManager sharedManager];
-  single.managedParam = 100; // 変数に値をセット
-  [single sampleMethod:name]; // メソッドを使用
-}
-```</li>
-</ul>
-
-
-<p>参考：<br/>
-<a href="http://ylb.jp/iOSDev/SingletonSample.pdf  ">http://ylb.jp/iOSDev/SingletonSample.pdf  </a>
-<a href="http://qiita.com/yuky_az/items/27031ec5ca55a95d6209">http://qiita.com/yuky_az/items/27031ec5ca55a95d6209</a></p>
 ]]></content>
   </entry>
   
