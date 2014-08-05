@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:59:00+09:00</updated>
+  <updated>2014-08-05T19:02:05+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,17 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Alfredで自分の作成したファイル等を検索結果として表示させない方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/alfred-setting/"/>
+    <updated>2014-08-05T18:59:47+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/alfred-setting</id>
+    <content type="html"><![CDATA[<p>Alfredの検索リストに自分が作成したファイルや連絡先を表示させないためには、以下を確認。</p>
+
+<p><img src="/images/2014/0805/Alfred.png" alt="Alfred" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[OpenSSLのバージョンアップ]]></title>
