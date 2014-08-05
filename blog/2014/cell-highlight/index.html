@@ -5,18 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>UITableViewのセル編集をさせない方法 - jubilee</title>
+  <title>UITableViewのセルのハイライト制御 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="セルスワイプでの削除をやめる方法。
-セルの編集を許可するかどうかを返すメソッドでNOを返す。 1
-2
-3
-4
-5
-6
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath &hellip;">
+  <meta name="description" content="セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。
+このハイライトを消す方法。
+UITableViewControllerを使用しているぶんには、特に意識する必要はない。 &hellip;">
   <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/cell-highlight">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -78,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">UITableViewのセル編集をさせない方法</h1>
+      <h1 class="entry-title">UITableViewのセルのハイライト制御</h1>
     
     
       <p class="meta">
@@ -94,15 +89,38 @@
   
 
 
-<time datetime="2014-08-05T17:42:38+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T17:49:14+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>セルスワイプでの削除をやめる方法。<br/>
-セルの編集を許可するかどうかを返すメソッドでNOを返す。</p>
+<div class="entry-content"><p>セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。<br/>
+このハイライトを消す方法。<br/>
+UITableViewControllerを使用しているぶんには、特に意識する必要はない。</p>
+
+<h2>UITableViewControllerを継承してUITableViewを使う場合</h2>
+
+<p>UITableViewControllerのviewWillAppear:にはハイライト解除の処理が定義してある。<br/>
+なので、viewWillAppear:メソッドをオーバーライドするときは、必ず親クラスのviewWillAppear:メソッドを呼ぶこと。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// 必ずこれを呼ぶこと</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>UITableViewControllerを継承せずにUITableViewを使う場合</h2>
+
+<p>自分で実装すること。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -110,37 +128,18 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">canEditRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// Return NO if you do not want the specified item to be editable.</span>
-</span><span class='line'>    <span class="c1">// TODO: セル削除を可能にする時はYESに変更すること</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
+</span><span class='line'>  <span class="c1">// ハイライト解除</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">_tableView</span> <span class="nl">deselectRowAtIndexPath:</span><span class="p">[</span><span class="n">_tableView</span> <span class="n">indexPathForSelectedRow</span><span class="p">]</span> <span class="nl">animated:</span><span class="n">YES</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>もしくは、以下のメソッドをコメントアウト。</p>
+<h2>参考</h2>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">_objects</span> <span class="nl">removeObjectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">tableView</span> <span class="nl">deleteRowsAtIndexPaths:</span><span class="err">@</span><span class="p">[</span><span class="n">indexPath</span><span class="p">]</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationFade</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
 </div>
 
 
@@ -163,7 +162,7 @@
   
 
 
-<time datetime="2014-08-05T17:42:38+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T17:49:14+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
@@ -177,7 +176,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/cell-highlight/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/cell-highlight/" >Tweet</a>
   
   
   
@@ -186,10 +185,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/share-itunes/" title="Previous Post: アプリのデータをiTunesで共有する方法">&laquo; アプリのデータをiTunesで共有する方法</a>
+        <a class="basic-alignment left" href="/blog/2014/not-allowed-to-edit-cell/" title="Previous Post: UITableViewのセル編集をさせない方法">&laquo; UITableViewのセル編集をさせない方法</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/cell-highlight/" title="Next Post: UITableViewのセルのハイライト制御">UITableViewのセルのハイライト制御 &raquo;</a>
       
     </p>
   </footer>

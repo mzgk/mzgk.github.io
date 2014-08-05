@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T17:45:54+09:00</updated>
+  <updated>2014-08-05T17:52:03+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UITableViewのセルのハイライト制御]]></title>
+    <link href="http://mzgk.github.io/blog/2014/cell-highlight/"/>
+    <updated>2014-08-05T17:49:14+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/cell-highlight</id>
+    <content type="html"><![CDATA[<p>セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。<br/>
+このハイライトを消す方法。<br/>
+UITableViewControllerを使用しているぶんには、特に意識する必要はない。</p>
+
+<h2>UITableViewControllerを継承してUITableViewを使う場合</h2>
+
+<p>UITableViewControllerのviewWillAppear:にはハイライト解除の処理が定義してある。<br/>
+なので、viewWillAppear:メソッドをオーバーライドするときは、必ず親クラスのviewWillAppear:メソッドを呼ぶこと。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// 必ずこれを呼ぶこと</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>UITableViewControllerを継承せずにUITableViewを使う場合</h2>
+
+<p>自分で実装すること。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
+</span><span class='line'>  <span class="c1">// ハイライト解除</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">_tableView</span> <span class="nl">deselectRowAtIndexPath:</span><span class="p">[</span><span class="n">_tableView</span> <span class="n">indexPathForSelectedRow</span><span class="p">]</span> <span class="nl">animated:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UITableViewのセル編集をさせない方法]]></title>
@@ -1543,72 +1595,6 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
 <code>Cmd + c</code> でコピー<br/>
 <code>Cmd + Opt + v</code> でムーブ<br/>
 これで、カット＆ペーストが可能。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[OctopressでGoogle Fontsを使う]]></title>
-    <link href="http://mzgk.github.io/blog/2014/octopress-googlefont/"/>
-    <updated>2014-02-18T22:13:54+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/octopress-googlefont</id>
-    <content type="html"><![CDATA[<p>OctopressでGoogle Fontsを使えるようにして、気に入ったフォントで表示したい。<br/>
-そして、ブラウザ間でフォントを統一したい。<br/>
-その設定方法を調べたのでメモ。</p>
-
-<!-- more -->
-
-
-<h2>Google Font</h2>
-
-<p>まず、 <a href="http://www.google.com/fonts">Google Font</a> にアクセスする。</p>
-
-<p>使いたいフォントを選ぶ。<br/>
-<img src="http://mzgk.github.io/images/2014/0204/googlefont_1.png" alt="フォントを選ぶ" /></p>
-
-<p>複数選択し、比較も可能。<br/>
-<img src="http://mzgk.github.io/images/2014/0204/googlefont_2.png" alt="フォントを比較" /></p>
-
-<p>使うフォントの表示速度を確認。<br/>
-<img src="http://mzgk.github.io/images/2014/0204/googlefont_3.png" alt="フォント確認" /></p>
-
-<p>埋め込むコードをコピー。<br/>
-<img src="http://mzgk.github.io/images/2014/0204/googlefont_4.png" alt="コードを取得" /></p>
-
-<h2>Octopressに設定</h2>
-
-<p>Octopressの以下のファイルに取得したコードをペーストする。<br/>
-<strong>source/_includes/custom/head.html</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// 取得したコード
-</span><span class='line'>&lt;link href="http://mzgk.github.io//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css"&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>CSSに使用</h2>
-
-<p>フォントを定義するSCSSファイルに定義する。<br/>
-<strong>sass/custom/_fonts.scss</strong></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Mondaを追加
-</span><span class='line'>$sans: "Monda", "HiraMaruPro-W4", Arial, sans-serif;</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Generate &amp; Deploy</h2>
-
-<p>あとは、</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake generate
-</span><span class='line'>...
-</span><span class='line'>$ rake deploy
-</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
