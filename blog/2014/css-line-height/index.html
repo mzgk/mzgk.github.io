@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: HowTo - jubilee</title>
+  <title>[CSS] 文字の高さを指定する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Category: HowTo">
-  
+  <meta name="description" content="font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。
+このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。 (font-size + 上余白 + 下余白) / font-size &hellip;">
+  <meta name="keywords" content="Web,CSS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.ioblog/categories/howto">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/css-line-height">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -67,66 +68,94 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: HowTo</h1>
+    
+      <h1 class="entry-title">[CSS] 文字の高さを指定する</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T19:30:03+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。<br/>
+このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。</p>
 
-  
-  <h2>2014</h2>
+<p>(font-size + 上余白 + 下余白) / font-size = line-heightの値（小数点4位切り上げ）</p>
 
-<article>
-  
-<h1><a href="/blog/2014/finder-cut-and-paste/">Macでカット＆ペーストをする</a></h1>
-<time datetime="2014-02-19T21:29:35+09:00" pubdate><span class='month'>Feb</span> <span class='day'>19</span> <span class='year'>2014</span></time>
+<p>例えば、<br/>
+文字サイズ16pxで上下に3pxずつ余裕をもたせる場合<br/>
+(16 + 3 + 3) / 16 = 1.375</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/howto/'>HowTo</a></span>
-</footer>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2014/terminal-space-escape/">Terminalで空白が存在するパスの入力</a></h1>
-<time datetime="2014-01-09T06:19:00+09:00" pubdate><span class='month'>Jan</span> <span class='day'>09</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/howto/'>HowTo</a></span>
-</footer>
-
-
-</article>
-
-
-
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/procedure-to-post/">Start Octopress Blogへの投稿手順</a></h1>
-<time datetime="2013-12-31T12:25:41+09:00" pubdate><span class='month'>Dec</span> <span class='day'>31</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/howto/'>HowTo</a></span>
-</footer>
-
-
-</article>
-
+<p>文字サイズ14pxで上下に3pxずつ余裕をもたせる場合<br/>
+(14 + 3 + 3) / 14 = 1.42857&hellip; &ndash;> 1.429</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T19:30:03+09:00" pubdate data-updated="true">2014.08.05</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/web/'>Web</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/css-line-height/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/css-line-height/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/digitalcolor-mater/" title="Previous Post: MacのDigitalColor Materで色の値をコピーする">&laquo; MacのDigitalColor Materで色の値をコピーする</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>

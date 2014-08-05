@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Web | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/web/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:29:31+09:00</updated>
+  <updated>2014-08-05T19:31:20+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[CSS] 文字の高さを指定する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/css-line-height/"/>
+    <updated>2014-08-05T19:30:03+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/css-line-height</id>
+    <content type="html"><![CDATA[<p>font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。<br/>
+このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。</p>
+
+<p>(font-size + 上余白 + 下余白) / font-size = line-heightの値（小数点4位切り上げ）</p>
+
+<p>例えば、<br/>
+文字サイズ16pxで上下に3pxずつ余裕をもたせる場合<br/>
+(16 + 3 + 3) / 16 = 1.375</p>
+
+<p>文字サイズ14pxで上下に3pxずつ余裕をもたせる場合<br/>
+(14 + 3 + 3) / 14 = 1.42857&hellip; &ndash;> 1.429</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[marginの記法]]></title>

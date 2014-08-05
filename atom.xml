@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:29:31+09:00</updated>
+  <updated>2014-08-05T19:31:20+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[CSS] 文字の高さを指定する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/css-line-height/"/>
+    <updated>2014-08-05T19:30:03+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/css-line-height</id>
+    <content type="html"><![CDATA[<p>font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。<br/>
+このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。</p>
+
+<p>(font-size + 上余白 + 下余白) / font-size = line-heightの値（小数点4位切り上げ）</p>
+
+<p>例えば、<br/>
+文字サイズ16pxで上下に3pxずつ余裕をもたせる場合<br/>
+(16 + 3 + 3) / 16 = 1.375</p>
+
+<p>文字サイズ14pxで上下に3pxずつ余裕をもたせる場合<br/>
+(14 + 3 + 3) / 14 = 1.42857&hellip; &ndash;> 1.429</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MacのDigitalColor Materで色の値をコピーする]]></title>
@@ -799,58 +818,6 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
 <p>参考：<br/>
 (<a href="http://qiita.com/Potof_/items/1432c39dab083f770e59">http://qiita.com/Potof_/items/1432c39dab083f770e59</a>)<br/>
 (<a href="http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html">http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html</a>)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UITableViewのセルのハイライト制御]]></title>
-    <link href="http://mzgk.github.io/blog/2014/cell-highlight/"/>
-    <updated>2014-08-05T17:49:14+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/cell-highlight</id>
-    <content type="html"><![CDATA[<p>セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。<br/>
-このハイライトを消す方法。<br/>
-UITableViewControllerを使用しているぶんには、特に意識する必要はない。</p>
-
-<h2>UITableViewControllerを継承してUITableViewを使う場合</h2>
-
-<p>UITableViewControllerのviewWillAppear:にはハイライト解除の処理が定義してある。<br/>
-なので、viewWillAppear:メソッドをオーバーライドするときは、必ず親クラスのviewWillAppear:メソッドを呼ぶこと。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// 必ずこれを呼ぶこと</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>UITableViewControllerを継承せずにUITableViewを使う場合</h2>
-
-<p>自分で実装すること。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
-</span><span class='line'>  <span class="c1">// ハイライト解除</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">_tableView</span> <span class="nl">deselectRowAtIndexPath:</span><span class="p">[</span><span class="n">_tableView</span> <span class="n">indexPathForSelectedRow</span><span class="p">]</span> <span class="nl">animated:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
 ]]></content>
   </entry>
   
