@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:29:41+09:00</updated>
+  <updated>2014-08-05T18:38:00+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,111 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JSONからデータを取得する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/analyze-json/"/>
+    <updated>2014-08-05T18:31:45+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/analyze-json</id>
+    <content type="html"><![CDATA[<p>以下のようなJSONデータから指定したデータを取得する方法。</p>
+
+<p>```
+meta =
+{</p>
+
+<pre><code>method = POST;
+url = "/app/ApiPosts/post.json";
+</code></pre>
+
+<p>};
+response =    /// (1)
+{</p>
+
+<pre><code>"comment_id" = 144;   /// (2)
+"video_id" = 144;
+Adviser = {
+    name = "&lt;null&gt;";
+};
+Post = {
+    "adviser_id" = "-1";
+    "video_id" = 144;   /// (3)
+};
+User = {
+    id = 1;
+    username = taro;
+};
+Comments =  /// ここは配列でComment-Videoが１セットで複数セットくる
+(
+    {
+        Comment = {
+            comment = "\U305d\U305d\U305d\U305d\n";   /// (4)
+            id = 144;
+        };
+        Video = {
+            hash = 266d1a0ccabc501149322446e49e274a;    /// (4)
+            id = 144;
+        };
+    }
+);
+</code></pre>
+
+<p>};
+```</p>
+
+<h2>(1) response = 以下のデータを取得</h2>
+
+<p><code>objective-c
+NSDictionary *responseDataDic = (NSDictionary*)responseObject[@"response"];
+</code></p>
+
+<h2>(2) comment_idのデータを取得</h2>
+
+<p><code>objective-c
+NSLog(@"commnt_id : %@", responseDataDic[@"comment_id"]);
+</code></p>
+
+<h2>(3) Post の video_idのデータを取得</h2>
+
+<p><code>objective-c
+NSLog(@"Post video_id: %@", responseDataDic[@"Post"][@"video_id"]);
+</code></p>
+
+<h2>(4) Commentsの中のComment-commentとVideo-hashを取得</h2>
+
+<p>```objective-c
+/// 高速列挙で辞書に抜き出し
+for (NSDictionary *dic in responseDataDic[@&ldquo;Comments&rdquo;]) {</p>
+
+<pre><code>NSLog(@"Comment id: %@", dic[@"Comment"][@"id"]);
+NSLog(@"Video id: %@", dic[@"Video"][@"id"]);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>もしくは２ステップで</p>
+
+<p>```objective-c
+/// 可変配列を用意
+NSMutableArray <em>array = [NSMutableArray array];
+/// 高速列挙でComments部分を辞書に抜き出し、それを可変配列に追加
+for (NSDictionary </em>dic in responseDataDic[@&ldquo;Comments&rdquo;]) {</p>
+
+<pre><code>[array addObject:dic];
+</code></pre>
+
+<p>}
+/// 可変配列から辞書に抜き出し
+for (NSDictionary *dic in array) {</p>
+
+<pre><code>NSLog(@"Comment id: %@", dic[@"Comment"][@"id"]);
+NSLog(@"Video id: %@", dic[@"Video"][@"id"]);
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MagicalRecordのWarningの消し方]]></title>
@@ -142,25 +247,6 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
 
 <p><code>objective-c
 [_imageView setUserInteractionEnabled = YES];
-</code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UINavigationBarの色を制御する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/set-navigationbar-color/"/>
-    <updated>2014-08-05T18:01:40+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/set-navigationbar-color</id>
-    <content type="html"><![CDATA[<p>NavigationBarのカラーやアイテムの色を制御する方法。<br/>
-NavigationControllerの次のViewControllerで設定を行う。</p>
-
-<p><code>objective-c
-// 背景色
-self.navigationController.navigationBar.barTintColor = [UIColor colorWithHex:@"2F78B7"];
-// アイテムの色
-self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-// タイトルの色
-self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
 </code></p>
 ]]></content>
   </entry>

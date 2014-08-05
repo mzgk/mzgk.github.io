@@ -9,14 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。 1
-2
-3
-4
-5
-6
-7
-- (IBAction)switchChange:(UISwitch *)sender { // スイッチのON/OFFと逆の設定をする方法 _photo.hidden = !(sender.on &hellip;">
+  <meta name="description" content="Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。
+そんな時に有効な設定。 ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +70,45 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/exception-breakpoint/">Xcodeで例外が発生した場所を特定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T14:00:51+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。<br/>
+そんな時に有効な設定。</p>
+
+<p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -514,51 +548,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/octopress-font-setting/">Octopressのフォントや文字間・行間を変更する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-26T16:11:50+09:00" pubdate data-updated="true">2014.01.26</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Octopressでフォントやフォントサイズ・文字間・行間の変更をする方法。<br/>
-サイドバーにAbout Meを表示させる方法。</p>
-
-<p>デフォルトのフォント周りの設定はちょっとタイトルの文字が大きすぎたり、文章の行間がつまりすぎたりしていると感じていたので、変更してみた。<br/>
-ちなみにサイドバー用の小さいAbout Meはデフォルトで用意されている。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/octopress-font-setting/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -579,6 +568,10 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/analyze-json/">JSONからデータを取得する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/magicalrecord-warning/">MagicalRecordのWarningの消し方</a>
@@ -614,10 +607,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
       <li class="post">
         <a href="/blog/2014/not-allowed-to-edit-cell/">UITableViewのセル編集をさせない方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/share-itunes/">アプリのデータをiTunesで共有する方法</a>
       </li>
     
   </ul>
