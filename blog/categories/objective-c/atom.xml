@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T14:47:54+09:00</updated>
+  <updated>2014-08-05T15:22:04+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ファイルパス（NSString）をNSURLに変換する方法（日本語OK）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/filepath-nsurl/"/>
+    <updated>2014-08-05T15:07:00+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/filepath-nsurl</id>
+    <content type="html"><![CDATA[<p>日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。</p>
+
+<p><code>objective-c
+NSString* string = @"/Users/abt/Documents/日本語のフォルダ名/file.txt";
+NSURL* url = [NSURL fileURLWithPath:string];
+// NGケース（nilが返る）
+NSURL* nilUrl = [NSURL URLWithString:string];
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[引っ張って更新を使う（UITableViewController / UITableView）]]></title>
