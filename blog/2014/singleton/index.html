@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>シングルトン（singleton） - jubilee</title>
+  <meta name="author" content="mzgk">
+
+  
+  <meta name="description" content="シングルトンとは？ デザインパターンの１つ
+「ただ１つの」インスタンスしか持たない→どこからアクセスしても同じインスタンス
+複数のクラス間での変数やオブジェクトの共有が可能
+複数のクラス間でメソッドの共有ができる
+NSUserdefaultsと同様 SingletonManager.h 1
+2
+3 &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/singleton">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!-- google webmaster tool -->
+<meta name="google-site-verification" content="aGcvxQw3_CL6cMLGRu0swqLkd4I7xA1KcROCILD30hU" />
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jubilee</a></h1>
+  
+    <h2>Programing, Books and more...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mzgk.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">シングルトン（singleton）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T16:14:13+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>シングルトンとは？</p>
+
+<ul>
+<li>デザインパターンの１つ</li>
+<li>「ただ１つの」インスタンスしか持たない→どこからアクセスしても同じインスタンス</li>
+<li>複数のクラス間での変数やオブジェクトの共有が可能</li>
+<li>複数のクラス間でメソッドの共有ができる</li>
+<li>NSUserdefaultsと同様</li>
+</ul>
+
+
+<h3>SingletonManager.h</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">SingletonSample</span> : <span class="nc">NSObject</span>
+</span><span class='line'><span class="c1">// このシングルトンが管理するプロパティ</span>
+</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">managedParam</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">catName</span><span class="p">;</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="c1">// インスタンス作成のためのクラスメソッド</span>
+</span><span class='line'><span class="o">+</span> <span class="p">(</span><span class="n">SingletonSample</span> <span class="o">*</span><span class="p">)</span><span class="n">sharedManager</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// このシングルトンが保有するメソッド</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sampleMethod:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">name</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>SingletonManager.m</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@implementation</span> <span class="nc">SingletonManager</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="kt">id</span> <span class="n">sharedManager_</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">sharedManager</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">onceToken</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">onceToken</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">sharedData_</span> <span class="o">=</span> <span class="p">[</span><span class="n">SingletonManager</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">sharedManager_</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sampleMethod:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">name</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ViewController.m</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;SingletonManager.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">SingletonManager</span> <span class="o">*</span><span class="n">single</span> <span class="o">=</span> <span class="p">[</span><span class="n">SingletonManager</span> <span class="n">sharedManager</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">single</span><span class="p">.</span><span class="n">managedParam</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// 変数に値をセット</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">single</span> <span class="nl">sampleMethod:</span><span class="n">name</span><span class="p">];</span> <span class="c1">// メソッドを使用</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考：<br/>
+<a href="http://ylb.jp/iOSDev/SingletonSample.pdf  ">http://ylb.jp/iOSDev/SingletonSample.pdf  </a>
+<a href="http://qiita.com/yuky_az/items/27031ec5ca55a95d6209">http://qiita.com/yuky_az/items/27031ec5ca55a95d6209</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T16:14:13+09:00" pubdate data-updated="true">2014.08.05</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/singleton/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/singleton/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/chage-view-overlap/" title="Previous Post: ビューの重なり順を変更する">&laquo; ビューの重なり順を変更する</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/video-devide/" title="Next Post: カメラで撮影した動画をフレーム分割する方法">カメラで撮影した動画をフレーム分割する方法 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>mzgkworks</p>
+  <p>修行中</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/video-devide/">カメラで撮影した動画をフレーム分割する方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/singleton/">シングルトン（singleton）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/chage-view-overlap/">ビューの重なり順を変更する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/filepath-nsurl/">ファイルパス（NSString）をNSURLに変換する方法（日本語OK）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uirefreshcontrol/">引っ張って更新を使う（UITableViewController / UITableView）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/maxim/">作りの格言</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/confirm-subview/">対象のビューがサブビューかどうか判断する方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/exception-breakpoint/">Xcodeで例外が発生した場所を特定する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/logicaloperator/">論理演算子を使って状態を逆転させる</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-5/">Octopressブログ環境の再構築：第５回</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - mzgk -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

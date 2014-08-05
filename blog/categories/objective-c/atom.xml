@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T16:20:26+09:00</updated>
+  <updated>2014-08-05T16:32:03+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -14,35 +14,149 @@
 
   
   <entry>
+    <title type="html"><![CDATA[カメラで撮影した動画をフレーム分割する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/video-devide/"/>
+    <updated>2014-08-05T16:24:50+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/video-devide</id>
+    <content type="html"><![CDATA[<p>UIImagePickerで撮影した動画を1秒30フレーム程度で、分割し静止画にする方法。</p>
+
+<p>```objective-c
+/<em>!
+ * 撮影ボタン（作成する）
+ </em>/
+&ndash; (IBAction)shutterButtonTapped:(id)sender {</p>
+
+<pre><code>// UIImagePickerで動画の撮影をする
+UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+picker.videoQuality = UIImagePickerControllerQualityType640x480;
+picker.videoMaximumDuration = 10;
+picker.allowsEditing = NO;
+picker.delegate = self;
+[self presentViewController:picker animated:YES completion:nil];
+</code></pre>
+
+<p>}</p>
+
+<p>/<em>!
+ * 撮影終了のタイミング
+ </em>/
+&ndash; (void)imagePickerController:(UIImagePickerController <em>)picker didFinishPickingMediaWithInfo:(NSDictionary </em>)info
+{</p>
+
+<pre><code>// UIImagePickerをしまう
+[picker dismissViewControllerAnimated:YES completion:nil];
+
+// ~/Documentsディレクトリの取得
+NSArray *directories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+NSString *documentDirectory = directories[0];
+
+// 撮影した動画をAssetに格納
+NSURL *assetURL = info[UIImagePickerControllerMediaURL];
+AVURLAsset *asset = [[AVURLAsset alloc]initWithURL:assetURL options:nil];
+
+// 動画を切り出す間隔を配列に格納する
+Float64 frameParSecond = 0.033f;
+Float64 durationSeconds = CMTimeGetSeconds([asset duration]);   // 動画の長さ
+Float64 frameTimeStamp = 0;
+NSMutableArray *times  = [NSMutableArray array];
+while (frameTimeStamp &lt;= durationSeconds) {
+    [times addObject:[NSValue valueWithCMTime:CMTimeMakeWithSeconds(frameTimeStamp, 600)]];
+    CMTime nextTime = CMTimeMakeWithSeconds(frameTimeStamp, 600);
+    frameTimeStamp = CMTimeGetSeconds(nextTime) + frameParSecond;
+}
+
+// 画像ジェネレーターを生成
+AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+generator.appliesPreferredTrackTransform = YES;
+generator.requestedTimeToleranceBefore = kCMTimeZero;
+generator.requestedTimeToleranceAfter = kCMTimeZero;
+
+// 一連の画像を生成（timesに格納されている分だけ、第２引数がコールバックされる）
+[generator generateCGImagesAsynchronouslyForTimes:times
+                                completionHandler:^(CMTime requestedTime, CGImageRef image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error) {
+                                    NSString *requestedTimeString = (NSString*)CFBridgingRelease(CMTimeCopyDescription(NULL, requestedTime));
+                                    NSString *acturalTimeString = (NSString*)CFBridgingRelease(CMTimeCopyDescription(NULL, actualTime));
+                                    NSLog(@"Requested: %@; actual: %@", requestedTimeString, acturalTimeString);
+                                    if (result == AVAssetImageGeneratorSucceeded) {
+                                        // JPEG画像を生成し、保存する
+                                        [self writeCGImageTo:documentDirectory image:image];
+                                        // iCnt++;
+                                        // 完了した判断はtimesの個数と保存した個数でする？
+                                        // [times count] == iCntだったら、SVProgressHub停止みたいな
+                                    }
+                                    if (result == AVAssetImageGeneratorFailed) {
+                                        NSLog(@"Failed with error: %@", [error localizedDescription]);
+                                    }
+                                    if (result == AVAssetImageGeneratorCancelled) {
+                                        NSLog(@"Cancelled");
+                                    }
+                                }];
+</code></pre>
+
+<p>}</p>
+
+<p>/<em>!
+ * 動画から切り出されたCGImageRef形式のデータをJPEG画像（ファイル名は連番：imageNameNumber）に生成し、指定ディレクトリに書き出す
+ </em>/
+&ndash; (BOOL)writeCGImageTo:(NSString*)path image:(CGImageRef)cgImage
+{</p>
+
+<pre><code>NSLog(@"Called");
+
+NSString *str = [NSString stringWithFormat:@"img_%@.jpg", @(self.imageNameNumber++)];
+path = [path stringByAppendingPathComponent:str];
+
+UIImage *saveImage = [UIImage imageWithCGImage:cgImage];
+NSData *data = UIImageJPEGRepresentation(saveImage, 1.0);   // 0.0（低水準）〜1.0（高水準）
+BOOL result = [data writeToFile:path atomically:YES];
+return result;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>参考：公式の「AVFoundationプログラミングガイド」P17 アセットの使用　ビデオから静止画像の取得　一連の画像の生成</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[シングルトン（singleton）]]></title>
     <link href="http://mzgk.github.io/blog/2014/singleton/"/>
     <updated>2014-08-05T16:14:13+09:00</updated>
     <id>http://mzgk.github.io/blog/2014/singleton</id>
-    <content type="html"><![CDATA[<p>シングルトンとは？<br/>
-&ndash; デザインパターンの１つ
-&ndash; 「ただ１つの」インスタンスしか持たない→どこからアクセスしても同じインスタンスなので
-&ndash; 複数のクラス間での変数やオブジェクトの共有が可能
-&ndash; 複数のクラス間でメソッドの共有ができる
-&ndash; NSUserdefaultsと同様</p>
+    <content type="html"><![CDATA[<p>シングルトンとは？</p>
 
-<p>```objective-c:SingletonManager.h
+<ul>
+<li>デザインパターンの１つ</li>
+<li>「ただ１つの」インスタンスしか持たない→どこからアクセスしても同じインスタンス</li>
+<li>複数のクラス間での変数やオブジェクトの共有が可能</li>
+<li>複数のクラス間でメソッドの共有ができる</li>
+<li>NSUserdefaultsと同様</li>
+</ul>
+
+
+<h3>SingletonManager.h</h3>
+
+<p>```objective-c
 @interface SingletonSample : NSObject
 // このシングルトンが管理するプロパティ
 @property(nonatomic) NSInteger managedParam;
-@property(strong, nonatomic) NSString *catName;</p>
-
-<pre><code>...
-</code></pre>
-
-<p>// インスタンス作成のためのクラスメソッド
-+ (SingletonSample *)sharedManager;</p>
+@property(strong, nonatomic) NSString <em>catName;
+&hellip;
+// インスタンス作成のためのクラスメソッド
++ (SingletonSample </em>)sharedManager;</p>
 
 <p>// このシングルトンが保有するメソッド
 &ndash; (void)sampleMethod:(NSString*)name;
 @end
 ```</p>
 
-<p>```objective-c:SingletonManager.m
+<h3>SingletonManager.m</h3>
+
+<p>```objective-c
 @implementation SingletonManager</p>
 
 <p>static id sharedManager_ = nil;
@@ -68,7 +182,9 @@ return sharedManager_;
 </ul>
 
 
-<p>```objective-c:ViewController.m</p>
+<h3>ViewController.m</h3>
+
+<p>```objective-c</p>
 
 <h1>import &ldquo;SingletonManager.h&rdquo;</h1>
 
@@ -189,43 +305,6 @@ NSURL* nilUrl = [NSURL URLWithString:string];
 ```</p></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[対象のビューがサブビューかどうか判断する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/confirm-subview/"/>
-    <updated>2014-08-05T14:26:28+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/confirm-subview</id>
-    <content type="html"><![CDATA[<p>対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。</p>
-
-<p>```objective-c
-// メモリから破棄されないように"strong"を指定
-@preoperty (strong, nonatomatic) IBOutlet UILabel *myLabel;</p>
-
-<ul>
-<li>(IBAction)removeAllLabel:(id)sender
-{
-  if ([<em>mylabel isDescendantOfView:self.view]) {
-      // ビューから取り除く
-      [</em>myLabel removeFromSuperView];
-  }
-  else {
-      // ビューに追加する
-      [self.view addSuperView:_mylabel];
-  }
-}
-```</li>
-</ul>
-
-
-<h2>スーパービューを調べる</h2>
-
-<p><code>_myLabel.superView</code> でも、_myLabelにスーパービューがあるかどうか調べられる。</p>
-
-<h2>取り除く≒非表示</h2>
-
-<p><code>_myLabel.hidden = YES;</code> で、取り除くことなく非表示化できる。</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T15:59:17+09:00</updated>
+  <updated>2014-08-05T16:32:03+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,301 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[カメラで撮影した動画をフレーム分割する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/video-devide/"/>
+    <updated>2014-08-05T16:24:50+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/video-devide</id>
+    <content type="html"><![CDATA[<p>UIImagePickerで撮影した動画を1秒30フレーム程度で、分割し静止画にする方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cm">/*!</span>
+</span><span class='line'><span class="cm"> * 撮影ボタン（作成する）</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">shutterButtonTapped:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// UIImagePickerで動画の撮影をする</span>
+</span><span class='line'>    <span class="n">UIImagePickerController</span> <span class="o">*</span><span class="n">picker</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIImagePickerController</span> <span class="n">alloc</span><span class="p">]</span><span class="n">init</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="n">UIImagePickerControllerSourceTypeCamera</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">mediaTypes</span> <span class="o">=</span> <span class="err">@</span><span class="p">[(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">kUTTypeMovie</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">cameraCaptureMode</span> <span class="o">=</span> <span class="n">UIImagePickerControllerCameraCaptureModeVideo</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">videoQuality</span> <span class="o">=</span> <span class="n">UIImagePickerControllerQualityType640x480</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">videoMaximumDuration</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">allowsEditing</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">presentViewController:</span><span class="n">picker</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*!</span>
+</span><span class='line'><span class="cm"> * 撮影終了のタイミング</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">imagePickerController:</span><span class="p">(</span><span class="n">UIImagePickerController</span> <span class="o">*</span><span class="p">)</span><span class="nv">picker</span> <span class="nf">didFinishPickingMediaWithInfo:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">info</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// UIImagePickerをしまう</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">picker</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ~/Documentsディレクトリの取得</span>
+</span><span class='line'>    <span class="n">NSArray</span> <span class="o">*</span><span class="n">directories</span> <span class="o">=</span> <span class="n">NSSearchPathForDirectoriesInDomains</span><span class="p">(</span><span class="n">NSDocumentDirectory</span><span class="p">,</span> <span class="n">NSUserDomainMask</span><span class="p">,</span> <span class="n">YES</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">documentDirectory</span> <span class="o">=</span> <span class="n">directories</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 撮影した動画をAssetに格納</span>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">assetURL</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">UIImagePickerControllerMediaURL</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">AVURLAsset</span> <span class="o">*</span><span class="n">asset</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AVURLAsset</span> <span class="n">alloc</span><span class="p">]</span><span class="nl">initWithURL:</span><span class="n">assetURL</span> <span class="nl">options:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 動画を切り出す間隔を配列に格納する</span>
+</span><span class='line'>    <span class="n">Float64</span> <span class="n">frameParSecond</span> <span class="o">=</span> <span class="mf">0.033f</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">Float64</span> <span class="n">durationSeconds</span> <span class="o">=</span> <span class="n">CMTimeGetSeconds</span><span class="p">([</span><span class="n">asset</span> <span class="n">duration</span><span class="p">]);</span>   <span class="c1">// 動画の長さ</span>
+</span><span class='line'>    <span class="n">Float64</span> <span class="n">frameTimeStamp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">times</span>  <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="n">frameTimeStamp</span> <span class="o">&lt;=</span> <span class="n">durationSeconds</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">times</span> <span class="nl">addObject:</span><span class="p">[</span><span class="n">NSValue</span> <span class="nl">valueWithCMTime:</span><span class="n">CMTimeMakeWithSeconds</span><span class="p">(</span><span class="n">frameTimeStamp</span><span class="p">,</span> <span class="mi">600</span><span class="p">)]];</span>
+</span><span class='line'>        <span class="n">CMTime</span> <span class="n">nextTime</span> <span class="o">=</span> <span class="n">CMTimeMakeWithSeconds</span><span class="p">(</span><span class="n">frameTimeStamp</span><span class="p">,</span> <span class="mi">600</span><span class="p">);</span>
+</span><span class='line'>        <span class="n">frameTimeStamp</span> <span class="o">=</span> <span class="n">CMTimeGetSeconds</span><span class="p">(</span><span class="n">nextTime</span><span class="p">)</span> <span class="o">+</span> <span class="n">frameParSecond</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 画像ジェネレーターを生成</span>
+</span><span class='line'>    <span class="n">AVAssetImageGenerator</span> <span class="o">*</span><span class="n">generator</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AVAssetImageGenerator</span> <span class="n">alloc</span><span class="p">]</span><span class="nl">initWithAsset:</span><span class="n">asset</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">generator</span><span class="p">.</span><span class="n">appliesPreferredTrackTransform</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">generator</span><span class="p">.</span><span class="n">requestedTimeToleranceBefore</span> <span class="o">=</span> <span class="n">kCMTimeZero</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">generator</span><span class="p">.</span><span class="n">requestedTimeToleranceAfter</span> <span class="o">=</span> <span class="n">kCMTimeZero</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 一連の画像を生成（timesに格納されている分だけ、第２引数がコールバックされる）</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">generator</span> <span class="nl">generateCGImagesAsynchronouslyForTimes:</span><span class="n">times</span>
+</span><span class='line'>                                    <span class="nl">completionHandler:</span><span class="o">^</span><span class="p">(</span><span class="n">CMTime</span> <span class="n">requestedTime</span><span class="p">,</span> <span class="n">CGImageRef</span> <span class="n">image</span><span class="p">,</span> <span class="n">CMTime</span> <span class="n">actualTime</span><span class="p">,</span> <span class="n">AVAssetImageGeneratorResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                                        <span class="n">NSString</span> <span class="o">*</span><span class="n">requestedTimeString</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">CFBridgingRelease</span><span class="p">(</span><span class="n">CMTimeCopyDescription</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">requestedTime</span><span class="p">));</span>
+</span><span class='line'>                                        <span class="n">NSString</span> <span class="o">*</span><span class="n">acturalTimeString</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">CFBridgingRelease</span><span class="p">(</span><span class="n">CMTimeCopyDescription</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">actualTime</span><span class="p">));</span>
+</span><span class='line'>                                        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Requested: %@; actual: %@&quot;</span><span class="p">,</span> <span class="n">requestedTimeString</span><span class="p">,</span> <span class="n">acturalTimeString</span><span class="p">);</span>
+</span><span class='line'>                                        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">AVAssetImageGeneratorSucceeded</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                                            <span class="c1">// JPEG画像を生成し、保存する</span>
+</span><span class='line'>                                            <span class="p">[</span><span class="n">self</span> <span class="nl">writeCGImageTo:</span><span class="n">documentDirectory</span> <span class="nl">image:</span><span class="n">image</span><span class="p">];</span>
+</span><span class='line'>                                            <span class="c1">// iCnt++;</span>
+</span><span class='line'>                                            <span class="c1">// 完了した判断はtimesの個数と保存した個数でする？</span>
+</span><span class='line'>                                            <span class="c1">// [times count] == iCntだったら、SVProgressHub停止みたいな</span>
+</span><span class='line'>                                        <span class="p">}</span>
+</span><span class='line'>                                        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">AVAssetImageGeneratorFailed</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                                            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Failed with error: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
+</span><span class='line'>                                        <span class="p">}</span>
+</span><span class='line'>                                        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">AVAssetImageGeneratorCancelled</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                                            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Cancelled&quot;</span><span class="p">);</span>
+</span><span class='line'>                                        <span class="p">}</span>
+</span><span class='line'>                                    <span class="p">}];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/*!</span>
+</span><span class='line'><span class="cm"> * 動画から切り出されたCGImageRef形式のデータをJPEG画像（ファイル名は連番：imageNameNumber）に生成し、指定ディレクトリに書き出す</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">writeCGImageTo:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">path</span> <span class="nf">image:</span><span class="p">(</span><span class="n">CGImageRef</span><span class="p">)</span><span class="nv">cgImage</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Called&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">str</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;img_%@.jpg&quot;</span><span class="p">,</span> <span class="err">@</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">imageNameNumber</span><span class="o">++</span><span class="p">)];</span>
+</span><span class='line'>    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="nl">stringByAppendingPathComponent:</span><span class="n">str</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">UIImage</span> <span class="o">*</span><span class="n">saveImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageWithCGImage:</span><span class="n">cgImage</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">UIImageJPEGRepresentation</span><span class="p">(</span><span class="n">saveImage</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>   <span class="c1">// 0.0（低水準）〜1.0（高水準）</span>
+</span><span class='line'>    <span class="kt">BOOL</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="nl">writeToFile:</span><span class="n">path</span> <span class="nl">atomically:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考：公式の「AVFoundationプログラミングガイド」P17 アセットの使用　ビデオから静止画像の取得　一連の画像の生成</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[シングルトン（singleton）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/singleton/"/>
+    <updated>2014-08-05T16:14:13+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/singleton</id>
+    <content type="html"><![CDATA[<p>シングルトンとは？</p>
+
+<ul>
+<li>デザインパターンの１つ</li>
+<li>「ただ１つの」インスタンスしか持たない→どこからアクセスしても同じインスタンス</li>
+<li>複数のクラス間での変数やオブジェクトの共有が可能</li>
+<li>複数のクラス間でメソッドの共有ができる</li>
+<li>NSUserdefaultsと同様</li>
+</ul>
+
+
+<h3>SingletonManager.h</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">SingletonSample</span> : <span class="nc">NSObject</span>
+</span><span class='line'><span class="c1">// このシングルトンが管理するプロパティ</span>
+</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">managedParam</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">catName</span><span class="p">;</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="c1">// インスタンス作成のためのクラスメソッド</span>
+</span><span class='line'><span class="o">+</span> <span class="p">(</span><span class="n">SingletonSample</span> <span class="o">*</span><span class="p">)</span><span class="n">sharedManager</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// このシングルトンが保有するメソッド</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sampleMethod:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">name</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>SingletonManager.m</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@implementation</span> <span class="nc">SingletonManager</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="kt">id</span> <span class="n">sharedManager_</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">sharedManager</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">onceToken</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">onceToken</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
+</span><span class='line'>        <span class="n">sharedData_</span> <span class="o">=</span> <span class="p">[</span><span class="n">SingletonManager</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">sharedManager_</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sampleMethod:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">name</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ViewController.m</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;SingletonManager.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">SingletonManager</span> <span class="o">*</span><span class="n">single</span> <span class="o">=</span> <span class="p">[</span><span class="n">SingletonManager</span> <span class="n">sharedManager</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">single</span><span class="p">.</span><span class="n">managedParam</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// 変数に値をセット</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">single</span> <span class="nl">sampleMethod:</span><span class="n">name</span><span class="p">];</span> <span class="c1">// メソッドを使用</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考：<br/>
+<a href="http://ylb.jp/iOSDev/SingletonSample.pdf  ">http://ylb.jp/iOSDev/SingletonSample.pdf  </a>
+<a href="http://qiita.com/yuky_az/items/27031ec5ca55a95d6209">http://qiita.com/yuky_az/items/27031ec5ca55a95d6209</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ビューの重なり順を変更する]]></title>
@@ -1420,119 +1715,6 @@ Macアプリのスタンダード仕様なんだろうか。<br/>
 <p>のように <code>''</code> でくくる。</p>
 
 <p>基本を知らなすぎる・・・</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SublimeText3 設定２ PackageContorl]]></title>
-    <link href="http://mzgk.github.io/blog/2014/sublimetext-settings-2/"/>
-    <updated>2014-01-07T06:08:57+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/sublimetext-settings-2</id>
-    <content type="html"><![CDATA[<p>Sublime Text 3の設定について（Mac）。</p>
-
-<ul>
-<li>Package Controlの手動インストールの方法</li>
-<li>GitHub FlavoredでのMarkdown Previewの方法</li>
-</ul>
-
-
-<!-- more -->
-
-
-<h2>Package Controlの手動インストール</h2>
-
-<p>職場等でのネットワーク環境の関係で、通常インストールが使用できない場合には自分でダウンロードして設定する必要がある。<br/>
-方法は <a href="https://sublime.wbond.net/installation#Manual_Instructions">ここ（英語）</a> に記載してある。<br/>
-要約すると、</p>
-
-<ol>
-<li>MenuBar : Preferences > Browse Packages&hellip; をクリック</li>
-<li><code>~/Liblary/Application Support/Packages</code> が表示される（確認のため）</li>
-<li><code>~/Liblary/Application Support/Install Packages</code> を開く</li>
-<li><a href="https://sublime.wbond.net/installation#Manual_Instructions">ここ（英語）</a> から<code>Package Control.sublime-package</code>をダウンロード</li>
-<li>3で開いた <code>~/Liblary/Application Support/Install Packages</code> ディレクトリに保存</li>
-<li>Sublime Text 3を再起動</li>
-</ol>
-
-
-<h2>Markdown Preview(GitHub Flavored)の設定方法</h2>
-
-<p>Markdown記法で入力しているファイルをブラウザでプレビューする方法。<br/>
-GitHub Flavoredでプレビューできる。</p>
-
-<ol>
-<li>Package Control > Install Package > Markdown Preview</li>
-<li>MenuBar : Preferences > KeyBind(User) をクリック</li>
-<li><code>opt + m</code> で起動するようにショートカットキーを登録する</li>
-</ol>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// "parser"を"github"とすると、GitHub Flavoredでのプレビューとなる
-</span><span class='line'>[
-</span><span class='line'>{ "keys": ["alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser": "github"} },
-</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SublimeText3 設定１ キーバインド設定]]></title>
-    <link href="http://mzgk.github.io/blog/2014/sublimetext-settings-1/"/>
-    <updated>2014-01-03T08:29:34+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/sublimetext-settings-1</id>
-    <content type="html"><![CDATA[<p>Sublime Text3を使いはじめたので、その際の設定について。<br/>
-Tabキーでの日本語予測変換の設定。<br/>
-F7でのカタカナ変換の設定。<br/>
-このエディタはvimモードが使えたり、設定を自分でいじれたりで心地がいい。<br/>
-行間の設定ができるのはうれしい限り。</p>
-
-<h2>キーバインドの変更の準備</h2>
-
-<ol>
-<li>メニューバー → Preferences → KeyBind(Default)からファイルを開く</li>
-<li>内容をすべてコピー</li>
-<li>新規ファイルを作成し、ペースト</li>
-<li>名前をつけて保存<br/>
-ファイル名：<code>Default (OSX).sublime-keymap</code><br/>
-パス：<code>~/Library/Application Support/Sublime Text 3/Packages/Default/</code><br/>
-Defaultディレクトリが存在しない場合は作成。</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>F7でカタカナ変換の方法</h2>
-
-<p>保存したファイルを開いて、以下をコメントアウト（行頭に//）。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{ "keys": ["f7"], "command": "build" },  </span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Tabで予測変換確定</h2>
-
-<p>以下をコメントアウト（行頭に//）。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{ "keys": ["tab"], "command": "insert_best_completion", "args": {"default": "\t", "exact": true} },
-</span><span class='line'>{ "keys": ["tab"], "command": "insert_best_completion", "args": {"default": "\t", "exact": false},
-</span><span class='line'>    "context":
-</span><span class='line'>    [
-</span><span class='line'>      { "key": "setting.tab_completion", "operator": "equal", "operand": true }
-</span><span class='line'>    ]
-</span><span class='line'>},</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
