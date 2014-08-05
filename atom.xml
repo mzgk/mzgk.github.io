@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:08:07+09:00</updated>
+  <updated>2014-08-05T19:17:52+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[marginの記法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/margin/"/>
+    <updated>2014-08-05T19:15:54+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/margin</id>
+    <content type="html"><![CDATA[<p>marginの省略記法</p>
+
+<p>marginの値を省略してコーディングした時の意味合い。</p>
+
+<p>margin: 0;  →  （上下左右）<br/>
+margin: 0 0;  →  （上下）（左右）<br/>
+margin: 0 0 0;  →  （上）（左右）（下）<br/>
+margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UITableViewのカスタマイズ方法]]></title>
@@ -868,18 +884,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
 
 <p>とのことみたいだが、リリース時は両方が一致している必要があるらしいとのこと。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[カテゴリファイルの作り方]]></title>
-    <link href="http://mzgk.github.io/blog/2014/make-category/"/>
-    <updated>2014-08-05T16:49:30+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/make-category</id>
-    <content type="html"><![CDATA[<p>カテゴリファイルを作る際の命名方法。<br/>
-カテゴリーファイルを選択して、</p>
-
-<p><img src="http://mzgk.github.io/images/2014/0805/Category.png" alt="Xcode" /></p>
 ]]></content>
   </entry>
   

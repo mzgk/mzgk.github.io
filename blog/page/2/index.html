@@ -9,14 +9,13 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="2014.8.5現在の最新版は 1.0.1h。 バージョン確認 1
+  <meta name="description" content="通常はBOOLなのでこっちを使う 真：YES : 1
+偽：NO : 0 Booleanの場合 真：TRUE : 1
+偽：FALSE : 0 1
 2
 3
-4
-5
-$ openssl version
-OpenSSL 1.0.1g 7 Apr 2014 ← Macにインストールされているバージョンが表示される $ brew info openssl
-openssl: &hellip;">
+if (!new_flg) { 偽の判断（new_flgの値はNO = 0）
+} ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +74,65 @@ openssl: &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/objectivec-boolean/">Objective-Cの真偽値</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:18:53+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>通常はBOOLなのでこっちを使う</h3>
+
+<ul>
+<li>真：YES : 1</li>
+<li>偽：NO : 0</li>
+</ul>
+
+
+<h3>Booleanの場合</h3>
+
+<ul>
+<li>真：TRUE : 1</li>
+<li>偽：FALSE : 0</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">new_flg</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">偽の判断（</span><span class="n">new_flg</span><span class="err">の値は</span><span class="n">NO</span> <span class="o">=</span> <span class="mi">0</span><span class="err">）</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -792,45 +850,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/make-category/">カテゴリファイルの作り方</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T16:49:30+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>カテゴリファイルを作る際の命名方法。<br/>
-カテゴリーファイルを選択して、</p>
-
-<p><img src="/images/2014/0805/Category.png" alt="Xcode" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -851,6 +870,10 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/margin/">marginの記法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/customize-uitableview/">UITableViewのカスタマイズ方法</a>
@@ -886,10 +909,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
     
       <li class="post">
         <a href="/blog/2014/magicalrecord-warning/">MagicalRecordのWarningの消し方</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/objectivec-boolean/">Objective-Cの真偽値</a>
       </li>
     
   </ul>
