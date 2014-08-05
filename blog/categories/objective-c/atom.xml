@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T17:05:25+09:00</updated>
+  <updated>2014-08-05T17:09:01+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[アプリのバージョン取得]]></title>
+    <link href="http://mzgk.github.io/blog/2014/get-app-version/"/>
+    <updated>2014-08-05T17:07:29+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/get-app-version</id>
+    <content type="html"><![CDATA[<p>ソース内でアプリのバージョンを取得する方法。</p>
+
+<p>```objective-c
+// バージョン：TARGET- General &ndash; Identity &ndash; Version（Info.plist : Bundle version strings short）
+NSString *version = [[NSBundle mainBundle]infoDictionary][@&ldquo;CFBundleShortVersionString&rdquo;];</p>
+
+<p>// バンドル：TARGET- General &ndash; Identity &ndash; Bundle（Info.plist : Bundle version）
+NSString *bundle = [[NSBundle mainBundle]infoDictionary][@&ldquo;CFBundleVersion&rdquo;];
+```</p>
+
+<p>VersionとBundleの違いについては、理解不足。</p>
+
+<ul>
+<li>Version
+
+<ul>
+<li>表記用のリリースバージョン</li>
+</ul>
+</li>
+<li>Bundle
+
+<ul>
+<li>内部開発用のビルドバージョン</li>
+</ul>
+</li>
+</ul>
+
+
+<p>とのことみたいだが、リリース時は両方が一致している必要があるらしいとのこと。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[カテゴリファイルの作り方]]></title>
@@ -265,22 +302,6 @@ superview.subviews
 <p><code>objective-c
 // 1番目と3番目を入れ替える
 [self.view exchangeSubviewAtIndex:1 withSubviewAtIndex:3];
-</code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ファイルパス（NSString）をNSURLに変換する方法（日本語OK）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/filepath-nsurl/"/>
-    <updated>2014-08-05T15:07:00+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/filepath-nsurl</id>
-    <content type="html"><![CDATA[<p>日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。</p>
-
-<p><code>objective-c
-NSString* string = @"/Users/abt/Documents/日本語のフォルダ名/file.txt";
-NSURL* url = [NSURL fileURLWithPath:string];
-// NGケース（nilが返る）
-NSURL* nilUrl = [NSURL URLWithString:string];
 </code></p>
 ]]></content>
   </entry>
