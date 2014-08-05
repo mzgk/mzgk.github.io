@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:38:00+09:00</updated>
+  <updated>2014-08-05T18:43:23+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Appをインストールできるデバイスを制限する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/restrict-device/"/>
+    <updated>2014-08-05T18:39:16+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/restrict-device</id>
+    <content type="html"><![CDATA[<p>カメラ機能などを使用するアプリをリリースする場合に、AppStoreからインストールできるデバイスを制限する方法。<br/>
+（カメラなしデバイスにインストールさせない方法）</p>
+
+<p><img src="http://mzgk.github.io/images/2014/0805/Device.png" alt="Xcode" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JSONからデータを取得する方法]]></title>
@@ -1137,54 +1149,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
 <p>There is worth, there is a way.<br/>
 ユーザーが対価を払う方法は必ずある、だから価値のあるものを作れ。</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[対象のビューがサブビューかどうか判断する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/confirm-subview/"/>
-    <updated>2014-08-05T14:26:28+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/confirm-subview</id>
-    <content type="html"><![CDATA[<p>対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// メモリから破棄されないように&quot;strong&quot;を指定</span>
-</span><span class='line'><span class="err">@</span><span class="n">preoperty</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomatic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">myLabel</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">removeAllLabel:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">_mylabel</span> <span class="nl">isDescendantOfView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// ビューから取り除く</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">_myLabel</span> <span class="n">removeFromSuperView</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// ビューに追加する</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSuperView:</span><span class="n">_mylabel</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>スーパービューを調べる</h2>
-
-<p><code>_myLabel.superView</code> でも、_myLabelにスーパービューがあるかどうか調べられる。</p>
-
-<h2>取り除く≒非表示</h2>
-
-<p><code>_myLabel.hidden = YES;</code> で、取り除くことなく非表示化できる。</p>
 ]]></content>
   </entry>
   

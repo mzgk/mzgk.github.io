@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:38:00+09:00</updated>
+  <updated>2014-08-05T18:43:23+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Appをインストールできるデバイスを制限する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/restrict-device/"/>
+    <updated>2014-08-05T18:39:16+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/restrict-device</id>
+    <content type="html"><![CDATA[<p>カメラ機能などを使用するアプリをリリースする場合に、AppStoreからインストールできるデバイスを制限する方法。<br/>
+（カメラなしデバイスにインストールさせない方法）</p>
+
+<p><img src="/images/2014/0805/Device.png" alt="Xcode" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[JSONからデータを取得する方法]]></title>
@@ -233,21 +245,6 @@ else {
 
 <p>}
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIImageViewにスワイプジェスチャーを適用させる]]></title>
-    <link href="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/"/>
-    <updated>2014-08-05T18:06:46+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe</id>
-    <content type="html"><![CDATA[<p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
-
-<p><code>objective-c
-[_imageView setUserInteractionEnabled = YES];
-</code></p>
 ]]></content>
   </entry>
   
