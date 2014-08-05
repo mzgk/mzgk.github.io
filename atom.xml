@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:21:32+09:00</updated>
+  <updated>2014-08-05T19:25:55+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[git / GitHubからいらないファイルを削除する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/remove-file-from-github/"/>
+    <updated>2014-08-05T19:22:41+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/remove-file-from-github</id>
+    <content type="html"><![CDATA[<p>GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。<br/>
+ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。</p>
+
+<h2>削除方法</h2>
+
+<p>ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。</p>
+
+<h3>1. ローカルファイルを削除</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm ファイル名</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※ただしこれだと、ワーキングエリアからも削除されてしまう。<br/>
+ワーキングエリアには残しておき、Git管理対象外としたい場合は、.gitignoreに追記し</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm --cached ファイル名</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2. ステージング</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3. コミット</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git commit -m "メッセージ"</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>4. プッシュ</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git push</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Macでゴミ箱からファイルを削除できない時の方法]]></title>
@@ -833,31 +880,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[アプリのデータをiTunesで共有する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/share-itunes/"/>
-    <updated>2014-08-05T17:11:29+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/share-itunes</id>
-    <content type="html"><![CDATA[<p>アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。<br/>
-デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。</p>
-
-<h2>Supporting Files</h2>
-
-<ul>
-<li>｛アプリ名｝-Info.plistを開く</li>
-<li>Information Property Listの隣の＋をクリックし、行を追加</li>
-<li>Application supports iTunes file sharingを選択</li>
-<li>値のYESを選択</li>
-</ul>
-
-
-<p><img src="http://mzgk.github.io/images/2014/0805/iTunes_1.png" alt="iTunes共有1" /></p>
-
-<p>参考：
-<a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
 ]]></content>
   </entry>
   

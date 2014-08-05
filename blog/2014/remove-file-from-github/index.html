@@ -5,13 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>アプリのデータをiTunesで共有する方法 - jubilee</title>
+  <title>git / GitHubからいらないファイルを削除する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。
-デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。 Supporting Files ｛アプリ名｝-Info.plistを開く &hellip;">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。
+ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。 削除方法 ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。 1. ローカルファイルを削除 1
+$ git rm &hellip;">
+  <meta name="keywords" content="git,Github">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/share-itunes">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/remove-file-from-github">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -72,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">アプリのデータをiTunesで共有する方法</h1>
+      <h1 class="entry-title">git / GitHubからいらないファイルを削除する</h1>
     
     
       <p class="meta">
@@ -88,30 +89,52 @@
   
 
 
-<time datetime="2014-08-05T17:11:29+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T19:22:41+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。<br/>
-デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。</p>
+<div class="entry-content"><p>GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。<br/>
+ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。</p>
 
-<h2>Supporting Files</h2>
+<h2>削除方法</h2>
 
-<ul>
-<li>｛アプリ名｝-Info.plistを開く</li>
-<li>Information Property Listの隣の＋をクリックし、行を追加</li>
-<li>Application supports iTunes file sharingを選択</li>
-<li>値のYESを選択</li>
-</ul>
+<p>ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。</p>
+
+<h3>1. ローカルファイルを削除</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm ファイル名</span></code></pre></td></tr></table></div></figure>
 
 
-<p><img src="/images/2014/0805/iTunes_1.png" alt="iTunes共有1" /></p>
+<p>※ただしこれだと、ワーキングエリアからも削除されてしまう。<br/>
+ワーキングエリアには残しておき、Git管理対象外としたい場合は、.gitignoreに追記し</p>
 
-<p>参考：
-<a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm --cached ファイル名</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2. ステージング</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3. コミット</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git commit -m "メッセージ"</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>4. プッシュ</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git push</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
 </div>
 
 
@@ -134,12 +157,12 @@
   
 
 
-<time datetime="2014-08-05T17:11:29+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T19:22:41+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+    <a class='category' href='/blog/categories/git/'>git</a>
   
 </span>
 
@@ -148,7 +171,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/share-itunes/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/share-itunes/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/remove-file-from-github/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/remove-file-from-github/" >Tweet</a>
   
   
   
@@ -157,10 +180,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/get-app-version/" title="Previous Post: アプリのバージョン取得">&laquo; アプリのバージョン取得</a>
+        <a class="basic-alignment left" href="/blog/2014/empty-trash/" title="Previous Post: Macでゴミ箱からファイルを削除できない時の方法">&laquo; Macでゴミ箱からファイルを削除できない時の方法</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/not-allowed-to-edit-cell/" title="Next Post: UITableViewのセル編集をさせない方法">UITableViewのセル編集をさせない方法 &raquo;</a>
       
     </p>
   </footer>
