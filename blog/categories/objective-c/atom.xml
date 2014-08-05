@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:23:13+09:00</updated>
+  <updated>2014-08-05T18:29:41+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MagicalRecordのWarningの消し方]]></title>
+    <link href="http://mzgk.github.io/blog/2014/magicalrecord-warning/"/>
+    <updated>2014-08-05T18:23:49+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/magicalrecord-warning</id>
+    <content type="html"><![CDATA[<p>MagicalRecord2.2はmogeneratorとの使用を想定しているらしく、mogeneratorを使用しない場合はWarningが12個ばかり表示される。<br/>
+参考：<a href="https://github.com/magicalpanda/MagicalRecord/issues/652">https://github.com/magicalpanda/MagicalRecord/issues/652</a></p>
+
+<p>動作に特に問題はないが、気持ち悪いのでワーニングを消す方法。<br/>
+参考：<a href="http://hayatomo.com/2013/10/03/1122">http://hayatomo.com/2013/10/03/1122</a></p>
+
+<p><img src="/images/2014/0805/MagicalRecord_Warning.png" alt="Xcode" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Objective-Cの真偽値]]></title>
@@ -147,47 +162,6 @@ self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 // タイトルの色
 self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
 </code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UITableViewのセルのハイライト制御]]></title>
-    <link href="http://mzgk.github.io/blog/2014/cell-highlight/"/>
-    <updated>2014-08-05T17:49:14+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/cell-highlight</id>
-    <content type="html"><![CDATA[<p>セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。<br/>
-このハイライトを消す方法。<br/>
-UITableViewControllerを使用しているぶんには、特に意識する必要はない。</p>
-
-<h2>UITableViewControllerを継承してUITableViewを使う場合</h2>
-
-<p>UITableViewControllerのviewWillAppear:にはハイライト解除の処理が定義してある。<br/>
-なので、viewWillAppear:メソッドをオーバーライドするときは、必ず親クラスのviewWillAppear:メソッドを呼ぶこと。</p>
-
-<p><code>objective-c
-- (void)viewWillAppear:(BOOL)animated
-{
-  // 必ずこれを呼ぶこと
-  [super viewWillAppear:animated];
-}
-</code></p>
-
-<h2>UITableViewControllerを継承せずにUITableViewを使う場合</h2>
-
-<p>自分で実装すること。</p>
-
-<p><code>objective-c
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-  // ハイライト解除
-  [_tableView deselectRowAtIndexPath:[_tableView indexPathForSelectedRow] animated:YES];
-}
-</code></p>
-
-<h2>参考</h2>
-
-<p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
 ]]></content>
   </entry>
   

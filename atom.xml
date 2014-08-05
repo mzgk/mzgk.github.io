@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:23:13+09:00</updated>
+  <updated>2014-08-05T18:29:41+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,21 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MagicalRecordのWarningの消し方]]></title>
+    <link href="http://mzgk.github.io/blog/2014/magicalrecord-warning/"/>
+    <updated>2014-08-05T18:23:49+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/magicalrecord-warning</id>
+    <content type="html"><![CDATA[<p>MagicalRecord2.2はmogeneratorとの使用を想定しているらしく、mogeneratorを使用しない場合はWarningが12個ばかり表示される。<br/>
+参考：<a href="https://github.com/magicalpanda/MagicalRecord/issues/652">https://github.com/magicalpanda/MagicalRecord/issues/652</a></p>
+
+<p>動作に特に問題はないが、気持ち悪いのでワーニングを消す方法。<br/>
+参考：<a href="http://hayatomo.com/2013/10/03/1122">http://hayatomo.com/2013/10/03/1122</a></p>
+
+<p><img src="http://mzgk.github.io/images/2014/0805/MagicalRecord_Warning.png" alt="Xcode" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Objective-Cの真偽値]]></title>
@@ -1040,32 +1055,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 そんな時に有効な設定。</p>
 
 <p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[論理演算子を使って状態を逆転させる]]></title>
-    <link href="http://mzgk.github.io/blog/2014/logicaloperator/"/>
-    <updated>2014-08-05T13:13:59+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/logicaloperator</id>
-    <content type="html"><![CDATA[<p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">switchChange:</span><span class="p">(</span><span class="n">UISwitch</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// スイッチのON/OFFと逆の設定をする方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 状態の逆転をさせる方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>論理演算子を使って状態を逆転させる - jubilee</title>
+  <title>MagicalRecordのWarningの消し方 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="論理演算子を使って状態を逆転させる">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="MagicalRecord2.2はmogeneratorとの使用を想定しているらしく、mogeneratorを使用しない場合はWarningが12個ばかり表示される。
+参考：https://github.com/magicalpanda/MagicalRecord/issues/652 &hellip;">
+  <meta name="keywords" content="Objective-C,iOS,cocoaPods">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/logicaloperator">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/magicalrecord-warning">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +72,7 @@
   
   <header>
     
-      <h1 class="entry-title">論理演算子を使って状態を逆転させる</h1>
+      <h1 class="entry-title">MagicalRecordのWarningの消し方</h1>
     
     
       <p class="meta">
@@ -87,31 +88,20 @@
   
 
 
-<time datetime="2014-08-05T13:13:59+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T18:23:49+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
+<div class="entry-content"><p>MagicalRecord2.2はmogeneratorとの使用を想定しているらしく、mogeneratorを使用しない場合はWarningが12個ばかり表示される。<br/>
+参考：<a href="https://github.com/magicalpanda/MagicalRecord/issues/652">https://github.com/magicalpanda/MagicalRecord/issues/652</a></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">switchChange:</span><span class="p">(</span><span class="n">UISwitch</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// スイッチのON/OFFと逆の設定をする方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 状態の逆転をさせる方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<p>動作に特に問題はないが、気持ち悪いのでワーニングを消す方法。<br/>
+参考：<a href="http://hayatomo.com/2013/10/03/1122">http://hayatomo.com/2013/10/03/1122</a></p>
 
+<p><img src="/images/2014/0805/MagicalRecord_Warning.png" alt="Xcode" /></p>
 </div>
 
 
@@ -134,7 +124,7 @@
   
 
 
-<time datetime="2014-08-05T13:13:59+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T18:23:49+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
@@ -148,7 +138,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/logicaloperator/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/logicaloperator/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/magicalrecord-warning/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/magicalrecord-warning/" >Tweet</a>
   
   
   
@@ -157,10 +147,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/restart-octopress-5/" title="Previous Post: Octopressブログ環境の再構築：第５回">&laquo; Octopressブログ環境の再構築：第５回</a>
+        <a class="basic-alignment left" href="/blog/2014/objectivec-boolean/" title="Previous Post: Objective-Cの真偽値">&laquo; Objective-Cの真偽値</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/exception-breakpoint/" title="Next Post: Xcodeで例外が発生した場所を特定する">Xcodeで例外が発生した場所を特定する &raquo;</a>
       
     </p>
   </footer>
