@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>SublimeText3 設定１ キーバインド設定 - jubilee</title>
+  <title>Macでゴミ箱からファイルを削除できない時の方法 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="SublimeText3のキーバインドの変更方法。Tabキーでの日本語予測変換。F7でのカタカナ変換の設定方法。">
-  <meta name="keywords" content="SublimeText3設定,キーバインド,Tabキー,日本語予測変換,F7,カタカナ変換">
+  <meta name="description" content="Macでゴミ箱を空にしようとしても、「ファイルを使用中のため削除できません」が
+表示された時でも、確実に削除する方法。 ゴミ箱をCmd + 右クリック
+「確実にゴミ箱を空にする」を選択。 ">
+  <meta name="keywords" content="Mac">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/sublimetext-settings-1">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/empty-trash">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">SublimeText3 設定１ キーバインド設定</h1>
+      <h1 class="entry-title">Macでゴミ箱からファイルを削除できない時の方法</h1>
     
     
       <p class="meta">
@@ -87,61 +89,20 @@
   
 
 
-<time datetime="2014-01-03T08:29:34+09:00" pubdate data-updated="true">2014.01.03</time>
+<time datetime="2014-08-05T19:19:35+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Sublime Text3を使いはじめたので、その際の設定について。<br/>
-Tabキーでの日本語予測変換の設定。<br/>
-F7でのカタカナ変換の設定。<br/>
-このエディタはvimモードが使えたり、設定を自分でいじれたりで心地がいい。<br/>
-行間の設定ができるのはうれしい限り。</p>
-
-<h2>キーバインドの変更の準備</h2>
+<div class="entry-content"><p>Macでゴミ箱を空にしようとしても、「ファイルを使用中のため削除できません」が
+表示された時でも、確実に削除する方法。</p>
 
 <ol>
-<li>メニューバー → Preferences → KeyBind(Default)からファイルを開く</li>
-<li>内容をすべてコピー</li>
-<li>新規ファイルを作成し、ペースト</li>
-<li>名前をつけて保存<br/>
-ファイル名：<code>Default (OSX).sublime-keymap</code><br/>
-パス：<code>~/Library/Application Support/Sublime Text 3/Packages/Default/</code><br/>
-Defaultディレクトリが存在しない場合は作成。</li>
+<li>ゴミ箱をCmd + 右クリック<br/>
+「確実にゴミ箱を空にする」を選択。</li>
 </ol>
-
-
-<!-- more -->
-
-
-<h2>F7でカタカナ変換の方法</h2>
-
-<p>保存したファイルを開いて、以下をコメントアウト（行頭に//）。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{ "keys": ["f7"], "command": "build" },  </span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Tabで予測変換確定</h2>
-
-<p>以下をコメントアウト（行頭に//）。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{ "keys": ["tab"], "command": "insert_best_completion", "args": {"default": "\t", "exact": true} },
-</span><span class='line'>{ "keys": ["tab"], "command": "insert_best_completion", "args": {"default": "\t", "exact": false},
-</span><span class='line'>    "context":
-</span><span class='line'>    [
-</span><span class='line'>      { "key": "setting.tab_completion", "operator": "equal", "operand": true }
-</span><span class='line'>    ]
-</span><span class='line'>},</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -165,12 +126,12 @@ Defaultディレクトリが存在しない場合は作成。</li>
   
 
 
-<time datetime="2014-01-03T08:29:34+09:00" pubdate data-updated="true">2014.01.03</time>
+<time datetime="2014-08-05T19:19:35+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/setting/'>Setting</a>
+    <a class='category' href='/blog/categories/mac/'>Mac</a>
   
 </span>
 
@@ -179,7 +140,7 @@ Defaultディレクトリが存在しない場合は作成。</li>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/sublimetext-settings-1/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/sublimetext-settings-1/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/empty-trash/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/empty-trash/" >Tweet</a>
   
   
   
@@ -188,10 +149,8 @@ Defaultディレクトリが存在しない場合は作成。</li>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/procedure-to-post/" title="Previous Post: Start Octopress Blogへの投稿手順">&laquo; Start Octopress Blogへの投稿手順</a>
+        <a class="basic-alignment left" href="/blog/2014/margin/" title="Previous Post: marginの記法">&laquo; marginの記法</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/sublimetext-settings-2/" title="Next Post: SublimeText3 設定２ PackageContorl">SublimeText3 設定２ PackageContorl &raquo;</a>
       
     </p>
   </footer>

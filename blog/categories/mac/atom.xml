@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:17:52+09:00</updated>
+  <updated>2014-08-05T19:21:32+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Macでゴミ箱からファイルを削除できない時の方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/empty-trash/"/>
+    <updated>2014-08-05T19:19:35+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/empty-trash</id>
+    <content type="html"><![CDATA[<p>Macでゴミ箱を空にしようとしても、「ファイルを使用中のため削除できません」が
+表示された時でも、確実に削除する方法。</p>
+
+<ol>
+<li>ゴミ箱をCmd + 右クリック<br/>
+「確実にゴミ箱を空にする」を選択。</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Alfredで自分の作成したファイル等を検索結果として表示させない方法]]></title>

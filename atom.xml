@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:17:52+09:00</updated>
+  <updated>2014-08-05T19:21:32+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,22 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Macでゴミ箱からファイルを削除できない時の方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/empty-trash/"/>
+    <updated>2014-08-05T19:19:35+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/empty-trash</id>
+    <content type="html"><![CDATA[<p>Macでゴミ箱を空にしようとしても、「ファイルを使用中のため削除できません」が
+表示された時でも、確実に削除する方法。</p>
+
+<ol>
+<li>ゴミ箱をCmd + 右クリック<br/>
+「確実にゴミ箱を空にする」を選択。</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[marginの記法]]></title>
@@ -842,48 +858,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
 <p>参考：
 <a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[アプリのバージョン取得]]></title>
-    <link href="http://mzgk.github.io/blog/2014/get-app-version/"/>
-    <updated>2014-08-05T17:07:29+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/get-app-version</id>
-    <content type="html"><![CDATA[<p>ソース内でアプリのバージョンを取得する方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// バージョン：TARGET- General - Identity - Version（Info.plist : Bundle version strings short）</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">version</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span><span class="n">infoDictionary</span><span class="p">][</span><span class="s">@&quot;CFBundleShortVersionString&quot;</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// バンドル：TARGET- General - Identity - Bundle（Info.plist : Bundle version）</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">bundle</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span><span class="n">infoDictionary</span><span class="p">][</span><span class="s">@&quot;CFBundleVersion&quot;</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>VersionとBundleの違いについては、理解不足。</p>
-
-<ul>
-<li>Version
-
-<ul>
-<li>表記用のリリースバージョン</li>
-</ul>
-</li>
-<li>Bundle
-
-<ul>
-<li>内部開発用のビルドバージョン</li>
-</ul>
-</li>
-</ul>
-
-
-<p>とのことみたいだが、リリース時は両方が一致している必要があるらしいとのこと。</p>
 ]]></content>
   </entry>
   
