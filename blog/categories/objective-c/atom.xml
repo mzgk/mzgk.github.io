@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T15:22:04+09:00</updated>
+  <updated>2014-08-05T15:26:32+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -40,26 +40,25 @@ NSURL* nilUrl = [NSURL URLWithString:string];
 @property (weak, nonatomic) IBOutlet UITableView <em>postlistTableView;
 @property (strong, nonatomic) UIRefreshControl </em>refreshControl;</p>
 
-<p><em>refreshControl = [UIRefreshControl new];
-[</em>postlistTableView addSubview:<em>refreshControl];    // （差異）UITableViewを直で使う場合
-self.refreshControl = refreshControl;               // （差異）UITableViewControllerを使う場合
-[</em>refreshControl addTarget:self</p>
-
-<pre><code>                action:@selector(refreshOccured:)    // 更新時の処理を行う自作メソッド名
-      forControlEvents:UIControlEventValueChanged];
-</code></pre>
-
-<p>_postlistTableView.alwaysBounceVertical = YES;          // セルが空でも可能とする</p>
-
 <ul>
-<li>(void)refreshOccured:(id)sender
+<li><p>(void)viewDidLoad
+{
+  <em>refreshControl = [UIRefreshControl new];
+  [</em>postlistTableView addSubview:<em>refreshControl];    // （差異）UITableViewを直で使う場合
+  self.refreshControl = refreshControl;               // （差異）UITableViewControllerを使う場合
+  [</em>refreshControl addTarget:self
+                      action:@selector(refreshOccured:)    // 更新時の処理を行う自作メソッド名
+            forControlEvents:UIControlEventValueChanged];
+  _postlistTableView.alwaysBounceVertical = YES;          // セルが空でも可能とする
+}</p></li>
+<li><p>(void)refreshOccured:(id)sender
 {
   // 更新で行う処理を記述
   // 更新処理を終了させる
   [<em>refreshControl endRefreshing];
   [</em>postlistTableView reloadData];
 }
-```</li>
+```</p></li>
 </ul>
 
 ]]></content>

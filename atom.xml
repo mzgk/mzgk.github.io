@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T15:22:04+09:00</updated>
+  <updated>2014-08-05T15:26:32+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -60,18 +60,20 @@
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
+<span class='line-number'>21</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UITableView</span> <span class="o">*</span><span class="n">postlistTableView</span><span class="p">;</span>
 </span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIRefreshControl</span> <span class="o">*</span><span class="n">refreshControl</span><span class="p">;</span>
 </span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">_refreshControl</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIRefreshControl</span> <span class="n">new</span><span class="p">];</span>
-</span><span class='line'><span class="p">[</span><span class="n">_postlistTableView</span> <span class="nl">addSubview:</span><span class="n">_refreshControl</span><span class="p">];</span>    <span class="c1">// （差異）UITableViewを直で使う場合</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">refreshControl</span> <span class="o">=</span> <span class="n">refreshControl</span><span class="p">;</span>               <span class="c1">// （差異）UITableViewControllerを使う場合</span>
-</span><span class='line'><span class="p">[</span><span class="n">_refreshControl</span> <span class="nl">addTarget:</span><span class="n">self</span>
-</span><span class='line'>                    <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">refreshOccured:</span><span class="p">)</span>    <span class="c1">// 更新時の処理を行う自作メソッド名</span>
-</span><span class='line'>          <span class="nl">forControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
-</span><span class='line'><span class="n">_postlistTableView</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>          <span class="c1">// セルが空でも可能とする</span>
-</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">_refreshControl</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIRefreshControl</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_postlistTableView</span> <span class="nl">addSubview:</span><span class="n">_refreshControl</span><span class="p">];</span>    <span class="c1">// （差異）UITableViewを直で使う場合</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">refreshControl</span> <span class="o">=</span> <span class="n">refreshControl</span><span class="p">;</span>               <span class="c1">// （差異）UITableViewControllerを使う場合</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_refreshControl</span> <span class="nl">addTarget:</span><span class="n">self</span>
+</span><span class='line'>                        <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">refreshOccured:</span><span class="p">)</span>    <span class="c1">// 更新時の処理を行う自作メソッド名</span>
+</span><span class='line'>              <span class="nl">forControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_postlistTableView</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>          <span class="c1">// セルが空でも可能とする</span>
+</span><span class='line'><span class="p">}</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">refreshOccured:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
 </span><span class='line'><span class="p">{</span>
