@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Start Octopress OctopressとGitHub・Bitbucket - jubilee</title>
+  <meta name="author" content="mzgk">
+
+  
+  <meta name="description" content="OctopressとGitHubでブログを構築し、Bitbucketでブログ環境を管理する方法。">
+  <meta name="keywords" content="Octopress,GitHub,Bitbucket,ブログ環境の構築">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mzgk.github.io/blog/2013/start-octopress">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jubilee</a></h1>
+  
+    <h2>Programing, Books and more...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mzgk.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Start Octopress OctopressとGitHub・Bitbucket</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-30T06:30:08+09:00" pubdate data-updated="true">2013.12.30</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>OctopressでBolg開設。GitHub・Bitbucket・localの環境構築とブログの表示まで。</p>
+
+<h2>なぜOctopressを選んだか？</h2>
+
+<ul>
+<li>ポストファイルを静的ファイルとして管理したかった</li>
+<li>Markdownで記述→generate→deploy→pushの手軽さ</li>
+<li>Git・GitHub・Markdownのスキルを身につけたい</li>
+<li>A blogging framework for hackers.</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>環境</h2>
+
+<ul>
+<li>2013.12.25作成</li>
+<li>OS X 10.9.12</li>
+<li><a href="https://github.com/" title="GitHub">GitHub</a>：アカウント作成済み・SSH確立済み</li>
+<li><a href="https://bitbucket.org/" title="Bitbucket">Bitbucket</a>：アカウント作成済み・SSH確立済み</li>
+<li>Git：インストール済み（1.8.1）</li>
+<li>Ruby：インストール済み（1.9.3p194）</li>
+<li>~/mzgk.github.ioでローカル側作業を想定（ここにOctopress一式＆Bitbucketで管理）</li>
+</ul>
+
+
+<h2>GitHub</h2>
+
+<ul>
+<li>GitHub Pagesを使用するので、USERNAME.github.ioでリポジトリを作成</li>
+<li>USERNAMEはGitHubのログインユーザ：ここではmzgk.github.ioで作成</li>
+<li>Public</li>
+<li>READMEは生成しない</li>
+</ul>
+
+
+<p><img src="/images/2013/1230/01_github.png" alt="GitHub" /></p>
+
+<h2>Local（Mac）</h2>
+
+<p>OctopressをGitHubからcloneする。</p>
+
+<ul>
+<li>Terminalを起動</li>
+<li>ホームディレクトリに移動（~/mzgk.github.ioで管理したいため）</li>
+<li>$ git clone git://github.com/imathis/octopress.git mzgk.github.io</li>
+<li>最後をmzgk.github.ioとするこことで、ホームディレクトリ直下にmzgk.github.ioディレクトリが作成される</li>
+<li>公式ではoctopressを指定</li>
+</ul>
+
+
+<p><img src="/images/2013/1230/02_octopress.png" alt="clone octopress" /></p>
+
+<h2>Octopress Setup</h2>
+
+<p>公式：<a href="http://octopress.org/docs/setup/">http://octopress.org/docs/setup/</a></p>
+
+<ul>
+<li>Terminal作業</li>
+<li>$ cd ~/mzgk.github.io　→　Octopress一式をcloneしたディレクトリに移動</li>
+<li>$ gem install bundler</li>
+<li>$ rbenv rehash　→　自分の環境がrbenvを使用しているから必要だった？</li>
+<li>$ bundle install</li>
+<li>$ rake install　→　公式テーマのインストール</li>
+</ul>
+
+
+<p><img src="/images/2013/1230/03_rake_install.png" alt="rake install" /></p>
+
+<h2>GitHub Pagesとの接続</h2>
+
+<ul>
+<li>Terminal作業（作業ディレクトリは引き続き~/mzgk.github.io）</li>
+<li>$ rake setup_github_pages</li>
+<li>URLの入力を求められるので、ブラウザでGitHubのリポジトリにアクセス</li>
+<li>HTTP / SSHの対応している方をクリックし、テキストボックスに表示されるアドレスをコピー（右端のアイコン）</li>
+<li>Terminal（Repository url: ）に貼付けてreturnキー</li>
+</ul>
+
+
+<p><img src="/images/2013/1230/04_setup_github_pages.png" alt="setup_github_pages" /></p>
+
+<h2>サイトの生成と確認</h2>
+
+<ul>
+<li>Terminal作業（作業ディレクトリは引き続き~/mzgk.github.io）</li>
+<li>$ rake generate　→　HTMLファイルを生成</li>
+<li>$ rake deploy　→　GitHubにデプロイ
+
+<ul>
+<li>_deployディレクトリがGitHubのリポジトリにpushされている模様</li>
+</ul>
+</li>
+</ul>
+
+
+<p><img src="/images/2013/1230/05_rake_deploy_local.png" alt="rake_deploy_local" />
+<img src="/images/2013/1230/06_rake_deploy_github.png" alt="rake_deploy_github" /></p>
+
+<ul>
+<li>10分程度してからブラウザで<code>http://mzgk.github.io</code>にアクセス
+
+<ul>
+<li>標準テーマで、記事のない「My Octopress Blog」が表示される</li>
+<li>時間が早いと404ページが表示される</li>
+</ul>
+</li>
+</ul>
+
+
+<p><img src="/images/2013/1230/07_my_octopress_blog.png" alt="my_octopress_blog" /></p>
+
+<ul>
+<li>いつまで経っても表示されない場合はTerminalを確認。途中でエラーの可能性あり。</li>
+<li>自分は$ rake deployでGitHubへのpushがrejectされていた（GitHubでREADMEを作成し編集していたため）</li>
+</ul>
+
+
+<h2>Bitbucketでソース管理</h2>
+
+<p>ブログに関するすべてをプライベートなリポジトリで管理したかったので選択。<br/>
+~/mzgk.github.io以下をBitbucketに作成したプライベート用リポジトリで管理</p>
+
+<ul>
+<li>ブラウザで<a href="https://bitbucket.org/" title="Bitbucket">Bitbucket</a>にアクセスし、ログイン</li>
+<li>プリベートリポジトリを作成（名前はmzgk.github.io）
+<img src="/images/2013/1230/08_bitbucket.png" alt="bitbucket" /></li>
+<li>Terminal作業（作業ディレクトリは引き続き~/mzgk.github.io）</li>
+<li>~/mzgk.github.io/sassとsourceをステージング
+
+<ul>
+<li>$ git add .</li>
+</ul>
+</li>
+<li>リモートリポジトリを追加
+
+<ul>
+<li>$ git remote add bitbucket git@bitbucket.org:mzgk/mzgk.github.io.git</li>
+</ul>
+</li>
+<li>Bitbucketにプッシュ
+
+<ul>
+<li>$ git push -u bitbucket source</li>
+<li>以降はgit pushだけで、Bitbucketにpushされる（-uオプション）</li>
+</ul>
+</li>
+<li>~/mzgk.github.io/_deployとpublicは.gitignoreで除外されていた</li>
+</ul>
+
+
+<p><img src="/images/2013/1230/09_bitbucket_push.png" alt="bitbucket_push" /></p>
+
+<h2>ハマった点</h2>
+
+<ul>
+<li>GitHubでリポジトリ作成時にREADMEを自動生成したため、$ rake_deployでローカルと不整合が発生</li>
+<li>ローカルで作業・管理するディレクトリの構成をどうするかで悩む
+
+<ul>
+<li>Blogに関わるすべてを１つのディレクトリで管理したかった</li>
+</ul>
+</li>
+<li>そもそもGit・GitHub・Rubyに関する知識が不足していた（使用経験は限りなくゼロ）
+
+<ul>
+<li>けど、知らなくてもなんとかなる手軽さ</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-30T06:30:08+09:00" pubdate data-updated="true">2013.12.30</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/setting/'>Setting</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2013/start-octopress/" data-via="" data-counturl="http://mzgk.github.io/blog/2013/start-octopress/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/procedure-to-post/" title="Next Post: Start Octopress Blogへの投稿手順">Start Octopress Blogへの投稿手順 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>mzgkworks</p>
+  <p>修行中</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/logicaloperator/">論理演算子を使って状態を逆転させる</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-5/">Octopressブログ環境の再構築：第５回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-4/">Octopressブログ環境の再構築：第４回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-3/">Octopressブログ環境の再構築：第３回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-2/">Octopressブログ環境の再構築：第２回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/finder-cut-and-paste/">Macでカット＆ペーストをする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/octopress-googlefont/">OctopressでGoogle Fontsを使う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/sublimetext-markdownpreview-css-hack/">MarkdownPreviewで独自CSSを設定する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/octopress-font-setting/">Octopressのフォントや文字間・行間を変更する</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - mzgk -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

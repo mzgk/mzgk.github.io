@@ -1,1 +1,660 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>jubilee</title>
+  <meta name="author" content="mzgk">
+
+  
+  <meta name="description" content="スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。 1
+2
+3
+4
+5
+6
+7
+- (IBAction)switchChange:(UISwitch *)sender { // スイッチのON/OFFと逆の設定をする方法 _photo.hidden = !(sender.on &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mzgk.github.io">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jubilee</a></h1>
+  
+    <h2>Programing, Books and more...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mzgk.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/logicaloperator/">論理演算子を使って状態を逆転させる</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T13:13:59+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">switchChange:</span><span class="p">(</span><span class="n">UISwitch</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// スイッチのON/OFFと逆の設定をする方法</span>
+</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 状態の逆転をさせる方法</span>
+</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-5/">Octopressブログ環境の再構築：第５回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:44:01+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Bitbucketで管理しているOctopressブログ環境を取得し、ローカルに再構築する。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）　&lt;&ndash; <strong>いまここ</strong></li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-5/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-4/">Octopressブログ環境の再構築：第４回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:38:07+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Macも新しくなったので、SSH鍵の設定をあらためて実施。<br/>
+GitHub, Biubucketに対して行う。<br/>
+別々の鍵ファイルを用意した方がいいのかもしれないが、今回は一つのファイルでやってみる。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）　&lt;&ndash; <strong>いまここ</strong></li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-4/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-3/">Octopressブログ環境の再構築：第３回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:27:31+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>前回のrbenvインストールでRubyインストールの準備が整ったので、Ruby1.9.3-p484をインストールする。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール　&lt;&ndash; <strong>いまここ</strong></li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-3/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-2/">Octopressブログ環境の再構築：第２回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:18:26+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>前回はHomebrewのインストールまでだったので、続きから。<br/>
+Rubyのバージョン管理を行うrbenvやその他必要モジュールをインストール。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール　&lt;&ndash; <strong>いまここ</strong></li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-2/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T11:27:04+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Macを新しくしたので、Octopressブログ環境を再構築する必要がでてきた。<br/>
+前のローカル環境はBitbucketで管理しているので $ git clone すればいいが、Rubyその他もろもろのセットアップは必要。<br/>
+前のMacではRubyをさわったりで、前準備ができていた状態での構築だったが、今回はゼロからの構築。<br/>
+まずは、パッケージ管理のHomebrewをインストールまでが目標。</p>
+
+<ol>
+<li>Homebrewのインストール　&lt;&ndash; <strong>いまここ</strong></li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-1/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/finder-cut-and-paste/">Macでカット＆ペーストをする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-19T21:29:35+09:00" pubdate data-updated="true">2014.02.19</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Macではカット＆ペーストはできないと思い込んでいたが、実は標準機能で可能だったのでメモ。<br/>
+カット＆ペーストのためだけに、『XtraFinder』などのアプリをインストールする必要もなかった…<br/>
+Windowsに慣れていると、ついついMacでもカット＆ペーストを <code>Cmd+x Cmd+v</code> としてしまうが、Macではちょっと勝手が違う。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/finder-cut-and-paste/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/octopress-googlefont/">OctopressでGoogle Fontsを使う</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-18T22:13:54+09:00" pubdate data-updated="true">2014.02.18</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OctopressでGoogle Fontsを使えるようにして、気に入ったフォントで表示したい。<br/>
+そして、ブラウザ間でフォントを統一したい。<br/>
+その設定方法を調べたのでメモ。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/octopress-googlefont/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/sublimetext-markdownpreview-css-hack/">MarkdownPreviewで独自CSSを設定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-02T10:21:24+09:00" pubdate data-updated="true">2014.02.02</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Sublime Text3の便利なPackage、Markdownで記述したファイルをPreviewできる『Markdown Preview』。<br/>
+GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
+どこで設定できるのか探してたところ・・・</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/sublimetext-markdownpreview-css-hack/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/octopress-font-setting/">Octopressのフォントや文字間・行間を変更する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-26T16:11:50+09:00" pubdate data-updated="true">2014.01.26</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Octopressでフォントやフォントサイズ・文字間・行間の変更をする方法。<br/>
+サイドバーにAbout Meを表示させる方法。</p>
+
+<p>デフォルトのフォント周りの設定はちょっとタイトルの文字が大きすぎたり、文章の行間がつまりすぎたりしていると感じていたので、変更してみた。<br/>
+ちなみにサイドバー用の小さいAbout Meはデフォルトで用意されている。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/octopress-font-setting/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>mzgkworks</p>
+  <p>修行中</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/logicaloperator/">論理演算子を使って状態を逆転させる</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-5/">Octopressブログ環境の再構築：第５回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-4/">Octopressブログ環境の再構築：第４回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-3/">Octopressブログ環境の再構築：第３回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-2/">Octopressブログ環境の再構築：第２回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/finder-cut-and-paste/">Macでカット＆ペーストをする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/octopress-googlefont/">OctopressでGoogle Fontsを使う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/sublimetext-markdownpreview-css-hack/">MarkdownPreviewで独自CSSを設定する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/octopress-font-setting/">Octopressのフォントや文字間・行間を変更する</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - mzgk -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

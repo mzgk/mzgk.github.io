@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Objective-C | jubilee]]></title>
+  <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
+  <link href="http://mzgk.github.io/"/>
+  <updated>2014-08-05T13:21:50+09:00</updated>
+  <id>http://mzgk.github.io/</id>
+  <author>
+    <name><![CDATA[mzgk]]></name>
+    <email><![CDATA[mzgkworks@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[論理演算子を使って状態を逆転させる]]></title>
+    <link href="http://mzgk.github.io/blog/2014/logicaloperator/"/>
+    <updated>2014-08-05T13:13:59+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/logicaloperator</id>
+    <content type="html"><![CDATA[<p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
+
+<p>```objective-c
+&ndash; (IBAction)switchChange:(UISwitch *)sender {</p>
+
+<pre><code>// スイッチのON/OFFと逆の設定をする方法
+_photo.hidden = !(sender.on);
+
+// 状態の逆転をさせる方法
+_photo.hidden = !(_photo.hidden);
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

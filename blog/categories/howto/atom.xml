@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: HowTo | jubilee]]></title>
+  <link href="http://mzgk.github.io/blog/categories/howto/atom.xml" rel="self"/>
+  <link href="http://mzgk.github.io/"/>
+  <updated>2014-08-05T13:21:50+09:00</updated>
+  <id>http://mzgk.github.io/</id>
+  <author>
+    <name><![CDATA[mzgk]]></name>
+    <email><![CDATA[mzgkworks@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Macでカット＆ペーストをする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/finder-cut-and-paste/"/>
+    <updated>2014-02-19T21:29:35+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/finder-cut-and-paste</id>
+    <content type="html"><![CDATA[<p>Macではカット＆ペーストはできないと思い込んでいたが、実は標準機能で可能だったのでメモ。<br/>
+カット＆ペーストのためだけに、『XtraFinder』などのアプリをインストールする必要もなかった…<br/>
+Windowsに慣れていると、ついついMacでもカット＆ペーストを <code>Cmd+x Cmd+v</code> としてしまうが、Macではちょっと勝手が違う。</p>
+
+<!-- more -->
+
+
+<h2>正確にはコピー＆ムーブ</h2>
+
+<p>ショートカットキーは以下。<br/>
+<code>Cmd + c</code> でコピー<br/>
+<code>Cmd + Opt + v</code> でムーブ<br/>
+これで、カット＆ペーストが可能。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Terminalで空白が存在するパスの入力]]></title>
+    <link href="http://mzgk.github.io/blog/2014/terminal-space-escape/"/>
+    <updated>2014-01-09T06:19:00+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/terminal-space-escape</id>
+    <content type="html"><![CDATA[<p>Terminalで空白が間に存在するようなディレクトリを認識させる方法。<br/>
+普通に空白を入力しても認識されないので、エスケープさせる必要がある。<br/>
+基本的な内容だけど、知らなかったので忘れないようにポスト。</p>
+
+<!-- more -->
+
+
+<h2>エスケープ</h2>
+
+<p>例えば、<br/>
+<code>
+$ cd ~/Liblary/Application Support/
+</code>
+のような場合、普通に入力すると <code>Application</code> と <code>Support</code> 間の空白が認識されず、パス不正になる。<br/>
+なので、空白前にエスケープ（\）を入力する。<br/>
+<code>
+$ cd ~/Liblary/Application\ Support/
+</code></p>
+
+<h2>シングルクウォート</h2>
+
+<p>もしくは<br/>
+<code>
+$ cd '~/Liblary/Application Support'
+</code>
+のように <code>''</code> でくくる。</p>
+
+<p>基本を知らなすぎる・・・</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Start Octopress Blogへの投稿手順]]></title>
+    <link href="http://mzgk.github.io/blog/2013/procedure-to-post/"/>
+    <updated>2013-12-31T12:25:41+09:00</updated>
+    <id>http://mzgk.github.io/blog/2013/procedure-to-post</id>
+    <content type="html"><![CDATA[<p>Octopressでの投稿手順（基本的な）。<br/>
+ファイルの作成→編集→確認→デプロイ→プッシュまで。</p>
+
+<h2>手順</h2>
+
+<h3>1. ポストファイルの生成</h3>
+
+<p><code>source/_post</code> ディレクトリにファイルが作成される。<br/>
+yyyy-mm-dd-title.markdown<br/>
+titleは英数のみ。文字間に半角空白の使用が可能（-に変換される）。<br/>
+<code>
+$ rake new_post["title"]
+</code></p>
+
+<!-- more -->
+
+
+<h3>2. 記事作成</h3>
+
+<p>作成されたファイルを編集。<br/>
+```</p>
+
+<h2>// yaml部分</h2>
+
+<p>layout: post
+title: &ldquo;title"　←　ここは日本語に変更可能
+date: 2013-12-31 12:25:41 +0900
+comments: true</p>
+
+<h2>categories: </h2>
+
+<p><code>
+このあとに１行空けて記事を書く。  
+画像は `source/images/yyyy/mm` に格納。  
+パスは相対パスを記述 `/images/yyyy/mm`  
+リサイズすること。  
+公式：[Octopress Image Tag](http://octopress.org/docs/plugins/image-tag/)  
+</code>
+<img src="%E3%83%91%E3%82%B9" title="タイトル" alt="alt-text" /><br/>
+{ % img left/right パス width height alt-text %}<br/>
+//{ と %間の空白は不要
+<code>``
+適当な部分で</code><!-- more -->` を挿入。</p>
+
+<h3>3. プレビュー確認</h3>
+
+<p><code>
+$ rake preview  
+</code>
+<a href="http://localhost:4000">http://localhost:4000</a></p>
+
+<h3>4. 静的ファイル生成</h3>
+
+<p><code>
+  $ rake generate  
+</code></p>
+
+<h3>5. デプロイ</h3>
+
+<p>GitHubのリポジトリにpushされる（反映までタイムラグがある？）。<br/>
+<code>
+$ rake deploy
+</code></p>
+
+<hr />
+
+<p>以降はソース管理の部分</p>
+
+<h3>6. ファイル管理の確認</h3>
+
+<p><code>
+$ git status
+</code></p>
+
+<h3>7. ステージング</h3>
+
+<p>追加・編集したファイルをステージング。<br/>
+<code>
+$ git add -A
+</code></p>
+
+<h3>8. コミット</h3>
+
+<p><code>
+$ git commit -m "コミットメッセージ"
+</code></p>
+
+<h3>9. Bitbucketへプッシュ</h3>
+
+<p>構築時のリモートリポジトリ指定時に <code>-u</code> しているため指定不要。<br/>
+<code>
+$ git push
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>
