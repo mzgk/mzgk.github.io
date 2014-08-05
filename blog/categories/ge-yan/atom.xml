@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: 格言 | jubilee]]></title>
+  <link href="http://mzgk.github.io/blog/categories/ge-yan/atom.xml" rel="self"/>
+  <link href="http://mzgk.github.io/"/>
+  <updated>2014-08-05T14:39:26+09:00</updated>
+  <id>http://mzgk.github.io/</id>
+  <author>
+    <name><![CDATA[mzgk]]></name>
+    <email><![CDATA[mzgkworks@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[作りの格言]]></title>
+    <link href="http://mzgk.github.io/blog/2014/maxim/"/>
+    <updated>2014-08-05T14:31:43+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/maxim</id>
+    <content type="html"><![CDATA[<blockquote><p>Do not amaze everyone, But rescure yourself.<br/>
+多くの人を感動させようとする前に、まず自分自身を救え。</p>
+
+<p>Done is better than perfect.<br/>
+完璧を目指すより、まず終わらせろ。</p>
+
+<p>Eat your own dogfood, and Serve your best dogfood.<br/>
+自分自身がユーザーであれ、そして良いと思ったものを誇りをもって出せ。</p>
+
+<p>There is worth, there is a way.<br/>
+ユーザーが対価を払う方法は必ずある、だから価値のあるものを作れ。</p></blockquote>
+]]></content>
+  </entry>
+  
+</feed>
