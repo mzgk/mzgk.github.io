@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T16:32:03+09:00</updated>
+  <updated>2014-08-05T17:05:25+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[カテゴリファイルの作り方]]></title>
+    <link href="http://mzgk.github.io/blog/2014/make-category/"/>
+    <updated>2014-08-05T16:49:30+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/make-category</id>
+    <content type="html"><![CDATA[<p>カテゴリファイルを作る際の命名方法。<br/>
+カテゴリーファイルを選択して、</p>
+
+<p><img src="http://mzgk.github.io/images/2014/0805/Category.png" alt="Xcode" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[カメラで撮影した動画をフレーム分割する方法]]></title>
@@ -1674,47 +1686,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 <p>似たようなことは、GeekなエディタのFoldingText.appでもできる。<br/>
 Macアプリのスタンダード仕様なんだろうか。<br/>
 アプリの中に設定ファイルがあるパッケージ構成（アプリ≒ディレクトリ）ってWindowsに慣れていると合理的な感じがする。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Terminalで空白が存在するパスの入力]]></title>
-    <link href="http://mzgk.github.io/blog/2014/terminal-space-escape/"/>
-    <updated>2014-01-09T06:19:00+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/terminal-space-escape</id>
-    <content type="html"><![CDATA[<p>Terminalで空白が間に存在するようなディレクトリを認識させる方法。<br/>
-普通に空白を入力しても認識されないので、エスケープさせる必要がある。<br/>
-基本的な内容だけど、知らなかったので忘れないようにポスト。</p>
-
-<!-- more -->
-
-
-<h2>エスケープ</h2>
-
-<p>例えば、</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/Liblary/Application Support/</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のような場合、普通に入力すると <code>Application</code> と <code>Support</code> 間の空白が認識されず、パス不正になる。<br/>
-なので、空白前にエスケープ（\）を入力する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd ~/Liblary/Application\ Support/</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>シングルクウォート</h2>
-
-<p>もしくは</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd '~/Liblary/Application Support'</span></code></pre></td></tr></table></div></figure>
-
-
-<p>のように <code>''</code> でくくる。</p>
-
-<p>基本を知らなすぎる・・・</p>
 ]]></content>
   </entry>
   
