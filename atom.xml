@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:43:23+09:00</updated>
+  <updated>2014-08-05T18:46:59+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,105 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[git branchのメモ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/git-branch/"/>
+    <updated>2014-08-05T18:44:02+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/git-branch</id>
+    <content type="html"><![CDATA[<p>分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。<br/>
+例えば、<br/>
+「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。<br/>
+だけど、ダメだった時に追加前に戻せるかが不安。<br/>
+こんな時にブランチをきって、そっちで機能追加をする。<br/>
+うまく行けばmasterにマージし、だめならブランチを削除すればmasterに影響はない。</p>
+
+<h2>ブランチの一覧を表示</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'>* master  // masterしかない状態
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ブランチを作成</h2>
+
+<p>masterの状態を複製して、ブランチが作成される。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch ブランチ名
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'> ブランチ名
+</span><span class='line'>*master // masterブランチにいる
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ブランチを切り替える</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout ブランチ名
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'>*ブランチ名  // このブランチにいる
+</span><span class='line'> master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>作業</h2>
+
+<p>このブランチで作業し、add, commit</p>
+
+<h2>masterにマージする</h2>
+
+<p>ブランチで作業した内容をmasterにマージする。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>// 一旦、masterに切り替える
+</span><span class='line'><span class="nv">$ </span>git checkout master
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'> ブランチ名
+</span><span class='line'>*master // masterブランチにいる
+</span><span class='line'>// マージする
+</span><span class='line'><span class="nv">$ </span>git merge ブランチ名
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ブランチを削除する</h2>
+
+<p>不要になったブランチは削除する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch -d ブランチ名
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'>*master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考：<a href="http://www.backlog.jp/git-guide/stepup/stepup1_1.html">http://www.backlog.jp/git-guide/stepup/stepup1_1.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Appをインストールできるデバイスを制限する方法]]></title>
@@ -1130,25 +1229,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[作りの格言]]></title>
-    <link href="http://mzgk.github.io/blog/2014/maxim/"/>
-    <updated>2014-08-05T14:31:43+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/maxim</id>
-    <content type="html"><![CDATA[<blockquote><p>Do not amaze everyone, But rescure yourself.<br/>
-多くの人を感動させようとする前に、まず自分自身を救え。</p>
-
-<p>Done is better than perfect.<br/>
-完璧を目指すより、まず終わらせろ。</p>
-
-<p>Eat your own dogfood, and Serve your best dogfood.<br/>
-自分自身がユーザーであれ、そして良いと思ったものを誇りをもって出せ。</p>
-
-<p>There is worth, there is a way.<br/>
-ユーザーが対価を払う方法は必ずある、だから価値のあるものを作れ。</p></blockquote>
 ]]></content>
   </entry>
   

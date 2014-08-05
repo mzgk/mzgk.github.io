@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: git | jubilee]]></title>
+  <link href="http://mzgk.github.io/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://mzgk.github.io/"/>
+  <updated>2014-08-05T18:46:59+09:00</updated>
+  <id>http://mzgk.github.io/</id>
+  <author>
+    <name><![CDATA[mzgk]]></name>
+    <email><![CDATA[mzgkworks@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[git branchのメモ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/git-branch/"/>
+    <updated>2014-08-05T18:44:02+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/git-branch</id>
+    <content type="html"><![CDATA[<p>分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。<br/>
+例えば、<br/>
+「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。<br/>
+だけど、ダメだった時に追加前に戻せるかが不安。<br/>
+こんな時にブランチをきって、そっちで機能追加をする。<br/>
+うまく行けばmasterにマージし、だめならブランチを削除すればmasterに影響はない。</p>
+
+<h2>ブランチの一覧を表示</h2>
+
+<p><code>bash
+$ git branch
+* master  // masterしかない状態
+</code></p>
+
+<h2>ブランチを作成</h2>
+
+<p>masterの状態を複製して、ブランチが作成される。</p>
+
+<p><code>bash
+$ git branch ブランチ名
+// 状態を表示
+$ git branch
+ ブランチ名
+*master // masterブランチにいる
+</code></p>
+
+<h2>ブランチを切り替える</h2>
+
+<p><code>bash
+$ git checkout ブランチ名
+// 状態を表示
+$ git branch
+*ブランチ名  // このブランチにいる
+ master
+</code></p>
+
+<h2>作業</h2>
+
+<p>このブランチで作業し、add, commit</p>
+
+<h2>masterにマージする</h2>
+
+<p>ブランチで作業した内容をmasterにマージする。</p>
+
+<p><code>bash
+// 一旦、masterに切り替える
+$ git checkout master
+// 状態を表示
+$ git branch
+ ブランチ名
+*master // masterブランチにいる
+// マージする
+$ git merge ブランチ名
+</code></p>
+
+<h2>ブランチを削除する</h2>
+
+<p>不要になったブランチは削除する。</p>
+
+<p><code>bash
+$ git branch -d ブランチ名
+// 状態を表示
+$ git branch
+*master
+</code></p>
+
+<p>参考：<a href="http://www.backlog.jp/git-guide/stepup/stepup1_1.html">http://www.backlog.jp/git-guide/stepup/stepup1_1.html</a></p>
+]]></content>
+  </entry>
+  
+</feed>
