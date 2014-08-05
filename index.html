@@ -9,7 +9,7 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Alfredの検索リストに自分が作成したファイルや連絡先を表示させないためには、以下を確認。 ">
+  <meta name="description" content="UITableViewをカスタマイズする方法。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +68,44 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/customize-uitableview/">UITableViewのカスタマイズ方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T19:04:52+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UITableViewをカスタマイズする方法。</p>
+
+<p><img src="/images/2014/0805/UITableView.png" alt="Xcode" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -686,118 +724,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/openssl-versionup/">OpenSSLのバージョンアップ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:16:03+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>2014.8.5現在の最新版は 1.0.1h。</p>
-
-<h2>バージョン確認</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
-</span><span class='line'>OpenSSL 1.0.1g 7 Apr 2014  ← Macにインストールされているバージョンが表示される
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>brew info openssl
-</span><span class='line'>openssl: stable 1.0.1g <span class="o">(</span>bottled<span class="o">)</span>  ←　HomeBrewのデータベース上の情報
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Homebrewのデータベースを更新</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew update
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>brew info openssl
-</span><span class='line'>openssl: stable 1.0.1h <span class="o">(</span>bottled<span class="o">)</span>　←　更新された
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>OpenSSLの更新</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew upgrade openssl
-</span><span class='line'>...
-</span><span class='line'>...
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>利用可能か確認</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
-</span><span class='line'>...
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>which openssl
-</span><span class='line'>/usr/bin/openssl　←　Homebrewでインストールしたものではない
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>$ brew upgrade openssl</code> のログに
-<code>This formula is keg-only, so it was not symlinked into /usr/local.</code> とあるように、まだリンクされていない。</p>
-
-<h2>HoembrewでインストールしたOpenSSLの使用設定</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew link openssl --force
-</span><span class='line'>...
-</span><span class='line'><span class="nv">$ </span>openssl version
-</span><span class='line'>OpenSSL 1.0.1h 5 Jun 2014　←　変わらない場合は、一度Terminalを再起動
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>which openssl
-</span><span class='line'>/usr/local/bin/openssl
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -816,6 +742,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/customize-uitableview/">UITableViewのカスタマイズ方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/alfred-setting/">Alfredで自分の作成したファイル等を検索結果として表示させない方法</a>
@@ -851,10 +781,6 @@
     
       <li class="post">
         <a href="/blog/2014/objectivec-boolean/">Objective-Cの真偽値</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/openssl-versionup/">OpenSSLのバージョンアップ</a>
       </li>
     
   </ul>
