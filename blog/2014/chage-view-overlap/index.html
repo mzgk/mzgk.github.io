@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>論理演算子を使って状態を逆転させる - jubilee</title>
+  <title>ビューの重なり順を変更する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="論理演算子を使って状態を逆転させる">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="ビューの重なり順をコードで変更する方法">
+  <meta name="keywords" content="Objective-C, iOS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/logicaloperator">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/chage-view-overlap">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +71,7 @@
   
   <header>
     
-      <h1 class="entry-title">論理演算子を使って状態を逆転させる</h1>
+      <h1 class="entry-title">ビューの重なり順を変更する</h1>
     
     
       <p class="meta">
@@ -87,29 +87,68 @@
   
 
 
-<time datetime="2014-08-05T13:13:59+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T15:34:39+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
+<div class="entry-content"><p>ビューの重なり順をコードで変更する方法。</p>
+
+<h2>自分に追加されているサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">superview</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>挿入位置をインデックス番号で指定する</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">atIndex:</span><span class="mi">1</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定ビューの前／後ろに挿入する</h2>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">switchChange:</span><span class="p">(</span><span class="n">UISwitch</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// スイッチのON/OFFと逆の設定をする方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 状態の逆転をさせる方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// _targetViewの下にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">belowSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// _targetViewの上にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">aboveSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ビューを最前面／再背面に移動させる</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 最前面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">bringSubviewToFront:</span><span class="n">_imageView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// 再背面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">sendSubviewToBack:</span><span class="n">_imageView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定したインデックスのビューの重なりを入れ替える</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
 </div>
@@ -134,7 +173,7 @@
   
 
 
-<time datetime="2014-08-05T13:13:59+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T15:34:39+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
@@ -148,7 +187,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/logicaloperator/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/logicaloperator/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/chage-view-overlap/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/chage-view-overlap/" >Tweet</a>
   
   
   
@@ -157,10 +196,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/restart-octopress-5/" title="Previous Post: Octopressブログ環境の再構築：第５回">&laquo; Octopressブログ環境の再構築：第５回</a>
+        <a class="basic-alignment left" href="/blog/2014/filepath-nsurl/" title="Previous Post: ファイルパス（NSString）をNSURLに変換する方法（日本語OK）">&laquo; ファイルパス（NSString）をNSURLに変換する方法（日本語OK）</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/exception-breakpoint/" title="Next Post: Xcodeで例外が発生した場所を特定する">Xcodeで例外が発生した場所を特定する &raquo;</a>
       
     </p>
   </footer>

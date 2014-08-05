@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T15:26:32+09:00</updated>
+  <updated>2014-08-05T15:59:17+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ビューの重なり順を変更する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/chage-view-overlap/"/>
+    <updated>2014-08-05T15:34:39+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/chage-view-overlap</id>
+    <content type="html"><![CDATA[<p>ビューの重なり順をコードで変更する方法。</p>
+
+<h2>自分に追加されているサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">superview</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>挿入位置をインデックス番号で指定する</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">atIndex:</span><span class="mi">1</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定ビューの前／後ろに挿入する</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// _targetViewの下にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">belowSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// _targetViewの上にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">aboveSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ビューを最前面／再背面に移動させる</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 最前面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">bringSubviewToFront:</span><span class="n">_imageView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// 再背面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">sendSubviewToBack:</span><span class="n">_imageView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定したインデックスのビューの重なりを入れ替える</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ファイルパス（NSString）をNSURLに変換する方法（日本語OK）]]></title>
@@ -1467,123 +1532,6 @@ Defaultディレクトリが存在しない場合は作成。</li>
 </span><span class='line'>      { "key": "setting.tab_completion", "operator": "equal", "operand": true }
 </span><span class='line'>    ]
 </span><span class='line'>},</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Start Octopress Blogへの投稿手順]]></title>
-    <link href="http://mzgk.github.io/blog/2013/procedure-to-post/"/>
-    <updated>2013-12-31T12:25:41+09:00</updated>
-    <id>http://mzgk.github.io/blog/2013/procedure-to-post</id>
-    <content type="html"><![CDATA[<p>Octopressでの投稿手順（基本的な）。<br/>
-ファイルの作成→編集→確認→デプロイ→プッシュまで。</p>
-
-<h2>手順</h2>
-
-<h3>1. ポストファイルの生成</h3>
-
-<p><code>source/_post</code> ディレクトリにファイルが作成される。<br/>
-yyyy-mm-dd-title.markdown<br/>
-titleは英数のみ。文字間に半角空白の使用が可能（-に変換される）。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post["title"]</span></code></pre></td></tr></table></div></figure>
-
-
-<!-- more -->
-
-
-<h3>2. 記事作成</h3>
-
-<p>作成されたファイルを編集。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// yaml部分
-</span><span class='line'>---
-</span><span class='line'>layout: post
-</span><span class='line'>title: "title"　←　ここは日本語に変更可能
-</span><span class='line'>date: 2013-12-31 12:25:41 +0900
-</span><span class='line'>comments: true
-</span><span class='line'>categories: 
-</span><span class='line'>---</span></code></pre></td></tr></table></div></figure>
-
-
-<p>このあとに１行空けて記事を書く。<br/>
-画像は <code>source/images/yyyy/mm</code> に格納。<br/>
-パスは相対パスを記述 <code>/images/yyyy/mm</code><br/>
-リサイズすること。<br/>
-公式：<a href="http://octopress.org/docs/plugins/image-tag/">Octopress Image Tag</a></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>![alt-text](パス "タイトル")  
-</span><span class='line'>{ % img left/right パス width height alt-text %}  
-</span><span class='line'>//{ と %間の空白は不要</span></code></pre></td></tr></table></div></figure>
-
-
-<p>適当な部分で <code>&lt;!-- more --&gt;</code> を挿入。</p>
-
-<h3>3. プレビュー確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake preview  </span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://localhost:4000">http://localhost:4000</a></p>
-
-<h3>4. 静的ファイル生成</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  $ rake generate  </span></code></pre></td></tr></table></div></figure>
-
-
-<h3>5. デプロイ</h3>
-
-<p>GitHubのリポジトリにpushされる（反映までタイムラグがある？）。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
-
-
-<hr />
-
-<p>以降はソース管理の部分</p>
-
-<h3>6. ファイル管理の確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git status</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>7. ステージング</h3>
-
-<p>追加・編集したファイルをステージング。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add -A</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>8. コミット</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git commit -m "コミットメッセージ"</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>9. Bitbucketへプッシュ</h3>
-
-<p>構築時のリモートリポジトリ指定時に <code>-u</code> しているため指定不要。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git push</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

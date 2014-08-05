@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T15:26:32+09:00</updated>
+  <updated>2014-08-05T15:59:17+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,58 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ビューの重なり順を変更する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/chage-view-overlap/"/>
+    <updated>2014-08-05T15:34:39+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/chage-view-overlap</id>
+    <content type="html"><![CDATA[<p>ビューの重なり順をコードで変更する方法。</p>
+
+<h2>自分に追加されているサブビューの配列を取得</h2>
+
+<p><code>objective-c
+self.subviews
+</code></p>
+
+<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
+
+<p><code>objective-c
+superview.subviews
+</code></p>
+
+<h2>挿入位置をインデックス番号で指定する</h2>
+
+<p><code>objective-c
+[self.view insertSubview:_imageView atIndex:1];
+</code></p>
+
+<h2>指定ビューの前／後ろに挿入する</h2>
+
+<p><code>objective-c
+// _targetViewの下にする
+[self.view insertSubview:_imageView belowSubview:_targetView];
+// _targetViewの上にする
+[self.view insertSubview:_imageView aboveSubview:_targetView];
+</code></p>
+
+<h2>ビューを最前面／再背面に移動させる</h2>
+
+<p><code>objective-c
+// 最前面
+[self.view bringSubviewToFront:_imageView];
+// 再背面
+[self.view sendSubviewToBack:_imageView];
+</code></p>
+
+<h2>指定したインデックスのビューの重なりを入れ替える</h2>
+
+<p><code>objective-c
+// 1番目と3番目を入れ替える
+[self.view exchangeSubviewAtIndex:1 withSubviewAtIndex:3];
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ファイルパス（NSString）をNSURLに変換する方法（日本語OK）]]></title>
@@ -110,28 +162,6 @@ NSURL* nilUrl = [NSURL URLWithString:string];
 そんな時に有効な設定。</p>
 
 <p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[論理演算子を使って状態を逆転させる]]></title>
-    <link href="http://mzgk.github.io/blog/2014/logicaloperator/"/>
-    <updated>2014-08-05T13:13:59+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/logicaloperator</id>
-    <content type="html"><![CDATA[<p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
-
-<p>```objective-c
-&ndash; (IBAction)switchChange:(UISwitch *)sender {</p>
-
-<pre><code>// スイッチのON/OFFと逆の設定をする方法
-_photo.hidden = !(sender.on);
-
-// 状態の逆転をさせる方法
-_photo.hidden = !(_photo.hidden);
-</code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   
