@@ -5,12 +5,18 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>作りの格言 - jubilee</title>
+  <title>Objective-Cの真偽値 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="モノを作るときに肝に銘じる言葉">
-  <meta name="keywords" content="格言,ものづくり">
+  <meta name="description" content="通常はBOOLなのでこっちを使う 真：YES : 1
+偽：NO : 0 Booleanの場合 真：TRUE : 1
+偽：FALSE : 0 1
+2
+3
+if (!new_flg) { 偽の判断（new_flgの値はNO = 0）
+} ">
+  <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/maxim">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/objectivec-boolean">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +77,7 @@
   
   <header>
     
-      <h1 class="entry-title">作りの格言</h1>
+      <h1 class="entry-title">Objective-Cの真偽値</h1>
     
     
       <p class="meta">
@@ -87,24 +93,37 @@
   
 
 
-<time datetime="2014-08-05T14:31:43+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T18:18:53+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><blockquote><p>Do not amaze everyone, But rescure yourself.<br/>
-多くの人を感動させようとする前に、まず自分自身を救え。</p>
+<div class="entry-content"><h3>通常はBOOLなのでこっちを使う</h3>
 
-<p>Done is better than perfect.<br/>
-完璧を目指すより、まず終わらせろ。</p>
+<ul>
+<li>真：YES : 1</li>
+<li>偽：NO : 0</li>
+</ul>
 
-<p>Eat your own dogfood, and Serve your best dogfood.<br/>
-自分自身がユーザーであれ、そして良いと思ったものを誇りをもって出せ。</p>
 
-<p>There is worth, there is a way.<br/>
-ユーザーが対価を払う方法は必ずある、だから価値のあるものを作れ。</p></blockquote>
+<h3>Booleanの場合</h3>
+
+<ul>
+<li>真：TRUE : 1</li>
+<li>偽：FALSE : 0</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">new_flg</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">偽の判断（</span><span class="n">new_flg</span><span class="err">の値は</span><span class="n">NO</span> <span class="o">=</span> <span class="mi">0</span><span class="err">）</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -127,12 +146,12 @@
   
 
 
-<time datetime="2014-08-05T14:31:43+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-05T18:18:53+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ge-yan/'>格言</a>
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
   
 </span>
 
@@ -141,7 +160,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/maxim/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/maxim/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/objectivec-boolean/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/objectivec-boolean/" >Tweet</a>
   
   
   
@@ -150,10 +169,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/confirm-subview/" title="Previous Post: 対象のビューがサブビューかどうか判断する方法">&laquo; 対象のビューがサブビューかどうか判断する方法</a>
+        <a class="basic-alignment left" href="/blog/2014/openssl-versionup/" title="Previous Post: OpenSSLのバージョンアップ">&laquo; OpenSSLのバージョンアップ</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/uirefreshcontrol/" title="Next Post: 引っ張って更新を使う（UITableViewController / UITableView）">引っ張って更新を使う（UITableViewController / UITableView） &raquo;</a>
       
     </p>
   </footer>

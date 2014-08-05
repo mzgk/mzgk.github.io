@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:18:09+09:00</updated>
+  <updated>2014-08-05T18:23:13+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Objective-Cの真偽値]]></title>
+    <link href="http://mzgk.github.io/blog/2014/objectivec-boolean/"/>
+    <updated>2014-08-05T18:18:53+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/objectivec-boolean</id>
+    <content type="html"><![CDATA[<h3>通常はBOOLなのでこっちを使う</h3>
+
+<ul>
+<li>真：YES : 1</li>
+<li>偽：NO : 0</li>
+</ul>
+
+
+<h3>Booleanの場合</h3>
+
+<ul>
+<li>真：TRUE : 1</li>
+<li>偽：FALSE : 0</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">new_flg</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">偽の判断（</span><span class="n">new_flg</span><span class="err">の値は</span><span class="n">NO</span> <span class="o">=</span> <span class="mi">0</span><span class="err">）</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[OpenSSLのバージョンアップ]]></title>
@@ -1034,179 +1066,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressブログ環境の再構築：第５回]]></title>
-    <link href="http://mzgk.github.io/blog/2014/restart-octopress-5/"/>
-    <updated>2014-02-22T12:44:01+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/restart-octopress-5</id>
-    <content type="html"><![CDATA[<p>Bitbucketで管理しているOctopressブログ環境を取得し、ローカルに再構築する。</p>
-
-<ol>
-<li>Homebrewのインストール</li>
-<li>rbenvのインストール</li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）　&lt;&ndash; <strong>いまここ</strong></li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>手順</h2>
-
-<ol>
-<li>Octopressブログ環境の取得（Bitbucketから）</li>
-<li>bundlerのインストール</li>
-<li>GitHubとOctopressを繋げる</li>
-<li>GitHubリポジトリ（mzgk.github.io）の削除／再作成（他に解決法はあると思う）</li>
-<li>記事作成 &ndash;> デプロイ</li>
-<li>Octopressブログ環境を管理（Bitbucket）</li>
-</ol>
-
-
-<h2>1. Octopressブログ環境の取得</h2>
-
-<p>BitbucketのリポジトリでOctopressローカル環境を管理していたので、$ git clone でローカルにファイルを取得する。<br/>
-Terminalを起動し、ディレクトリを作成したい場所まで移動。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git@bitbucket.org:mzgk/mzgk.github.io.git
-</span><span class='line'>...
-</span><span class='line'>Checking connectivity... done</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これでローカルにmzgk.github.ioディレクトリが作成され、ブログ環境一式が取得できる。</p>
-
-<h2>2. bundlerインストール</h2>
-
-<p>予想していなかったが、bundlerのインストールが必要だった。<br/>
-テーマは既にあるので <code>$ rake install</code> は不要。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Octopress環境のディレクトリに移動して
-</span><span class='line'>$ gem install bundler
-</span><span class='line'>...
-</span><span class='line'>Installing RDoc documentation for bundler-1.5.3...
-</span><span class='line'>$ rbenv rehash
-</span><span class='line'>$ bundle install
-</span><span class='line'>...
-</span><span class='line'>Your bundle is complete!</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>3. GitHubとOctopressを繋げる</h2>
-
-<p>これも予想していなかったが、ローカルとGitHub Pagesの接続が必要。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// Octopress環境のディレクトリに移動して
-</span><span class='line'>$ rake setup_github_pages
-</span><span class='line'>...
-</span><span class='line'>Repository url:ここにGitHubリポジトリの「SSH clone URL」をペースト
-</span><span class='line'>...
-</span><span class='line'>## Now you can deploy to git@...</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>4. GitHubリポジトリ（mzgk.github.io）の削除／再作成（※※解決法あり）</h2>
-
-<p>なぜか、<code>$rake deploy</code> でエラーが発生して失敗する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>## Pushing generated _deploy website
-</span><span class='line'>To git@github.com:mzgk/mzgk.github.io.git
-</span><span class='line'> ! [rejected]        master -&gt; master (non-fast-forward)
-</span><span class='line'>error: failed to push some refs to 'git@github.com:mzgk/mzgk.github.io.git'
-</span><span class='line'>hint: Updates were rejected because the tip of your current branch is behind
-</span><span class='line'>hint: its remote counterpart. Merge the remote changes (e.g. 'git pull')
-</span><span class='line'>hint: before pushing again.
-</span><span class='line'>hint: See the 'Note about fast-forwards' in 'git push --help' for details.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>よくわからず…（-fの方法は？）<br/>
-コンフリクトしているみたいなので、デプロイ先のGitHubのリポジトリを消してみる。<br/>
-再度、$ rake deployでうまくいく。</p>
-
-<p>※※<br/>
-Rakefileを以下のように変更してdeployすると大丈夫だとのこと（今回は試してはいない）。<br/>
-L264行目あたり</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>system "git push origin #{deploy_branch}"
-</span><span class='line'>↓
-</span><span class='line'>system "git push origin +#{deploy_branch}"</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>5. 記事作成->デプロイ</h2>
-
-<p>あとはいつも通りの流れ。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// ポストファイル作成（source/_postsにyyyy-mm-dd-title.markdown）
-</span><span class='line'>$ rake new_post["title"]
-</span><span class='line'>// 記事を書いて
-</span><span class='line'>// 生成
-</span><span class='line'>$ rake generate
-</span><span class='line'>// プレビュー（localhost:4000）
-</span><span class='line'>$ rake preview
-</span><span class='line'>// デプロイ
-</span><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>6. Octopressブログ環境を管理（Bitbucket）</h2>
-
-<p>ローカル環境をリモートリポジトリBitbucketにPUSHして管理。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .
-</span><span class='line'>$ git commit -m "コメント"
-</span><span class='line'>// リモートリポジトリを追加
-</span><span class='line'>$ git remote add bitbucket git@bitbucket.org:mzgk/mzgk.github.io.git
-</span><span class='line'>// リモートリポジトリにPush（以後は$ git pushのみで可）
-</span><span class='line'>$ git push -u bitbucket source</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>以上</h2>
-
-<p>以上で、無事に終了。</p>
 ]]></content>
   </entry>
   

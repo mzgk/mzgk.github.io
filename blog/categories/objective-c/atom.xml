@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T18:18:09+09:00</updated>
+  <updated>2014-08-05T18:23:13+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,38 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Objective-Cの真偽値]]></title>
+    <link href="http://mzgk.github.io/blog/2014/objectivec-boolean/"/>
+    <updated>2014-08-05T18:18:53+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/objectivec-boolean</id>
+    <content type="html"><![CDATA[<h3>通常はBOOLなのでこっちを使う</h3>
+
+<ul>
+<li>真：YES : 1</li>
+<li>偽：NO : 0</li>
+</ul>
+
+
+<h3>Booleanの場合</h3>
+
+<ul>
+<li>真：TRUE : 1</li>
+<li>偽：FALSE : 0</li>
+</ul>
+
+
+<p>```objective-c
+if (!new_flg) {</p>
+
+<pre><code>偽の判断（new_flgの値はNO = 0）
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIButtonでタップ毎にボタン画像を切替える]]></title>
@@ -156,45 +188,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <h2>参考</h2>
 
 <p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UITableViewのセル編集をさせない方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell/"/>
-    <updated>2014-08-05T17:42:38+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/not-allowed-to-edit-cell</id>
-    <content type="html"><![CDATA[<p>セルスワイプでの削除をやめる方法。<br/>
-セルの編集を許可するかどうかを返すメソッドでNOを返す。</p>
-
-<p>```objective-c
-&ndash; (BOOL)tableView:(UITableView <em>)tableView canEditRowAtIndexPath:(NSIndexPath </em>)indexPath
-{</p>
-
-<pre><code>// Return NO if you do not want the specified item to be editable.
-// TODO: セル削除を可能にする時はYESに変更すること
-return NO;
-</code></pre>
-
-<p>}
-```</p>
-
-<p>もしくは、以下のメソッドをコメントアウト。</p>
-
-<p>```objective-c
-&ndash; (void)tableView:(UITableView <em>)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath </em>)indexPath
-{</p>
-
-<pre><code>if (editingStyle == UITableViewCellEditingStyleDelete) {
-    [_objects removeObjectAtIndex:indexPath.row];
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-} else if (editingStyle == UITableViewCellEditingStyleInsert) {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-}
-</code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   
