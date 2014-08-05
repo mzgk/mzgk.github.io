@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T17:59:11+09:00</updated>
+  <updated>2014-08-05T18:04:32+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UINavigationBarの色を制御する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/set-navigationbar-color/"/>
+    <updated>2014-08-05T18:01:40+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/set-navigationbar-color</id>
+    <content type="html"><![CDATA[<p>NavigationBarのカラーやアイテムの色を制御する方法。<br/>
+NavigationControllerの次のViewControllerで設定を行う。</p>
+
+<p><code>objective-c
+// 背景色
+self.navigationController.navigationBar.barTintColor = [UIColor colorWithHex:@"2F78B7"];
+// アイテムの色
+self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+// タイトルの色
+self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UITableViewのセルのハイライト制御]]></title>
@@ -152,18 +171,6 @@ NSString *bundle = [[NSBundle mainBundle]infoDictionary][@&ldquo;CFBundleVersion
 
 
 <p>とのことみたいだが、リリース時は両方が一致している必要があるらしいとのこと。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[カテゴリファイルの作り方]]></title>
-    <link href="http://mzgk.github.io/blog/2014/make-category/"/>
-    <updated>2014-08-05T16:49:30+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/make-category</id>
-    <content type="html"><![CDATA[<p>カテゴリファイルを作る際の命名方法。<br/>
-カテゴリーファイルを選択して、</p>
-
-<p><img src="/images/2014/0805/Category.png" alt="Xcode" /></p>
 ]]></content>
   </entry>
   

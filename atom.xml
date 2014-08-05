@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T17:59:11+09:00</updated>
+  <updated>2014-08-05T18:04:32+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UINavigationBarの色を制御する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/set-navigationbar-color/"/>
+    <updated>2014-08-05T18:01:40+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/set-navigationbar-color</id>
+    <content type="html"><![CDATA[<p>NavigationBarのカラーやアイテムの色を制御する方法。<br/>
+NavigationControllerの次のViewControllerで設定を行う。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 背景色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">barTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithHex:</span><span class="s">@&quot;2F78B7&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// アイテムの色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// タイトルの色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">titleTextAttributes</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIScrollViewでタップ検知を追加]]></title>
@@ -1478,180 +1503,6 @@ SSL（Secure Socket Layer）は、ネットワーク通信を暗号化するラ�
 </span><span class='line'>######################################################################## 100.0%
 </span><span class='line'>==&gt; ./install.sh
 </span><span class='line'>🍺  /usr/local/Cellar/ruby-build/20140214: 108 files, 472K, built in 2 seconds</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Octopressブログ環境の再構築：第１回]]></title>
-    <link href="http://mzgk.github.io/blog/2014/restart-octopress-1/"/>
-    <updated>2014-02-22T11:27:04+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/restart-octopress-1</id>
-    <content type="html"><![CDATA[<p>Macを新しくしたので、Octopressブログ環境を再構築する必要がでてきた。<br/>
-前のローカル環境はBitbucketで管理しているので $ git clone すればいいが、Rubyその他もろもろのセットアップは必要。<br/>
-前のMacではRubyをさわったりで、前準備ができていた状態での構築だったが、今回はゼロからの構築。<br/>
-まずは、パッケージ管理のHomebrewをインストールまでが目標。</p>
-
-<ol>
-<li>Homebrewのインストール　&lt;&ndash; <strong>いまここ</strong></li>
-<li>rbenvのインストール</li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>現在の環境</h2>
-
-<ul>
-<li>OS X 10.9.1 (Mavericks)</li>
-<li>Ruby 2.0.0-p247</li>
-<li>git 1.8.3.4 (Apple Git-47)</li>
-<li>XCode5</li>
-</ul>
-
-
-<h2>まずは</h2>
-
-<p>Octopressを使いたいので、Ruby1.9.3が必要。<br/>
-だけど、今は2.0.0がインストールされている。<br/>
-なので、Rubyのインストールが必要。<br/>
-それには、Rubyのバージョン管理をしてくれるrbenvが必要。<br/>
-じゃあまずは、rbenvをインストールするためにパッケージ管理のHomebrewをインストールしないと。</p>
-
-<h2>Homebrew</h2>
-
-<p>※XCode5はインストール済み（＝Command Line Toolはインストール済み）<br/>
-→ここは <strong>大きな間違い。</strong> Xcodeインストールしただけではダメ。自分で別途インストールする必要あり。</p>
-
-<h3>インストールディレクトリの確認</h3>
-
-<ul>
-<li><code>$ ls /usr/local</code></li>
-<li>無ければ作成</li>
-<li><code>$ sudo mkdir /usr/local</code></li>
-<li>sudoなしで実行したら、<code>Permission denied</code> が表示される</li>
-</ul>
-
-
-<h3>Homebrewのインストール</h3>
-
-<ul>
-<li>まずは<a href="http://brew.sh/index_ja.html">公式サイト</a>を確認</li>
-<li>サイトからインストールコマンドをコピーし、Terminalにペーストし実行</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>Command Line Toolが入っていない…？</li>
-<li>Xcodeをインストールしただけで、Command Line Toolはまだインストールされていなかった…</li>
-<li>ダイアログが表示されるので、インストールを選択</li>
-<li>Command Line Toolがインストールされ、Homebrewのインストールが進んでいく</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>==&gt; Installation successful!
-</span><span class='line'>You should run 'brew doctor' *before* you install anything.
-</span><span class='line'>
-</span><span class='line'>// brew doctorで確認
-</span><span class='line'>$ brew doctor
-</span><span class='line'>Your system is ready to brew.
-</span><span class='line'>
-</span><span class='line'>// バージョンを見る
-</span><span class='line'>$ brew --version
-</span><span class='line'>0.9.5</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>パスを通す</h2>
-
-<ul>
-<li>ホームディレクトリ直下に.bash_profileと.bashrcを作成する（ない場合）</li>
-<li>.bash_profileに以下を記述</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ touch ~/.bash_profile .bashrc &lt;- 作成
-</span><span class='line'>$ vim ~/.bash_profile &lt;- vim起動
-</span><span class='line'>...
-</span><span class='line'># Terminal起動時は.bash_profile→.bashrcが、シェル切り替え時は.bashrcが単体で読込まれる
-</span><span class='line'># なので、以後の設定は.bashrcに記述するとどのような場合でも同じパス設定が読込まれる。
-</span><span class='line'>if [-f ~/.bashrc]; then
-</span><span class='line'>  . ~/.bashrc
-</span><span class='line'>fi</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>.bashrcに以下を記述</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vim ~/.bashrc
-</span><span class='line'>...
-</span><span class='line'># Homebrew setting
-</span><span class='line'># Homebrewでインストールされたモジュールは以下に格納されるので、
-</span><span class='line'># TerminalでHomebrewのコマンドを使用できるようにパスを通しておく
-</span><span class='line'>PATH=/usr/local/bin:/usr/local/sbin:$PATH
-</span><span class='line'>export PATH</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>確認<br/>
-/usr/local/binが２つでる…。</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ echo $PATH
-</span><span class='line'>/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>問題発生
-
-<ul>
-<li>直そうと思って、.bashrcの記述を変更</li>
-<li>そしたら記述を間違ったらしく.bashrcエラーでTerminalからコマンドを受け付けなくなる…</li>
-<li>$ vi も $ vim も$ rmも受け付けない。困った…</li>
-<li>隠しファイルを表示させようにもコマンドが打てない…</li>
-<li>coda2で『ファイルを開く＞下のオプションボタン＞隠しファイルを表示』にチェック</li>
-<li>再度開くと隠しファイルが表示されるので、.bashrcを選択して内容を修正</li>
-<li>Terminalを再起動させて回復</li>
-</ul>
-</li>
-</ul>
 
 ]]></content>
   </entry>

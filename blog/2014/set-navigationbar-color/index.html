@@ -5,12 +5,20 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>DayOne.appで自分の好きなフォントとレイアウトを使用する - jubilee</title>
+  <title>UINavigationBarの色を制御する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="DayOne.appで自分の好きなフォントとレイアウトを使用する方法">
-  <meta name="keywords" content="Mac,DayOne,カスタマイズ,css,フォント,レイアウト">
+  <meta name="description" content="NavigationBarのカラーやアイテムの色を制御する方法。
+NavigationControllerの次のViewControllerで設定を行う。 1
+2
+3
+4
+5
+6
+// 背景色
+self.navigationController.navigationBar.barTintColor &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/dayone-font-setting">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/set-navigationbar-color">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">DayOne.appで自分の好きなフォントとレイアウトを使用する</h1>
+      <h1 class="entry-title">UINavigationBarの色を制御する</h1>
     
     
       <p class="meta">
@@ -87,59 +95,30 @@
   
 
 
-<time datetime="2014-01-23T08:18:06+09:00" pubdate data-updated="true">2014.01.23</time>
+<time datetime="2014-08-05T18:01:40+09:00" pubdate data-updated="true">2014.08.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>MacのDayOne.appを自分好みのフォント・レイアウトで使う方法。<br/>
-このDayOneっていうジャーナルアプリ、iOSと連携しているしUXもいいしmarkdownも使えるしで、作業ログや日誌をつけるのによく使ってた。<br/>
-だけど、選択できるフォントが少ない＆和文フォントは選択できない。<br/>
-表示レイアウトも微妙・・・<br/>
-なので、いつの日からかあまり使わなくなって放置ぎみ。<br/>
-けど、ログが残ってないと過去に何をしたか、明日は何をやるつもりだったかわからない。</p>
+<div class="entry-content"><p>NavigationBarのカラーやアイテムの色を制御する方法。<br/>
+NavigationControllerの次のViewControllerで設定を行う。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>過去の自分 ≠ 今の自分</span></code></pre></td></tr></table></div></figure>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 背景色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">barTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithHex:</span><span class="s">@&quot;2F78B7&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// アイテムの色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// タイトルの色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">titleTextAttributes</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
+</span></code></pre></td></tr></table></div></figure>
 
-
-<p>なので、フォントとレイアウトを自分好みに設定できないか調べてみた。<br/>
-こんな感じ。<br/>
-<img src="/images/2014/0123/dayone.png" alt="Day One" /></p>
-
-<!-- more -->
-
-
-<h2>設定方法</h2>
-
-<p>なんと、CSSで設定可能。<br/>
-方法は以下。あとパーミッションの関係で途中にパスワード入力が必要になるかも。</p>
-
-<ol>
-<li>Finder > アプリケーションでDay One.appを選択</li>
-<li>右クリック > パッケージの内容を表示</li>
-<li><code>Application/Day One.app/Contents/Resources/</code> に移動する</li>
-<li><code>DayOne-フォント名.css</code>（設定で指定しているフォント名）をデスクトップにコピー</li>
-<li>元ファイルをリネーム</li>
-<li>コピーしたファイルにCSSでフォントや文字間隔・行間隔など記述</li>
-<li>元あったところに戻す</li>
-<li>DayOneを再起動</li>
-</ol>
-
-
-<h2>ファイル</h2>
-
-<p><code>DayOne-フォント名.css</code> には基本的にfont-familyのみが定義されている。<br/>
-基本レイアウトなんかは、同じ場所にある <code>Dayone.css</code> に定義されている。<br/>
-<code>DayOne-フォント名.css</code> にレイアウト等の記載をすることで、Dayone.cssの定義が上書き適用されるみたい。</p>
-
-<h2>似たようなことは</h2>
-
-<p>似たようなことは、GeekなエディタのFoldingText.appでもできる。<br/>
-Macアプリのスタンダード仕様なんだろうか。<br/>
-アプリの中に設定ファイルがあるパッケージ構成（アプリ≒ディレクトリ）ってWindowsに慣れていると合理的な感じがする。</p>
 </div>
 
 
@@ -162,12 +141,12 @@ Macアプリのスタンダード仕様なんだろうか。<br/>
   
 
 
-<time datetime="2014-01-23T08:18:06+09:00" pubdate data-updated="true">2014.01.23</time>
+<time datetime="2014-08-05T18:01:40+09:00" pubdate data-updated="true">2014.08.05</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/setting/'>Setting</a>
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
   
 </span>
 
@@ -176,7 +155,7 @@ Macアプリのスタンダード仕様なんだろうか。<br/>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/dayone-font-setting/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/dayone-font-setting/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/set-navigationbar-color/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/set-navigationbar-color/" >Tweet</a>
   
   
   
@@ -185,10 +164,8 @@ Macアプリのスタンダード仕様なんだろうか。<br/>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/terminal-space-escape/" title="Previous Post: Terminalで空白が存在するパスの入力">&laquo; Terminalで空白が存在するパスの入力</a>
+        <a class="basic-alignment left" href="/blog/2014/uiscrollview-tapevent/" title="Previous Post: UIScrollViewでタップ検知を追加">&laquo; UIScrollViewでタップ検知を追加</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/octopress-font-setting/" title="Next Post: Octopressのフォントや文字間・行間を変更する">Octopressのフォントや文字間・行間を変更する &raquo;</a>
       
     </p>
   </footer>
