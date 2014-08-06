@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:31:20+09:00</updated>
+  <updated>2014-08-06T14:43:45+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CocoaPodsでライセンス表記を自動で作成する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/cocoapods-license-auto-make/"/>
+    <updated>2014-08-06T13:52:05+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/cocoapods-license-auto-make</id>
+    <content type="html"><![CDATA[<p>CocoaPodsを使用している場合に、使用しているライブラリのライセンス表記を自動で作成する方法。<br/>
+ライセンス表記は、iPhoneの設定アプリに作成される。<br/>
+<code>pod install / pod update</code> するたびに自動作成してくれるので、ライブラリの追加／削除のたびにライセンス表記の修正をしなくていいので便利。 <br/>
+作成時に、些細なところでハマったので、やり方を残しておく。</p>
+
+<h2>Settings.bundleを作成</h2>
+
+<p>File &ndash; New &ndash; File から、iOS &ndash; Resource で「Settings Bundle」を選択。
+<img src="/images/2014/0806/cocoapods-license-1.png" alt="settingbundle1" /></p>
+
+<p>作成する場所を選択する。<br/>
+ここで、Groupを「Supporting Files」にはしないこと。　←　ここでハマった。
+<img src="/images/2014/0806/cocoapods-license-2.png" alt="settingbundle2" /></p>
+
+<h2>Root.plistの編集</h2>
+
+<p>デフォルトの状態から、以下のように編集する。<br/>
+「Child Pane」は、「Type」からしか選択はできないので注意。<br/>
+<img src="/images/2014/0806/cocoapods-license-3.png" alt="root.plist" /></p>
+
+<h2>Acknowledgements.plistの作成</h2>
+
+<p>「Settings.bundle」内に「Acknowledgements.plist」を作成する。<br/>
+作成方法は通常のファイル作成と違い、以下のようにする。</p>
+
+<ul>
+<li>「Settings.bundle」を右クリックで「パッケージの内容を表示」させ</li>
+<li>「Root.plist」を複製し、「Acknowledgements.plist」に名前をかえる</li>
+<li>「Acknowledgements.plist」を開き（エディタなど）、中身を消す　←　ここでもハマった。</li>
+</ul>
+
+
+<p><img src="/images/2014/0806/cocoapods-license-4.png" alt="Acknowledgements.plist" /></p>
+
+<h2>Podfileへの追加</h2>
+
+<p>Podfileへ、以下を追加する。</p>
+
+<p><code>
+post_install do | installer |
+require 'fileutils'
+FileUtils.cp_r('Pods/Pods-acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
+end
+</code></p>
+
+<p><code>Settings.bundle</code> へのパスは、XcodeでSettings.bundleを表示させ、エディタエリア上部のジャンプバーを参照すること。<br/>
+<img src="/images/2014/0806/cocoapods-license-5.png" alt="Podfile" /></p>
+
+<h2>pod install</h2>
+
+<p>あとは、<code>pod install</code> をすれば、完成。Acknowledgements.plistはこんな感じになる。<br/>
+<img src="/images/2014/0806/cocoapods-license-6.png" alt="Acknowledgements.plist" /></p>
+
+<p>ビルドし、iPhoneの設定アプリから確認することができる。<br/>
+<img src="/images/2014/0806/cocoapods-license-7.png" alt="Setting.app" />
+<img src="/images/2014/0806/cocoapods-license-8.png" alt="Setting.app" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UITableViewのカスタマイズ方法]]></title>
@@ -68,111 +132,6 @@ sqlite&gt; select * from テーブル名;
 （カメラなしデバイスにインストールさせない方法）</p>
 
 <p><img src="/images/2014/0805/Device.png" alt="Xcode" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JSONからデータを取得する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/analyze-json/"/>
-    <updated>2014-08-05T18:31:45+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/analyze-json</id>
-    <content type="html"><![CDATA[<p>以下のようなJSONデータから指定したデータを取得する方法。</p>
-
-<p>```
-meta =
-{</p>
-
-<pre><code>method = POST;
-url = "/app/ApiPosts/post.json";
-</code></pre>
-
-<p>};
-response =    /// (1)
-{</p>
-
-<pre><code>"comment_id" = 144;   /// (2)
-"video_id" = 144;
-Adviser = {
-    name = "&lt;null&gt;";
-};
-Post = {
-    "adviser_id" = "-1";
-    "video_id" = 144;   /// (3)
-};
-User = {
-    id = 1;
-    username = taro;
-};
-Comments =  /// ここは配列でComment-Videoが１セットで複数セットくる
-(
-    {
-        Comment = {
-            comment = "\U305d\U305d\U305d\U305d\n";   /// (4)
-            id = 144;
-        };
-        Video = {
-            hash = 266d1a0ccabc501149322446e49e274a;    /// (4)
-            id = 144;
-        };
-    }
-);
-</code></pre>
-
-<p>};
-```</p>
-
-<h2>(1) response = 以下のデータを取得</h2>
-
-<p><code>objective-c
-NSDictionary *responseDataDic = (NSDictionary*)responseObject[@"response"];
-</code></p>
-
-<h2>(2) comment_idのデータを取得</h2>
-
-<p><code>objective-c
-NSLog(@"commnt_id : %@", responseDataDic[@"comment_id"]);
-</code></p>
-
-<h2>(3) Post の video_idのデータを取得</h2>
-
-<p><code>objective-c
-NSLog(@"Post video_id: %@", responseDataDic[@"Post"][@"video_id"]);
-</code></p>
-
-<h2>(4) Commentsの中のComment-commentとVideo-hashを取得</h2>
-
-<p>```objective-c
-/// 高速列挙で辞書に抜き出し
-for (NSDictionary *dic in responseDataDic[@&ldquo;Comments&rdquo;]) {</p>
-
-<pre><code>NSLog(@"Comment id: %@", dic[@"Comment"][@"id"]);
-NSLog(@"Video id: %@", dic[@"Video"][@"id"]);
-</code></pre>
-
-<p>}
-```</p>
-
-<p>もしくは２ステップで</p>
-
-<p>```objective-c
-/// 可変配列を用意
-NSMutableArray <em>array = [NSMutableArray array];
-/// 高速列挙でComments部分を辞書に抜き出し、それを可変配列に追加
-for (NSDictionary </em>dic in responseDataDic[@&ldquo;Comments&rdquo;]) {</p>
-
-<pre><code>[array addObject:dic];
-</code></pre>
-
-<p>}
-/// 可変配列から辞書に抜き出し
-for (NSDictionary *dic in array) {</p>
-
-<pre><code>NSLog(@"Comment id: %@", dic[@"Comment"][@"id"]);
-NSLog(@"Video id: %@", dic[@"Video"][@"id"]);
-</code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   

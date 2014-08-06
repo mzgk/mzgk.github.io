@@ -9,8 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。
-このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。 (font-size + 上余白 + 下余白) / font-size &hellip;">
+  <meta name="description" content="CocoaPodsを使用している場合に、使用しているライブラリのライセンス表記を自動で作成する方法。
+ライセンス表記は、iPhoneの設定アプリに作成される。
+pod install / pod update するたびに自動作成してくれるので、ライブラリの追加／ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +70,100 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-06T13:52:05+09:00" pubdate data-updated="true">2014.08.06</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>CocoaPodsを使用している場合に、使用しているライブラリのライセンス表記を自動で作成する方法。<br/>
+ライセンス表記は、iPhoneの設定アプリに作成される。<br/>
+<code>pod install / pod update</code> するたびに自動作成してくれるので、ライブラリの追加／削除のたびにライセンス表記の修正をしなくていいので便利。 <br/>
+作成時に、些細なところでハマったので、やり方を残しておく。</p>
+
+<h2>Settings.bundleを作成</h2>
+
+<p>File &ndash; New &ndash; File から、iOS &ndash; Resource で「Settings Bundle」を選択。
+<img src="/images/2014/0806/cocoapods-license-1.png" alt="settingbundle1" /></p>
+
+<p>作成する場所を選択する。<br/>
+ここで、Groupを「Supporting Files」にはしないこと。　←　ここでハマった。
+<img src="/images/2014/0806/cocoapods-license-2.png" alt="settingbundle2" /></p>
+
+<h2>Root.plistの編集</h2>
+
+<p>デフォルトの状態から、以下のように編集する。<br/>
+「Child Pane」は、「Type」からしか選択はできないので注意。<br/>
+<img src="/images/2014/0806/cocoapods-license-3.png" alt="root.plist" /></p>
+
+<h2>Acknowledgements.plistの作成</h2>
+
+<p>「Settings.bundle」内に「Acknowledgements.plist」を作成する。<br/>
+作成方法は通常のファイル作成と違い、以下のようにする。</p>
+
+<ul>
+<li>「Settings.bundle」を右クリックで「パッケージの内容を表示」させ</li>
+<li>「Root.plist」を複製し、「Acknowledgements.plist」に名前をかえる</li>
+<li>「Acknowledgements.plist」を開き（エディタなど）、中身を消す　←　ここでもハマった。</li>
+</ul>
+
+
+<p><img src="/images/2014/0806/cocoapods-license-4.png" alt="Acknowledgements.plist" /></p>
+
+<h2>Podfileへの追加</h2>
+
+<p>Podfileへ、以下を追加する。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>post_install do | installer |
+</span><span class='line'>require 'fileutils'
+</span><span class='line'>FileUtils.cp_r('Pods/Pods-acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Settings.bundle</code> へのパスは、XcodeでSettings.bundleを表示させ、エディタエリア上部のジャンプバーを参照すること。<br/>
+<img src="/images/2014/0806/cocoapods-license-5.png" alt="Podfile" /></p>
+
+<h2>pod install</h2>
+
+<p>あとは、<code>pod install</code> をすれば、完成。Acknowledgements.plistはこんな感じになる。<br/>
+<img src="/images/2014/0806/cocoapods-license-6.png" alt="Acknowledgements.plist" /></p>
+
+<p>ビルドし、iPhoneの設定アプリから確認することができる。<br/>
+<img src="/images/2014/0806/cocoapods-license-7.png" alt="Setting.app" />
+<img src="/images/2014/0806/cocoapods-license-8.png" alt="Setting.app" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -487,61 +582,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:50:06+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>Organaizerを開く</li>
-<li>該当アプリを選択</li>
-<li>DownLoad</li>
-<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
-<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
-<li>sqliteで接続する</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sqlite3 名前.sqlite
-</span><span class='line'>sqlite&gt; .tables　→　テーブル名の確認
-</span><span class='line'>sqlite&gt; .schema テーブル名　→　スキーマの確認
-</span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -560,6 +600,10 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/css-line-height/">[CSS] 文字の高さを指定する</a>
@@ -595,10 +639,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
     
       <li class="post">
         <a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a>
       </li>
     
   </ul>

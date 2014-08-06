@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-05T19:31:20+09:00</updated>
+  <updated>2014-08-06T14:43:45+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,73 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CocoaPodsでライセンス表記を自動で作成する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/cocoapods-license-auto-make/"/>
+    <updated>2014-08-06T13:52:05+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/cocoapods-license-auto-make</id>
+    <content type="html"><![CDATA[<p>CocoaPodsを使用している場合に、使用しているライブラリのライセンス表記を自動で作成する方法。<br/>
+ライセンス表記は、iPhoneの設定アプリに作成される。<br/>
+<code>pod install / pod update</code> するたびに自動作成してくれるので、ライブラリの追加／削除のたびにライセンス表記の修正をしなくていいので便利。 <br/>
+作成時に、些細なところでハマったので、やり方を残しておく。</p>
+
+<h2>Settings.bundleを作成</h2>
+
+<p>File &ndash; New &ndash; File から、iOS &ndash; Resource で「Settings Bundle」を選択。
+<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-1.png" alt="settingbundle1" /></p>
+
+<p>作成する場所を選択する。<br/>
+ここで、Groupを「Supporting Files」にはしないこと。　←　ここでハマった。
+<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-2.png" alt="settingbundle2" /></p>
+
+<h2>Root.plistの編集</h2>
+
+<p>デフォルトの状態から、以下のように編集する。<br/>
+「Child Pane」は、「Type」からしか選択はできないので注意。<br/>
+<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-3.png" alt="root.plist" /></p>
+
+<h2>Acknowledgements.plistの作成</h2>
+
+<p>「Settings.bundle」内に「Acknowledgements.plist」を作成する。<br/>
+作成方法は通常のファイル作成と違い、以下のようにする。</p>
+
+<ul>
+<li>「Settings.bundle」を右クリックで「パッケージの内容を表示」させ</li>
+<li>「Root.plist」を複製し、「Acknowledgements.plist」に名前をかえる</li>
+<li>「Acknowledgements.plist」を開き（エディタなど）、中身を消す　←　ここでもハマった。</li>
+</ul>
+
+
+<p><img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-4.png" alt="Acknowledgements.plist" /></p>
+
+<h2>Podfileへの追加</h2>
+
+<p>Podfileへ、以下を追加する。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>post_install do | installer |
+</span><span class='line'>require 'fileutils'
+</span><span class='line'>FileUtils.cp_r('Pods/Pods-acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Settings.bundle</code> へのパスは、XcodeでSettings.bundleを表示させ、エディタエリア上部のジャンプバーを参照すること。<br/>
+<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-5.png" alt="Podfile" /></p>
+
+<h2>pod install</h2>
+
+<p>あとは、<code>pod install</code> をすれば、完成。Acknowledgements.plistはこんな感じになる。<br/>
+<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-6.png" alt="Acknowledgements.plist" /></p>
+
+<p>ビルドし、iPhoneの設定アプリから確認することができる。<br/>
+<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-7.png" alt="Setting.app" />
+<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-8.png" alt="Setting.app" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[CSS] 文字の高さを指定する]]></title>
@@ -739,85 +806,6 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
 </span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">titleTextAttributes</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIScrollViewでタップ検知を追加]]></title>
-    <link href="http://mzgk.github.io/blog/2014/uiscrollview-tapevent/"/>
-    <updated>2014-08-05T17:53:54+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/uiscrollview-tapevent</id>
-    <content type="html"><![CDATA[<p>UIScrollViewはタップを検知しないため、レスポンダチェーンでVIewControllerまでtouchesBegan:withEventが通知されない。<br/>
-なので、TextView入力時にキーボードに隠れないようにView位置を押し上げ、入力終了時に画面タップでキーボード非表示制御ができない。<br/>
-解決法としては、タップイベントを次のレスポンダーに投げるようなUIScrollViewのカテゴリ（touchesBegan:withEvent）を作成する。</p>
-
-<h3>UIScrollView+TouchEvent.h</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &lt;UIKit/UIKit.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@interface</span> <span class="nc">UIScrollView</span> <span class="nl">(TouchEvent)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>UIScrollView+TouchEvent.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;UIScrollView+TouchEvent.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@implementation</span> <span class="nc">UIScrollView</span> <span class="nl">(TouchEvent)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">touchesBegan:</span><span class="p">(</span><span class="n">NSSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">touches</span> <span class="nf">withEvent:</span><span class="p">(</span><span class="n">UIEvent</span> <span class="o">*</span><span class="p">)</span><span class="nv">event</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">self</span> <span class="n">nextResponder</span><span class="p">]</span> <span class="nl">touchesBegan:</span><span class="n">touches</span> <span class="nl">withEvent:</span><span class="n">event</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ViewController.h</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;UIScrollView+TouchEvent.h&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ViewController.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">touchesBegan:</span><span class="p">(</span><span class="n">NSSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">touches</span> <span class="nf">withEvent:</span><span class="p">(</span><span class="n">UIEvent</span> <span class="o">*</span><span class="p">)</span><span class="nv">event</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// タップ時の処理を記述</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">endEditing:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ちなみに、「userInteractionEnabled = YES;」は記述しないでも動作している。</p>
-
-<p>参考：<br/>
-(<a href="http://qiita.com/Potof_/items/1432c39dab083f770e59">http://qiita.com/Potof_/items/1432c39dab083f770e59</a>)<br/>
-(<a href="http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html">http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html</a>)</p>
 ]]></content>
   </entry>
   
