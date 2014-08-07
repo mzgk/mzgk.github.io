@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-07T13:28:17+09:00</updated>
+  <updated>2014-08-07T13:31:25+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -18,7 +18,7 @@
     <link href="http://mzgk.github.io/blog/2014/push-notification/"/>
     <updated>2014-08-07T13:25:29+09:00</updated>
     <id>http://mzgk.github.io/blog/2014/push-notification</id>
-    <content type="html"><![CDATA[<p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で誤解していたこと。<br/>
+    <content type="html"><![CDATA[<p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で、自分が誤解していたこと。<br/>
 実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。<br/>
 Apple公式の「LocalおよびPush Notificationプログラミングガイド」を確認したら、P14に記載されてた。</p>
 
@@ -39,7 +39,7 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 </ol>
 
 
-<p>参考：<br/>
+<p>参考：とても助かりました。<br/>
 <a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></p>
 ]]></content>
   </entry>
