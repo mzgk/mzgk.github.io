@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>MarkdownPreviewで独自CSSを設定する - jubilee</title>
+  <title>プッシュ通知の誤解 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Sublime Text3のMarkdownPreviewで独自CSSを設定する方法">
-  <meta name="keywords" content="SublimeText3,MarkdownPreview,css,カスタマイズ">
+  <meta name="description" content="アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で誤解していたこと。
+実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。
+Apple公式の「LocalおよびPush Notificationプログラミングガイド」 &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/push-notification">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">MarkdownPreviewで独自CSSを設定する</h1>
+      <h1 class="entry-title">プッシュ通知の誤解</h1>
     
     
       <p class="meta">
@@ -87,71 +89,36 @@
   
 
 
-<time datetime="2014-02-02T10:21:24+09:00" pubdate data-updated="true">2014.02.02</time>
+<time datetime="2014-08-07T13:25:29+09:00" pubdate data-updated="true">2014.08.07</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Sublime Text3の便利なPackage、Markdownで記述したファイルをPreviewできる『Markdown Preview』。<br/>
-GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
-どこで設定できるのか探してたところ・・・</p>
+<div class="entry-content"><p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で誤解していたこと。<br/>
+実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。<br/>
+Apple公式の「LocalおよびPush Notificationプログラミングガイド」を確認したら、P14に記載されてた。</p>
 
-<!-- more -->
+<h3>誤り</h3>
 
-
-<h2>Package Settingsがある</h2>
-
-<p>Preferencesには <strong>Package Settings</strong> がある。<br/>
-まずは、Markdown PreviewのDefaultの内容を覗いて見ると、それらしき個所が・・・。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/*
-</span><span class='line'>  Sets the default css file to embed in the HTML
-</span><span class='line'>
-</span><span class='line'>  default - Use the builtin CSS or github CSS, depending on parser config (markdown.css or github.css)
-</span><span class='line'>  other - Set an absolute path or url to any css file
-</span><span class='line'>*/
-</span><span class='line'>"css": "default",</span></code></pre></td></tr></table></div></figure>
+<ol>
+<li>サーバーからプッシュ通知を受信</li>
+<li>アプリが通知を受信し、アプリがバックグラウンドでアイコンバッジ表示や受信を契機にした処理を行う（自分でコーディング）</li>
+</ol>
 
 
-<p>なるほど。<br/>
-<code>other - Set an absolute path or url to any css file</code> の部分が鍵で、絶対パスで指定しろと。</p>
+<h3>正しくは</h3>
 
-<h2>User用のSetting</h2>
-
-<p><strong>Preferences > Package Settings > Markdown Preview > Settings-User</strong><br/>
-で表示されたファイルに以下を記述し保存。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>{
-</span><span class='line'>  "css": "CSSファイルの絶対パス",
-</span><span class='line'>}
-</span><span class='line'>※Windowsの場合、パスの\は/に置き換えて絶対パスを書く。</span></code></pre></td></tr></table></div></figure>
+<ol>
+<li>サーバーからプッシュ通知を受信</li>
+<li>OSが通知を受信し、メッセージを表示（アイコンバッジはサーバーからの指示でOSが表示）</li>
+<li>ユーザーがアプリを起動し、受け取った通知をもとに処理を行う（自分でコーディング）</li>
+</ol>
 
 
-<p>注意するのは、Windowsの場合に <strong>『パスの\（&yen;）は/に置き換えて』</strong> 記述すること。</p>
-
-<h2>自分のやった手順</h2>
-
-<p>自分は、フォント周りを変えたかったので、<br/>
-1. chromeで表示されたPreview結果を <strong>右クリック > 要素を検証</strong> で開発ツールを表示<br/>
-2. <code>&lt;style&gt;...&lt;/style&gt;</code> のCSS定義をコピー<br/>
-3. 自分のCSSファイルに貼付ける<br/>
-4. 変更・追加を加える<br/>
-5. 任意の場所に保存<br/>
-6. その絶対パスを指定<br/>
-これで、独自のCSSでプレビューできる。</p>
+<p>参考：<br/>
+<a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></p>
 </div>
 
 
@@ -174,12 +141,12 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
   
 
 
-<time datetime="2014-02-02T10:21:24+09:00" pubdate data-updated="true">2014.02.02</time>
+<time datetime="2014-08-07T13:25:29+09:00" pubdate data-updated="true">2014.08.07</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/setting/'>Setting</a>
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
   
 </span>
 
@@ -188,7 +155,7 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/sublimetext-markdownpreview-css-hack/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/push-notification/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/push-notification/" >Tweet</a>
   
   
   
@@ -197,10 +164,8 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/octopress-font-setting/" title="Previous Post: Octopressのフォントや文字間・行間を変更する">&laquo; Octopressのフォントや文字間・行間を変更する</a>
+        <a class="basic-alignment left" href="/blog/2014/cocoapods-license-auto-make/" title="Previous Post: CocoaPodsでライセンス表記を自動で作成する">&laquo; CocoaPodsでライセンス表記を自動で作成する</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/octopress-googlefont/" title="Next Post: OctopressでGoogle Fontsを使う">OctopressでGoogle Fontsを使う &raquo;</a>
       
     </p>
   </footer>

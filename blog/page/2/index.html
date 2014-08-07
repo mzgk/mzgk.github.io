@@ -9,16 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Organaizerを開く
-該当アプリを選択
-DownLoad
-ターミナルでダウンロードしたファイル内を移動（〜.xcapp）
-.sqlite（DocumentsかLibrary/Application Support/）
-sqliteで接続する 1
-2
-3
-4
-$ sqlite3 名前. &hellip;">
+  <meta name="description" content="補完用のファイルをダウンロード https://github.com/git/git/blob/master/contrib/completion/git-completion.bash ~/.git-completion.bashとして設置
+~/.bash_profileにパスを記述 1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +69,57 @@ $ sqlite3 名前. &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:53:04+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>補完用のファイルをダウンロード
+
+<ul>
+<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
+</ul>
+</li>
+<li>~/.git-completion.bashとして設置</li>
+<li>~/.bash_profileにパスを記述</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">source</span> ~/.git-completion.bash
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -851,58 +894,6 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:01:40+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>NavigationBarのカラーやアイテムの色を制御する方法。<br/>
-NavigationControllerの次のViewControllerで設定を行う。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 背景色</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">barTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithHex:</span><span class="s">@&quot;2F78B7&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// アイテムの色</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// タイトルの色</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">titleTextAttributes</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -923,6 +914,10 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/push-notification/">プッシュ通知の誤解</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a>
@@ -958,10 +953,6 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
     
       <li class="post">
         <a href="/blog/2014/autolayout-point/">Autolayout時の注意</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a>
       </li>
     
   </ul>
