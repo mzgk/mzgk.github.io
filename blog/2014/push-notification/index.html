@@ -117,8 +117,25 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 </ol>
 
 
-<p>参考：とても助かりました。<br/>
-<a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></p>
+<h3>注意</h3>
+
+<ul>
+<li>アプリが完全に終了している時で、通知受信後にメッセージセンターからではなく、アプリのアイコンから起動した場合は、受信データを受け取ることができない</li>
+<li>通知センターから起動とアプリアイコンから起動では、動作がちがう</li>
+<li>バックグラウンドで処理をしたい場合は、サーバーからの通知ペイロードに <code>content-available=1</code> を含むこと</li>
+<li>TARGETS &ndash; Background Models &ndash; Remote notifications, (Background fetch)にチェック</li>
+<li>UIRemoteNotificationTypeNewsstandContentAvailability指定するとバッジがでない</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/shu223/20140113/1389612563">http://d.hatena.ne.jp/shu223/20140113/1389612563</a></li>
+<li><a href="http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</a></li>
+<li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
+</ul>
+
 </div>
 
 
@@ -167,6 +184,8 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
         <a class="basic-alignment left" href="/blog/2014/cocoapods-license-auto-make/" title="Previous Post: CocoaPodsでライセンス表記を自動で作成する">&laquo; CocoaPodsでライセンス表記を自動で作成する</a>
       
       
+        <a class="basic-alignment right" href="/blog/2014/viewcontroller-notification/" title="Next Post: ViewControllerでアプリの状態を検知する">ViewControllerでアプリの状態を検知する &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -183,6 +202,10 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/push-notification/">プッシュ通知の誤解</a>
@@ -218,10 +241,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
     
       <li class="post">
         <a href="/blog/2014/alfred-setting/">Alfredで自分の作成したファイル等を検索結果として表示させない方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/autolayout-point/">Autolayout時の注意</a>
       </li>
     
   </ul>

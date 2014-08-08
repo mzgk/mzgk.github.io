@@ -9,9 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="OctopressでBolg開設。GitHub・Bitbucket・localの環境構築とブログの表示まで。 なぜOctopressを選んだか？ ポストファイルを静的ファイルとして管理したかった
-Markdownで記述→generate→deploy→pushの手軽さ
-Git・GitHub・ &hellip;">
+  <meta name="description" content="Octopressでの投稿手順（基本的な）。
+ファイルの作成→編集→確認→デプロイ→プッシュまで。 手順 1. ポストファイルの生成 source/_post ディレクトリにファイルが作成される。
+yyyy-mm-dd-title.markdown
+titleは英数のみ。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +71,60 @@ Git・GitHub・ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/procedure-to-post/">Start Octopress Blogへの投稿手順</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-31T12:25:41+09:00" pubdate data-updated="true">2013.12.31</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Octopressでの投稿手順（基本的な）。<br/>
+ファイルの作成→編集→確認→デプロイ→プッシュまで。</p>
+
+<h2>手順</h2>
+
+<h3>1. ポストファイルの生成</h3>
+
+<p><code>source/_post</code> ディレクトリにファイルが作成される。<br/>
+yyyy-mm-dd-title.markdown<br/>
+titleは英数のみ。文字間に半角空白の使用が可能（-に変換される）。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post["title"]</span></code></pre></td></tr></table></div></figure>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/procedure-to-post/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -142,6 +197,10 @@ Git・GitHub・ &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/push-notification/">プッシュ通知の誤解</a>
       </li>
     
@@ -175,10 +234,6 @@ Git・GitHub・ &hellip;">
     
       <li class="post">
         <a href="/blog/2014/alfred-setting/">Alfredで自分の作成したファイル等を検索結果として表示させない方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/autolayout-point/">Autolayout時の注意</a>
       </li>
     
   </ul>

@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>UITableViewのセルのハイライト制御 - jubilee</title>
+  <title>ViewControllerでアプリの状態を検知する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。
-このハイライトを消す方法。
-UITableViewControllerを使用しているぶんには、特に意識する必要はない。 &hellip;">
+  <meta name="description" content="ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの applicationWillEnterForeground: 以外に思いつかなかったので調査。
+結果としては、 &hellip;">
   <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +19,7 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/cell-highlight">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/viewcontroller-notification">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -73,7 +72,7 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
   
   <header>
     
-      <h1 class="entry-title">UITableViewのセルのハイライト制御</h1>
+      <h1 class="entry-title">ViewControllerでアプリの状態を検知する</h1>
     
     
       <p class="meta">
@@ -89,38 +88,21 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
   
 
 
-<time datetime="2014-08-05T17:49:14+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-08T15:52:13+09:00" pubdate data-updated="true">2014.08.08</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。<br/>
-このハイライトを消す方法。<br/>
-UITableViewControllerを使用しているぶんには、特に意識する必要はない。</p>
+<div class="entry-content"><p>ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの <code>applicationWillEnterForeground:</code> 以外に思いつかなかったので調査。<br/>
+結果としては、ViewControllerでもアプリの状態を検知する方法があった。</p>
 
-<h2>UITableViewControllerを継承してUITableViewを使う場合</h2>
+<h2>通知を利用する</h2>
 
-<p>UITableViewControllerのviewWillAppear:にはハイライト解除の処理が定義してある。<br/>
-なので、viewWillAppear:メソッドをオーバーライドするときは、必ず親クラスのviewWillAppear:メソッドを呼ぶこと。</p>
+<p>ViewController.mの <code>viewWillAppear</code> などに、通知を追加しておく。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// 必ずこれを呼ぶこと</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>UITableViewControllerを継承せずにUITableViewを使う場合</h2>
-
-<p>自分で実装すること。</p>
+<h3>追加</h3>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -128,18 +110,147 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
-</span><span class='line'>  <span class="c1">// ハイライト解除</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">_tableView</span> <span class="nl">deselectRowAtIndexPath:</span><span class="p">[</span><span class="n">_tableView</span> <span class="n">indexPathForSelectedRow</span><span class="p">]</span> <span class="nl">animated:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// UIApplicationDidBecomeActiveNotification：アクティブになったとき</span>
+</span><span class='line'>    <span class="c1">// applicationDidBecomeActive（自作）メソッドを呼ぶ</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span>
+</span><span class='line'>                                             <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">applicationDidBecomeActive</span><span class="p">)</span>
+</span><span class='line'>                                                 <span class="nl">name:</span><span class="n">UIApplicationDidBecomeActiveNotification</span>
+</span><span class='line'>                                               <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>削除</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillDisappear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 通知の削除</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>状態一覧</h2>
+
+<p>UIApplicationのNotifications一覧</p>
+
+<h3>ライフサイクル系</h3>
+
+<ul>
+<li>UIApplicationDidFinishLaunchingNotification
+
+<ul>
+<li>アプリケーションが起動した直後に通知</li>
+</ul>
+</li>
+<li>UIApplicationWillEnterForegroundNotification
+
+<ul>
+<li>アプリケーションがアクティブになる直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidBecomeActiveNotification
+
+<ul>
+<li>アプリケーションがアクティブになった時に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidEnterBackgroundNotification
+
+<ul>
+<li>アプリケーションがバックグラウンドに入る時に通知</li>
+</ul>
+</li>
+<li>UIApplicationWillResignActiveNotification
+
+<ul>
+<li>アプリケーションがアクティブで無くなる直前に通知。通知アラートが表示される時などにも通知される</li>
+</ul>
+</li>
+<li>UIApplicationWillTerminateNotification
+
+<ul>
+<li>アプリケーションが終了される直前に通知</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>サイズ変更系</h3>
+
+<ul>
+<li>UIApplicationWillChangeStatusBarFrameNotification
+
+<ul>
+<li>ステータスバーのサイズ変更される直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidChangeStatusBarFrameNotification
+
+<ul>
+<li>ステータスバーのサイズ変更が発生した時に通知。デバイスが回転した時など</li>
+</ul>
+</li>
+<li>UIApplicationWillChangeStatusBarOrientationNotification
+
+<ul>
+<li>デバイスの向きが変わる直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidChangeStatusBarOrientationNotification
+
+<ul>
+<li>デバイスの向きが変わった後に通知</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>その他</h3>
+
+<ul>
+<li>UIApplicationDidReceiveMemoryWarningNotification
+
+<ul>
+<li>メモリ不足の警告発生時に通知</li>
+</ul>
+</li>
+<li>UIApplicationProtectedDataDidBecomeAvailable
+
+<ul>
+<li>保護されたファイルへコードからアクセスが可能になった時に通知</li>
+</ul>
+</li>
+<li>UIApplicationProtectedDataWillBecomeUnavailable
+
+<ul>
+<li>保護されたファイルへコードからアクセス出来なくなる前に通知</li>
+</ul>
+</li>
+<li>UIApplicationSignificantTimeChangeNotification
+
+<ul>
+<li>時間に大きな変更が有った場合に通知。日付が変わった時や夏時間に変更など</li>
+</ul>
+</li>
+</ul>
+
+
 <h2>参考</h2>
 
-<p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
+<ul>
+<li><a href="http://qiita.com/hkomo746/items/22fcecfd0773023ed56a">http://qiita.com/hkomo746/items/22fcecfd0773023ed56a</a></li>
+<li><a href="http://d.hatena.ne.jp/nakamura001/20111107/1320680842">http://d.hatena.ne.jp/nakamura001/20111107/1320680842</a></li>
+</ul>
+
 </div>
 
 
@@ -162,7 +273,7 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
   
 
 
-<time datetime="2014-08-05T17:49:14+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-08T15:52:13+09:00" pubdate data-updated="true">2014.08.08</time>
       
 
 <span class="categories">
@@ -176,7 +287,7 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/cell-highlight/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/cell-highlight/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/viewcontroller-notification/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/viewcontroller-notification/" >Tweet</a>
   
   
   
@@ -185,10 +296,8 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/not-allowed-to-edit-cell/" title="Previous Post: UITableViewのセル編集をさせない方法">&laquo; UITableViewのセル編集をさせない方法</a>
+        <a class="basic-alignment left" href="/blog/2014/push-notification/" title="Previous Post: プッシュ通知の誤解">&laquo; プッシュ通知の誤解</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/uiscrollview-tapevent/" title="Next Post: UIScrollViewでタップ検知を追加">UIScrollViewでタップ検知を追加 &raquo;</a>
       
     </p>
   </footer>

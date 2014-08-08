@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-07T13:31:25+09:00</updated>
+  <updated>2014-08-08T16:39:25+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,170 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ViewControllerでアプリの状態を検知する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/viewcontroller-notification/"/>
+    <updated>2014-08-08T15:52:13+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/viewcontroller-notification</id>
+    <content type="html"><![CDATA[<p>ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの <code>applicationWillEnterForeground:</code> 以外に思いつかなかったので調査。<br/>
+結果としては、ViewControllerでもアプリの状態を検知する方法があった。</p>
+
+<h2>通知を利用する</h2>
+
+<p>ViewController.mの <code>viewWillAppear</code> などに、通知を追加しておく。</p>
+
+<h3>追加</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'>    <span class="c1">// UIApplicationDidBecomeActiveNotification：アクティブになったとき</span>
+</span><span class='line'>    <span class="c1">// applicationDidBecomeActive（自作）メソッドを呼ぶ</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span>
+</span><span class='line'>                                             <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">applicationDidBecomeActive</span><span class="p">)</span>
+</span><span class='line'>                                                 <span class="nl">name:</span><span class="n">UIApplicationDidBecomeActiveNotification</span>
+</span><span class='line'>                                               <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>削除</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillDisappear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 通知の削除</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>状態一覧</h2>
+
+<p>UIApplicationのNotifications一覧</p>
+
+<h3>ライフサイクル系</h3>
+
+<ul>
+<li>UIApplicationDidFinishLaunchingNotification
+
+<ul>
+<li>アプリケーションが起動した直後に通知</li>
+</ul>
+</li>
+<li>UIApplicationWillEnterForegroundNotification
+
+<ul>
+<li>アプリケーションがアクティブになる直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidBecomeActiveNotification
+
+<ul>
+<li>アプリケーションがアクティブになった時に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidEnterBackgroundNotification
+
+<ul>
+<li>アプリケーションがバックグラウンドに入る時に通知</li>
+</ul>
+</li>
+<li>UIApplicationWillResignActiveNotification
+
+<ul>
+<li>アプリケーションがアクティブで無くなる直前に通知。通知アラートが表示される時などにも通知される</li>
+</ul>
+</li>
+<li>UIApplicationWillTerminateNotification
+
+<ul>
+<li>アプリケーションが終了される直前に通知</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>サイズ変更系</h3>
+
+<ul>
+<li>UIApplicationWillChangeStatusBarFrameNotification
+
+<ul>
+<li>ステータスバーのサイズ変更される直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidChangeStatusBarFrameNotification
+
+<ul>
+<li>ステータスバーのサイズ変更が発生した時に通知。デバイスが回転した時など</li>
+</ul>
+</li>
+<li>UIApplicationWillChangeStatusBarOrientationNotification
+
+<ul>
+<li>デバイスの向きが変わる直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidChangeStatusBarOrientationNotification
+
+<ul>
+<li>デバイスの向きが変わった後に通知</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>その他</h3>
+
+<ul>
+<li>UIApplicationDidReceiveMemoryWarningNotification
+
+<ul>
+<li>メモリ不足の警告発生時に通知</li>
+</ul>
+</li>
+<li>UIApplicationProtectedDataDidBecomeAvailable
+
+<ul>
+<li>保護されたファイルへコードからアクセスが可能になった時に通知</li>
+</ul>
+</li>
+<li>UIApplicationProtectedDataWillBecomeUnavailable
+
+<ul>
+<li>保護されたファイルへコードからアクセス出来なくなる前に通知</li>
+</ul>
+</li>
+<li>UIApplicationSignificantTimeChangeNotification
+
+<ul>
+<li>時間に大きな変更が有った場合に通知。日付が変わった時や夏時間に変更など</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://qiita.com/hkomo746/items/22fcecfd0773023ed56a">http://qiita.com/hkomo746/items/22fcecfd0773023ed56a</a></li>
+<li><a href="http://d.hatena.ne.jp/nakamura001/20111107/1320680842">http://d.hatena.ne.jp/nakamura001/20111107/1320680842</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[プッシュ通知の誤解]]></title>
@@ -39,8 +203,25 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 </ol>
 
 
-<p>参考：とても助かりました。<br/>
-<a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></p>
+<h3>注意</h3>
+
+<ul>
+<li>アプリが完全に終了している時で、通知受信後にメッセージセンターからではなく、アプリのアイコンから起動した場合は、受信データを受け取ることができない</li>
+<li>通知センターから起動とアプリアイコンから起動では、動作がちがう</li>
+<li>バックグラウンドで処理をしたい場合は、サーバーからの通知ペイロードに <code>content-available=1</code> を含むこと</li>
+<li>TARGETS &ndash; Background Models &ndash; Remote notifications, (Background fetch)にチェック</li>
+<li>UIRemoteNotificationTypeNewsstandContentAvailability指定するとバッジがでない</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/shu223/20140113/1389612563">http://d.hatena.ne.jp/shu223/20140113/1389612563</a></li>
+<li><a href="http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</a></li>
+<li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
+</ul>
+
 ]]></content>
   </entry>
   
@@ -794,22 +975,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 </span><span class='line'>        <span class="p">[</span><span class="n">_userButton</span> <span class="nl">setSelected:</span><span class="n">NO</span><span class="p">];</span>   <span class="c1">// これでプレイに戻る</span>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIImageViewにスワイプジェスチャーを適用させる]]></title>
-    <link href="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/"/>
-    <updated>2014-08-05T18:06:46+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe</id>
-    <content type="html"><![CDATA[<p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
