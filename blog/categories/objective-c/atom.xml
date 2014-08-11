@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-08T16:39:25+09:00</updated>
+  <updated>2014-08-11T15:28:48+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[アプリ内のフォントを統一させる方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/font-standardize/"/>
+    <updated>2014-08-11T15:05:04+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/font-standardize</id>
+    <content type="html"><![CDATA[<p>アプリ内のフォントを統一させる方法。<br/>
+今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。</p>
+
+<h2>プロジェクトへフォントを追加する</h2>
+
+<p>Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から"Add Files to 〜"）で、ファイルをプロジェクトに追加する。<br/>
+<img src="/images/2014/0811/add-fontfile.png" alt="add fontfile" /></p>
+
+<h2>.plistへの情報追加</h2>
+
+<p>Supporting Files &ndash;> プロジェクト名.plistへ追加したフォントの情報を追加する。<br/>
+<code>Fonts provided by application</code> &ndash;> item0 にフォントの「PostScript 名」を記述する。<br/>
+※PostScript名は、FontBook.appを起動し、対象フォントのinfoボタンから確認<br/>
+<img src="/images/2014/0811/add-plist.png" alt="plist" /></p>
+
+<h2>AppDelegate.m</h2>
+
+<p><code>AppDelegate.m</code> の <code>didFinishLaunchingWithOptions:</code> 等で、<code>appearance</code> を使い設定する。</p>
+
+<p>```objective-c
+// フォント
+UIFont <em>baseInputFont = [UIFont fontWithName:@&ldquo;rounded-l-mplus-2p-regular&rdquo; size:16.0f];
+UIFont </em>baseTitleFont = [UIFont fontWithName:@&ldquo;rounded-l-mplus-2p-regular&rdquo; size:18.0f];
+// フォント・カラー
+NSDictionary *barItemInfo = @{NSFontAttributeName : baseTitleFont, NSForegroundColorAttributeName:[UIColor whiteColor]};</p>
+
+<p>// UILabel
+[[UILabel appearance] setFont:baseInputFont];</p>
+
+<p>// UINavigationBar
+[[UINavigationBar appearance] setTitleTextAttributes:barItemInfo];
+[[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.2 green:0.6 blue:0.86 alpha:1]];</p>
+
+<p>// UINavigationBarItem
+[[UIBarButtonItem appearance] setTitleTextAttributes:barItemInfo forState:UIControlStateNormal];</p>
+
+<p>// UITextField
+[[UITextField appearance] setFont:baseInputFont];</p>
+
+<p>// UITextView
+[[UITextView appearance] setFont:baseInputFont];
+```</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/">http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/</a></li>
+<li><a href="http://qiita.com/yimajo/items/a7ed557d382077498181">http://qiita.com/yimajo/items/a7ed557d382077498181</a></li>
+<li><a href="http://seesaakyoto.seesaa.net/article/366291271.html">http://seesaakyoto.seesaa.net/article/366291271.html</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ViewControllerでアプリの状態を検知する]]></title>
@@ -290,17 +349,6 @@ end
     <content type="html"><![CDATA[<p>UITableViewをカスタマイズする方法。</p>
 
 <p><img src="/images/2014/0805/UITableView.png" alt="Xcode" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Autolayout時の注意]]></title>
-    <link href="http://mzgk.github.io/blog/2014/autolayout-point/"/>
-    <updated>2014-08-05T18:56:40+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/autolayout-point</id>
-    <content type="html"><![CDATA[<p>3.5inch / 4inch時の注意点。</p>
-
-<p><img src="/images/2014/0805/AutoLayout.png" alt="Xcode" /></p>
 ]]></content>
   </entry>
   

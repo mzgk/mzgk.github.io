@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>アプリ内のフォントを統一させる方法 - jubilee</title>
+  <meta name="author" content="mzgk">
+
+  
+  <meta name="description" content="アプリ内のフォントを統一させる方法。
+今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。 プロジェクトへフォントを追加する Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&# &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/font-standardize">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!-- google webmaster tool -->
+<meta name="google-site-verification" content="aGcvxQw3_CL6cMLGRu0swqLkd4I7xA1KcROCILD30hU" />
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jubilee</a></h1>
+  
+    <h2>Programing, Books and more...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mzgk.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">アプリ内のフォントを統一させる方法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-11T15:05:04+09:00" pubdate data-updated="true">2014.08.11</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>アプリ内のフォントを統一させる方法。<br/>
+今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。</p>
+
+<h2>プロジェクトへフォントを追加する</h2>
+
+<p>Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&#8221;）で、ファイルをプロジェクトに追加する。<br/>
+<img src="/images/2014/0811/add-fontfile.png" alt="add fontfile" /></p>
+
+<h2>.plistへの情報追加</h2>
+
+<p>Supporting Files &ndash;> プロジェクト名.plistへ追加したフォントの情報を追加する。<br/>
+<code>Fonts provided by application</code> &ndash;> item0 にフォントの「PostScript 名」を記述する。<br/>
+※PostScript名は、FontBook.appを起動し、対象フォントのinfoボタンから確認<br/>
+<img src="/images/2014/0811/add-plist.png" alt="plist" /></p>
+
+<h2>AppDelegate.m</h2>
+
+<p><code>AppDelegate.m</code> の <code>didFinishLaunchingWithOptions:</code> 等で、<code>appearance</code> を使い設定する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// フォント</span>
+</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseInputFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">16.0f</span><span class="p">];</span>
+</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseTitleFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">18.0f</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// フォント・カラー</span>
+</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">barItemInfo</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="n">baseTitleFont</span><span class="p">,</span> <span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UILabel</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UILabel</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UINavigationBar</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span><span class="p">];</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setBarTintColor:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRed:</span><span class="mf">0.2</span> <span class="nl">green:</span><span class="mf">0.6</span> <span class="nl">blue:</span><span class="mf">0.86</span> <span class="nl">alpha:</span><span class="mi">1</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UINavigationBarItem</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UITextField</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UITextField</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UITextView</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UITextView</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/">http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/</a></li>
+<li><a href="http://qiita.com/yimajo/items/a7ed557d382077498181">http://qiita.com/yimajo/items/a7ed557d382077498181</a></li>
+<li><a href="http://seesaakyoto.seesaa.net/article/366291271.html">http://seesaakyoto.seesaa.net/article/366291271.html</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-11T15:05:04+09:00" pubdate data-updated="true">2014.08.11</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/font-standardize/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/font-standardize/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/viewcontroller-notification/" title="Previous Post: ViewControllerでアプリの状態を検知する">&laquo; ViewControllerでアプリの状態を検知する</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>mzgkworks</p>
+  <p>修行中</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/font-standardize/">アプリ内のフォントを統一させる方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/push-notification/">プッシュ通知の誤解</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/css-line-height/">[CSS] 文字の高さを指定する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/digitalcolor-mater/">MacのDigitalColor Materで色の値をコピーする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/remove-file-from-github/">git / GitHubからいらないファイルを削除する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/empty-trash/">Macでゴミ箱からファイルを削除できない時の方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/margin/">marginの記法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/customize-uitableview/">UITableViewのカスタマイズ方法</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - mzgk -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-08T16:39:25+09:00</updated>
+  <updated>2014-08-11T15:28:48+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,86 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[アプリ内のフォントを統一させる方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/font-standardize/"/>
+    <updated>2014-08-11T15:05:04+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/font-standardize</id>
+    <content type="html"><![CDATA[<p>アプリ内のフォントを統一させる方法。<br/>
+今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。</p>
+
+<h2>プロジェクトへフォントを追加する</h2>
+
+<p>Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&#8221;）で、ファイルをプロジェクトに追加する。<br/>
+<img src="http://mzgk.github.io/images/2014/0811/add-fontfile.png" alt="add fontfile" /></p>
+
+<h2>.plistへの情報追加</h2>
+
+<p>Supporting Files &ndash;> プロジェクト名.plistへ追加したフォントの情報を追加する。<br/>
+<code>Fonts provided by application</code> &ndash;> item0 にフォントの「PostScript 名」を記述する。<br/>
+※PostScript名は、FontBook.appを起動し、対象フォントのinfoボタンから確認<br/>
+<img src="http://mzgk.github.io/images/2014/0811/add-plist.png" alt="plist" /></p>
+
+<h2>AppDelegate.m</h2>
+
+<p><code>AppDelegate.m</code> の <code>didFinishLaunchingWithOptions:</code> 等で、<code>appearance</code> を使い設定する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// フォント</span>
+</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseInputFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">16.0f</span><span class="p">];</span>
+</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseTitleFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">18.0f</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// フォント・カラー</span>
+</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">barItemInfo</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="n">baseTitleFont</span><span class="p">,</span> <span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UILabel</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UILabel</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UINavigationBar</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span><span class="p">];</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setBarTintColor:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRed:</span><span class="mf">0.2</span> <span class="nl">green:</span><span class="mf">0.6</span> <span class="nl">blue:</span><span class="mf">0.86</span> <span class="nl">alpha:</span><span class="mi">1</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UINavigationBarItem</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UITextField</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UITextField</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UITextView</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UITextView</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/">http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/</a></li>
+<li><a href="http://qiita.com/yimajo/items/a7ed557d382077498181">http://qiita.com/yimajo/items/a7ed557d382077498181</a></li>
+<li><a href="http://seesaakyoto.seesaa.net/article/366291271.html">http://seesaakyoto.seesaa.net/article/366291271.html</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ViewControllerでアプリの状態を検知する]]></title>
@@ -874,107 +954,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 </span><span class='line'>
 </span><span class='line'><span class="nv">$ </span>which openssl
 </span><span class='line'>/usr/local/bin/openssl
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIButtonでタップ毎にボタン画像を切替える]]></title>
-    <link href="http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each/"/>
-    <updated>2014-08-05T18:11:27+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/change-image-of-button-to-tap-each</id>
-    <content type="html"><![CDATA[<p>UIButtonをトグルスイッチのように使う方法。<br/>
-プレイボタン　→　タップ　→　ストップボタン　→　タップ　→　プレイボタン</p>
-
-<h2>ボタンに画像を設定する</h2>
-
-<p>viewDidLoadなど。画像はアセットカタログに登録済み。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 通常（プレイ）</span>
-</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// プレイでボタンをタップ中</span>
-</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// ストップ</span>
-</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// ストップでボタンをタップ中</span>
-</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ボタンタップアクション</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">userButtonTapped:</span><span class="p">(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">sender</span><span class="p">.</span><span class="n">selected</span> <span class="o">=</span> <span class="o">!</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">;</span>   <span class="c1">// これが重要（状態を入れ替える）</span>
-</span><span class='line'>    <span class="c1">// プレイをタップ</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">_userTimer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="p">[</span><span class="n">_userFrameSpeedInfos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]</span>
-</span><span class='line'>                                                      <span class="nl">target:</span><span class="n">self</span>
-</span><span class='line'>                                                    <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">timerUserView:</span><span class="p">)</span>
-</span><span class='line'>                                                    <span class="nl">userInfo:</span><span class="nb">nil</span>
-</span><span class='line'>                                                     <span class="nl">repeats:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="c1">// ストップをタップ</span>
-</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">_userTimer</span> <span class="n">invalidate</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>おまけ</h2>
-
-<p>タイマーが停止した時にボタンをプレイに戻す。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">timerUserView:</span><span class="p">(</span><span class="n">NSTimer</span><span class="o">*</span><span class="p">)</span><span class="n">timer</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">++</span><span class="n">_userFramIndex</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="p">[</span><span class="n">_userFrameImageInfos</span> <span class="n">count</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">displayFrameImageAtIndex:</span><span class="n">index</span> <span class="nl">userDistinction:</span><span class="n">USER</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="c1">// タイマーを止める</span>
-</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">timer</span> <span class="n">invalidate</span><span class="p">];</span>
-</span><span class='line'>        <span class="n">_userFramIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">_userButton</span> <span class="nl">setSelected:</span><span class="n">NO</span><span class="p">];</span>   <span class="c1">// これでプレイに戻る</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
