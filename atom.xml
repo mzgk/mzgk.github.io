@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-11T15:28:48+09:00</updated>
+  <updated>2014-08-11T17:06:04+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[アプリの起動イメージを指定時間表示する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/launch-image/"/>
+    <updated>2014-08-11T16:59:06+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/launch-image</id>
+    <content type="html"><![CDATA[<p>アプリの起動イメージを表示する時間を制御する方法。<br/>
+<code>AppDelegate.m</code> のアプリ起動時処理部分に、スレッドをスリープさせるコードを追記する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="c1">// 2秒間停止する</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">NSThread</span> <span class="nl">sleepForTimeInterval:</span><span class="mf">2.0</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[アプリ内のフォントを統一させる方法]]></title>
@@ -869,91 +896,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">new_flg</span><span class="p">)</span> <span class="p">{</span>
 </span><span class='line'>    <span class="err">偽の判断（</span><span class="n">new_flg</span><span class="err">の値は</span><span class="n">NO</span> <span class="o">=</span> <span class="mi">0</span><span class="err">）</span>
 </span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[OpenSSLのバージョンアップ]]></title>
-    <link href="http://mzgk.github.io/blog/2014/openssl-versionup/"/>
-    <updated>2014-08-05T18:16:03+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/openssl-versionup</id>
-    <content type="html"><![CDATA[<p>2014.8.5現在の最新版は 1.0.1h。</p>
-
-<h2>バージョン確認</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
-</span><span class='line'>OpenSSL 1.0.1g 7 Apr 2014  ← Macにインストールされているバージョンが表示される
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>brew info openssl
-</span><span class='line'>openssl: stable 1.0.1g <span class="o">(</span>bottled<span class="o">)</span>  ←　HomeBrewのデータベース上の情報
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Homebrewのデータベースを更新</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew update
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>brew info openssl
-</span><span class='line'>openssl: stable 1.0.1h <span class="o">(</span>bottled<span class="o">)</span>　←　更新された
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>OpenSSLの更新</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew upgrade openssl
-</span><span class='line'>...
-</span><span class='line'>...
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>利用可能か確認</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
-</span><span class='line'>...
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>which openssl
-</span><span class='line'>/usr/bin/openssl　←　Homebrewでインストールしたものではない
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>$ brew upgrade openssl</code> のログに
-<code>This formula is keg-only, so it was not symlinked into /usr/local.</code> とあるように、まだリンクされていない。</p>
-
-<h2>HoembrewでインストールしたOpenSSLの使用設定</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew link openssl --force
-</span><span class='line'>...
-</span><span class='line'><span class="nv">$ </span>openssl version
-</span><span class='line'>OpenSSL 1.0.1h 5 Jun 2014　←　変わらない場合は、一度Terminalを再起動
-</span><span class='line'>
-</span><span class='line'><span class="nv">$ </span>which openssl
-</span><span class='line'>/usr/local/bin/openssl
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
