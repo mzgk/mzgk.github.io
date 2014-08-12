@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-12T16:18:52+09:00</updated>
+  <updated>2014-08-12T16:50:22+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIScrollViewに配置したViewが下にズレる時の対応]]></title>
+    <link href="http://mzgk.github.io/blog/2014/uiscrollview-checkpoint-2/"/>
+    <updated>2014-08-12T16:44:48+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/uiscrollview-checkpoint-2</id>
+    <content type="html"><![CDATA[<p>NavigationBarなどが存在し、UIScrollViewの上にviewを配置した画面の場合に、ビルドして確認するとviewが下にズレて表示されることがある。</p>
+
+<h2>ViewController &ndash; Attribute inspector</h2>
+
+<p>このときは、ViewControllerのAttribute inspector &ndash; Adjubst Scroll View Insets　のチェックを外す。<br/>
+<code>automaticallyAdjustsScrollViewInsets = NO</code></p>
+
+<p><img src="http://mzgk.github.io/images/2014/0812/attribute-inspector.png" alt="inspector" /></p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.slideshare.net/YoshinoriImajo/ios7-30039408">http://www.slideshare.net/YoshinoriImajo/ios7-30039408</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[UIScrollViewをスクロールさせる方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/uiscrollview-checkpoint1/"/>
+    <updated>2014-08-12T16:32:58+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/uiscrollview-checkpoint1</id>
+    <content type="html"><![CDATA[<p>UIScrollViewを設定したのに、スクロールしない時は以下を確認する。</p>
+
+<h2>contentSize</h2>
+
+<ul>
+<li>UIScrollViewのconntentSizeをUIScrollViewの大きさよりも、大きくしているか？</li>
+<li>conntentSizeをセットするタイミング</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// このタイミングで行う</span>
+</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLayoutSubviews</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// UIScrollView:320,568で作成済み</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_sceneScrollView</span> <span class="nl">setContentSize:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">680</span><span class="p">)];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<p><a href="http://blog.livedoor.jp/manjumanju/archives/3323842.html">http://blog.livedoor.jp/manjumanju/archives/3323842.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[iPhoneのスクリーンサイズを調べる方法]]></title>
@@ -739,163 +798,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 （カメラなしデバイスにインストールさせない方法）</p>
 
 <p><img src="http://mzgk.github.io/images/2014/0805/Device.png" alt="Xcode" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JSONからデータを取得する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/analyze-json/"/>
-    <updated>2014-08-05T18:31:45+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/analyze-json</id>
-    <content type="html"><![CDATA[<p>以下のようなJSONデータから指定したデータを取得する方法。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>meta = 
-</span><span class='line'>{
-</span><span class='line'>    method = POST;
-</span><span class='line'>    url = "/app/ApiPosts/post.json";
-</span><span class='line'>};
-</span><span class='line'>response =    /// (1)
-</span><span class='line'>{
-</span><span class='line'>    "comment_id" = 144;   /// (2)
-</span><span class='line'>    "video_id" = 144;
-</span><span class='line'>    Adviser = {
-</span><span class='line'>        name = "&lt;null&gt;";
-</span><span class='line'>    };
-</span><span class='line'>    Post = {
-</span><span class='line'>        "adviser_id" = "-1";
-</span><span class='line'>        "video_id" = 144;   /// (3)
-</span><span class='line'>    };
-</span><span class='line'>    User = {
-</span><span class='line'>        id = 1;
-</span><span class='line'>        username = taro;
-</span><span class='line'>    };
-</span><span class='line'>    Comments =  /// ここは配列でComment-Videoが１セットで複数セットくる
-</span><span class='line'>    (
-</span><span class='line'>        {
-</span><span class='line'>            Comment = {
-</span><span class='line'>                comment = "\U305d\U305d\U305d\U305d\n";   /// (4)
-</span><span class='line'>                id = 144;
-</span><span class='line'>            };
-</span><span class='line'>            Video = {
-</span><span class='line'>                hash = 266d1a0ccabc501149322446e49e274a;    /// (4)
-</span><span class='line'>                id = 144;
-</span><span class='line'>            };
-</span><span class='line'>        }
-</span><span class='line'>    );
-</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(1) response = 以下のデータを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">responseDataDic</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSDictionary</span><span class="o">*</span><span class="p">)</span><span class="n">responseObject</span><span class="p">[</span><span class="s">@&quot;response&quot;</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(2) comment_idのデータを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;commnt_id : %@&quot;</span><span class="p">,</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;comment_id&quot;</span><span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(3) Post の video_idのデータを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Post video_id: %@&quot;</span><span class="p">,</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;Post&quot;</span><span class="p">][</span><span class="s">@&quot;video_id&quot;</span><span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(4) Commentsの中のComment-commentとVideo-hashを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">/// 高速列挙で辞書に抜き出し</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">dic</span> <span class="k">in</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;Comments&quot;</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Comment id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Comment&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Video id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Video&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしくは２ステップで</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">/// 可変配列を用意</span>
-</span><span class='line'><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
-</span><span class='line'><span class="c1">/// 高速列挙でComments部分を辞書に抜き出し、それを可変配列に追加</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">dic</span> <span class="k">in</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;Comments&quot;</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">array</span> <span class="nl">addObject:</span><span class="n">dic</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="c1">/// 可変配列から辞書に抜き出し</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">dic</span> <span class="k">in</span> <span class="n">array</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Comment id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Comment&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Video id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Video&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MagicalRecordのWarningの消し方]]></title>
-    <link href="http://mzgk.github.io/blog/2014/magicalrecord-warning/"/>
-    <updated>2014-08-05T18:23:49+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/magicalrecord-warning</id>
-    <content type="html"><![CDATA[<p>MagicalRecord2.2はmogeneratorとの使用を想定しているらしく、mogeneratorを使用しない場合はWarningが12個ばかり表示される。<br/>
-参考：<a href="https://github.com/magicalpanda/MagicalRecord/issues/652">https://github.com/magicalpanda/MagicalRecord/issues/652</a></p>
-
-<p>動作に特に問題はないが、気持ち悪いのでワーニングを消す方法。<br/>
-参考：<a href="http://hayatomo.com/2013/10/03/1122">http://hayatomo.com/2013/10/03/1122</a></p>
-
-<p><img src="http://mzgk.github.io/images/2014/0805/MagicalRecord_Warning.png" alt="Xcode" /></p>
 ]]></content>
   </entry>
   

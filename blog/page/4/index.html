@@ -9,8 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="カテゴリファイルを作る際の命名方法。
-カテゴリーファイルを選択して、 ">
+  <meta name="description" content="アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。
+デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。 Supporting Files ｛アプリ名｝-Info.plistを開く &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +69,127 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/share-itunes/">アプリのデータをiTunesで共有する方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T17:11:29+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。<br/>
+デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。</p>
+
+<h2>Supporting Files</h2>
+
+<ul>
+<li>｛アプリ名｝-Info.plistを開く</li>
+<li>Information Property Listの隣の＋をクリックし、行を追加</li>
+<li>Application supports iTunes file sharingを選択</li>
+<li>値のYESを選択</li>
+</ul>
+
+
+<p><img src="/images/2014/0805/iTunes_1.png" alt="iTunes共有1" /></p>
+
+<p>参考：
+<a href="http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf">http://qiita.com/SolaRayLino/items/8a4eb1821559122b4cbf</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/get-app-version/">アプリのバージョン取得</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T17:07:29+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ソース内でアプリのバージョンを取得する方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// バージョン：TARGET- General - Identity - Version（Info.plist : Bundle version strings short）</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">version</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span><span class="n">infoDictionary</span><span class="p">][</span><span class="s">@&quot;CFBundleShortVersionString&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// バンドル：TARGET- General - Identity - Bundle（Info.plist : Bundle version）</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">bundle</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span><span class="n">infoDictionary</span><span class="p">][</span><span class="s">@&quot;CFBundleVersion&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>VersionとBundleの違いについては、理解不足。</p>
+
+<ul>
+<li>Version
+
+<ul>
+<li>表記用のリリースバージョン</li>
+</ul>
+</li>
+<li>Bundle
+
+<ul>
+<li>内部開発用のビルドバージョン</li>
+</ul>
+</li>
+</ul>
+
+
+<p>とのことみたいだが、リリース時は両方が一致している必要があるらしいとのこと。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -799,98 +920,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/exception-breakpoint/">Xcodeで例外が発生した場所を特定する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T14:00:51+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Xcodeでのデバック実行中に例外が発生した場合、mainで終了し、どこで例外が発生したのかがわからない場合がある。<br/>
-そんな時に有効な設定。</p>
-
-<p>ナビゲーションエリア　→　ブレークポイントナビゲーター（⌘+7）→　左下の＋ボタン　→　Add Exception Breakpoint&hellip;</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/logicaloperator/">論理演算子を使って状態を逆転させる</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T13:13:59+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">switchChange:</span><span class="p">(</span><span class="n">UISwitch</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// スイッチのON/OFFと逆の設定をする方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 状態の逆転をさせる方法</span>
-</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span><span class="p">);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -911,6 +940,14 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/uiscrollview-checkpoint-2/">UIScrollViewに配置したViewが下にズレる時の対応</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiscrollview-checkpoint1/">UIScrollViewをスクロールさせる方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/check-screensize/">iPhoneのスクリーンサイズを調べる方法</a>
@@ -942,14 +979,6 @@
     
       <li class="post">
         <a href="/blog/2014/digitalcolor-mater/">MacのDigitalColor Materで色の値をコピーする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/remove-file-from-github/">git / GitHubからいらないファイルを削除する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/empty-trash/">Macでゴミ箱からファイルを削除できない時の方法</a>
       </li>
     
   </ul>

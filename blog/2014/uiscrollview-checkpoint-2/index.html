@@ -5,21 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>CoreDataで使用するsqliteの中身を確認する方法 - jubilee</title>
+  <title>UIScrollViewに配置したViewが下にズレる時の対応 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Organaizerを開く
-該当アプリを選択
-DownLoad
-ターミナルでダウンロードしたファイル内を移動（〜.xcapp）
-.sqlite（DocumentsかLibrary/Application Support/）
-sqliteで接続する 1
-2
-3
-4
-$ sqlite3 名前. &hellip;">
-  <meta name="keywords" content="Objective-C,iOS,CoreData">
+  <meta name="description" content="NavigationBarなどが存在し、UIScrollViewの上にviewを配置した画面の場合に、ビルドして確認するとviewが下にズレて表示されることがある。 ViewController &ndash; Attribute inspector このときは、 &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -27,7 +18,7 @@ $ sqlite3 名前. &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/uiscrollview-checkpoint-2">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -80,7 +71,7 @@ $ sqlite3 名前. &hellip;">
   
   <header>
     
-      <h1 class="entry-title">CoreDataで使用するsqliteの中身を確認する方法</h1>
+      <h1 class="entry-title">UIScrollViewに配置したViewが下にズレる時の対応</h1>
     
     
       <p class="meta">
@@ -96,32 +87,27 @@ $ sqlite3 名前. &hellip;">
   
 
 
-<time datetime="2014-08-05T18:50:06+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-12T16:44:48+09:00" pubdate data-updated="true">2014.08.12</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><ul>
-<li>Organaizerを開く</li>
-<li>該当アプリを選択</li>
-<li>DownLoad</li>
-<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
-<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
-<li>sqliteで接続する</li>
+<div class="entry-content"><p>NavigationBarなどが存在し、UIScrollViewの上にviewを配置した画面の場合に、ビルドして確認するとviewが下にズレて表示されることがある。</p>
+
+<h2>ViewController &ndash; Attribute inspector</h2>
+
+<p>このときは、ViewControllerのAttribute inspector &ndash; Adjubst Scroll View Insets　のチェックを外す。<br/>
+<code>automaticallyAdjustsScrollViewInsets = NO</code></p>
+
+<p><img src="/images/2014/0812/attribute-inspector.png" alt="inspector" /></p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.slideshare.net/YoshinoriImajo/ios7-30039408">http://www.slideshare.net/YoshinoriImajo/ios7-30039408</a></li>
 </ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sqlite3 名前.sqlite
-</span><span class='line'>sqlite&gt; .tables　→　テーブル名の確認
-</span><span class='line'>sqlite&gt; .schema テーブル名　→　スキーマの確認
-</span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
-</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -145,7 +131,7 @@ $ sqlite3 名前. &hellip;">
   
 
 
-<time datetime="2014-08-05T18:50:06+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-12T16:44:48+09:00" pubdate data-updated="true">2014.08.12</time>
       
 
 <span class="categories">
@@ -159,7 +145,7 @@ $ sqlite3 名前. &hellip;">
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/uiscrollview-checkpoint-2/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/uiscrollview-checkpoint-2/" >Tweet</a>
   
   
   
@@ -168,10 +154,8 @@ $ sqlite3 名前. &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/git-branch/" title="Previous Post: git branchのメモ">&laquo; git branchのメモ</a>
+        <a class="basic-alignment left" href="/blog/2014/uiscrollview-checkpoint1/" title="Previous Post: UIScrollViewをスクロールさせる方法">&laquo; UIScrollViewをスクロールさせる方法</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/complement-gitcommand-in-bash/" title="Next Post: bashでgitコマンドの補完をする">bashでgitコマンドの補完をする &raquo;</a>
       
     </p>
   </footer>
