@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-12T16:50:22+09:00</updated>
+  <updated>2014-08-12T16:57:03+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[viewのサイズを変更する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/change-view-frame/"/>
+    <updated>2014-08-12T16:53:42+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/change-view-frame</id>
+    <content type="html"><![CDATA[<p>viewのサイズを変更する方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 高さを変更</span>
+</span><span class='line'><span class="n">CGRect</span> <span class="n">newRect</span> <span class="o">=</span> <span class="n">_sampleView</span><span class="p">.</span><span class="n">frame</span><span class="p">;</span>
+</span><span class='line'><span class="n">newRect</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mf">165.0f</span><span class="p">;</span>
+</span><span class='line'><span class="p">[</span><span class="n">_sampleView</span> <span class="nl">setFrame:</span><span class="n">newRect</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIScrollViewに配置したViewが下にズレる時の対応]]></title>
@@ -786,18 +806,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 
 
 <p>参考：<a href="http://www.backlog.jp/git-guide/stepup/stepup1_1.html">http://www.backlog.jp/git-guide/stepup/stepup1_1.html</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Appをインストールできるデバイスを制限する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/restrict-device/"/>
-    <updated>2014-08-05T18:39:16+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/restrict-device</id>
-    <content type="html"><![CDATA[<p>カメラ機能などを使用するアプリをリリースする場合に、AppStoreからインストールできるデバイスを制限する方法。<br/>
-（カメラなしデバイスにインストールさせない方法）</p>
-
-<p><img src="http://mzgk.github.io/images/2014/0805/Device.png" alt="Xcode" /></p>
 ]]></content>
   </entry>
   
