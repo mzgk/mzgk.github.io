@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-12T16:57:03+09:00</updated>
+  <updated>2014-08-12T17:54:43+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,36 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[アプリの標準言語を日本語のみにする方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/localization-japanese-only/"/>
+    <updated>2014-08-12T17:39:06+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/localization-japanese-only</id>
+    <content type="html"><![CDATA[<p>日本国内のみの配布などで、アプリの標準言語を日本語のみにする設定する方法。<br/>
+アプリ作成時のデフォルトは英語になっており、UIImagePickerなどを使用してカメラ機能を実装した場合には、Cancel / Retakeなど英語で表示がされる。 これを日本語に変える。
+ただし、通常のlocalization対応と違い日本語オンリーにする対応。</p>
+
+<h2>Localization native development</h2>
+
+<ol>
+<li>プロジェクトナビゲーターでプロジェクトを選択 &ndash; Target &ndash; Infoを開く</li>
+<li>Localization native development region &ndash; en → Japanに変更する
+<img src="http://mzgk.github.io/images/2014/0812/localization-1.png" alt="localization-1" /></li>
+</ol>
+
+
+<h2>Localizations</h2>
+
+<ol>
+<li>上記の設定後に、そのままの場所で右クリック → Add Row</li>
+<li>Keyに「Localizations」を追加する</li>
+<li>Item0を選択し、Valueの値を「Japanese」に変更する
+<img src="http://mzgk.github.io/images/2014/0812/localization-2.png" alt="localization-2" /></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[viewのサイズを変更する方法]]></title>
@@ -707,105 +737,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 </span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
 </span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[git branchのメモ]]></title>
-    <link href="http://mzgk.github.io/blog/2014/git-branch/"/>
-    <updated>2014-08-05T18:44:02+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/git-branch</id>
-    <content type="html"><![CDATA[<p>分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。<br/>
-例えば、<br/>
-「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。<br/>
-だけど、ダメだった時に追加前に戻せるかが不安。<br/>
-こんな時にブランチをきって、そっちで機能追加をする。<br/>
-うまく行けばmasterにマージし、だめならブランチを削除すればmasterに影響はない。</p>
-
-<h2>ブランチの一覧を表示</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'>* master  // masterしかない状態
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ブランチを作成</h2>
-
-<p>masterの状態を複製して、ブランチが作成される。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch ブランチ名
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'> ブランチ名
-</span><span class='line'>*master // masterブランチにいる
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ブランチを切り替える</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout ブランチ名
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'>*ブランチ名  // このブランチにいる
-</span><span class='line'> master
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>作業</h2>
-
-<p>このブランチで作業し、add, commit</p>
-
-<h2>masterにマージする</h2>
-
-<p>ブランチで作業した内容をmasterにマージする。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>// 一旦、masterに切り替える
-</span><span class='line'><span class="nv">$ </span>git checkout master
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'> ブランチ名
-</span><span class='line'>*master // masterブランチにいる
-</span><span class='line'>// マージする
-</span><span class='line'><span class="nv">$ </span>git merge ブランチ名
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ブランチを削除する</h2>
-
-<p>不要になったブランチは削除する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch -d ブランチ名
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'>*master
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>参考：<a href="http://www.backlog.jp/git-guide/stepup/stepup1_1.html">http://www.backlog.jp/git-guide/stepup/stepup1_1.html</a></p>
 ]]></content>
   </entry>
   

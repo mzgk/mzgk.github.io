@@ -9,14 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="セルスワイプでの削除をやめる方法。
-セルの編集を許可するかどうかを返すメソッドでNOを返す。 1
-2
-3
-4
-5
-6
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath &hellip;">
+  <meta name="description" content="セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。
+このハイライトを消す方法。
+UITableViewControllerを使用しているぶんには、特に意識する必要はない。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +70,85 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/cell-highlight/">UITableViewのセルのハイライト制御</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T17:49:14+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。<br/>
+このハイライトを消す方法。<br/>
+UITableViewControllerを使用しているぶんには、特に意識する必要はない。</p>
+
+<h2>UITableViewControllerを継承してUITableViewを使う場合</h2>
+
+<p>UITableViewControllerのviewWillAppear:にはハイライト解除の処理が定義してある。<br/>
+なので、viewWillAppear:メソッドをオーバーライドするときは、必ず親クラスのviewWillAppear:メソッドを呼ぶこと。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="c1">// 必ずこれを呼ぶこと</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>UITableViewControllerを継承せずにUITableViewを使う場合</h2>
+
+<p>自分で実装すること。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
+</span><span class='line'>  <span class="c1">// ハイライト解除</span>
+</span><span class='line'>  <span class="p">[</span><span class="n">_tableView</span> <span class="nl">deselectRowAtIndexPath:</span><span class="p">[</span><span class="n">_tableView</span> <span class="n">indexPathForSelectedRow</span><span class="p">]</span> <span class="nl">animated:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -880,52 +954,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/maxim/">作りの格言</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T14:31:43+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>Do not amaze everyone, But rescure yourself.<br/>
-多くの人を感動させようとする前に、まず自分自身を救え。</p>
-
-<p>Done is better than perfect.<br/>
-完璧を目指すより、まず終わらせろ。</p>
-
-<p>Eat your own dogfood, and Serve your best dogfood.<br/>
-自分自身がユーザーであれ、そして良いと思ったものを誇りをもって出せ。</p>
-
-<p>There is worth, there is a way.<br/>
-ユーザーが対価を払う方法は必ずある、だから価値のあるものを作れ。</p></blockquote>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -946,6 +974,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/change-view-frame/">viewのサイズを変更する方法</a>
@@ -981,10 +1013,6 @@
     
       <li class="post">
         <a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/css-line-height/">[CSS] 文字の高さを指定する</a>
       </li>
     
   </ul>

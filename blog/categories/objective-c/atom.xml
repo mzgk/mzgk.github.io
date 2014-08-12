@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-12T16:57:03+09:00</updated>
+  <updated>2014-08-12T17:54:43+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,36 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[アプリの標準言語を日本語のみにする方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/localization-japanese-only/"/>
+    <updated>2014-08-12T17:39:06+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/localization-japanese-only</id>
+    <content type="html"><![CDATA[<p>日本国内のみの配布などで、アプリの標準言語を日本語のみにする設定する方法。<br/>
+アプリ作成時のデフォルトは英語になっており、UIImagePickerなどを使用してカメラ機能を実装した場合には、Cancel / Retakeなど英語で表示がされる。 これを日本語に変える。
+ただし、通常のlocalization対応と違い日本語オンリーにする対応。</p>
+
+<h2>Localization native development</h2>
+
+<ol>
+<li>プロジェクトナビゲーターでプロジェクトを選択 &ndash; Target &ndash; Infoを開く</li>
+<li>Localization native development region &ndash; en → Japanに変更する
+<img src="/images/2014/0812/localization-1.png" alt="localization-1" /></li>
+</ol>
+
+
+<h2>Localizations</h2>
+
+<ol>
+<li>上記の設定後に、そのままの場所で右クリック → Add Row</li>
+<li>Keyに「Localizations」を追加する</li>
+<li>Item0を選択し、Valueの値を「Japanese」に変更する
+<img src="/images/2014/0812/localization-2.png" alt="localization-2" /></li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIScrollViewに配置したViewが下にズレる時の対応]]></title>
@@ -271,54 +301,6 @@ NSDictionary *barItemInfo = @{NSFontAttributeName : baseTitleFont, NSForegroundC
 <ul>
 <li><a href="http://qiita.com/hkomo746/items/22fcecfd0773023ed56a">http://qiita.com/hkomo746/items/22fcecfd0773023ed56a</a></li>
 <li><a href="http://d.hatena.ne.jp/nakamura001/20111107/1320680842">http://d.hatena.ne.jp/nakamura001/20111107/1320680842</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[プッシュ通知の誤解]]></title>
-    <link href="http://mzgk.github.io/blog/2014/push-notification/"/>
-    <updated>2014-08-07T13:25:29+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/push-notification</id>
-    <content type="html"><![CDATA[<p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で、自分が誤解していたこと。<br/>
-実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。<br/>
-Apple公式の「LocalおよびPush Notificationプログラミングガイド」を確認したら、P14に記載されてた。</p>
-
-<h3>誤り</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>アプリが通知を受信し、アプリがバックグラウンドでアイコンバッジ表示や受信を契機にした処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>正しくは</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>OSが通知を受信し、メッセージを表示（アイコンバッジはサーバーからの指示でOSが表示）</li>
-<li>ユーザーがアプリを起動し、受け取った通知をもとに処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>注意</h3>
-
-<ul>
-<li>アプリが完全に終了している時で、通知受信後にメッセージセンターからではなく、アプリのアイコンから起動した場合は、受信データを受け取ることができない</li>
-<li>通知センターから起動とアプリアイコンから起動では、動作がちがう</li>
-<li>バックグラウンドで処理をしたい場合は、サーバーからの通知ペイロードに <code>content-available=1</code> を含むこと</li>
-<li>TARGETS &ndash; Background Models &ndash; Remote notifications, (Background fetch)にチェック</li>
-<li>UIRemoteNotificationTypeNewsstandContentAvailability指定するとバッジがでない</li>
-</ul>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://d.hatena.ne.jp/shu223/20140113/1389612563">http://d.hatena.ne.jp/shu223/20140113/1389612563</a></li>
-<li><a href="http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</a></li>
-<li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
 </ul>
 
 ]]></content>
