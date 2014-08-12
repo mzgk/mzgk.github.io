@@ -5,13 +5,22 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>プッシュ通知の誤解 - jubilee</title>
+  <title>iPhoneのスクリーンサイズを調べる方法 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で、自分が誤解していたこと。
-実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。
-Apple公式の「LocalおよびPush &hellip;">
+  <meta name="description" content="iPhone・iPadなどのスクリーンサイズを調べる方法。 1
+2
+3
+4
+5
+6
+7
+8
+9
+// 3.5インチかどうかの判断
+- (BOOL)isSmallSizeScreen
+{ CGSize screenSize = [[UIScreen mainScreen]bounds].size; &hellip;">
   <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +29,7 @@ Apple公式の「LocalおよびPush &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/push-notification">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/check-screensize">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -73,7 +82,7 @@ Apple公式の「LocalおよびPush &hellip;">
   
   <header>
     
-      <h1 class="entry-title">プッシュ通知の誤解</h1>
+      <h1 class="entry-title">iPhoneのスクリーンサイズを調べる方法</h1>
     
     
       <p class="meta">
@@ -89,52 +98,34 @@ Apple公式の「LocalおよびPush &hellip;">
   
 
 
-<time datetime="2014-08-07T13:25:29+09:00" pubdate data-updated="true">2014.08.07</time>
+<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で、自分が誤解していたこと。<br/>
-実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。<br/>
-Apple公式の「LocalおよびPush Notificationプログラミングガイド」を確認したら、P14に記載されてた。</p>
+<div class="entry-content"><p>iPhone・iPadなどのスクリーンサイズを調べる方法。</p>
 
-<h3>誤り</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>アプリが通知を受信し、アプリがバックグラウンドでアイコンバッジ表示や受信を契機にした処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>正しくは</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>OSが通知を受信し、メッセージを表示（アイコンバッジはサーバーからの指示でOSが表示）</li>
-<li>ユーザーがアプリを起動し、受け取った通知をもとに処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>注意</h3>
-
-<ul>
-<li>アプリが完全に終了している時で、通知受信後にメッセージセンターからではなく、アプリのアイコンから起動した場合は、受信データを受け取ることができない</li>
-<li>通知センターから起動とアプリアイコンから起動では、動作がちがう</li>
-<li>バックグラウンドで処理をしたい場合は、サーバーからの通知ペイロードに <code>content-available=1</code> を含むこと</li>
-<li>TARGETS &ndash; Background Models &ndash; Remote notifications, (Background fetch)にチェック</li>
-<li>UIRemoteNotificationTypeNewsstandContentAvailability指定するとバッジがでない</li>
-</ul>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://d.hatena.ne.jp/shu223/20140113/1389612563">http://d.hatena.ne.jp/shu223/20140113/1389612563</a></li>
-<li><a href="http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</a></li>
-<li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
-</ul>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 3.5インチかどうかの判断</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isSmallSizeScreen</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">CGSize</span> <span class="n">screenSize</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span><span class="n">bounds</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">screenSize</span><span class="p">.</span><span class="n">height</span> <span class="o">==</span> <span class="mf">480.0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
@@ -158,7 +149,7 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
   
 
 
-<time datetime="2014-08-07T13:25:29+09:00" pubdate data-updated="true">2014.08.07</time>
+<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
       
 
 <span class="categories">
@@ -172,7 +163,7 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/push-notification/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/push-notification/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/check-screensize/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/check-screensize/" >Tweet</a>
   
   
   
@@ -181,10 +172,8 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/cocoapods-license-auto-make/" title="Previous Post: CocoaPodsでライセンス表記を自動で作成する">&laquo; CocoaPodsでライセンス表記を自動で作成する</a>
+        <a class="basic-alignment left" href="/blog/2014/launch-image/" title="Previous Post: アプリの起動イメージを指定時間表示する方法">&laquo; アプリの起動イメージを指定時間表示する方法</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/viewcontroller-notification/" title="Next Post: ViewControllerでアプリの状態を検知する">ViewControllerでアプリの状態を検知する &raquo;</a>
       
     </p>
   </footer>

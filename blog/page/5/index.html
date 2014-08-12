@@ -9,11 +9,11 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Macも新しくなったので、SSH鍵の設定をあらためて実施。
-GitHub, Biubucketに対して行う。
-別々の鍵ファイルを用意した方がいいのかもしれないが、今回は一つのファイルでやってみる。 Homebrewのインストール
+  <meta name="description" content="Bitbucketで管理しているOctopressブログ環境を取得し、ローカルに再構築する。 Homebrewのインストール
 rbenvのインストール
-Ruby1.9.3のインストール &hellip;">
+Ruby1.9.3のインストール
+SSH鍵の設定（GitHub, Bitbucket）
+Octopressブログ環境の構築（From &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +72,56 @@ Ruby1.9.3のインストール &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-5/">Octopressブログ環境の再構築：第５回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:44:01+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Bitbucketで管理しているOctopressブログ環境を取得し、ローカルに再構築する。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）　&lt;&ndash; <strong>いまここ</strong></li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-5/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -507,49 +557,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/terminal-space-escape/">Terminalで空白が存在するパスの入力</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-09T06:19:00+09:00" pubdate data-updated="true">2014.01.09</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Terminalで空白が間に存在するようなディレクトリを認識させる方法。<br/>
-普通に空白を入力しても認識されないので、エスケープさせる必要がある。<br/>
-基本的な内容だけど、知らなかったので忘れないようにポスト。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/terminal-space-escape/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -570,6 +577,10 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/check-screensize/">iPhoneのスクリーンサイズを調べる方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/launch-image/">アプリの起動イメージを指定時間表示する方法</a>
@@ -605,10 +616,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
       <li class="post">
         <a href="/blog/2014/empty-trash/">Macでゴミ箱からファイルを削除できない時の方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/margin/">marginの記法</a>
       </li>
     
   </ul>
