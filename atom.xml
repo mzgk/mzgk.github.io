@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-12T17:54:43+09:00</updated>
+  <updated>2014-08-14T20:38:15+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,188 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[セルに追加したボタンの処理をViewControllerで行う]]></title>
+    <link href="http://mzgk.github.io/blog/2014/handle-button-in-cell/"/>
+    <updated>2014-08-14T20:11:37+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/handle-button-in-cell</id>
+    <content type="html"><![CDATA[<p>カスタムセルに追加したボタンの処理を、ViewControllerで行う方法。<br/>
+タップされたボタンのセルのインデックスの取得。</p>
+
+<h2>Cell</h2>
+
+<ol>
+<li>StoryBoard上でセル内にボタンを追加する</li>
+<li>Attribute inspector &ndash; view &ndash; Tag に値を設定する</li>
+<li>Outlet接続のみ行う（不要かも）</li>
+</ol>
+
+
+<h2>ViewController</h2>
+
+<h3>ボタンのプロパティを宣言</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIButton</span> <span class="o">*</span><span class="n">button</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ボタンとタップ時の処理を作成する</h3>
+
+<p>任意の場所で。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// Cellにボタンを設定した時のTag値</span>
+</span><span class='line'><span class="n">_button</span> <span class="o">=</span> <span class="p">(</span><span class="n">UIButton</span><span class="o">*</span><span class="p">)[</span><span class="n">cell</span> <span class="nl">viewWithTag:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ボタンのイベントを登録</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">addTarget:</span><span class="n">self</span> <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">buttonTapped:event:</span><span class="p">)</span> <span class="nl">forControlEvents:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>タップ時の処理</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">buttonTapped:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="nf">event:</span><span class="p">(</span><span class="n">UIEvent</span><span class="o">*</span><span class="p">)</span><span class="nv">event</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// タップされたボタンのセルインデックスを取得する</span>
+</span><span class='line'>    <span class="n">UITouch</span> <span class="o">*</span><span class="n">touch</span> <span class="o">=</span> <span class="p">[[</span><span class="n">event</span> <span class="n">allTouches</span><span class="p">]</span><span class="n">anyObject</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="n">touch</span> <span class="nl">locationInView:</span><span class="n">_sampleTableView</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_tappedIndexPath</span> <span class="o">=</span> <span class="p">[</span><span class="n">_sampleTableView</span> <span class="nl">indexPathForRowAtPoint:</span><span class="n">point</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 実行したい処理</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html">http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[指定したセルの表示更新を行う]]></title>
+    <link href="http://mzgk.github.io/blog/2014/update-selected-cell/"/>
+    <updated>2014-08-14T20:09:55+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/update-selected-cell</id>
+    <content type="html"><![CDATA[<p>特定のセルのみの表示更新を行いたい場合の方法。<br/>
+以下のようなパターンで必要になった。</p>
+
+<ol>
+<li>セルをスワイプして削除ボタンを表示し、削除ボタンをタップ</li>
+<li>セル内のデータに基づく内部データを処理（セル自体は削除したくない）</li>
+<li>削除ボタンが消せない（reloadData）</li>
+<li>セルのみ更新をしたい</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// セルの削除ボタンでしたい処理</span>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>        <span class="c1">// 処理したセルの更新↓↓↓</span>
+</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">indexPaths</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObject:</span><span class="n">indexPath</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span> <span class="nl">reloadRowsAtIndexPaths:</span><span class="n">indexPaths</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationRight</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">// ↑↑↑</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>更新時のアニメーション</h2>
+
+<ul>
+<li>UITableViewRowAnimationFade</li>
+<li>UITableViewRowAnimationRight</li>
+<li>UITableViewRowAnimationLeft</li>
+<li>UITableViewRowAnimationTop</li>
+<li>UITableViewRowAnimationBottom</li>
+<li>UITableViewRowAnimationNone</li>
+<li>UITableViewRowAnimationMiddle</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[UIImageView内に表示する画像の表示モード]]></title>
+    <link href="http://mzgk.github.io/blog/2014/uiimageview-contentmode/"/>
+    <updated>2014-08-14T20:09:19+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/uiimageview-contentmode</id>
+    <content type="html"><![CDATA[<p>UIImageView内に表示する画像の表示モードを指定する方法。</p>
+
+<h2>指定方法</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">_imageView</span><span class="p">.</span><span class="n">contentMode</span> <span class="o">=</span> <span class="n">UIViewContentModeCenter</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>モード</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">UIViewContentMode</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">UIViewContentModeScaleToFill</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeScaleAspectFit</span><span class="p">,</span>      <span class="c1">// contents scaled to fit with fixed aspect. remainder is transparent</span>
+</span><span class='line'>    <span class="n">UIViewContentModeScaleAspectFill</span><span class="p">,</span>     <span class="c1">// contents scaled to fill with fixed aspect. some portion of content may be clipped.</span>
+</span><span class='line'>    <span class="n">UIViewContentModeRedraw</span><span class="p">,</span>              <span class="c1">// redraw on bounds change (calls -setNeedsDisplay)</span>
+</span><span class='line'>    <span class="n">UIViewContentModeCenter</span><span class="p">,</span>              <span class="c1">// contents remain same size. positioned adjusted.</span>
+</span><span class='line'>    <span class="n">UIViewContentModeTop</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeBottom</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeLeft</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeRight</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeTopLeft</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeTopRight</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeBottomLeft</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewContentModeBottomRight</span><span class="p">,</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[アプリの標準言語を日本語のみにする方法]]></title>
@@ -674,69 +856,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
     <content type="html"><![CDATA[<p>Alfredの検索リストに自分が作成したファイルや連絡先を表示させないためには、以下を確認。</p>
 
 <p><img src="http://mzgk.github.io/images/2014/0805/Alfred.png" alt="Alfred" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Autolayout時の注意]]></title>
-    <link href="http://mzgk.github.io/blog/2014/autolayout-point/"/>
-    <updated>2014-08-05T18:56:40+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/autolayout-point</id>
-    <content type="html"><![CDATA[<p>3.5inch / 4inch時の注意点。</p>
-
-<p><img src="http://mzgk.github.io/images/2014/0805/AutoLayout.png" alt="Xcode" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[bashでgitコマンドの補完をする]]></title>
-    <link href="http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash/"/>
-    <updated>2014-08-05T18:53:04+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash</id>
-    <content type="html"><![CDATA[<ul>
-<li>補完用のファイルをダウンロード
-
-<ul>
-<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
-</ul>
-</li>
-<li>~/.git-completion.bashとして設置</li>
-<li>~/.bash_profileにパスを記述</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">source</span> ~/.git-completion.bash
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CoreDataで使用するsqliteの中身を確認する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata/"/>
-    <updated>2014-08-05T18:50:06+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata</id>
-    <content type="html"><![CDATA[<ul>
-<li>Organaizerを開く</li>
-<li>該当アプリを選択</li>
-<li>DownLoad</li>
-<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
-<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
-<li>sqliteで接続する</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sqlite3 名前.sqlite
-</span><span class='line'>sqlite&gt; .tables　→　テーブル名の確認
-</span><span class='line'>sqlite&gt; .schema テーブル名　→　スキーマの確認
-</span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
-</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

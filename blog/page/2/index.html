@@ -9,8 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。
-このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。 (font-size + 上余白 + 下余白) / font-size &hellip;">
+  <meta name="description" content="ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの applicationWillEnterForeground: 以外に思いつかなかったので調査。
+結果としては、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +69,366 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-08T15:52:13+09:00" pubdate data-updated="true">2014.08.08</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの <code>applicationWillEnterForeground:</code> 以外に思いつかなかったので調査。<br/>
+結果としては、ViewControllerでもアプリの状態を検知する方法があった。</p>
+
+<h2>通知を利用する</h2>
+
+<p>ViewController.mの <code>viewWillAppear</code> などに、通知を追加しておく。</p>
+
+<h3>追加</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'>    <span class="c1">// UIApplicationDidBecomeActiveNotification：アクティブになったとき</span>
+</span><span class='line'>    <span class="c1">// applicationDidBecomeActive（自作）メソッドを呼ぶ</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span>
+</span><span class='line'>                                             <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">applicationDidBecomeActive</span><span class="p">)</span>
+</span><span class='line'>                                                 <span class="nl">name:</span><span class="n">UIApplicationDidBecomeActiveNotification</span>
+</span><span class='line'>                                               <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>削除</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillDisappear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 通知の削除</span>
+</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>状態一覧</h2>
+
+<p>UIApplicationのNotifications一覧</p>
+
+<h3>ライフサイクル系</h3>
+
+<ul>
+<li>UIApplicationDidFinishLaunchingNotification
+
+<ul>
+<li>アプリケーションが起動した直後に通知</li>
+</ul>
+</li>
+<li>UIApplicationWillEnterForegroundNotification
+
+<ul>
+<li>アプリケーションがアクティブになる直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidBecomeActiveNotification
+
+<ul>
+<li>アプリケーションがアクティブになった時に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidEnterBackgroundNotification
+
+<ul>
+<li>アプリケーションがバックグラウンドに入る時に通知</li>
+</ul>
+</li>
+<li>UIApplicationWillResignActiveNotification
+
+<ul>
+<li>アプリケーションがアクティブで無くなる直前に通知。通知アラートが表示される時などにも通知される</li>
+</ul>
+</li>
+<li>UIApplicationWillTerminateNotification
+
+<ul>
+<li>アプリケーションが終了される直前に通知</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>サイズ変更系</h3>
+
+<ul>
+<li>UIApplicationWillChangeStatusBarFrameNotification
+
+<ul>
+<li>ステータスバーのサイズ変更される直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidChangeStatusBarFrameNotification
+
+<ul>
+<li>ステータスバーのサイズ変更が発生した時に通知。デバイスが回転した時など</li>
+</ul>
+</li>
+<li>UIApplicationWillChangeStatusBarOrientationNotification
+
+<ul>
+<li>デバイスの向きが変わる直前に通知</li>
+</ul>
+</li>
+<li>UIApplicationDidChangeStatusBarOrientationNotification
+
+<ul>
+<li>デバイスの向きが変わった後に通知</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>その他</h3>
+
+<ul>
+<li>UIApplicationDidReceiveMemoryWarningNotification
+
+<ul>
+<li>メモリ不足の警告発生時に通知</li>
+</ul>
+</li>
+<li>UIApplicationProtectedDataDidBecomeAvailable
+
+<ul>
+<li>保護されたファイルへコードからアクセスが可能になった時に通知</li>
+</ul>
+</li>
+<li>UIApplicationProtectedDataWillBecomeUnavailable
+
+<ul>
+<li>保護されたファイルへコードからアクセス出来なくなる前に通知</li>
+</ul>
+</li>
+<li>UIApplicationSignificantTimeChangeNotification
+
+<ul>
+<li>時間に大きな変更が有った場合に通知。日付が変わった時や夏時間に変更など</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://qiita.com/hkomo746/items/22fcecfd0773023ed56a">http://qiita.com/hkomo746/items/22fcecfd0773023ed56a</a></li>
+<li><a href="http://d.hatena.ne.jp/nakamura001/20111107/1320680842">http://d.hatena.ne.jp/nakamura001/20111107/1320680842</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/push-notification/">プッシュ通知の誤解</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-07T13:25:29+09:00" pubdate data-updated="true">2014.08.07</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で、自分が誤解していたこと。<br/>
+実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。<br/>
+Apple公式の「LocalおよびPush Notificationプログラミングガイド」を確認したら、P14に記載されてた。</p>
+
+<h3>誤り</h3>
+
+<ol>
+<li>サーバーからプッシュ通知を受信</li>
+<li>アプリが通知を受信し、アプリがバックグラウンドでアイコンバッジ表示や受信を契機にした処理を行う（自分でコーディング）</li>
+</ol>
+
+
+<h3>正しくは</h3>
+
+<ol>
+<li>サーバーからプッシュ通知を受信</li>
+<li>OSが通知を受信し、メッセージを表示（アイコンバッジはサーバーからの指示でOSが表示）</li>
+<li>ユーザーがアプリを起動し、受け取った通知をもとに処理を行う（自分でコーディング）</li>
+</ol>
+
+
+<h3>注意</h3>
+
+<ul>
+<li>アプリが完全に終了している時で、通知受信後にメッセージセンターからではなく、アプリのアイコンから起動した場合は、受信データを受け取ることができない</li>
+<li>通知センターから起動とアプリアイコンから起動では、動作がちがう</li>
+<li>バックグラウンドで処理をしたい場合は、サーバーからの通知ペイロードに <code>content-available=1</code> を含むこと</li>
+<li>TARGETS &ndash; Background Models &ndash; Remote notifications, (Background fetch)にチェック</li>
+<li>UIRemoteNotificationTypeNewsstandContentAvailability指定するとバッジがでない</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://d.hatena.ne.jp/shu223/20140113/1389612563">http://d.hatena.ne.jp/shu223/20140113/1389612563</a></li>
+<li><a href="http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</a></li>
+<li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-06T13:52:05+09:00" pubdate data-updated="true">2014.08.06</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>CocoaPodsを使用している場合に、使用しているライブラリのライセンス表記を自動で作成する方法。<br/>
+ライセンス表記は、iPhoneの設定アプリに作成される。<br/>
+<code>pod install / pod update</code> するたびに自動作成してくれるので、ライブラリの追加／削除のたびにライセンス表記の修正をしなくていいので便利。 <br/>
+作成時に、些細なところでハマったので、やり方を残しておく。</p>
+
+<h2>Settings.bundleを作成</h2>
+
+<p>File &ndash; New &ndash; File から、iOS &ndash; Resource で「Settings Bundle」を選択。
+<img src="/images/2014/0806/cocoapods-license-1.png" alt="settingbundle1" /></p>
+
+<p>作成する場所を選択する。<br/>
+ここで、Groupを「Supporting Files」にはしないこと。　←　ここでハマった。
+<img src="/images/2014/0806/cocoapods-license-2.png" alt="settingbundle2" /></p>
+
+<h2>Root.plistの編集</h2>
+
+<p>デフォルトの状態から、以下のように編集する。<br/>
+「Child Pane」は、「Type」からしか選択はできないので注意。<br/>
+<img src="/images/2014/0806/cocoapods-license-3.png" alt="root.plist" /></p>
+
+<h2>Acknowledgements.plistの作成</h2>
+
+<p>「Settings.bundle」内に「Acknowledgements.plist」を作成する。<br/>
+作成方法は通常のファイル作成と違い、以下のようにする。</p>
+
+<ul>
+<li>「Settings.bundle」を右クリックで「パッケージの内容を表示」させ</li>
+<li>「Root.plist」を複製し、「Acknowledgements.plist」に名前をかえる</li>
+<li>「Acknowledgements.plist」を開き（エディタなど）、中身を消す　←　ここでもハマった。</li>
+</ul>
+
+
+<p><img src="/images/2014/0806/cocoapods-license-4.png" alt="Acknowledgements.plist" /></p>
+
+<h2>Podfileへの追加</h2>
+
+<p>Podfileへ、以下を追加する。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>post_install do | installer |
+</span><span class='line'>require 'fileutils'
+</span><span class='line'>FileUtils.cp_r('Pods/Pods-acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Settings.bundle</code> へのパスは、XcodeでSettings.bundleを表示させ、エディタエリア上部のジャンプバーを参照すること。<br/>
+<img src="/images/2014/0806/cocoapods-license-5.png" alt="Podfile" /></p>
+
+<h2>pod install</h2>
+
+<p>あとは、<code>pod install</code> をすれば、完成。Acknowledgements.plistはこんな感じになる。<br/>
+<img src="/images/2014/0806/cocoapods-license-6.png" alt="Acknowledgements.plist" /></p>
+
+<p>ビルドし、iPhoneの設定アプリから確認することができる。<br/>
+<img src="/images/2014/0806/cocoapods-license-7.png" alt="Setting.app" />
+<img src="/images/2014/0806/cocoapods-license-8.png" alt="Setting.app" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -398,150 +758,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/autolayout-point/">Autolayout時の注意</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:56:40+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>3.5inch / 4inch時の注意点。</p>
-
-<p><img src="/images/2014/0805/AutoLayout.png" alt="Xcode" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:53:04+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>補完用のファイルをダウンロード
-
-<ul>
-<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
-</ul>
-</li>
-<li>~/.git-completion.bashとして設置</li>
-<li>~/.bash_profileにパスを記述</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">source</span> ~/.git-completion.bash
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:50:06+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>Organaizerを開く</li>
-<li>該当アプリを選択</li>
-<li>DownLoad</li>
-<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
-<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
-<li>sqliteで接続する</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sqlite3 名前.sqlite
-</span><span class='line'>sqlite&gt; .tables　→　テーブル名の確認
-</span><span class='line'>sqlite&gt; .schema テーブル名　→　スキーマの確認
-</span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -562,6 +778,18 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiimageview-contentmode/">UIImageView内に表示する画像の表示モード</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
@@ -589,18 +817,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
     
       <li class="post">
         <a href="/blog/2014/font-standardize/">アプリ内のフォントを統一させる方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/push-notification/">プッシュ通知の誤解</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a>
       </li>
     
   </ul>

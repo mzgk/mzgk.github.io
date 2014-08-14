@@ -9,9 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Do not amaze everyone, But rescure yourself.
-多くの人を感動させようとする前に、まず自分自身を救え。 Done is better than perfect.
-完璧を目指すより、まず終わらせろ。 Eat your own dogfood, and &hellip;">
+  <meta name="description" content="ビューの重なり順をコードで変更する方法。 自分に追加されているサブビューの配列を取得 1
+self.subviews 自分と同じスーパービューをもつサブビューの配列を取得 1
+superview.subviews 挿入位置をインデックス番号で指定する 1
+[self.view &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +71,226 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/chage-view-overlap/">ビューの重なり順を変更する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T15:34:39+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ビューの重なり順をコードで変更する方法。</p>
+
+<h2>自分に追加されているサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">superview</span><span class="p">.</span><span class="n">subviews</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>挿入位置をインデックス番号で指定する</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">atIndex:</span><span class="mi">1</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定ビューの前／後ろに挿入する</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// _targetViewの下にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">belowSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// _targetViewの上にする</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">aboveSubview:</span><span class="n">_targetView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ビューを最前面／再背面に移動させる</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 最前面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">bringSubviewToFront:</span><span class="n">_imageView</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// 再背面</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">sendSubviewToBack:</span><span class="n">_imageView</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>指定したインデックスのビューの重なりを入れ替える</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
+</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/filepath-nsurl/">ファイルパス（NSString）をNSURLに変換する方法（日本語OK）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T15:07:00+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span><span class="o">*</span> <span class="n">string</span> <span class="o">=</span> <span class="s">@&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">fileURLWithPath:</span><span class="n">string</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// NGケース（nilが返る）</span>
+</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">nilUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">string</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/uirefreshcontrol/">引っ張って更新を使う（UITableViewController / UITableView）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T14:42:13+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UITableViewControllerを使うか、UITableViewを直で使うかによって、コードの差異あり。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UITableView</span> <span class="o">*</span><span class="n">postlistTableView</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIRefreshControl</span> <span class="o">*</span><span class="n">refreshControl</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">_refreshControl</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIRefreshControl</span> <span class="n">new</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_postlistTableView</span> <span class="nl">addSubview:</span><span class="n">_refreshControl</span><span class="p">];</span>    <span class="c1">// （差異）UITableViewを直で使う場合</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">refreshControl</span> <span class="o">=</span> <span class="n">refreshControl</span><span class="p">;</span>               <span class="c1">// （差異）UITableViewControllerを使う場合</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_refreshControl</span> <span class="nl">addTarget:</span><span class="n">self</span>
+</span><span class='line'>                        <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">refreshOccured:</span><span class="p">)</span>    <span class="c1">// 更新時の処理を行う自作メソッド名</span>
+</span><span class='line'>              <span class="nl">forControlEvents:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_postlistTableView</span><span class="p">.</span><span class="n">alwaysBounceVertical</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>          <span class="c1">// セルが空でも可能とする</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">refreshOccured:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 更新で行う処理を記述</span>
+</span><span class='line'>    <span class="c1">// 更新処理を終了させる</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_refreshControl</span> <span class="n">endRefreshing</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_postlistTableView</span> <span class="n">reloadData</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -436,153 +657,6 @@ GitHub, Biubucketに対して行う。<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-2/">Octopressブログ環境の再構築：第２回</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-22T12:18:26+09:00" pubdate data-updated="true">2014.02.22</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>前回はHomebrewのインストールまでだったので、続きから。<br/>
-Rubyのバージョン管理を行うrbenvやその他必要モジュールをインストール。</p>
-
-<ol>
-<li>Homebrewのインストール</li>
-<li>rbenvのインストール　&lt;&ndash; <strong>いまここ</strong></li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/restart-octopress-2/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-22T11:27:04+09:00" pubdate data-updated="true">2014.02.22</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Macを新しくしたので、Octopressブログ環境を再構築する必要がでてきた。<br/>
-前のローカル環境はBitbucketで管理しているので $ git clone すればいいが、Rubyその他もろもろのセットアップは必要。<br/>
-前のMacではRubyをさわったりで、前準備ができていた状態での構築だったが、今回はゼロからの構築。<br/>
-まずは、パッケージ管理のHomebrewをインストールまでが目標。</p>
-
-<ol>
-<li>Homebrewのインストール　&lt;&ndash; <strong>いまここ</strong></li>
-<li>rbenvのインストール</li>
-<li>Ruby1.9.3のインストール</li>
-<li>SSH鍵の設定（GitHub, Bitbucket）</li>
-<li>Octopressブログ環境の構築（From Bitbucket）</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/restart-octopress-1/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/finder-cut-and-paste/">Macでカット＆ペーストをする</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-19T21:29:35+09:00" pubdate data-updated="true">2014.02.19</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Macではカット＆ペーストはできないと思い込んでいたが、実は標準機能で可能だったのでメモ。<br/>
-カット＆ペーストのためだけに、『XtraFinder』などのアプリをインストールする必要もなかった…<br/>
-Windowsに慣れていると、ついついMacでもカット＆ペーストを <code>Cmd+x Cmd+v</code> としてしまうが、Macではちょっと勝手が違う。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/finder-cut-and-paste/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -603,6 +677,18 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiimageview-contentmode/">UIImageView内に表示する画像の表示モード</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
@@ -630,18 +716,6 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
     
       <li class="post">
         <a href="/blog/2014/font-standardize/">アプリ内のフォントを統一させる方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/push-notification/">プッシュ通知の誤解</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a>
       </li>
     
   </ul>

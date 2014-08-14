@@ -5,23 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>iPhoneのスクリーンサイズを調べる方法 - jubilee</title>
+  <title>jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="iPhone・iPadなどのスクリーンサイズを調べる方法。 1
-2
-3
-4
-5
-6
-7
-8
-9
-// 3.5インチかどうかの判断
-- (BOOL)isSmallSizeScreen
-{ CGSize screenSize = [[UIScreen mainScreen]bounds].size; &hellip;">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="Octopressでの投稿手順（基本的な）。
+ファイルの作成→編集→確認→デプロイ→プッシュまで。 手順 1. ポストファイルの生成 source/_post ディレクトリにファイルが作成される。
+yyyy-mm-dd-title.markdown
+titleは英数のみ。 &hellip;">
+  
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -29,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/check-screensize">
+  <link rel="canonical" href="http://mzgk.github.io/blog/page/7">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -77,12 +69,15 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article class="hentry" role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
     
-      <h1 class="entry-title">iPhoneのスクリーンサイズを調べる方法</h1>
+      <h1 class="entry-title"><a href="/blog/2013/procedure-to-post/">Start Octopress Blogへの投稿手順</a></h1>
     
     
       <p class="meta">
@@ -98,91 +93,98 @@
   
 
 
-<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
+<time datetime="2013-12-31T12:25:41+09:00" pubdate data-updated="true">2013.12.31</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>iPhone・iPadなどのスクリーンサイズを調べる方法。</p>
+  <div class="entry-content"><p>Octopressでの投稿手順（基本的な）。<br/>
+ファイルの作成→編集→確認→デプロイ→プッシュまで。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 3.5インチかどうかの判断</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isSmallSizeScreen</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">CGSize</span> <span class="n">screenSize</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span><span class="n">bounds</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">screenSize</span><span class="p">.</span><span class="n">height</span> <span class="o">==</span> <span class="mf">480.0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
+<h2>手順</h2>
+
+<h3>1. ポストファイルの生成</h3>
+
+<p><code>source/_post</code> ディレクトリにファイルが作成される。<br/>
+yyyy-mm-dd-title.markdown<br/>
+titleは英数のみ。文字間に半角空白の使用が可能（-に変換される）。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post["title"]</span></code></pre></td></tr></table></div></figure>
+
 
 </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/procedure-to-post/">Read on &rarr;</a>
+    </footer>
+  
 
 
-  <footer>
-    <p class="meta">
+    </article>
+  
+  
+    <article>
       
-  
-
-<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
-  
-</span>
-
-
-    </p>
+  <header>
     
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/check-screensize/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/check-screensize/" >Tweet</a>
-  
-  
-  
-</div>
-
+      <h1 class="entry-title"><a href="/blog/2013/start-octopress/">Start Octopress OctopressとGitHub・Bitbucket</a></h1>
     
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/launch-image/" title="Previous Post: アプリの起動イメージを指定時間表示する方法">&laquo; アプリの起動イメージを指定時間表示する方法</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2014/uiscrollview-checkpoint1/" title="Next Post: UIScrollViewをスクロールさせる方法">UIScrollViewをスクロールさせる方法 &raquo;</a>
-      
-    </p>
-  </footer>
-</article>
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-30T06:30:08+09:00" pubdate data-updated="true">2013.12.30</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>OctopressでBolg開設。GitHub・Bitbucket・localの環境構築とブログの表示まで。</p>
+
+<h2>なぜOctopressを選んだか？</h2>
+
+<ul>
+<li>ポストファイルを静的ファイルとして管理したかった</li>
+<li>Markdownで記述→generate→deploy→pushの手軽さ</li>
+<li>Git・GitHub・Markdownのスキルを身につけたい</li>
+<li>A blogging framework for hackers.</li>
+</ul>
+
 
 </div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/start-octopress/">Read on &rarr;</a>
+    </footer>
+  
 
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/6/">Newer &rarr;</a>
+    
+  </div>
+</div>
 <aside class="sidebar">
   
     <section>
@@ -243,7 +245,6 @@
 
   
 </aside>
-
 
     </div>
   </div>

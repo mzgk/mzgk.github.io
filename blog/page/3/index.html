@@ -9,10 +9,7 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。
-例えば、
-「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。
-だけど、ダメだった時に追加前に戻せるかが不安。 &hellip;">
+  <meta name="description" content="3.5inch / 4inch時の注意点。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +68,150 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/autolayout-point/">Autolayout時の注意</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:56:40+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>3.5inch / 4inch時の注意点。</p>
+
+<p><img src="/images/2014/0805/AutoLayout.png" alt="Xcode" /></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/complement-gitcommand-in-bash/">bashでgitコマンドの補完をする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:53:04+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>補完用のファイルをダウンロード
+
+<ul>
+<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
+</ul>
+</li>
+<li>~/.git-completion.bashとして設置</li>
+<li>~/.bash_profileにパスを記述</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">source</span> ~/.git-completion.bash
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/check-on-terminal-sqlite-coredata/">CoreDataで使用するsqliteの中身を確認する方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:50:06+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>Organaizerを開く</li>
+<li>該当アプリを選択</li>
+<li>DownLoad</li>
+<li>ターミナルでダウンロードしたファイル内を移動（〜.xcapp）</li>
+<li>.sqlite（DocumentsかLibrary/Application Support/）</li>
+<li>sqliteで接続する</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>sqlite3 名前.sqlite
+</span><span class='line'>sqlite&gt; .tables　→　テーブル名の確認
+</span><span class='line'>sqlite&gt; .schema テーブル名　→　スキーマの確認
+</span><span class='line'>sqlite&gt; <span class="k">select</span> * from テーブル名;
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -747,207 +888,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:01:40+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>NavigationBarのカラーやアイテムの色を制御する方法。<br/>
-NavigationControllerの次のViewControllerで設定を行う。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 背景色</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">barTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithHex:</span><span class="s">@&quot;2F78B7&quot;</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// アイテムの色</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// タイトルの色</span>
-</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">titleTextAttributes</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/uiscrollview-tapevent/">UIScrollViewでタップ検知を追加</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T17:53:54+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>UIScrollViewはタップを検知しないため、レスポンダチェーンでVIewControllerまでtouchesBegan:withEventが通知されない。<br/>
-なので、TextView入力時にキーボードに隠れないようにView位置を押し上げ、入力終了時に画面タップでキーボード非表示制御ができない。<br/>
-解決法としては、タップイベントを次のレスポンダーに投げるようなUIScrollViewのカテゴリ（touchesBegan:withEvent）を作成する。</p>
-
-<h3>UIScrollView+TouchEvent.h</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &lt;UIKit/UIKit.h&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@interface</span> <span class="nc">UIScrollView</span> <span class="nl">(TouchEvent)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>UIScrollView+TouchEvent.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;UIScrollView+TouchEvent.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@implementation</span> <span class="nc">UIScrollView</span> <span class="nl">(TouchEvent)</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">touchesBegan:</span><span class="p">(</span><span class="n">NSSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">touches</span> <span class="nf">withEvent:</span><span class="p">(</span><span class="n">UIEvent</span> <span class="o">*</span><span class="p">)</span><span class="nv">event</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">self</span> <span class="n">nextResponder</span><span class="p">]</span> <span class="nl">touchesBegan:</span><span class="n">touches</span> <span class="nl">withEvent:</span><span class="n">event</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ViewController.h</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;UIScrollView+TouchEvent.h&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ViewController.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">touchesBegan:</span><span class="p">(</span><span class="n">NSSet</span> <span class="o">*</span><span class="p">)</span><span class="nv">touches</span> <span class="nf">withEvent:</span><span class="p">(</span><span class="n">UIEvent</span> <span class="o">*</span><span class="p">)</span><span class="nv">event</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// タップ時の処理を記述</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">endEditing:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ちなみに、「userInteractionEnabled = YES;」は記述しないでも動作している。</p>
-
-<p>参考：<br/>
-(<a href="http://qiita.com/Potof_/items/1432c39dab083f770e59">http://qiita.com/Potof_/items/1432c39dab083f770e59</a>)<br/>
-(<a href="http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html">http://www.objectivec-iphone.com/event/touch-event/touchesBegan.html</a>)</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -968,6 +908,18 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiimageview-contentmode/">UIImageView内に表示する画像の表示モード</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
@@ -995,18 +947,6 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
     
       <li class="post">
         <a href="/blog/2014/font-standardize/">アプリ内のフォントを統一させる方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/push-notification/">プッシュ通知の誤解</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/cocoapods-license-auto-make/">CocoaPodsでライセンス表記を自動で作成する</a>
       </li>
     
   </ul>
