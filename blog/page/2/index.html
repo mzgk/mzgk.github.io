@@ -9,8 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの applicationWillEnterForeground: 以外に思いつかなかったので調査。
-結果としては、 &hellip;">
+  <meta name="description" content="アプリ内のフォントを統一させる方法。
+今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。 プロジェクトへフォントを追加する Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +69,113 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/font-standardize/">アプリ内のフォントを統一させる方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-11T15:05:04+09:00" pubdate data-updated="true">2014.08.11</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>アプリ内のフォントを統一させる方法。<br/>
+今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。</p>
+
+<h2>プロジェクトへフォントを追加する</h2>
+
+<p>Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&#8221;）で、ファイルをプロジェクトに追加する。<br/>
+<img src="/images/2014/0811/add-fontfile.png" alt="add fontfile" /></p>
+
+<h2>.plistへの情報追加</h2>
+
+<p>Supporting Files &ndash;> プロジェクト名.plistへ追加したフォントの情報を追加する。<br/>
+<code>Fonts provided by application</code> &ndash;> item0 にフォントの「PostScript 名」を記述する。<br/>
+※PostScript名は、FontBook.appを起動し、対象フォントのinfoボタンから確認<br/>
+<img src="/images/2014/0811/add-plist.png" alt="plist" /></p>
+
+<h2>AppDelegate.m</h2>
+
+<p><code>AppDelegate.m</code> の <code>didFinishLaunchingWithOptions:</code> 等で、<code>appearance</code> を使い設定する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// フォント</span>
+</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseInputFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">16.0f</span><span class="p">];</span>
+</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseTitleFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">18.0f</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// フォント・カラー</span>
+</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">barItemInfo</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="n">baseTitleFont</span><span class="p">,</span> <span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UILabel</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UILabel</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UINavigationBar</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span><span class="p">];</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setBarTintColor:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRed:</span><span class="mf">0.2</span> <span class="nl">green:</span><span class="mf">0.6</span> <span class="nl">blue:</span><span class="mf">0.86</span> <span class="nl">alpha:</span><span class="mi">1</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UINavigationBarItem</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UITextField</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UITextField</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// UITextView</span>
+</span><span class='line'><span class="p">[[</span><span class="n">UITextView</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/">http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/</a></li>
+<li><a href="http://qiita.com/yimajo/items/a7ed557d382077498181">http://qiita.com/yimajo/items/a7ed557d382077498181</a></li>
+<li><a href="http://seesaakyoto.seesaa.net/article/366291271.html">http://seesaakyoto.seesaa.net/article/366291271.html</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -720,44 +827,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/alfred-setting/">Alfredで自分の作成したファイル等を検索結果として表示させない方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:59:47+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Alfredの検索リストに自分が作成したファイルや連絡先を表示させないためには、以下を確認。</p>
-
-<p><img src="/images/2014/0805/Alfred.png" alt="Alfred" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -778,6 +847,10 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
@@ -813,10 +886,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
     
       <li class="post">
         <a href="/blog/2014/launch-image/">アプリの起動イメージを指定時間表示する方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/font-standardize/">アプリ内のフォントを統一させる方法</a>
       </li>
     
   </ul>
