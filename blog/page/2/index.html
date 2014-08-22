@@ -9,8 +9,15 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="アプリ内のフォントを統一させる方法。
-今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。 プロジェクトへフォントを追加する Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&# &hellip;">
+  <meta name="description" content="アプリの起動イメージを表示する時間を制御する方法。
+AppDelegate.m のアプリ起動時処理部分に、スレッドをスリープさせるコードを追記する。 1
+2
+3
+4
+5
+6
+7
+- (BOOL)application:(UIApplication *)application &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +76,60 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/launch-image/">アプリの起動イメージを指定時間表示する方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-11T16:59:06+09:00" pubdate data-updated="true">2014.08.11</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>アプリの起動イメージを表示する時間を制御する方法。<br/>
+<code>AppDelegate.m</code> のアプリ起動時処理部分に、スレッドをスリープさせるコードを追記する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="c1">// 2秒間停止する</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">NSThread</span> <span class="nl">sleepForTimeInterval:</span><span class="mf">2.0</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -789,44 +850,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/customize-uitableview/">UITableViewのカスタマイズ方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T19:04:52+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>UITableViewをカスタマイズする方法。</p>
-
-<p><img src="/images/2014/0805/UITableView.png" alt="Xcode" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -847,6 +870,10 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
@@ -882,10 +909,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
     
       <li class="post">
         <a href="/blog/2014/check-screensize/">iPhoneのスクリーンサイズを調べる方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/launch-image/">アプリの起動イメージを指定時間表示する方法</a>
       </li>
     
   </ul>

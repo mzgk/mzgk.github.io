@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-21T15:22:07+09:00</updated>
+  <updated>2014-08-22T13:44:04+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,101 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CoreDataのマイグレーション（その１）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/coredata-migration/"/>
+    <updated>2014-08-22T13:35:20+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/coredata-migration</id>
+    <content type="html"><![CDATA[<p>CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。<br/>
+もちろん、今のデータを保持したままマイグレーションさせるのが前提。</p>
+
+<ul>
+<li>MagicalRecord使用済み</li>
+<li>アプリリリース後にエンティティに属性を追加する</li>
+<li>当然、今保存されているデータは引継がれることが前提</li>
+</ul>
+
+
+<h2>MagicalRecord</h2>
+
+<p>セットアップ部分。<br/>
+AppDelegate.m</p>
+
+<p>```objective-c
+&ndash; (BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions
+{</p>
+
+<pre><code>...
+// .xcdatamodelがプロジェクト名と違うし、自動マイグレーションしてほしい（最初から設定済み）
+[MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Model.sqlite"];
+...
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>どのセットアップメソッドを使用するか</h3>
+
+<p>ここを参考：<a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></p>
+
+<p>CoreDataを作成した際の <code>{任意の名前}.xcdatamodel</code> が、プロジェクト名と同じであれば</p>
+
+<ul>
+<li>setupCoreDataStack</li>
+<li>setupCoreDataStackWithInMemoryStore</li>
+<li>setupAutoMigratingCoreDataStack</li>
+</ul>
+
+
+<p>違うならば</p>
+
+<ul>
+<li>setupCoreDataStackWithStoreNamed:</li>
+<li>setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</li>
+</ul>
+
+
+<p><code>AutoMigrating</code> がついている方は、属性追加などをした際に可能であれば自動でマイグレーションしてくれる。</p>
+
+<h2>Xcode</h2>
+
+<h3>Modelのバージョンを追加</h3>
+
+<p><code>{任意の名前}.xcdatamodel</code> を選択し、Editor &ndash;> Add Model Version&hellip;<br/>
+<img src="/images/2014/0822/addmodelversion.png" alt="Model Version" /></p>
+
+<p><img src="images/2014/0822/addModel2.png" alt="Model2" /></p>
+
+<h3>新しく追加したModelに属性を追加</h3>
+
+<p>新しく追加した方のモデル（Model2）に属性を追加する。</p>
+
+<h3>Current Versionの変更</h3>
+
+<ul>
+<li>Model.xcdatamodeledを選択する</li>
+<li>File inspectorを選択し、<code>Model Version -&gt; Current</code> で、追加した方（Model2）を選択する</li>
+<li>Model2.xcdatamodeledにチェックマークがつく</li>
+</ul>
+
+
+<p><img src="/images/2014/0822/changeCurrent.png" alt="changeVersion" /></p>
+
+<h2>属性名の変更など</h2>
+
+<p>属性名の変更などについては、Lightweightマイグレーションという手法を使用するらしい（未検証）  。<br/>
+また、マッピングモデルを使ったマイグレーションも存在するらしい（未検証）。</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></li>
+<li>iOS Core Data 徹底入門（10章）</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[キーボードの上に閉じるボタンを表示する（inputAccessoryView）]]></title>
@@ -219,36 +314,6 @@ UIViewContentModeBottomRight,
 
 <p>};
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[アプリの標準言語を日本語のみにする方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/localization-japanese-only/"/>
-    <updated>2014-08-12T17:39:06+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/localization-japanese-only</id>
-    <content type="html"><![CDATA[<p>日本国内のみの配布などで、アプリの標準言語を日本語のみにする設定する方法。<br/>
-アプリ作成時のデフォルトは英語になっており、UIImagePickerなどを使用してカメラ機能を実装した場合には、Cancel / Retakeなど英語で表示がされる。 これを日本語に変える。
-ただし、通常のlocalization対応と違い日本語オンリーにする対応。</p>
-
-<h2>Localization native development</h2>
-
-<ol>
-<li>プロジェクトナビゲーターでプロジェクトを選択 &ndash; Target &ndash; Infoを開く</li>
-<li>Localization native development region &ndash; en → Japanに変更する
-<img src="/images/2014/0812/localization-1.png" alt="localization-1" /></li>
-</ol>
-
-
-<h2>Localizations</h2>
-
-<ol>
-<li>上記の設定後に、そのままの場所で右クリック → Add Row</li>
-<li>Keyに「Localizations」を追加する</li>
-<li>Item0を選択し、Valueの値を「Japanese」に変更する
-<img src="/images/2014/0812/localization-2.png" alt="localization-2" /></li>
-</ol>
-
 ]]></content>
   </entry>
   

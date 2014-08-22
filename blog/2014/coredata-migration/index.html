@@ -5,20 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>指定したセルの表示更新を行う - jubilee</title>
+  <title>CoreDataのマイグレーション（その１） - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="特定のセルのみの表示更新を行いたい場合の方法。
-以下のようなパターンで必要になった。 セルをスワイプして削除ボタンを表示し、削除ボタンをタップ
-セル内のデータに基づく内部データを処理（セル自体は削除したくない）
-削除ボタンが消せない（reloadData）
-セルのみ更新をしたい 1
-2
-3
-4
-5 &hellip;">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。
+もちろん、今のデータを保持したままマイグレーションさせるのが前提。 MagicalRecord使用済み
+アプリリリース後にエンティティに属性を追加する
+当然、今保存されているデータは引継がれることが前提 &hellip;">
+  <meta name="keywords" content="Objective-C,iOS,CoreData">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -26,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/update-selected-cell">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/coredata-migration">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -79,7 +74,7 @@
   
   <header>
     
-      <h1 class="entry-title">指定したセルの表示更新を行う</h1>
+      <h1 class="entry-title">CoreDataのマイグレーション（その１）</h1>
     
     
       <p class="meta">
@@ -95,23 +90,27 @@
   
 
 
-<time datetime="2014-08-14T20:09:55+09:00" pubdate data-updated="true">2014.08.14</time>
+<time datetime="2014-08-22T13:35:20+09:00" pubdate data-updated="true">2014.08.22</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>特定のセルのみの表示更新を行いたい場合の方法。<br/>
-以下のようなパターンで必要になった。</p>
+<div class="entry-content"><p>CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。<br/>
+もちろん、今のデータを保持したままマイグレーションさせるのが前提。</p>
 
-<ol>
-<li>セルをスワイプして削除ボタンを表示し、削除ボタンをタップ</li>
-<li>セル内のデータに基づく内部データを処理（セル自体は削除したくない）</li>
-<li>削除ボタンが消せない（reloadData）</li>
-<li>セルのみ更新をしたい</li>
-</ol>
+<ul>
+<li>MagicalRecord使用済み</li>
+<li>アプリリリース後にエンティティに属性を追加する</li>
+<li>当然、今保存されているデータは引継がれることが前提</li>
+</ul>
 
+
+<h2>MagicalRecord</h2>
+
+<p>セットアップ部分。<br/>
+AppDelegate.m</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -120,36 +119,73 @@
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// セルの削除ボタンでしたい処理</span>
-</span><span class='line'>        <span class="p">...</span>
-</span><span class='line'>        <span class="c1">// 処理したセルの更新↓↓↓</span>
-</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">indexPaths</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObject:</span><span class="n">indexPath</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span> <span class="nl">reloadRowsAtIndexPaths:</span><span class="n">indexPaths</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationRight</span><span class="p">];</span>
-</span><span class='line'>        <span class="c1">// ↑↑↑</span>
-</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="c1">// .xcdatamodelがプロジェクト名と違うし、自動マイグレーションしてほしい（最初から設定済み）</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">MagicalRecord</span> <span class="nl">setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</span><span class="s">@&quot;Model.sqlite&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">...</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>更新時のアニメーション</h2>
+<h3>どのセットアップメソッドを使用するか</h3>
+
+<p>ここを参考：<a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></p>
+
+<p>CoreDataを作成した際の <code>{任意の名前}.xcdatamodel</code> が、プロジェクト名と同じであれば</p>
 
 <ul>
-<li>UITableViewRowAnimationFade</li>
-<li>UITableViewRowAnimationRight</li>
-<li>UITableViewRowAnimationLeft</li>
-<li>UITableViewRowAnimationTop</li>
-<li>UITableViewRowAnimationBottom</li>
-<li>UITableViewRowAnimationNone</li>
-<li>UITableViewRowAnimationMiddle</li>
+<li>setupCoreDataStack</li>
+<li>setupCoreDataStackWithInMemoryStore</li>
+<li>setupAutoMigratingCoreDataStack</li>
+</ul>
+
+
+<p>違うならば</p>
+
+<ul>
+<li>setupCoreDataStackWithStoreNamed:</li>
+<li>setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</li>
+</ul>
+
+
+<p><code>AutoMigrating</code> がついている方は、属性追加などをした際に可能であれば自動でマイグレーションしてくれる。</p>
+
+<h2>Xcode</h2>
+
+<h3>Modelのバージョンを追加</h3>
+
+<p><code>{任意の名前}.xcdatamodel</code> を選択し、Editor &ndash;> Add Model Version&hellip;<br/>
+<img src="/images/2014/0822/addmodelversion.png" alt="Model Version" /></p>
+
+<p><img src="images/2014/0822/addModel2.png" alt="Model2" /></p>
+
+<h3>新しく追加したModelに属性を追加</h3>
+
+<p>新しく追加した方のモデル（Model2）に属性を追加する。</p>
+
+<h3>Current Versionの変更</h3>
+
+<ul>
+<li>Model.xcdatamodeledを選択する</li>
+<li>File inspectorを選択し、<code>Model Version -&gt; Current</code> で、追加した方（Model2）を選択する</li>
+<li>Model2.xcdatamodeledにチェックマークがつく</li>
+</ul>
+
+
+<p><img src="/images/2014/0822/changeCurrent.png" alt="changeVersion" /></p>
+
+<h2>属性名の変更など</h2>
+
+<p>属性名の変更などについては、Lightweightマイグレーションという手法を使用するらしい（未検証）  。<br/>
+また、マッピングモデルを使ったマイグレーションも存在するらしい（未検証）。</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></li>
+<li>iOS Core Data 徹底入門（10章）</li>
 </ul>
 
 </div>
@@ -174,7 +210,7 @@
   
 
 
-<time datetime="2014-08-14T20:09:55+09:00" pubdate data-updated="true">2014.08.14</time>
+<time datetime="2014-08-22T13:35:20+09:00" pubdate data-updated="true">2014.08.22</time>
       
 
 <span class="categories">
@@ -188,7 +224,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/update-selected-cell/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/update-selected-cell/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/coredata-migration/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/coredata-migration/" >Tweet</a>
   
   
   
@@ -197,10 +233,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/uiimageview-contentmode/" title="Previous Post: UIImageView内に表示する画像の表示モード">&laquo; UIImageView内に表示する画像の表示モード</a>
+        <a class="basic-alignment left" href="/blog/2014/keyboard-close-inputaccessoryview/" title="Previous Post: キーボードの上に閉じるボタンを表示する（inputAccessoryView）">&laquo; キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/handle-button-in-cell/" title="Next Post: セルに追加したボタンの処理をViewControllerで行う">セルに追加したボタンの処理をViewControllerで行う &raquo;</a>
       
     </p>
   </footer>

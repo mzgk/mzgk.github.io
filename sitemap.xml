@@ -158,7 +158,7 @@
     </url>
     <url>
         <loc>http://mzgk.github.io/blog/2014/check-on-terminal-sqlite-coredata/</loc>
-        <lastmod>2014-08-05T18:51:31+09:00</lastmod>
+        <lastmod>2014-08-22T13:43:56+09:00</lastmod>
     </url>
     <url>
         <loc>http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash/</loc>
@@ -253,12 +253,16 @@
         <lastmod>2014-08-21T15:21:05+09:00</lastmod>
     </url>
     <url>
+        <loc>http://mzgk.github.io/blog/2014/coredata-migration/</loc>
+        <lastmod>2014-08-22T13:42:12+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://mzgk.github.io/blog/archives/</loc>
-        <lastmod>2014-08-21T15:21:05+09:00</lastmod>
+        <lastmod>2014-08-22T13:43:56+09:00</lastmod>
     </url>
     <url>
         <loc>http://mzgk.github.io/</loc>
-        <lastmod>2014-08-21T15:21:05+09:00</lastmod>
+        <lastmod>2014-08-22T13:43:56+09:00</lastmod>
     </url>
     <url>
         <loc>http://mzgk.github.io/robots.txt</loc>
