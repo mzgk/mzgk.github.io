@@ -9,7 +9,11 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UITableViewをカスタマイズする方法。 ">
+  <meta name="description" content="marginの省略記法 marginの値を省略してコーディングした時の意味合い。 margin: 0; → （上下左右）
+margin: 0 0; → （上下）（左右）
+margin: 0 0 0; → （上）（左右）（下）
+margin: 0 0 0 0; → （上）（右）（下）（左）※時計回り
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +72,49 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/margin/">marginの記法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T19:15:54+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>marginの省略記法</p>
+
+<p>marginの値を省略してコーディングした時の意味合い。</p>
+
+<p>margin: 0;  →  （上下左右）<br/>
+margin: 0 0;  →  （上下）（左右）<br/>
+margin: 0 0 0;  →  （上）（左右）（下）<br/>
+margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -667,65 +714,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/objectivec-boolean/">Objective-Cの真偽値</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:18:53+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>通常はBOOLなのでこっちを使う</h3>
-
-<ul>
-<li>真：YES : 1</li>
-<li>偽：NO : 0</li>
-</ul>
-
-
-<h3>Booleanの場合</h3>
-
-<ul>
-<li>真：TRUE : 1</li>
-<li>偽：FALSE : 0</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">new_flg</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="err">偽の判断（</span><span class="n">new_flg</span><span class="err">の値は</span><span class="n">NO</span> <span class="o">=</span> <span class="mi">0</span><span class="err">）</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -746,6 +734,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a>
@@ -781,10 +773,6 @@
     
       <li class="post">
         <a href="/blog/2014/uiscrollview-checkpoint1/">UIScrollViewをスクロールさせる方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/check-screensize/">iPhoneのスクリーンサイズを調べる方法</a>
       </li>
     
   </ul>

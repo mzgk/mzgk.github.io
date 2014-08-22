@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>iPhoneのスクリーンサイズを調べる方法 - jubilee</title>
+  <title>UIActionSheetでタップされたボタンのタイトルを取得する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="iPhone・iPadなどのスクリーンサイズを調べる方法。 1
+  <meta name="description" content="UIActionSheetで、タップされたボタンのタイトルを取得する方法。 1
 2
 3
 4
@@ -17,10 +17,7 @@
 6
 7
 8
-9
-// 3.5インチかどうかの判断
-- (BOOL)isSmallSizeScreen
-{ CGSize screenSize = [[UIScreen mainScreen]bounds].size; &hellip;">
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex &hellip;">
   <meta name="keywords" content="Objective-C,iOS">
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/check-screensize">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -82,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">iPhoneのスクリーンサイズを調べる方法</h1>
+      <h1 class="entry-title">UIActionSheetでタップされたボタンのタイトルを取得する</h1>
     
     
       <p class="meta">
@@ -98,14 +95,14 @@
   
 
 
-<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
+<time datetime="2014-08-22T13:52:26+09:00" pubdate data-updated="true">2014.08.22</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>iPhone・iPadなどのスクリーンサイズを調べる方法。</p>
+<div class="entry-content"><p>UIActionSheetで、タップされたボタンのタイトルを取得する方法。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -115,15 +112,13 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 3.5インチかどうかの判断</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isSmallSizeScreen</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">actionSheet:</span><span class="p">(</span><span class="n">UIActionSheet</span> <span class="o">*</span><span class="p">)</span><span class="nv">actionSheet</span> <span class="nf">clickedButtonAtIndex:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span>
 </span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">CGSize</span> <span class="n">screenSize</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span><span class="n">bounds</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">screenSize</span><span class="p">.</span><span class="n">height</span> <span class="o">==</span> <span class="mf">480.0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// キャンルボタンかどうかの判断（おまけ）</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttonIndex</span> <span class="o">!=</span> <span class="n">actionSheet</span><span class="p">.</span><span class="n">cancelButtonIndex</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// タップされたボタンのタイトルを取得</span>
+</span><span class='line'>        <span class="n">_label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">actionSheet</span> <span class="nl">buttonTitleAtIndex:</span><span class="n">buttonIndex</span><span class="p">];</span>
 </span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -149,7 +144,7 @@
   
 
 
-<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
+<time datetime="2014-08-22T13:52:26+09:00" pubdate data-updated="true">2014.08.22</time>
       
 
 <span class="categories">
@@ -163,7 +158,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/check-screensize/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/check-screensize/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle/" >Tweet</a>
   
   
   
@@ -172,10 +167,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/launch-image/" title="Previous Post: アプリの起動イメージを指定時間表示する方法">&laquo; アプリの起動イメージを指定時間表示する方法</a>
+        <a class="basic-alignment left" href="/blog/2014/coredata-migration/" title="Previous Post: CoreDataのマイグレーション（その１）">&laquo; CoreDataのマイグレーション（その１）</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/uiscrollview-checkpoint1/" title="Next Post: UIScrollViewをスクロールさせる方法">UIScrollViewをスクロールさせる方法 &raquo;</a>
       
     </p>
   </footer>

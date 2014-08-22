@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-22T13:44:04+09:00</updated>
+  <updated>2014-08-22T13:55:07+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,29 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIActionSheetでタップされたボタンのタイトルを取得する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle/"/>
+    <updated>2014-08-22T13:52:26+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle</id>
+    <content type="html"><![CDATA[<p>UIActionSheetで、タップされたボタンのタイトルを取得する方法。</p>
+
+<p>```objective-c
+&ndash; (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{</p>
+
+<pre><code>// キャンルボタンかどうかの判断（おまけ）
+if (buttonIndex != actionSheet.cancelButtonIndex) {
+    // タップされたボタンのタイトルを取得
+    _label.text = [actionSheet buttonTitleAtIndex:buttonIndex];
+}
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CoreDataのマイグレーション（その１）]]></title>
@@ -276,44 +299,6 @@ _tappedIndexPath = [_sampleTableView indexPathForRowAtPoint:point];
 <li>UITableViewRowAnimationMiddle</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIImageView内に表示する画像の表示モード]]></title>
-    <link href="http://mzgk.github.io/blog/2014/uiimageview-contentmode/"/>
-    <updated>2014-08-14T20:09:19+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/uiimageview-contentmode</id>
-    <content type="html"><![CDATA[<p>UIImageView内に表示する画像の表示モードを指定する方法。</p>
-
-<h2>指定方法</h2>
-
-<p><code>objective-c
-_imageView.contentMode = UIViewContentModeCenter;
-</code></p>
-
-<h2>モード</h2>
-
-<p>```objective-c
-typedef NS_ENUM(NSInteger, UIViewContentMode) {</p>
-
-<pre><code>UIViewContentModeScaleToFill,
-UIViewContentModeScaleAspectFit,      // contents scaled to fit with fixed aspect. remainder is transparent
-UIViewContentModeScaleAspectFill,     // contents scaled to fill with fixed aspect. some portion of content may be clipped.
-UIViewContentModeRedraw,              // redraw on bounds change (calls -setNeedsDisplay)
-UIViewContentModeCenter,              // contents remain same size. positioned adjusted.
-UIViewContentModeTop,
-UIViewContentModeBottom,
-UIViewContentModeLeft,
-UIViewContentModeRight,
-UIViewContentModeTopLeft,
-UIViewContentModeTopRight,
-UIViewContentModeBottomLeft,
-UIViewContentModeBottomRight,
-</code></pre>
-
-<p>};
-```</p>
 ]]></content>
   </entry>
   

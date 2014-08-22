@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-22T13:44:04+09:00</updated>
+  <updated>2014-08-22T13:55:07+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIActionSheetでタップされたボタンのタイトルを取得する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle/"/>
+    <updated>2014-08-22T13:52:26+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle</id>
+    <content type="html"><![CDATA[<p>UIActionSheetで、タップされたボタンのタイトルを取得する方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">actionSheet:</span><span class="p">(</span><span class="n">UIActionSheet</span> <span class="o">*</span><span class="p">)</span><span class="nv">actionSheet</span> <span class="nf">clickedButtonAtIndex:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// キャンルボタンかどうかの判断（おまけ）</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttonIndex</span> <span class="o">!=</span> <span class="n">actionSheet</span><span class="p">.</span><span class="n">cancelButtonIndex</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// タップされたボタンのタイトルを取得</span>
+</span><span class='line'>        <span class="n">_label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">actionSheet</span> <span class="nl">buttonTitleAtIndex:</span><span class="n">buttonIndex</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CoreDataのマイグレーション（その１）]]></title>
@@ -1001,22 +1029,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 「確実にゴミ箱を空にする」を選択。</li>
 </ol>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[marginの記法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/margin/"/>
-    <updated>2014-08-05T19:15:54+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/margin</id>
-    <content type="html"><![CDATA[<p>marginの省略記法</p>
-
-<p>marginの値を省略してコーディングした時の意味合い。</p>
-
-<p>margin: 0;  →  （上下左右）<br/>
-margin: 0 0;  →  （上下）（左右）<br/>
-margin: 0 0 0;  →  （上）（左右）（下）<br/>
-margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 ]]></content>
   </entry>
   
