@@ -9,11 +9,14 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Bitbucketで管理しているOctopressブログ環境を取得し、ローカルに再構築する。 Homebrewのインストール
-rbenvのインストール
-Ruby1.9.3のインストール
-SSH鍵の設定（GitHub, Bitbucket）
-Octopressブログ環境の構築（From &hellip;">
+  <meta name="description" content="スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。 1
+2
+3
+4
+5
+6
+7
+- (IBAction)switchChange:(UISwitch *)sender { // スイッチのON/OFFと逆の設定をする方法 _photo.hidden = !(sender.on &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +75,59 @@ Octopressブログ環境の構築（From &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/logicaloperator/">論理演算子を使って状態を逆転させる</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T13:13:59+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>スイッチのON／OFFなどで、イメージの表示／非表示を制御する際の方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">switchChange:</span><span class="p">(</span><span class="n">UISwitch</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// スイッチのON/OFFと逆の設定をする方法</span>
+</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">on</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 状態の逆転をさせる方法</span>
+</span><span class='line'>    <span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="o">!</span><span class="p">(</span><span class="n">_photo</span><span class="p">.</span><span class="n">hidden</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -503,60 +559,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/dayone-font-setting/">DayOne.appで自分の好きなフォントとレイアウトを使用する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-23T08:18:06+09:00" pubdate data-updated="true">2014.01.23</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>MacのDayOne.appを自分好みのフォント・レイアウトで使う方法。<br/>
-このDayOneっていうジャーナルアプリ、iOSと連携しているしUXもいいしmarkdownも使えるしで、作業ログや日誌をつけるのによく使ってた。<br/>
-だけど、選択できるフォントが少ない＆和文フォントは選択できない。<br/>
-表示レイアウトも微妙・・・<br/>
-なので、いつの日からかあまり使わなくなって放置ぎみ。<br/>
-けど、ログが残ってないと過去に何をしたか、明日は何をやるつもりだったかわからない。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>過去の自分 ≠ 今の自分</span></code></pre></td></tr></table></div></figure>
-
-
-<p>なので、フォントとレイアウトを自分好みに設定できないか調べてみた。<br/>
-こんな感じ。<br/>
-<img src="/images/2014/0123/dayone.png" alt="Day One" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/dayone-font-setting/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -577,6 +579,10 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/addchiledviewcontroller/">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
@@ -612,10 +618,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
     
       <li class="post">
         <a href="/blog/2014/uiscrollview-checkpoint-2/">UIScrollViewに配置したViewが下にズレる時の対応</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/uiscrollview-checkpoint1/">UIScrollViewをスクロールさせる方法</a>
       </li>
     
   </ul>

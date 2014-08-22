@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-22T13:55:07+09:00</updated>
+  <updated>2014-08-22T18:51:31+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,119 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[１つの画面の上下で同じViewControllerを使う方法（addChildViewController）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/addchiledviewcontroller/"/>
+    <updated>2014-08-22T18:18:14+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/addchiledviewcontroller</id>
+    <content type="html"><![CDATA[<ul>
+<li>１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった</li>
+<li>画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒</li>
+<li>同じ処理なので１つのViewController（UIImageViewとUISliderを持った）を作成（MovieVCとする）</li>
+<li>大元の画面（A-ViewController）で、上下に作成したMovieVCを呼べばいいのでは？</li>
+<li>Container ViewController？</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>テスト用にMovieViewはWebを表示するようにして、作成してみた。こんな感じ。<br/>
+<img src="/images/2014/0822/image.png" alt="image" /></p>
+
+<p>StoryBoardは、こんな感じで設定。<br/>
+<img src="/images/2014/0822/storyboard.png" alt="image" /></p>
+
+<h2>大元の画面（A-ViewController）</h2>
+
+<p>.m</p>
+
+<p>```objective-c
+// MovieVCをインポート</p>
+
+<h1>import &ldquo;MovieViewController.h&rdquo;</h1>
+
+<p>@interface DetailViewController ()
+// 画面の上下にUIViewを配置して接続
+@property (weak, nonatomic) IBOutlet UIView <em>upperView;
+@property (weak, nonatomic) IBOutlet UIView </em>lowerView;</p>
+
+<p>// MovieVCのプロパティを用意
+@property (nonatomic) MovieViewController <em>upperMovieVC;
+@property (nonatomic) MovieViewController </em>lowerMovieVC;
+@end</p>
+
+<p>@implementation DetailViewController
+&ndash; (void)viewDidLoad
+{</p>
+
+<pre><code>[super viewDidLoad];
+
+// MovieVCのインスタンスを生成（[MovieViewController new]ではダメ）
+_upperMovieVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieScene"];
+_lowerMovieVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieScene"];
+
+// 自身のVCの子とする
+[self addChildViewController:_upperMovieVC];
+[self addChildViewController:_lowerMovieVC];
+
+// 用意してあるUIViewに生成した子（MovieVC）のviewを追加
+[_upperView addSubview:_upperMovieVC.view];
+[_lowerView addSubview:_lowerMovieVC.view];
+
+// 子に追加した旨を通知
+[_upperMovieVC didMoveToParentViewController:self];
+[_lowerMovieVC didMoveToParentViewController:self];
+
+// テストのために用意したMovieVCのメソッドに違うURLを渡す
+[_upperMovieVC connectURL:@"http://google.co.jp"];
+[_lowerMovieVC connectURL:@"http://yahoo.co.jp"];
+</code></pre>
+
+<p>}
+@end
+```</p>
+
+<h2>MovieVC</h2>
+
+<p>.h</p>
+
+<p><code>objective-c
+@interface MovieViewController : UIViewController&lt;UIWebViewDelegate&gt;
+- (void)connectURL:(NSString *)urlString;
+@end
+</code></p>
+
+<p>.m</p>
+
+<p>```objective-c
+&ndash; (void)viewDidLoad
+{</p>
+
+<pre><code>[super viewDidLoad];
+NSLog(@"MovieView viewDidLoad");
+</code></pre>
+
+<p>}</p>
+
+<ul>
+<li><p>(void)connectURL:(NSString <em>)urlString
+{
+  NSURL </em>url = [NSURL URLWithString:urlString];
+  NSURLRequest *request = [NSURLRequest requestWithURL:url];
+  <em>webView.delegate = self;
+  [</em>webView loadRequest:request];
+}</p></li>
+<li><p>(void)willMoveToParentViewController:(UIViewController *)parent
+{
+  NSLog(@&ldquo;MovieVC&rdquo;);
+}
+```</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIActionSheetでタップされたボタンのタイトルを取得する]]></title>
@@ -248,55 +361,6 @@ _tappedIndexPath = [_sampleTableView indexPathForRowAtPoint:point];
 
 <ul>
 <li><a href="http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html">http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[指定したセルの表示更新を行う]]></title>
-    <link href="http://mzgk.github.io/blog/2014/update-selected-cell/"/>
-    <updated>2014-08-14T20:09:55+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/update-selected-cell</id>
-    <content type="html"><![CDATA[<p>特定のセルのみの表示更新を行いたい場合の方法。<br/>
-以下のようなパターンで必要になった。</p>
-
-<ol>
-<li>セルをスワイプして削除ボタンを表示し、削除ボタンをタップ</li>
-<li>セル内のデータに基づく内部データを処理（セル自体は削除したくない）</li>
-<li>削除ボタンが消せない（reloadData）</li>
-<li>セルのみ更新をしたい</li>
-</ol>
-
-
-<p>```objective-c
-&ndash; (void)tableView:(UITableView <em>)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath </em>)indexPath
-{</p>
-
-<pre><code>if (editingStyle == UITableViewCellEditingStyleDelete) {
-    // セルの削除ボタンでしたい処理
-    ...
-    // 処理したセルの更新↓↓↓
-    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
-    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationRight];
-    // ↑↑↑
-} else if (editingStyle == UITableViewCellEditingStyleInsert) {
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<h2>更新時のアニメーション</h2>
-
-<ul>
-<li>UITableViewRowAnimationFade</li>
-<li>UITableViewRowAnimationRight</li>
-<li>UITableViewRowAnimationLeft</li>
-<li>UITableViewRowAnimationTop</li>
-<li>UITableViewRowAnimationBottom</li>
-<li>UITableViewRowAnimationNone</li>
-<li>UITableViewRowAnimationMiddle</li>
 </ul>
 
 ]]></content>

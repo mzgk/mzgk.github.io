@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>１つの画面の上下で同じViewControllerを使う方法（addChildViewController） - jubilee</title>
+  <meta name="author" content="mzgk">
+
+  
+  <meta name="description" content="１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった
+画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒
+同じ処理なので１つのViewController（ &hellip;">
+  <meta name="keywords" content="Objective-C,iOS">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/addchiledviewcontroller">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!-- google webmaster tool -->
+<meta name="google-site-verification" content="aGcvxQw3_CL6cMLGRu0swqLkd4I7xA1KcROCILD30hU" />
+<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Monda:400,700" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jubilee</a></h1>
+  
+    <h2>Programing, Books and more...</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:mzgk.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T18:18:14+09:00" pubdate data-updated="true">2014.08.22</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><ul>
+<li>１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった</li>
+<li>画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒</li>
+<li>同じ処理なので１つのViewController（UIImageViewとUISliderを持った）を作成（MovieVCとする）</li>
+<li>大元の画面（A-ViewController）で、上下に作成したMovieVCを呼べばいいのでは？</li>
+<li>Container ViewController？</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>テスト用にMovieViewはWebを表示するようにして、作成してみた。こんな感じ。<br/>
+<img src="/images/2014/0822/image.png" alt="image" /></p>
+
+<p>StoryBoardは、こんな感じで設定。<br/>
+<img src="/images/2014/0822/storyboard.png" alt="image" /></p>
+
+<h2>大元の画面（A-ViewController）</h2>
+
+<p>.m</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// MovieVCをインポート</span>
+</span><span class='line'><span class="cp">#import &quot;MovieViewController.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">DetailViewController</span> <span class="p">()</span>
+</span><span class='line'><span class="c1">// 画面の上下にUIViewを配置して接続</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UIView</span> <span class="o">*</span><span class="n">upperView</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UIView</span> <span class="o">*</span><span class="n">lowerView</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// MovieVCのプロパティを用意</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">MovieViewController</span> <span class="o">*</span><span class="n">upperMovieVC</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">MovieViewController</span> <span class="o">*</span><span class="n">lowerMovieVC</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">DetailViewController</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// MovieVCのインスタンスを生成（[MovieViewController new]ではダメ）</span>
+</span><span class='line'>    <span class="n">_upperMovieVC</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">storyboard</span> <span class="nl">instantiateViewControllerWithIdentifier:</span><span class="s">@&quot;MovieScene&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_lowerMovieVC</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">storyboard</span> <span class="nl">instantiateViewControllerWithIdentifier:</span><span class="s">@&quot;MovieScene&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 自身のVCの子とする</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">addChildViewController:</span><span class="n">_upperMovieVC</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">addChildViewController:</span><span class="n">_lowerMovieVC</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 用意してあるUIViewに生成した子（MovieVC）のviewを追加</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_upperView</span> <span class="nl">addSubview:</span><span class="n">_upperMovieVC</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_lowerView</span> <span class="nl">addSubview:</span><span class="n">_lowerMovieVC</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 子に追加した旨を通知</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_upperMovieVC</span> <span class="nl">didMoveToParentViewController:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_lowerMovieVC</span> <span class="nl">didMoveToParentViewController:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// テストのために用意したMovieVCのメソッドに違うURLを渡す</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_upperMovieVC</span> <span class="nl">connectURL:</span><span class="s">@&quot;http://google.co.jp&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_lowerMovieVC</span> <span class="nl">connectURL:</span><span class="s">@&quot;http://yahoo.co.jp&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>MovieVC</h2>
+
+<p>.h</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">MovieViewController</span> : <span class="nc">UIViewController</span><span class="o">&lt;</span><span class="n">UIWebViewDelegate</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">connectURL:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">urlString</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>.m</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;MovieView viewDidLoad&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">connectURL:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">urlString</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">urlString</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="nl">requestWithURL:</span><span class="n">url</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_webView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_webView</span> <span class="nl">loadRequest:</span><span class="n">request</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willMoveToParentViewController:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">parent</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;MovieVC&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T18:18:14+09:00" pubdate data-updated="true">2014.08.22</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/addchiledviewcontroller/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/addchiledviewcontroller/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/uiactionsheet-tapped-buttontitle/" title="Previous Post: UIActionSheetでタップされたボタンのタイトルを取得する">&laquo; UIActionSheetでタップされたボタンのタイトルを取得する</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p>mzgkworks</p>
+  <p>修行中</p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/addchiledviewcontroller/">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiimageview-contentmode/">UIImageView内に表示する画像の表示モード</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/change-view-frame/">viewのサイズを変更する方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/uiscrollview-checkpoint-2/">UIScrollViewに配置したViewが下にズレる時の対応</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - mzgk -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

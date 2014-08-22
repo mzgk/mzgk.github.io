@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-22T13:55:07+09:00</updated>
+  <updated>2014-08-22T18:51:31+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,170 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[１つの画面の上下で同じViewControllerを使う方法（addChildViewController）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/addchiledviewcontroller/"/>
+    <updated>2014-08-22T18:18:14+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/addchiledviewcontroller</id>
+    <content type="html"><![CDATA[<ul>
+<li>１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった</li>
+<li>画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒</li>
+<li>同じ処理なので１つのViewController（UIImageViewとUISliderを持った）を作成（MovieVCとする）</li>
+<li>大元の画面（A-ViewController）で、上下に作成したMovieVCを呼べばいいのでは？</li>
+<li>Container ViewController？</li>
+</ul>
+
+
+<!-- more -->
+
+
+<p>テスト用にMovieViewはWebを表示するようにして、作成してみた。こんな感じ。<br/>
+<img src="http://mzgk.github.io/images/2014/0822/image.png" alt="image" /></p>
+
+<p>StoryBoardは、こんな感じで設定。<br/>
+<img src="http://mzgk.github.io/images/2014/0822/storyboard.png" alt="image" /></p>
+
+<h2>大元の画面（A-ViewController）</h2>
+
+<p>.m</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// MovieVCをインポート</span>
+</span><span class='line'><span class="cp">#import &quot;MovieViewController.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">DetailViewController</span> <span class="p">()</span>
+</span><span class='line'><span class="c1">// 画面の上下にUIViewを配置して接続</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UIView</span> <span class="o">*</span><span class="n">upperView</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UIView</span> <span class="o">*</span><span class="n">lowerView</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// MovieVCのプロパティを用意</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">MovieViewController</span> <span class="o">*</span><span class="n">upperMovieVC</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">MovieViewController</span> <span class="o">*</span><span class="n">lowerMovieVC</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">DetailViewController</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// MovieVCのインスタンスを生成（[MovieViewController new]ではダメ）</span>
+</span><span class='line'>    <span class="n">_upperMovieVC</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">storyboard</span> <span class="nl">instantiateViewControllerWithIdentifier:</span><span class="s">@&quot;MovieScene&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_lowerMovieVC</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">storyboard</span> <span class="nl">instantiateViewControllerWithIdentifier:</span><span class="s">@&quot;MovieScene&quot;</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 自身のVCの子とする</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">addChildViewController:</span><span class="n">_upperMovieVC</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">addChildViewController:</span><span class="n">_lowerMovieVC</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 用意してあるUIViewに生成した子（MovieVC）のviewを追加</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_upperView</span> <span class="nl">addSubview:</span><span class="n">_upperMovieVC</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_lowerView</span> <span class="nl">addSubview:</span><span class="n">_lowerMovieVC</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 子に追加した旨を通知</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_upperMovieVC</span> <span class="nl">didMoveToParentViewController:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_lowerMovieVC</span> <span class="nl">didMoveToParentViewController:</span><span class="n">self</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// テストのために用意したMovieVCのメソッドに違うURLを渡す</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_upperMovieVC</span> <span class="nl">connectURL:</span><span class="s">@&quot;http://google.co.jp&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_lowerMovieVC</span> <span class="nl">connectURL:</span><span class="s">@&quot;http://yahoo.co.jp&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>MovieVC</h2>
+
+<p>.h</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">MovieViewController</span> : <span class="nc">UIViewController</span><span class="o">&lt;</span><span class="n">UIWebViewDelegate</span><span class="o">&gt;</span>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">connectURL:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">urlString</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>.m</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;MovieView viewDidLoad&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">connectURL:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">urlString</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">urlString</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSURLRequest</span> <span class="o">*</span><span class="n">request</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURLRequest</span> <span class="nl">requestWithURL:</span><span class="n">url</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_webView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_webView</span> <span class="nl">loadRequest:</span><span class="n">request</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">willMoveToParentViewController:</span><span class="p">(</span><span class="n">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">parent</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;MovieVC&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIActionSheetでタップされたボタンのタイトルを取得する]]></title>
@@ -1013,22 +1177,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 
 
 <p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Macでゴミ箱からファイルを削除できない時の方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/empty-trash/"/>
-    <updated>2014-08-05T19:19:35+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/empty-trash</id>
-    <content type="html"><![CDATA[<p>Macでゴミ箱を空にしようとしても、「ファイルを使用中のため削除できません」が
-表示された時でも、確実に削除する方法。</p>
-
-<ol>
-<li>ゴミ箱をCmd + 右クリック<br/>
-「確実にゴミ箱を空にする」を選択。</li>
-</ol>
-
 ]]></content>
   </entry>
   
