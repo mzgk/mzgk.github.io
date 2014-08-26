@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-22T18:51:31+09:00</updated>
+  <updated>2014-08-26T17:03:59+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除]]></title>
+    <link href="http://mzgk.github.io/blog/2014/search-and-delete/"/>
+    <updated>2014-08-26T17:01:43+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/search-and-delete</id>
+    <content type="html"><![CDATA[<p>~/tmpディレクトリ内に存在する「capture」の文字列を含むディレクトリ・ファイルを削除したい。<br/>
+ワイルドカードが使えないみたいなので、以下で対応。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteTmpCaptureDir</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSFileManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// ~/tmpディレクトリの取得</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">tmpDir</span> <span class="o">=</span> <span class="n">NSTemporaryDirectory</span><span class="p">();</span>
+</span><span class='line'>    <span class="c1">// tmpディレクトリ内の一覧取得</span>
+</span><span class='line'>    <span class="n">NSArray</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="n">manager</span> <span class="nl">contentsOfDirectoryAtPath:</span><span class="n">tmpDir</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// 一覧の中から「capture」を含むディレクトリ・ファイルを検索</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="k">in</span> <span class="n">list</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">NSRange</span> <span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="nl">rangeOfString:</span><span class="s">@&quot;capture&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">// 存在したならば削除</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">NSNotFound</span> <span class="o">!=</span> <span class="n">range</span><span class="p">.</span><span class="n">location</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">NSString</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmpDir</span> <span class="nl">stringByAppendingPathComponent:</span><span class="n">path</span><span class="p">];</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">manager</span> <span class="nl">removeItemAtPath:</span><span class="n">target</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[１つの画面の上下で同じViewControllerを使う方法（addChildViewController）]]></title>
@@ -1130,53 +1179,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 <h3>おまけ</h3>
 
 <p>アプリなら、Objective-CのUIColorの値も設定できる「Sip」がおすすめ。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[git / GitHubからいらないファイルを削除する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/remove-file-from-github/"/>
-    <updated>2014-08-05T19:22:41+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/remove-file-from-github</id>
-    <content type="html"><![CDATA[<p>GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。<br/>
-ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。</p>
-
-<h2>削除方法</h2>
-
-<p>ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。</p>
-
-<h3>1. ローカルファイルを削除</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm ファイル名</span></code></pre></td></tr></table></div></figure>
-
-
-<p>※ただしこれだと、ワーキングエリアからも削除されてしまう。<br/>
-ワーキングエリアには残しておき、Git管理対象外としたい場合は、.gitignoreに追記し</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm --cached ファイル名</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>2. ステージング</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>3. コミット</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git commit -m "メッセージ"</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>4. プッシュ</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git push</span></code></pre></td></tr></table></div></figure>
-
-
-<p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-22T18:51:31+09:00</updated>
+  <updated>2014-08-26T17:03:59+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除]]></title>
+    <link href="http://mzgk.github.io/blog/2014/search-and-delete/"/>
+    <updated>2014-08-26T17:01:43+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/search-and-delete</id>
+    <content type="html"><![CDATA[<p>~/tmpディレクトリ内に存在する「capture」の文字列を含むディレクトリ・ファイルを削除したい。<br/>
+ワイルドカードが使えないみたいなので、以下で対応。</p>
+
+<p>```objective-c
+&ndash; (void)deleteTmpCaptureDir
+{</p>
+
+<pre><code>NSFileManager *manager = [NSFileManager defaultManager];
+NSError *error = nil;
+// ~/tmpディレクトリの取得
+NSString *tmpDir = NSTemporaryDirectory();
+// tmpディレクトリ内の一覧取得
+NSArray *list = [manager contentsOfDirectoryAtPath:tmpDir error:&amp;error];
+// 一覧の中から「capture」を含むディレクトリ・ファイルを検索
+for (NSString *path in list) {
+    NSRange range = [path rangeOfString:@"capture"];
+    // 存在したならば削除
+    if (NSNotFound != range.location) {
+        NSString *target = [tmpDir stringByAppendingPathComponent:path];
+        [manager removeItemAtPath:target error:&amp;error];
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[１つの画面の上下で同じViewControllerを使う方法（addChildViewController）]]></title>
@@ -301,68 +335,6 @@ _textView.inputAccessoryView = accessoryView;
 
 <p>UITextView関連では、以下もあり。<br/>
 <a href="http://mzgk.github.io/blog/2014/uiscrollview-tapevent/">http://mzgk.github.io/blog/2014/uiscrollview-tapevent/</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[セルに追加したボタンの処理をViewControllerで行う]]></title>
-    <link href="http://mzgk.github.io/blog/2014/handle-button-in-cell/"/>
-    <updated>2014-08-14T20:11:37+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/handle-button-in-cell</id>
-    <content type="html"><![CDATA[<p>カスタムセルに追加したボタンの処理を、ViewControllerで行う方法。<br/>
-タップされたボタンのセルのインデックスの取得。</p>
-
-<h2>Cell</h2>
-
-<ol>
-<li>StoryBoard上でセル内にボタンを追加する</li>
-<li>Attribute inspector &ndash; view &ndash; Tag に値を設定する</li>
-<li>Outlet接続のみ行う（不要かも）</li>
-</ol>
-
-
-<h2>ViewController</h2>
-
-<h3>ボタンのプロパティを宣言</h3>
-
-<p><code>objective-c
-@property (weak, nonatomic) UIButton *button;
-</code></p>
-
-<h3>ボタンとタップ時の処理を作成する</h3>
-
-<p>任意の場所で。</p>
-
-<p><code>objective-c
-// Cellにボタンを設定した時のTag値
-_button = (UIButton*)[cell viewWithTag:1];
-// ボタンのイベントを登録
-[_button addTarget:self action:@selector(buttonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
-</code></p>
-
-<h3>タップ時の処理</h3>
-
-<p>```objective-c
-&ndash; (void)buttonTapped:(id)sender event:(UIEvent*)event
-{</p>
-
-<pre><code>// タップされたボタンのセルインデックスを取得する
-UITouch *touch = [[event allTouches]anyObject];
-CGPoint point = [touch locationInView:_sampleTableView];
-_tappedIndexPath = [_sampleTableView indexPathForRowAtPoint:point];
-
-// 実行したい処理
-</code></pre>
-
-<p>}
-```</p>
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html">http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html</a></li>
-</ul>
-
 ]]></content>
   </entry>
   
