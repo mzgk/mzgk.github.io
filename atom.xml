@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-26T17:03:59+09:00</updated>
+  <updated>2014-08-28T10:01:51+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Git コミットのメッセージ書き方]]></title>
+    <link href="http://mzgk.github.io/blog/2014/git-commit-message/"/>
+    <updated>2014-08-28T09:51:50+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/git-commit-message</id>
+    <content type="html"><![CDATA[<p>Gitではコミットメッセージの形式に関して制約はないが、標準的な形式は以下となる。</p>
+
+<ul>
+<li>１行目にコミットの全体的説明を５０字以内で記述</li>
+<li>２行目は空行</li>
+<li>３行目以降に変更内容の詳細を記述</li>
+<li>現在形で記述</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Change the message displayed by hello.py
+</span><span class='line'>
+</span><span class='line'>- Update the sayHello() function to output the user's name
+</span><span class='line'>- Change the sayGoodbye() function to a friendlier message</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考</h3>
+
+<p><a href="https://www.atlassian.com/ja/git/tutorial/git-basics#!commit">https://www.atlassian.com/ja/git/tutorial/git-basics#!commit</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除]]></title>
@@ -1160,25 +1191,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 
 <p>文字サイズ14pxで上下に3pxずつ余裕をもたせる場合<br/>
 (14 + 3 + 3) / 14 = 1.42857&hellip; &ndash;> 1.429</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MacのDigitalColor Materで色の値をコピーする]]></title>
-    <link href="http://mzgk.github.io/blog/2014/digitalcolor-mater/"/>
-    <updated>2014-08-05T19:26:44+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/digitalcolor-mater</id>
-    <content type="html"><![CDATA[<p>Mac標準のカラーピッカーである『DigitalColor Mater』。<br/>
-このアプリで色をピックした際にカラー値を16進数で取得したいんだけど、どこに値が表示されるのかわからなかった。</p>
-
-<p>メニュー &ndash;> カラー &ndash;> カラーをテキストでコピー（Shift + Cmd + C）</p>
-
-<p>これで、16進数での値を取得できる。
-あとは、挿入したい場所にペースト（Cmd + v）するだけ。</p>
-
-<h3>おまけ</h3>
-
-<p>アプリなら、Objective-CのUIColorの値も設定できる「Sip」がおすすめ。</p>
 ]]></content>
   </entry>
   

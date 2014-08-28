@@ -9,26 +9,14 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="~/tmpディレクトリ内に存在する「capture」の文字列を含むディレクトリ・ファイルを削除したい。
-ワイルドカードが使えないみたいなので、以下で対応。 1
+  <meta name="description" content="Gitではコミットメッセージの形式に関して制約はないが、標準的な形式は以下となる。 １行目にコミットの全体的説明を５０字以内で記述
+２行目は空行
+３行目以降に変更内容の詳細を記述
+現在形で記述 1
 2
 3
 4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-- (void) &hellip;">
+Change the message displayed by hello.py - &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,6 +75,64 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/git-commit-message/">Git コミットのメッセージ書き方</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-28T09:51:50+09:00" pubdate data-updated="true">2014.08.28</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Gitではコミットメッセージの形式に関して制約はないが、標準的な形式は以下となる。</p>
+
+<ul>
+<li>１行目にコミットの全体的説明を５０字以内で記述</li>
+<li>２行目は空行</li>
+<li>３行目以降に変更内容の詳細を記述</li>
+<li>現在形で記述</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Change the message displayed by hello.py
+</span><span class='line'>
+</span><span class='line'>- Update the sayHello() function to output the user's name
+</span><span class='line'>- Change the sayGoodbye() function to a friendlier message</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考</h3>
+
+<p><a href="https://www.atlassian.com/ja/git/tutorial/git-basics#!commit">https://www.atlassian.com/ja/git/tutorial/git-basics#!commit</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -824,53 +870,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/change-view-frame/">viewのサイズを変更する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-12T16:53:42+09:00" pubdate data-updated="true">2014.08.12</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>viewのサイズを変更する方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 高さを変更</span>
-</span><span class='line'><span class="n">CGRect</span> <span class="n">newRect</span> <span class="o">=</span> <span class="n">_sampleView</span><span class="p">.</span><span class="n">frame</span><span class="p">;</span>
-</span><span class='line'><span class="n">newRect</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mf">165.0f</span><span class="p">;</span>
-</span><span class='line'><span class="p">[</span><span class="n">_sampleView</span> <span class="nl">setFrame:</span><span class="n">newRect</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -883,12 +882,15 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
   
     <section>
   <h1>About Me</h1>
-  <p>mzgkworks</p>
-  <p>修行中</p>
+  <p>mzgkworks<br>Objective-C修行中</p>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/git-commit-message/">Git コミットのメッセージ書き方</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a>
@@ -924,10 +926,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
     
       <li class="post">
         <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/change-view-frame/">viewのサイズを変更する方法</a>
       </li>
     
   </ul>

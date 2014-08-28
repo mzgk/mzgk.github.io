@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: git | jubilee]]></title>
+  <title><![CDATA[Category: Git | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-26T17:03:59+09:00</updated>
+  <updated>2014-08-28T10:01:51+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -14,145 +14,33 @@
 
   
   <entry>
-    <title type="html"><![CDATA[git / GitHubからいらないファイルを削除する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/remove-file-from-github/"/>
-    <updated>2014-08-05T19:22:41+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/remove-file-from-github</id>
-    <content type="html"><![CDATA[<p>GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。<br/>
-ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。</p>
-
-<h2>削除方法</h2>
-
-<p>ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。</p>
-
-<h3>1. ローカルファイルを削除</h3>
-
-<p><code>
-$ git rm ファイル名
-</code>
-※ただしこれだと、ワーキングエリアからも削除されてしまう。<br/>
-ワーキングエリアには残しておき、Git管理対象外としたい場合は、.gitignoreに追記し<br/>
-<code>
-$ git rm --cached ファイル名
-</code></p>
-
-<h3>2. ステージング</h3>
-
-<p><code>
-$ git add .
-</code></p>
-
-<h3>3. コミット</h3>
-
-<p><code>
-$ git commit -m "メッセージ"
-</code></p>
-
-<h3>4. プッシュ</h3>
-
-<p><code>
-$ git push
-</code></p>
-
-<p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[bashでgitコマンドの補完をする]]></title>
-    <link href="http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash/"/>
-    <updated>2014-08-05T18:53:04+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash</id>
-    <content type="html"><![CDATA[<ul>
-<li>補完用のファイルをダウンロード
+    <title type="html"><![CDATA[Git コミットのメッセージ書き方]]></title>
+    <link href="http://mzgk.github.io/blog/2014/git-commit-message/"/>
+    <updated>2014-08-28T09:51:50+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/git-commit-message</id>
+    <content type="html"><![CDATA[<p>Gitではコミットメッセージの形式に関して制約はないが、標準的な形式は以下となる。</p>
 
 <ul>
-<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
+<li>１行目にコミットの全体的説明を５０字以内で記述</li>
+<li>２行目は空行</li>
+<li>３行目以降に変更内容の詳細を記述</li>
+<li>現在形で記述</li>
 </ul>
-</li>
-<li>~/.git-completion.bashとして設置</li>
-<li>~/.bash_profileにパスを記述</li>
+
+
+<p>```
+Change the message displayed by hello.py</p>
+
+<ul>
+<li>Update the sayHello() function to output the user&rsquo;s name</li>
+<li>Change the sayGoodbye() function to a friendlier message
+```</li>
 </ul>
 
 
-<p><code>bash
-source ~/.git-completion.bash
-</code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[git branchのメモ]]></title>
-    <link href="http://mzgk.github.io/blog/2014/git-branch/"/>
-    <updated>2014-08-05T18:44:02+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/git-branch</id>
-    <content type="html"><![CDATA[<p>分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。<br/>
-例えば、<br/>
-「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。<br/>
-だけど、ダメだった時に追加前に戻せるかが不安。<br/>
-こんな時にブランチをきって、そっちで機能追加をする。<br/>
-うまく行けばmasterにマージし、だめならブランチを削除すればmasterに影響はない。</p>
+<h3>参考</h3>
 
-<h2>ブランチの一覧を表示</h2>
-
-<p><code>bash
-$ git branch
-* master  // masterしかない状態
-</code></p>
-
-<h2>ブランチを作成</h2>
-
-<p>masterの状態を複製して、ブランチが作成される。</p>
-
-<p><code>bash
-$ git branch ブランチ名
-// 状態を表示
-$ git branch
- ブランチ名
-*master // masterブランチにいる
-</code></p>
-
-<h2>ブランチを切り替える</h2>
-
-<p><code>bash
-$ git checkout ブランチ名
-// 状態を表示
-$ git branch
-*ブランチ名  // このブランチにいる
- master
-</code></p>
-
-<h2>作業</h2>
-
-<p>このブランチで作業し、add, commit</p>
-
-<h2>masterにマージする</h2>
-
-<p>ブランチで作業した内容をmasterにマージする。</p>
-
-<p><code>bash
-// 一旦、masterに切り替える
-$ git checkout master
-// 状態を表示
-$ git branch
- ブランチ名
-*master // masterブランチにいる
-// マージする
-$ git merge ブランチ名
-</code></p>
-
-<h2>ブランチを削除する</h2>
-
-<p>不要になったブランチは削除する。</p>
-
-<p><code>bash
-$ git branch -d ブランチ名
-// 状態を表示
-$ git branch
-*master
-</code></p>
-
-<p>参考：<a href="http://www.backlog.jp/git-guide/stepup/stepup1_1.html">http://www.backlog.jp/git-guide/stepup/stepup1_1.html</a></p>
+<p><a href="https://www.atlassian.com/ja/git/tutorial/git-basics#!commit">https://www.atlassian.com/ja/git/tutorial/git-basics#!commit</a></p>
 ]]></content>
   </entry>
   

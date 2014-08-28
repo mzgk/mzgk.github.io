@@ -9,8 +9,14 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="アプリ内のデータをiTunesから取得したり、追加したりする際の設定方法。
-デバイスをiTunesに接続し、上のAppタブを選択、ファイル共有で対象のアプリを選択すると、共有できるファイルが表示される。 Supporting Files ｛アプリ名｝-Info.plistを開く &hellip;">
+  <meta name="description" content="セルスワイプでの削除をやめる方法。
+セルの編集を許可するかどうかを返すメソッドでNOを返す。 1
+2
+3
+4
+5
+6
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +75,81 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/not-allowed-to-edit-cell/">UITableViewのセル編集をさせない方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T17:42:38+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>セルスワイプでの削除をやめる方法。<br/>
+セルの編集を許可するかどうかを返すメソッドでNOを返す。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">canEditRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// Return NO if you do not want the specified item to be editable.</span>
+</span><span class='line'>    <span class="c1">// TODO: セル削除を可能にする時はYESに変更すること</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>もしくは、以下のメソッドをコメントアウト。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_objects</span> <span class="nl">removeObjectAtIndex:</span><span class="n">indexPath</span><span class="p">.</span><span class="n">row</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">tableView</span> <span class="nl">deleteRowsAtIndexPaths:</span><span class="err">@</span><span class="p">[</span><span class="n">indexPath</span><span class="p">]</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationFade</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -845,81 +926,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/confirm-subview/">対象のビューがサブビューかどうか判断する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T14:26:28+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>対象のビューがサブビューかどうか（ビューに存在しているか？）を判断する方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// メモリから破棄されないように&quot;strong&quot;を指定</span>
-</span><span class='line'><span class="err">@</span><span class="n">preoperty</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomatic</span><span class="p">)</span> <span class="kt">IBOutlet</span> <span class="n">UILabel</span> <span class="o">*</span><span class="n">myLabel</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">removeAllLabel:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">_mylabel</span> <span class="nl">isDescendantOfView:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// ビューから取り除く</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">_myLabel</span> <span class="n">removeFromSuperView</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// ビューに追加する</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSuperView:</span><span class="n">_mylabel</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>スーパービューを調べる</h2>
-
-<p><code>_myLabel.superView</code> でも、_myLabelにスーパービューがあるかどうか調べられる。</p>
-
-<h2>取り除く≒非表示</h2>
-
-<p><code>_myLabel.hidden = YES;</code> で、取り除くことなく非表示化できる。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -934,12 +940,15 @@
   
     <section>
   <h1>About Me</h1>
-  <p>mzgkworks</p>
-  <p>修行中</p>
+  <p>mzgkworks<br>Objective-C修行中</p>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/git-commit-message/">Git コミットのメッセージ書き方</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a>
@@ -975,10 +984,6 @@
     
       <li class="post">
         <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/change-view-frame/">viewのサイズを変更する方法</a>
       </li>
     
   </ul>

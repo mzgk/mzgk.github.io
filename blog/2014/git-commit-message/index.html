@@ -5,14 +5,19 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>UIImageViewにスワイプジェスチャーを適用させる - jubilee</title>
+  <title>Git コミットのメッセージ書き方 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="通常に設定（コード or Interface Builder）からだけでは、反応しない。
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte &hellip;">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="Gitではコミットメッセージの形式に関して制約はないが、標準的な形式は以下となる。 １行目にコミットの全体的説明を５０字以内で記述
+２行目は空行
+３行目以降に変更内容の詳細を記述
+現在形で記述 1
+2
+3
+4
+Change the message displayed by hello.py - &hellip;">
+  <meta name="keywords" content="Git">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +25,7 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/git-commit-message">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -73,7 +78,7 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   
   <header>
     
-      <h1 class="entry-title">UIImageViewにスワイプジェスチャーを適用させる</h1>
+      <h1 class="entry-title">Git コミットのメッセージ書き方</h1>
     
     
       <p class="meta">
@@ -89,21 +94,36 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   
 
 
-<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-28T09:51:50+09:00" pubdate data-updated="true">2014.08.28</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
+<div class="entry-content"><p>Gitではコミットメッセージの形式に関して制約はないが、標準的な形式は以下となる。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li>１行目にコミットの全体的説明を５０字以内で記述</li>
+<li>２行目は空行</li>
+<li>３行目以降に変更内容の詳細を記述</li>
+<li>現在形で記述</li>
+</ul>
 
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Change the message displayed by hello.py
+</span><span class='line'>
+</span><span class='line'>- Update the sayHello() function to output the user's name
+</span><span class='line'>- Change the sayGoodbye() function to a friendlier message</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>参考</h3>
+
+<p><a href="https://www.atlassian.com/ja/git/tutorial/git-basics#!commit">https://www.atlassian.com/ja/git/tutorial/git-basics#!commit</a></p>
 </div>
 
 
@@ -126,12 +146,12 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   
 
 
-<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-08-28T09:51:50+09:00" pubdate data-updated="true">2014.08.28</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+    <a class='category' href='/blog/categories/git/'>Git</a>
   
 </span>
 
@@ -140,7 +160,7 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/git-commit-message/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/git-commit-message/" >Tweet</a>
   
   
   
@@ -149,10 +169,8 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/set-navigationbar-color/" title="Previous Post: UINavigationBarの色を制御する">&laquo; UINavigationBarの色を制御する</a>
+        <a class="basic-alignment left" href="/blog/2014/search-and-delete/" title="Previous Post: ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除">&laquo; ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/change-image-of-button-to-tap-each/" title="Next Post: UIButtonでタップ毎にボタン画像を切替える">UIButtonでタップ毎にボタン画像を切替える &raquo;</a>
       
     </p>
   </footer>
