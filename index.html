@@ -9,8 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content=".gitignoreファイルはgit管理対象外とするディレクトリ・ファイルを登録するファイルだが、すでに管理対象として登録されたものに対しては無視される。
-すでに管理対象となっているものを、後から.gitginoreに登録し適用させる方法。 例：draftsディレクトリを対象外としたい &hellip;">
+  <meta name="description" content="作成しているアプリ用に、App ID・証明書等の作成が必要になったので手順のメモ。
+Push通知ありのアプリ。以下で作業が必要になる。 Web（Safari &ndash;> iOS Developer Center）
+Mac（キーチェーン・ターミナル） ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +70,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/make-appid-certificate-for-pushnotification/">AppID・証明書の作成方法（Push通知あり）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-28T16:42:34+09:00" pubdate data-updated="true">2014.08.28</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>作成しているアプリ用に、App ID・証明書等の作成が必要になったので手順のメモ。<br/>
+Push通知ありのアプリ。以下で作業が必要になる。</p>
+
+<ul>
+<li>Web（Safari &ndash;> iOS Developer Center）</li>
+<li>Mac（キーチェーン・ターミナル）</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/make-appid-certificate-for-pushnotification/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -798,84 +847,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/uiimageview-contentmode/">UIImageView内に表示する画像の表示モード</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-14T20:09:19+09:00" pubdate data-updated="true">2014.08.14</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>UIImageView内に表示する画像の表示モードを指定する方法。</p>
-
-<h2>指定方法</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">_imageView</span><span class="p">.</span><span class="n">contentMode</span> <span class="o">=</span> <span class="n">UIViewContentModeCenter</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>モード</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">UIViewContentMode</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">UIViewContentModeScaleToFill</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeScaleAspectFit</span><span class="p">,</span>      <span class="c1">// contents scaled to fit with fixed aspect. remainder is transparent</span>
-</span><span class='line'>    <span class="n">UIViewContentModeScaleAspectFill</span><span class="p">,</span>     <span class="c1">// contents scaled to fill with fixed aspect. some portion of content may be clipped.</span>
-</span><span class='line'>    <span class="n">UIViewContentModeRedraw</span><span class="p">,</span>              <span class="c1">// redraw on bounds change (calls -setNeedsDisplay)</span>
-</span><span class='line'>    <span class="n">UIViewContentModeCenter</span><span class="p">,</span>              <span class="c1">// contents remain same size. positioned adjusted.</span>
-</span><span class='line'>    <span class="n">UIViewContentModeTop</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeBottom</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeLeft</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeRight</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeTopLeft</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeTopRight</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeBottomLeft</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeBottomRight</span><span class="p">,</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -893,6 +864,10 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/make-appid-certificate-for-pushnotification/">AppID・証明書の作成方法（Push通知あり）</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/gitignore-apply-after-add/">.gitignoreをあとから適用する</a>
@@ -928,10 +903,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
     
       <li class="post">
         <a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/uiimageview-contentmode/">UIImageView内に表示する画像の表示モード</a>
       </li>
     
   </ul>

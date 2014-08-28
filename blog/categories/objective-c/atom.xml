@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-28T10:48:16+09:00</updated>
+  <updated>2014-08-28T16:49:39+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,138 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AppID・証明書の作成方法（Push通知あり）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/make-appid-certificate-for-pushnotification/"/>
+    <updated>2014-08-28T16:42:34+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/make-appid-certificate-for-pushnotification</id>
+    <content type="html"><![CDATA[<p>作成しているアプリ用に、App ID・証明書等の作成が必要になったので手順のメモ。<br/>
+Push通知ありのアプリ。以下で作業が必要になる。</p>
+
+<ul>
+<li>Web（Safari &ndash;> iOS Developer Center）</li>
+<li>Mac（キーチェーン・ターミナル）</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>App IDの作成（Web）</h2>
+
+<ul>
+<li>Safari &ndash;> iOS Developer Centerにアクセス</li>
+<li>Certificates, Identifiers &amp; Profiles</li>
+<li>iOS Apps</li>
+<li>Identifiers &ndash;> App IDs</li>
+<li>＋ボタンで作成開始</li>
+<li>App ID Description
+
+<ul>
+<li>Name: 名前を入れる（判別しやすいように）</li>
+</ul>
+</li>
+<li>App ID Prefix
+
+<ul>
+<li>Value: 自動生成されている（入力不可）</li>
+</ul>
+</li>
+<li>App ID Suffix
+
+<ul>
+<li>Explicit App ID</li>
+<li>Bundle ID: jp.co.ast-net.アプリ名（小文字）</li>
+</ul>
+</li>
+<li>App Services
+
+<ul>
+<li>使用するものにチェックを入れる（今回はPush Notifications）</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>証明書の作成（Mac）</h2>
+
+<ul>
+<li>キーチェーンアクセス.appを起動</li>
+<li>メニューから、キーチェーンアクセス &ndash;> 証明書アシスタント &ndash;> 認証局に証明書を要求</li>
+<li>入力欄
+
+<ul>
+<li>メールアドレス：入力</li>
+<li>通称：入力</li>
+<li>CAのメールアドレス：未入力</li>
+</ul>
+</li>
+<li>チェック欄
+
+<ul>
+<li>ディスクに保存</li>
+<li>鍵ペア情報を指定</li>
+</ul>
+</li>
+<li>作成される「CertificateSigningRequest.certSigningRequest」（CSR）を任意の場所に保存</li>
+<li>鍵サイズ：2048</li>
+<li>アルゴリズム：RSA</li>
+</ul>
+
+
+<h2>App IDと証明書の設定（Web）</h2>
+
+<ul>
+<li>ここからは開発用（Development）と製品用（Distribution）の２回作業が必要</li>
+<li>Safari &ndash;> iOS Developer Centerにアクセス</li>
+<li>Certificates, Identifiers &amp; Profiles</li>
+<li>iOS Apps</li>
+<li>Identifiers &ndash;> App IDs</li>
+<li>先ほど作成したApp IDを選択 &ndash;> Edit（Push Notificationsが黄色になっている）</li>
+<li>Push Notificationsの「Development SSL Certificate &ndash;> Create Certificate&hellip;」をクリック</li>
+<li>Continueをクリック</li>
+<li>Chose File&hellip; で、作成した証明書（CSR）を選択</li>
+<li>Generateをクリック</li>
+<li>作成されたら、Downloadをクリックしダウンロードする</li>
+<li>aps_development.cer（aps_production.cer）がダウンロードされる</li>
+<li>Certificates &ndash;> Allには設定した分が増えている（Name: Bundle ID）</li>
+</ul>
+
+
+<h2>証明書の書き出し（Mac）</h2>
+
+<ul>
+<li>ダウンロードしたファイル（aps_development.cer）をダブルクリックして、キーチェーンに登録する</li>
+<li>キーチェーン.appを起動</li>
+<li>Apple Development IOS Push Services: Bundle IDが登録されているので選択し、右クリック</li>
+<li>&ldquo;Apple Development IOS Push Services: Bundle ID"を書き出すをクリック</li>
+<li>名前をつけて、任意の場所に保存。フォーマット：個人情報交換（.p12）</li>
+<li>パスワードを作成</li>
+</ul>
+
+
+<h2>証明書の変換（Mac）</h2>
+
+<ul>
+<li>ターミナルを起動</li>
+<li>ファイルのあるディレクトリに移動</li>
+<li>コマンドを入力し、パスワードを入力</li>
+<li>終了すると、証明書の名前.pemが作成される</li>
+<li>作成された.pemファイルを通知処理を行うサーバーに置いておく</li>
+</ul>
+
+
+<p><code>bash
+// 入力
+$ openssl pkcs12 -in 証明書の名前.p12 -out 証明書の名前（p12と別でも可）.pem -nodes -clcerts
+// 聞かれる
+Enter Import Password: 証明書の書き出しで作成したパスワード
+// 完了
+MAC Verified OK
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除]]></title>
@@ -275,66 +407,6 @@ AppDelegate.m</p>
 <li>iOS Core Data 徹底入門（10章）</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[キーボードの上に閉じるボタンを表示する（inputAccessoryView）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/keyboard-close-inputaccessoryview/"/>
-    <updated>2014-08-21T15:03:05+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/keyboard-close-inputaccessoryview</id>
-    <content type="html"><![CDATA[<p>UITextViewなどでキーボードを閉じたい時に、キーボードの上部に閉じるボタンを追加して閉じる方法。<br/>
-inputAccessoryViewといって、キーボード上部にボタンなどを配置できる。<br/>
-キーボードの表示／非表示に合わせて、表示／非表示される。</p>
-
-<h2>生成</h2>
-
-<p>```objective-c
-&ndash; (void)viewDidLoad
-{
-&hellip;</p>
-
-<pre><code>// ボタンを配置するUIViewを作成（幅320／高さ44・背景色：透明）
-UIView* accessoryView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-accessoryView.backgroundColor = [UIColor clearColor];
-
-// ボタンを作成（accessoryView内で、X:270 Y:5 Width:40 Height:30にイメージ有りボタン）
-UIButton* closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-[closeButton setImage:[UIImage imageNamed:@"hideKeyboard"] forState:UIControlStateNormal];
-closeButton.contentMode = UIViewContentModeScaleAspectFit;
-closeButton.frame = CGRectMake(270, 5, 40, 30);
-// ボタンタップ時のメソッドを指定（closeKeyboard:　→　自作メソッド）
-[closeButton addTarget:self action:@selector(closeKeyboard:) forControlEvents:UIControlEventTouchUpInside];
-
-// ボタンをViewに追加
-[accessoryView addSubview:closeButton];
-
-// ビューをUITextFieldのinputAccessoryViewに設定
-_textView.inputAccessoryView = accessoryView;
-</code></pre>
-
-<p>&hellip;
-}
-```</p>
-
-<h2>ボタンタップ時の処理</h2>
-
-<p>Closeボタン実行時の処理も記述する。</p>
-
-<p>```
-&ndash;(void)closeKeyboard:(id)sender
-{</p>
-
-<pre><code>[self.view endEditing:YES];
-</code></pre>
-
-<p>}
-```</p>
-
-<h2>関連</h2>
-
-<p>UITextView関連では、以下もあり。<br/>
-<a href="http://mzgk.github.io/blog/2014/uiscrollview-tapevent/">http://mzgk.github.io/blog/2014/uiscrollview-tapevent/</a></p>
 ]]></content>
   </entry>
   

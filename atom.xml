@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-28T10:48:16+09:00</updated>
+  <updated>2014-08-28T16:49:39+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,144 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AppID・証明書の作成方法（Push通知あり）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/make-appid-certificate-for-pushnotification/"/>
+    <updated>2014-08-28T16:42:34+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/make-appid-certificate-for-pushnotification</id>
+    <content type="html"><![CDATA[<p>作成しているアプリ用に、App ID・証明書等の作成が必要になったので手順のメモ。<br/>
+Push通知ありのアプリ。以下で作業が必要になる。</p>
+
+<ul>
+<li>Web（Safari &ndash;> iOS Developer Center）</li>
+<li>Mac（キーチェーン・ターミナル）</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>App IDの作成（Web）</h2>
+
+<ul>
+<li>Safari &ndash;> iOS Developer Centerにアクセス</li>
+<li>Certificates, Identifiers &amp; Profiles</li>
+<li>iOS Apps</li>
+<li>Identifiers &ndash;> App IDs</li>
+<li>＋ボタンで作成開始</li>
+<li>App ID Description
+
+<ul>
+<li>Name: 名前を入れる（判別しやすいように）</li>
+</ul>
+</li>
+<li>App ID Prefix
+
+<ul>
+<li>Value: 自動生成されている（入力不可）</li>
+</ul>
+</li>
+<li>App ID Suffix
+
+<ul>
+<li>Explicit App ID</li>
+<li>Bundle ID: jp.co.ast-net.アプリ名（小文字）</li>
+</ul>
+</li>
+<li>App Services
+
+<ul>
+<li>使用するものにチェックを入れる（今回はPush Notifications）</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>証明書の作成（Mac）</h2>
+
+<ul>
+<li>キーチェーンアクセス.appを起動</li>
+<li>メニューから、キーチェーンアクセス &ndash;> 証明書アシスタント &ndash;> 認証局に証明書を要求</li>
+<li>入力欄
+
+<ul>
+<li>メールアドレス：入力</li>
+<li>通称：入力</li>
+<li>CAのメールアドレス：未入力</li>
+</ul>
+</li>
+<li>チェック欄
+
+<ul>
+<li>ディスクに保存</li>
+<li>鍵ペア情報を指定</li>
+</ul>
+</li>
+<li>作成される「CertificateSigningRequest.certSigningRequest」（CSR）を任意の場所に保存</li>
+<li>鍵サイズ：2048</li>
+<li>アルゴリズム：RSA</li>
+</ul>
+
+
+<h2>App IDと証明書の設定（Web）</h2>
+
+<ul>
+<li>ここからは開発用（Development）と製品用（Distribution）の２回作業が必要</li>
+<li>Safari &ndash;> iOS Developer Centerにアクセス</li>
+<li>Certificates, Identifiers &amp; Profiles</li>
+<li>iOS Apps</li>
+<li>Identifiers &ndash;> App IDs</li>
+<li>先ほど作成したApp IDを選択 &ndash;> Edit（Push Notificationsが黄色になっている）</li>
+<li>Push Notificationsの「Development SSL Certificate &ndash;> Create Certificate&hellip;」をクリック</li>
+<li>Continueをクリック</li>
+<li>Chose File&hellip; で、作成した証明書（CSR）を選択</li>
+<li>Generateをクリック</li>
+<li>作成されたら、Downloadをクリックしダウンロードする</li>
+<li>aps_development.cer（aps_production.cer）がダウンロードされる</li>
+<li>Certificates &ndash;> Allには設定した分が増えている（Name: Bundle ID）</li>
+</ul>
+
+
+<h2>証明書の書き出し（Mac）</h2>
+
+<ul>
+<li>ダウンロードしたファイル（aps_development.cer）をダブルクリックして、キーチェーンに登録する</li>
+<li>キーチェーン.appを起動</li>
+<li>Apple Development IOS Push Services: Bundle IDが登録されているので選択し、右クリック</li>
+<li>&ldquo;Apple Development IOS Push Services: Bundle ID&#8221;を書き出すをクリック</li>
+<li>名前をつけて、任意の場所に保存。フォーマット：個人情報交換（.p12）</li>
+<li>パスワードを作成</li>
+</ul>
+
+
+<h2>証明書の変換（Mac）</h2>
+
+<ul>
+<li>ターミナルを起動</li>
+<li>ファイルのあるディレクトリに移動</li>
+<li>コマンドを入力し、パスワードを入力</li>
+<li>終了すると、証明書の名前.pemが作成される</li>
+<li>作成された.pemファイルを通知処理を行うサーバーに置いておく</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>// 入力
+</span><span class='line'><span class="nv">$ </span>openssl pkcs12 -in 証明書の名前.p12 -out 証明書の名前（p12と別でも可）.pem -nodes -clcerts
+</span><span class='line'>// 聞かれる
+</span><span class='line'>Enter Import Password: 証明書の書き出しで作成したパスワード
+</span><span class='line'>// 完了
+</span><span class='line'>MAC Verified OK
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[.gitignoreをあとから適用する]]></title>
@@ -1147,73 +1285,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 <li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CocoaPodsでライセンス表記を自動で作成する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/cocoapods-license-auto-make/"/>
-    <updated>2014-08-06T13:52:05+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/cocoapods-license-auto-make</id>
-    <content type="html"><![CDATA[<p>CocoaPodsを使用している場合に、使用しているライブラリのライセンス表記を自動で作成する方法。<br/>
-ライセンス表記は、iPhoneの設定アプリに作成される。<br/>
-<code>pod install / pod update</code> するたびに自動作成してくれるので、ライブラリの追加／削除のたびにライセンス表記の修正をしなくていいので便利。 <br/>
-作成時に、些細なところでハマったので、やり方を残しておく。</p>
-
-<h2>Settings.bundleを作成</h2>
-
-<p>File &ndash; New &ndash; File から、iOS &ndash; Resource で「Settings Bundle」を選択。
-<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-1.png" alt="settingbundle1" /></p>
-
-<p>作成する場所を選択する。<br/>
-ここで、Groupを「Supporting Files」にはしないこと。　←　ここでハマった。
-<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-2.png" alt="settingbundle2" /></p>
-
-<h2>Root.plistの編集</h2>
-
-<p>デフォルトの状態から、以下のように編集する。<br/>
-「Child Pane」は、「Type」からしか選択はできないので注意。<br/>
-<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-3.png" alt="root.plist" /></p>
-
-<h2>Acknowledgements.plistの作成</h2>
-
-<p>「Settings.bundle」内に「Acknowledgements.plist」を作成する。<br/>
-作成方法は通常のファイル作成と違い、以下のようにする。</p>
-
-<ul>
-<li>「Settings.bundle」を右クリックで「パッケージの内容を表示」させ</li>
-<li>「Root.plist」を複製し、「Acknowledgements.plist」に名前をかえる</li>
-<li>「Acknowledgements.plist」を開き（エディタなど）、中身を消す　←　ここでもハマった。</li>
-</ul>
-
-
-<p><img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-4.png" alt="Acknowledgements.plist" /></p>
-
-<h2>Podfileへの追加</h2>
-
-<p>Podfileへ、以下を追加する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>post_install do | installer |
-</span><span class='line'>require 'fileutils'
-</span><span class='line'>FileUtils.cp_r('Pods/Pods-acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p><code>Settings.bundle</code> へのパスは、XcodeでSettings.bundleを表示させ、エディタエリア上部のジャンプバーを参照すること。<br/>
-<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-5.png" alt="Podfile" /></p>
-
-<h2>pod install</h2>
-
-<p>あとは、<code>pod install</code> をすれば、完成。Acknowledgements.plistはこんな感じになる。<br/>
-<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-6.png" alt="Acknowledgements.plist" /></p>
-
-<p>ビルドし、iPhoneの設定アプリから確認することができる。<br/>
-<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-7.png" alt="Setting.app" />
-<img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-8.png" alt="Setting.app" /></p>
 ]]></content>
   </entry>
   
