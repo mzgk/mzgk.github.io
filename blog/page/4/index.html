@@ -9,8 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="カメラ機能などを使用するアプリをリリースする場合に、AppStoreからインストールできるデバイスを制限する方法。
-（カメラなしデバイスにインストールさせない方法） ">
+  <meta name="description" content="分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。
+例えば、
+「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。
+だけど、ダメだった時に追加前に戻せるかが不安。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +71,132 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/git-branch/">git branchのメモ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:44:02+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。<br/>
+例えば、<br/>
+「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。<br/>
+だけど、ダメだった時に追加前に戻せるかが不安。<br/>
+こんな時にブランチをきって、そっちで機能追加をする。<br/>
+うまく行けばmasterにマージし、だめならブランチを削除すればmasterに影響はない。</p>
+
+<h2>ブランチの一覧を表示</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'>* master  // masterしかない状態
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ブランチを作成</h2>
+
+<p>masterの状態を複製して、ブランチが作成される。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch ブランチ名
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'> ブランチ名
+</span><span class='line'>*master // masterブランチにいる
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ブランチを切り替える</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout ブランチ名
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'>*ブランチ名  // このブランチにいる
+</span><span class='line'> master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>作業</h2>
+
+<p>このブランチで作業し、add, commit</p>
+
+<h2>masterにマージする</h2>
+
+<p>ブランチで作業した内容をmasterにマージする。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>// 一旦、masterに切り替える
+</span><span class='line'><span class="nv">$ </span>git checkout master
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'> ブランチ名
+</span><span class='line'>*master // masterブランチにいる
+</span><span class='line'>// マージする
+</span><span class='line'><span class="nv">$ </span>git merge ブランチ名
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ブランチを削除する</h2>
+
+<p>不要になったブランチは削除する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch -d ブランチ名
+</span><span class='line'>// 状態を表示
+</span><span class='line'><span class="nv">$ </span>git branch
+</span><span class='line'>*master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参考：<a href="http://www.backlog.jp/git-guide/stepup/stepup1_1.html">http://www.backlog.jp/git-guide/stepup/stepup1_1.html</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -820,85 +948,6 @@ NavigationControllerの次のViewControllerで設定を行う。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/cell-highlight/">UITableViewのセルのハイライト制御</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T17:49:14+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>セルをタップして詳細画面に遷移した後に、戻ってきた時、タップしたセルのハイライトが残っている。<br/>
-このハイライトを消す方法。<br/>
-UITableViewControllerを使用しているぶんには、特に意識する必要はない。</p>
-
-<h2>UITableViewControllerを継承してUITableViewを使う場合</h2>
-
-<p>UITableViewControllerのviewWillAppear:にはハイライト解除の処理が定義してある。<br/>
-なので、viewWillAppear:メソッドをオーバーライドするときは、必ず親クラスのviewWillAppear:メソッドを呼ぶこと。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="c1">// 必ずこれを呼ぶこと</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>UITableViewControllerを継承せずにUITableViewを使う場合</h2>
-
-<p>自分で実装すること。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">super</span> <span class="nl">viewWillAppear:</span><span class="n">animated</span><span class="p">];</span>
-</span><span class='line'>  <span class="c1">// ハイライト解除</span>
-</span><span class='line'>  <span class="p">[</span><span class="n">_tableView</span> <span class="nl">deselectRowAtIndexPath:</span><span class="p">[</span><span class="n">_tableView</span> <span class="n">indexPathForSelectedRow</span><span class="p">]</span> <span class="nl">animated:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<p><a href="http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499">http://d.hatena.ne.jp/glass-_-onion/20090324/1237864499</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -918,6 +967,10 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/gitignore-apply-after-add/">.gitignoreをあとから適用する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/git-commit-message/">Git コミットのメッセージ書き方</a>
@@ -953,10 +1006,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
     
       <li class="post">
         <a href="/blog/2014/uiimageview-contentmode/">UIImageView内に表示する画像の表示モード</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a>
       </li>
     
   </ul>

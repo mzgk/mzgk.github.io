@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-28T10:01:51+09:00</updated>
+  <updated>2014-08-28T10:48:16+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[.gitignoreをあとから適用する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/gitignore-apply-after-add/"/>
+    <updated>2014-08-28T10:44:36+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/gitignore-apply-after-add</id>
+    <content type="html"><![CDATA[<p>.gitignoreファイルはgit管理対象外とするディレクトリ・ファイルを登録するファイルだが、すでに管理対象として登録されたものに対しては無視される。<br/>
+すでに管理対象となっているものを、後から.gitginoreに登録し適用させる方法。</p>
+
+<h2>例：draftsディレクトリを対象外としたい</h2>
+
+<p>下書きディレクトリとして <code>draftsディレクトリ</code> を管理対象としていたが、DropBoxで運用したいのでGit管理からは外したい。</p>
+
+<h3>.gitignoreに追記</h3>
+
+<p>```</p>
+
+<h1>ディレクトリの最後に「/（スラッシュ）」をつける</h1>
+
+<p>drafts/
+```</p>
+
+<h3>ターミナル</h3>
+
+<p>```
+// &mdash;cachedをつけることで、ファイル自体はローカルから削除しない
+$ git rm &mdash;cached -r drafts/</p>
+
+<p>// ちなみにファイルの場合は以下
+$ git rm &mdash;cached A.txt</p>
+
+<p>// ローカルからファイルも削除する場合は以下
+$ git rm A.txt
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git コミットのメッセージ書き方]]></title>

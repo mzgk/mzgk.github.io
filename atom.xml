@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-28T10:01:51+09:00</updated>
+  <updated>2014-08-28T10:48:16+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[.gitignoreをあとから適用する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/gitignore-apply-after-add/"/>
+    <updated>2014-08-28T10:44:36+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/gitignore-apply-after-add</id>
+    <content type="html"><![CDATA[<p>.gitignoreファイルはgit管理対象外とするディレクトリ・ファイルを登録するファイルだが、すでに管理対象として登録されたものに対しては無視される。<br/>
+すでに管理対象となっているものを、後から.gitginoreに登録し適用させる方法。</p>
+
+<h2>例：draftsディレクトリを対象外としたい</h2>
+
+<p>下書きディレクトリとして <code>draftsディレクトリ</code> を管理対象としていたが、DropBoxで運用したいのでGit管理からは外したい。</p>
+
+<h3>.gitignoreに追記</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># ディレクトリの最後に「/（スラッシュ）」をつける
+</span><span class='line'>drafts/</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ターミナル</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// --cachedをつけることで、ファイル自体はローカルから削除しない
+</span><span class='line'>$ git rm --cached -r drafts/
+</span><span class='line'>
+</span><span class='line'>// ちなみにファイルの場合は以下
+</span><span class='line'>$ git rm --cached A.txt
+</span><span class='line'>
+</span><span class='line'>// ローカルからファイルも削除する場合は以下
+</span><span class='line'>$ git rm A.txt</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git コミットのメッセージ書き方]]></title>
@@ -1172,25 +1214,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 <p>ビルドし、iPhoneの設定アプリから確認することができる。<br/>
 <img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-7.png" alt="Setting.app" />
 <img src="http://mzgk.github.io/images/2014/0806/cocoapods-license-8.png" alt="Setting.app" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[CSS] 文字の高さを指定する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/css-line-height/"/>
-    <updated>2014-08-05T19:30:03+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/css-line-height</id>
-    <content type="html"><![CDATA[<p>font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。<br/>
-このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。</p>
-
-<p>(font-size + 上余白 + 下余白) / font-size = line-heightの値（小数点4位切り上げ）</p>
-
-<p>例えば、<br/>
-文字サイズ16pxで上下に3pxずつ余裕をもたせる場合<br/>
-(16 + 3 + 3) / 16 = 1.375</p>
-
-<p>文字サイズ14pxで上下に3pxずつ余裕をもたせる場合<br/>
-(14 + 3 + 3) / 14 = 1.42857&hellip; &ndash;> 1.429</p>
 ]]></content>
   </entry>
   
