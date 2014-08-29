@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-28T16:49:39+09:00</updated>
+  <updated>2014-08-29T11:24:46+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Homebrewのインストール]]></title>
+    <link href="http://mzgk.github.io/blog/2014/install-homebrew/"/>
+    <updated>2014-08-29T11:12:35+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/install-homebrew</id>
+    <content type="html"><![CDATA[<p>Macのパッケージ管理にHomebrewを使用しているので、そのインストール方法。</p>
+
+<!-- more -->
+
+
+<h2>環境</h2>
+
+<ul>
+<li>OS X 10.9.2</li>
+<li>Commandline toolインストール済み</li>
+<li>インストールディレクトリの存在確認</li>
+</ul>
+
+
+<h2>インストールディレクトリの確認</h2>
+
+<p>Terminal.appを起動し確認。</p>
+
+<figure class='code'><figcaption><span>Terminal.app</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>// /usr/localが存在するかどうか？
+</span><span class='line'><span class="nv">$ </span>ls /usr/local
+</span><span class='line'>
+</span><span class='line'>// 存在した
+</span><span class='line'>lib
+</span><span class='line'>
+</span><span class='line'>// なければ作成する
+</span><span class='line'><span class="nv">$ </span>sudo makdir /usr/local
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インストール</h2>
+
+<p><a href="http://brew.sh/index_ja.html">公式サイト</a>を表示。<br/>
+「Homebrewのインストール」部分に書いてあるスクリプトをコピー<br/>
+Terminalを起動し、ペースト</p>
+
+<figure class='code'><figcaption><span>Terminal.app</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'> このスクリプトは必ずサイトから入手すること
+</span><span class='line'><span class="nv">$ </span>ruby -e <span class="s2">&quot;$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)&quot;</span>
+</span><span class='line'>...
+</span><span class='line'><span class="o">==</span>&gt; Installation successful!
+</span><span class='line'>You should run <span class="sb">`</span>brew doctor<span class="err">&#39;</span> *before* you install anything.
+</span><span class='line'>Now <span class="nb">type</span>: brew <span class="nb">help</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インストール後の確認</h2>
+
+<p>正しくインストールされたか確認を行う。</p>
+
+<figure class='code'><figcaption><span>Terminal.app</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew doctor
+</span><span class='line'>
+</span><span class='line'>// 以下のようなWarningが表示された。
+</span><span class='line'>Warning: Unbrewed dylibs were found in /usr/local/lib.
+</span><span class='line'>If you didn<span class="err">&#39;</span>t put them there on purpose they could cause problems when
+</span><span class='line'>building Homebrew formulae, and may need to be deleted.
+</span><span class='line'>
+</span><span class='line'>Unexpected dylibs:
+</span><span class='line'>    /usr/local/lib/libecomlodr.dylib
+</span><span class='line'>
+</span><span class='line'>// 余分なファイルだから削除しろとのこと。念のため、何のファイルかgoogleで検索してみると、Symantecのセキュリティソフトに絡んでいそう。
+</span><span class='line'>/usr/localも既に作成されていたことを考えると削除しないで、しばらく様子をみる。
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[AppID・証明書の作成方法（Push通知あり）]]></title>
@@ -1235,54 +1331,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <ul>
 <li><a href="http://qiita.com/hkomo746/items/22fcecfd0773023ed56a">http://qiita.com/hkomo746/items/22fcecfd0773023ed56a</a></li>
 <li><a href="http://d.hatena.ne.jp/nakamura001/20111107/1320680842">http://d.hatena.ne.jp/nakamura001/20111107/1320680842</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[プッシュ通知の誤解]]></title>
-    <link href="http://mzgk.github.io/blog/2014/push-notification/"/>
-    <updated>2014-08-07T13:25:29+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/push-notification</id>
-    <content type="html"><![CDATA[<p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で、自分が誤解していたこと。<br/>
-実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。<br/>
-Apple公式の「LocalおよびPush Notificationプログラミングガイド」を確認したら、P14に記載されてた。</p>
-
-<h3>誤り</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>アプリが通知を受信し、アプリがバックグラウンドでアイコンバッジ表示や受信を契機にした処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>正しくは</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>OSが通知を受信し、メッセージを表示（アイコンバッジはサーバーからの指示でOSが表示）</li>
-<li>ユーザーがアプリを起動し、受け取った通知をもとに処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>注意</h3>
-
-<ul>
-<li>アプリが完全に終了している時で、通知受信後にメッセージセンターからではなく、アプリのアイコンから起動した場合は、受信データを受け取ることができない</li>
-<li>通知センターから起動とアプリアイコンから起動では、動作がちがう</li>
-<li>バックグラウンドで処理をしたい場合は、サーバーからの通知ペイロードに <code>content-available=1</code> を含むこと</li>
-<li>TARGETS &ndash; Background Models &ndash; Remote notifications, (Background fetch)にチェック</li>
-<li>UIRemoteNotificationTypeNewsstandContentAvailability指定するとバッジがでない</li>
-</ul>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://d.hatena.ne.jp/shu223/20140113/1389612563">http://d.hatena.ne.jp/shu223/20140113/1389612563</a></li>
-<li><a href="http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</a></li>
-<li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
 </ul>
 
 ]]></content>

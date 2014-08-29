@@ -9,9 +9,7 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="作成しているアプリ用に、App ID・証明書等の作成が必要になったので手順のメモ。
-Push通知ありのアプリ。以下で作業が必要になる。 Web（Safari &ndash;> iOS Developer Center）
-Mac（キーチェーン・ターミナル） ">
+  <meta name="description" content="Macのパッケージ管理にHomebrewを使用しているので、そのインストール方法。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +68,47 @@ Mac（キーチェーン・ターミナル） ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/install-homebrew/">Homebrewのインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-29T11:12:35+09:00" pubdate data-updated="true">2014.08.29</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Macのパッケージ管理にHomebrewを使用しているので、そのインストール方法。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/install-homebrew/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -762,91 +801,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-14T20:09:55+09:00" pubdate data-updated="true">2014.08.14</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>特定のセルのみの表示更新を行いたい場合の方法。<br/>
-以下のようなパターンで必要になった。</p>
-
-<ol>
-<li>セルをスワイプして削除ボタンを表示し、削除ボタンをタップ</li>
-<li>セル内のデータに基づく内部データを処理（セル自体は削除したくない）</li>
-<li>削除ボタンが消せない（reloadData）</li>
-<li>セルのみ更新をしたい</li>
-</ol>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="c1">// セルの削除ボタンでしたい処理</span>
-</span><span class='line'>        <span class="p">...</span>
-</span><span class='line'>        <span class="c1">// 処理したセルの更新↓↓↓</span>
-</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">indexPaths</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObject:</span><span class="n">indexPath</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span> <span class="nl">reloadRowsAtIndexPaths:</span><span class="n">indexPaths</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationRight</span><span class="p">];</span>
-</span><span class='line'>        <span class="c1">// ↑↑↑</span>
-</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>更新時のアニメーション</h2>
-
-<ul>
-<li>UITableViewRowAnimationFade</li>
-<li>UITableViewRowAnimationRight</li>
-<li>UITableViewRowAnimationLeft</li>
-<li>UITableViewRowAnimationTop</li>
-<li>UITableViewRowAnimationBottom</li>
-<li>UITableViewRowAnimationNone</li>
-<li>UITableViewRowAnimationMiddle</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -864,6 +818,10 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/install-homebrew/">Homebrewのインストール</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/make-appid-certificate-for-pushnotification/">AppID・証明書の作成方法（Push通知あり）</a>
@@ -899,10 +857,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
     
       <li class="post">
         <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a>
       </li>
     
   </ul>

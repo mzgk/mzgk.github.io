@@ -9,23 +9,15 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UIImageView内に表示する画像の表示モードを指定する方法。 指定方法 1
-_imageView.contentMode = UIViewContentModeCenter; モード 1
+  <meta name="description" content="特定のセルのみの表示更新を行いたい場合の方法。
+以下のようなパターンで必要になった。 セルをスワイプして削除ボタンを表示し、削除ボタンをタップ
+セル内のデータに基づく内部データを処理（セル自体は削除したくない）
+削除ボタンが消せない（reloadData）
+セルのみ更新をしたい 1
 2
 3
 4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-typedef NS_ENUM( &hellip;">
+5 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +76,91 @@ typedef NS_ENUM( &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-14T20:09:55+09:00" pubdate data-updated="true">2014.08.14</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>特定のセルのみの表示更新を行いたい場合の方法。<br/>
+以下のようなパターンで必要になった。</p>
+
+<ol>
+<li>セルをスワイプして削除ボタンを表示し、削除ボタンをタップ</li>
+<li>セル内のデータに基づく内部データを処理（セル自体は削除したくない）</li>
+<li>削除ボタンが消せない（reloadData）</li>
+<li>セルのみ更新をしたい</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">commitEditingStyle:</span><span class="p">(</span><span class="n">UITableViewCellEditingStyle</span><span class="p">)</span><span class="nv">editingStyle</span> <span class="nf">forRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleDelete</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// セルの削除ボタンでしたい処理</span>
+</span><span class='line'>        <span class="p">...</span>
+</span><span class='line'>        <span class="c1">// 処理したセルの更新↓↓↓</span>
+</span><span class='line'>        <span class="n">NSArray</span> <span class="o">*</span><span class="n">indexPaths</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObject:</span><span class="n">indexPath</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span> <span class="nl">reloadRowsAtIndexPaths:</span><span class="n">indexPaths</span> <span class="nl">withRowAnimation:</span><span class="n">UITableViewRowAnimationRight</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">// ↑↑↑</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">editingStyle</span> <span class="o">==</span> <span class="n">UITableViewCellEditingStyleInsert</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>更新時のアニメーション</h2>
+
+<ul>
+<li>UITableViewRowAnimationFade</li>
+<li>UITableViewRowAnimationRight</li>
+<li>UITableViewRowAnimationLeft</li>
+<li>UITableViewRowAnimationTop</li>
+<li>UITableViewRowAnimationBottom</li>
+<li>UITableViewRowAnimationNone</li>
+<li>UITableViewRowAnimationMiddle</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -789,81 +866,6 @@ typedef NS_ENUM( &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/push-notification/">プッシュ通知の誤解</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-07T13:25:29+09:00" pubdate data-updated="true">2014.08.07</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>アプリがバックグラウンド状態で、サーバーからプッシュ通知を受信した際の動作で、自分が誤解していたこと。<br/>
-実機繋げてデバッグ実行中に、バックグラウンドにいる状態では処理が動いている形跡がないので、おかしいな〜と。<br/>
-Apple公式の「LocalおよびPush Notificationプログラミングガイド」を確認したら、P14に記載されてた。</p>
-
-<h3>誤り</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>アプリが通知を受信し、アプリがバックグラウンドでアイコンバッジ表示や受信を契機にした処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>正しくは</h3>
-
-<ol>
-<li>サーバーからプッシュ通知を受信</li>
-<li>OSが通知を受信し、メッセージを表示（アイコンバッジはサーバーからの指示でOSが表示）</li>
-<li>ユーザーがアプリを起動し、受け取った通知をもとに処理を行う（自分でコーディング）</li>
-</ol>
-
-
-<h3>注意</h3>
-
-<ul>
-<li>アプリが完全に終了している時で、通知受信後にメッセージセンターからではなく、アプリのアイコンから起動した場合は、受信データを受け取ることができない</li>
-<li>通知センターから起動とアプリアイコンから起動では、動作がちがう</li>
-<li>バックグラウンドで処理をしたい場合は、サーバーからの通知ペイロードに <code>content-available=1</code> を含むこと</li>
-<li>TARGETS &ndash; Background Models &ndash; Remote notifications, (Background fetch)にチェック</li>
-<li>UIRemoteNotificationTypeNewsstandContentAvailability指定するとバッジがでない</li>
-</ul>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://d.hatena.ne.jp/shu223/20140113/1389612563">http://d.hatena.ne.jp/shu223/20140113/1389612563</a></li>
-<li><a href="http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">http://blog.techfirm.co.jp/2013/10/11/ios-7-remote-notification%E3%81%AE%E6%8C%99%E5%8B%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</a></li>
-<li><a href="http://himaratsu.hatenablog.com/entry/objc/push">http://himaratsu.hatenablog.com/entry/objc/push</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -883,6 +885,10 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/install-homebrew/">Homebrewのインストール</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/make-appid-certificate-for-pushnotification/">AppID・証明書の作成方法（Push通知あり）</a>
@@ -918,10 +924,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
     
       <li class="post">
         <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/update-selected-cell/">指定したセルの表示更新を行う</a>
       </li>
     
   </ul>

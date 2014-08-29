@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Mac | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/mac/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-28T16:49:39+09:00</updated>
+  <updated>2014-08-29T11:24:46+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Homebrewのインストール]]></title>
+    <link href="http://mzgk.github.io/blog/2014/install-homebrew/"/>
+    <updated>2014-08-29T11:12:35+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/install-homebrew</id>
+    <content type="html"><![CDATA[<p>Macのパッケージ管理にHomebrewを使用しているので、そのインストール方法。</p>
+
+<!-- more -->
+
+
+<h2>環境</h2>
+
+<ul>
+<li>OS X 10.9.2</li>
+<li>Commandline toolインストール済み</li>
+<li>インストールディレクトリの存在確認</li>
+</ul>
+
+
+<h2>インストールディレクトリの確認</h2>
+
+<p>Terminal.appを起動し確認。</p>
+
+<p>```bash Terminal.app
+// /usr/localが存在するかどうか？
+$ ls /usr/local</p>
+
+<p>// 存在した
+lib</p>
+
+<p>// なければ作成する
+$ sudo makdir /usr/local
+```</p>
+
+<h2>インストール</h2>
+
+<p><a href="http://brew.sh/index_ja.html">公式サイト</a>を表示。<br/>
+「Homebrewのインストール」部分に書いてあるスクリプトをコピー<br/>
+Terminalを起動し、ペースト</p>
+
+<p><code>bash Terminal.app
+ このスクリプトは必ずサイトから入手すること
+$ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+...
+==&gt; Installation successful!
+You should run `brew doctor' *before* you install anything.
+Now type: brew help
+</code></p>
+
+<h2>インストール後の確認</h2>
+
+<p>正しくインストールされたか確認を行う。</p>
+
+<p>```bash Terminal.app
+$ brew doctor</p>
+
+<p>// 以下のようなWarningが表示された。
+Warning: Unbrewed dylibs were found in /usr/local/lib.
+If you didn&rsquo;t put them there on purpose they could cause problems when
+building Homebrew formulae, and may need to be deleted.</p>
+
+<p>Unexpected dylibs:</p>
+
+<pre><code>/usr/local/lib/libecomlodr.dylib
+</code></pre>
+
+<p>// 余分なファイルだから削除しろとのこと。念のため、何のファイルかgoogleで検索してみると、Symantecのセキュリティソフトに絡んでいそう。
+/usr/localも既に作成されていたことを考えると削除しないで、しばらく様子をみる。
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MacのDigitalColor Materで色の値をコピーする]]></title>
