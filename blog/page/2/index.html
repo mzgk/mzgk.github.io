@@ -9,15 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="特定のセルのみの表示更新を行いたい場合の方法。
-以下のようなパターンで必要になった。 セルをスワイプして削除ボタンを表示し、削除ボタンをタップ
-セル内のデータに基づく内部データを処理（セル自体は削除したくない）
-削除ボタンが消せない（reloadData）
-セルのみ更新をしたい 1
-2
-3
-4
-5 &hellip;">
+  <meta name="description" content="カスタムセルに追加したボタンの処理を、ViewControllerで行う方法。
+タップされたボタンのセルのインデックスの取得。 Cell StoryBoard上でセル内にボタンを追加する
+Attribute inspector &ndash; view &ndash; Tag に値を設定する &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +70,106 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-14T20:11:37+09:00" pubdate data-updated="true">2014.08.14</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>カスタムセルに追加したボタンの処理を、ViewControllerで行う方法。<br/>
+タップされたボタンのセルのインデックスの取得。</p>
+
+<h2>Cell</h2>
+
+<ol>
+<li>StoryBoard上でセル内にボタンを追加する</li>
+<li>Attribute inspector &ndash; view &ndash; Tag に値を設定する</li>
+<li>Outlet接続のみ行う（不要かも）</li>
+</ol>
+
+
+<h2>ViewController</h2>
+
+<h3>ボタンのプロパティを宣言</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIButton</span> <span class="o">*</span><span class="n">button</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ボタンとタップ時の処理を作成する</h3>
+
+<p>任意の場所で。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// Cellにボタンを設定した時のTag値</span>
+</span><span class='line'><span class="n">_button</span> <span class="o">=</span> <span class="p">(</span><span class="n">UIButton</span><span class="o">*</span><span class="p">)[</span><span class="n">cell</span> <span class="nl">viewWithTag:</span><span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ボタンのイベントを登録</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">addTarget:</span><span class="n">self</span> <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">buttonTapped:event:</span><span class="p">)</span> <span class="nl">forControlEvents:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>タップ時の処理</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">buttonTapped:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="nf">event:</span><span class="p">(</span><span class="n">UIEvent</span><span class="o">*</span><span class="p">)</span><span class="nv">event</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// タップされたボタンのセルインデックスを取得する</span>
+</span><span class='line'>    <span class="n">UITouch</span> <span class="o">*</span><span class="n">touch</span> <span class="o">=</span> <span class="p">[[</span><span class="n">event</span> <span class="n">allTouches</span><span class="p">]</span><span class="n">anyObject</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="n">touch</span> <span class="nl">locationInView:</span><span class="n">_sampleTableView</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">_tappedIndexPath</span> <span class="o">=</span> <span class="p">[</span><span class="n">_sampleTableView</span> <span class="nl">indexPathForRowAtPoint:</span><span class="n">point</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 実行したい処理</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html">http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -675,197 +769,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/viewcontroller-notification/">ViewControllerでアプリの状態を検知する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-08T15:52:13+09:00" pubdate data-updated="true">2014.08.08</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの <code>applicationWillEnterForeground:</code> 以外に思いつかなかったので調査。<br/>
-結果としては、ViewControllerでもアプリの状態を検知する方法があった。</p>
-
-<h2>通知を利用する</h2>
-
-<p>ViewController.mの <code>viewWillAppear</code> などに、通知を追加しておく。</p>
-
-<h3>追加</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'>    <span class="c1">// UIApplicationDidBecomeActiveNotification：アクティブになったとき</span>
-</span><span class='line'>    <span class="c1">// applicationDidBecomeActive（自作）メソッドを呼ぶ</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span>
-</span><span class='line'>                                             <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">applicationDidBecomeActive</span><span class="p">)</span>
-</span><span class='line'>                                                 <span class="nl">name:</span><span class="n">UIApplicationDidBecomeActiveNotification</span>
-</span><span class='line'>                                               <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>削除</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillDisappear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// 通知の削除</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>状態一覧</h2>
-
-<p>UIApplicationのNotifications一覧</p>
-
-<h3>ライフサイクル系</h3>
-
-<ul>
-<li>UIApplicationDidFinishLaunchingNotification
-
-<ul>
-<li>アプリケーションが起動した直後に通知</li>
-</ul>
-</li>
-<li>UIApplicationWillEnterForegroundNotification
-
-<ul>
-<li>アプリケーションがアクティブになる直前に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidBecomeActiveNotification
-
-<ul>
-<li>アプリケーションがアクティブになった時に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidEnterBackgroundNotification
-
-<ul>
-<li>アプリケーションがバックグラウンドに入る時に通知</li>
-</ul>
-</li>
-<li>UIApplicationWillResignActiveNotification
-
-<ul>
-<li>アプリケーションがアクティブで無くなる直前に通知。通知アラートが表示される時などにも通知される</li>
-</ul>
-</li>
-<li>UIApplicationWillTerminateNotification
-
-<ul>
-<li>アプリケーションが終了される直前に通知</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>サイズ変更系</h3>
-
-<ul>
-<li>UIApplicationWillChangeStatusBarFrameNotification
-
-<ul>
-<li>ステータスバーのサイズ変更される直前に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidChangeStatusBarFrameNotification
-
-<ul>
-<li>ステータスバーのサイズ変更が発生した時に通知。デバイスが回転した時など</li>
-</ul>
-</li>
-<li>UIApplicationWillChangeStatusBarOrientationNotification
-
-<ul>
-<li>デバイスの向きが変わる直前に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidChangeStatusBarOrientationNotification
-
-<ul>
-<li>デバイスの向きが変わった後に通知</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>その他</h3>
-
-<ul>
-<li>UIApplicationDidReceiveMemoryWarningNotification
-
-<ul>
-<li>メモリ不足の警告発生時に通知</li>
-</ul>
-</li>
-<li>UIApplicationProtectedDataDidBecomeAvailable
-
-<ul>
-<li>保護されたファイルへコードからアクセスが可能になった時に通知</li>
-</ul>
-</li>
-<li>UIApplicationProtectedDataWillBecomeUnavailable
-
-<ul>
-<li>保護されたファイルへコードからアクセス出来なくなる前に通知</li>
-</ul>
-</li>
-<li>UIApplicationSignificantTimeChangeNotification
-
-<ul>
-<li>時間に大きな変更が有った場合に通知。日付が変わった時や夏時間に変更など</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://qiita.com/hkomo746/items/22fcecfd0773023ed56a">http://qiita.com/hkomo746/items/22fcecfd0773023ed56a</a></li>
-<li><a href="http://d.hatena.ne.jp/nakamura001/20111107/1320680842">http://d.hatena.ne.jp/nakamura001/20111107/1320680842</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -885,6 +788,10 @@
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/install-homebrew/">Homebrewのインストール</a>
@@ -920,10 +827,6 @@
     
       <li class="post">
         <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
       </li>
     
   </ul>

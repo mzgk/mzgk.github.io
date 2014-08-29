@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-29T11:24:46+09:00</updated>
+  <updated>2014-08-29T13:42:14+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,95 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Homebrewでgitをインストールする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/install-git-by-homebrew/"/>
+    <updated>2014-08-29T13:35:54+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/install-git-by-homebrew</id>
+    <content type="html"><![CDATA[<p>Homebrewで最新のgitをインストールする。</p>
+
+<!-- more -->
+
+
+<h2>環境</h2>
+
+<ul>
+<li>OS X 10.9.2</li>
+<li>Homebrewインストール済み</li>
+<li>Macのデフォルトgit version 1.8.5.2(Apple Git-48)</li>
+</ul>
+
+
+<h2>gitをインストール</h2>
+
+<figure class='code'><figcaption><span>Terminal.app</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>// Terminalを起動し、現在のgit versionを確認
+</span><span class='line'><span class="nv">$ </span>git --version
+</span><span class='line'>git version 1.8.5.2<span class="o">(</span>Apple Git-48<span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>// Homebrewで最新をインストールする
+</span><span class='line'><span class="nv">$ </span>brew install git
+</span><span class='line'>...
+</span><span class='line'><span class="o">==</span>&gt; Summary
+</span><span class='line'>/usr/local/Cellar/git/1.9.2: 1324 files, 31M
+</span><span class='line'>
+</span><span class='line'>// インストールしたバージョンを確認
+</span><span class='line'><span class="nv">$ </span>/usr/local/bin/git --version
+</span><span class='line'>git version 1.9.2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Homebrewでインストールしたgitを使用する</h2>
+
+<p>Homebrewでインストールしたgitを使用するように設定する。<br/>
+/etc/pathsの順番で、/usr/local/binが一番上にくるようにする。</p>
+
+<figure class='code'><figcaption><span>Terminal.app</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>vi /etc/paths
+</span><span class='line'>↓
+</span><span class='line'>/usr/local/bin
+</span><span class='line'>/usr/bin
+</span><span class='line'>/bin
+</span><span class='line'>/usr/sbin
+</span><span class='line'>/sbin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>バージョンを確認する</h2>
+
+<p>切り替わったかを確認する。</p>
+
+<figure class='code'><figcaption><span>Terminal.app</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git --version
+</span><span class='line'>git version 1.9.2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>参考</h2>
+
+<p><a href="http://blog.glidenote.com/blog/2014/04/20/change-command-path-priority/">http://blog.glidenote.com/blog/2014/04/20/change-command-path-priority/</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Homebrewのインストール]]></title>
@@ -1167,170 +1256,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <li><a href="http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/">http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/</a></li>
 <li><a href="http://qiita.com/yimajo/items/a7ed557d382077498181">http://qiita.com/yimajo/items/a7ed557d382077498181</a></li>
 <li><a href="http://seesaakyoto.seesaa.net/article/366291271.html">http://seesaakyoto.seesaa.net/article/366291271.html</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ViewControllerでアプリの状態を検知する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/viewcontroller-notification/"/>
-    <updated>2014-08-08T15:52:13+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/viewcontroller-notification</id>
-    <content type="html"><![CDATA[<p>ViewControllerで、バックグラウンドから復帰した際の処理をしたかったが、検知できる方法がAppDelegate.mの <code>applicationWillEnterForeground:</code> 以外に思いつかなかったので調査。<br/>
-結果としては、ViewControllerでもアプリの状態を検知する方法があった。</p>
-
-<h2>通知を利用する</h2>
-
-<p>ViewController.mの <code>viewWillAppear</code> などに、通知を追加しておく。</p>
-
-<h3>追加</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'>    <span class="c1">// UIApplicationDidBecomeActiveNotification：アクティブになったとき</span>
-</span><span class='line'>    <span class="c1">// applicationDidBecomeActive（自作）メソッドを呼ぶ</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">addObserver:</span><span class="n">self</span>
-</span><span class='line'>                                             <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="n">applicationDidBecomeActive</span><span class="p">)</span>
-</span><span class='line'>                                                 <span class="nl">name:</span><span class="n">UIApplicationDidBecomeActiveNotification</span>
-</span><span class='line'>                                               <span class="nl">object:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>削除</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewWillDisappear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// 通知の削除</span>
-</span><span class='line'>    <span class="p">[[</span><span class="n">NSNotificationCenter</span> <span class="n">defaultCenter</span><span class="p">]</span> <span class="nl">removeObserver:</span><span class="n">self</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>状態一覧</h2>
-
-<p>UIApplicationのNotifications一覧</p>
-
-<h3>ライフサイクル系</h3>
-
-<ul>
-<li>UIApplicationDidFinishLaunchingNotification
-
-<ul>
-<li>アプリケーションが起動した直後に通知</li>
-</ul>
-</li>
-<li>UIApplicationWillEnterForegroundNotification
-
-<ul>
-<li>アプリケーションがアクティブになる直前に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidBecomeActiveNotification
-
-<ul>
-<li>アプリケーションがアクティブになった時に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidEnterBackgroundNotification
-
-<ul>
-<li>アプリケーションがバックグラウンドに入る時に通知</li>
-</ul>
-</li>
-<li>UIApplicationWillResignActiveNotification
-
-<ul>
-<li>アプリケーションがアクティブで無くなる直前に通知。通知アラートが表示される時などにも通知される</li>
-</ul>
-</li>
-<li>UIApplicationWillTerminateNotification
-
-<ul>
-<li>アプリケーションが終了される直前に通知</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>サイズ変更系</h3>
-
-<ul>
-<li>UIApplicationWillChangeStatusBarFrameNotification
-
-<ul>
-<li>ステータスバーのサイズ変更される直前に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidChangeStatusBarFrameNotification
-
-<ul>
-<li>ステータスバーのサイズ変更が発生した時に通知。デバイスが回転した時など</li>
-</ul>
-</li>
-<li>UIApplicationWillChangeStatusBarOrientationNotification
-
-<ul>
-<li>デバイスの向きが変わる直前に通知</li>
-</ul>
-</li>
-<li>UIApplicationDidChangeStatusBarOrientationNotification
-
-<ul>
-<li>デバイスの向きが変わった後に通知</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>その他</h3>
-
-<ul>
-<li>UIApplicationDidReceiveMemoryWarningNotification
-
-<ul>
-<li>メモリ不足の警告発生時に通知</li>
-</ul>
-</li>
-<li>UIApplicationProtectedDataDidBecomeAvailable
-
-<ul>
-<li>保護されたファイルへコードからアクセスが可能になった時に通知</li>
-</ul>
-</li>
-<li>UIApplicationProtectedDataWillBecomeUnavailable
-
-<ul>
-<li>保護されたファイルへコードからアクセス出来なくなる前に通知</li>
-</ul>
-</li>
-<li>UIApplicationSignificantTimeChangeNotification
-
-<ul>
-<li>時間に大きな変更が有った場合に通知。日付が変わった時や夏時間に変更など</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://qiita.com/hkomo746/items/22fcecfd0773023ed56a">http://qiita.com/hkomo746/items/22fcecfd0773023ed56a</a></li>
-<li><a href="http://d.hatena.ne.jp/nakamura001/20111107/1320680842">http://d.hatena.ne.jp/nakamura001/20111107/1320680842</a></li>
 </ul>
 
 ]]></content>

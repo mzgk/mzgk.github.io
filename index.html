@@ -9,7 +9,7 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Macのパッケージ管理にHomebrewを使用しているので、そのインストール方法。 ">
+  <meta name="description" content="Homebrewで最新のgitをインストールする。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +68,47 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-29T13:35:54+09:00" pubdate data-updated="true">2014.08.29</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Homebrewで最新のgitをインストールする。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/install-git-by-homebrew/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -701,106 +742,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-14T20:11:37+09:00" pubdate data-updated="true">2014.08.14</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>カスタムセルに追加したボタンの処理を、ViewControllerで行う方法。<br/>
-タップされたボタンのセルのインデックスの取得。</p>
-
-<h2>Cell</h2>
-
-<ol>
-<li>StoryBoard上でセル内にボタンを追加する</li>
-<li>Attribute inspector &ndash; view &ndash; Tag に値を設定する</li>
-<li>Outlet接続のみ行う（不要かも）</li>
-</ol>
-
-
-<h2>ViewController</h2>
-
-<h3>ボタンのプロパティを宣言</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">weak</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UIButton</span> <span class="o">*</span><span class="n">button</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ボタンとタップ時の処理を作成する</h3>
-
-<p>任意の場所で。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// Cellにボタンを設定した時のTag値</span>
-</span><span class='line'><span class="n">_button</span> <span class="o">=</span> <span class="p">(</span><span class="n">UIButton</span><span class="o">*</span><span class="p">)[</span><span class="n">cell</span> <span class="nl">viewWithTag:</span><span class="mi">1</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// ボタンのイベントを登録</span>
-</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">addTarget:</span><span class="n">self</span> <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">buttonTapped:event:</span><span class="p">)</span> <span class="nl">forControlEvents:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>タップ時の処理</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">buttonTapped:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="nf">event:</span><span class="p">(</span><span class="n">UIEvent</span><span class="o">*</span><span class="p">)</span><span class="nv">event</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// タップされたボタンのセルインデックスを取得する</span>
-</span><span class='line'>    <span class="n">UITouch</span> <span class="o">*</span><span class="n">touch</span> <span class="o">=</span> <span class="p">[[</span><span class="n">event</span> <span class="n">allTouches</span><span class="p">]</span><span class="n">anyObject</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="n">touch</span> <span class="nl">locationInView:</span><span class="n">_sampleTableView</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">_tappedIndexPath</span> <span class="o">=</span> <span class="p">[</span><span class="n">_sampleTableView</span> <span class="nl">indexPathForRowAtPoint:</span><span class="n">point</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 実行したい処理</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html">http://cocoadays.blogspot.jp/2011/06/ios-uinib-uitableviewcell_26.html</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -818,6 +759,10 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/install-homebrew/">Homebrewのインストール</a>
@@ -853,10 +798,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
     
       <li class="post">
         <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/handle-button-in-cell/">セルに追加したボタンの処理をViewControllerで行う</a>
       </li>
     
   </ul>
