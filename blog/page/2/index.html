@@ -9,10 +9,15 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。
-もちろん、今のデータを保持したままマイグレーションさせるのが前提。 MagicalRecord使用済み
-アプリリリース後にエンティティに属性を追加する
-当然、今保存されているデータは引継がれることが前提 &hellip;">
+  <meta name="description" content="UIActionSheetで、タップされたボタンのタイトルを取得する方法。 1
+2
+3
+4
+5
+6
+7
+8
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +76,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T13:52:26+09:00" pubdate data-updated="true">2014.08.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UIActionSheetで、タップされたボタンのタイトルを取得する方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">actionSheet:</span><span class="p">(</span><span class="n">UIActionSheet</span> <span class="o">*</span><span class="p">)</span><span class="nv">actionSheet</span> <span class="nf">clickedButtonAtIndex:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// キャンルボタンかどうかの判断（おまけ）</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">buttonIndex</span> <span class="o">!=</span> <span class="n">actionSheet</span><span class="p">.</span><span class="n">cancelButtonIndex</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">// タップされたボタンのタイトルを取得</span>
+</span><span class='line'>        <span class="n">_label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">actionSheet</span> <span class="nl">buttonTitleAtIndex:</span><span class="n">buttonIndex</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -789,63 +849,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/check-screensize/">iPhoneのスクリーンサイズを調べる方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>iPhone・iPadなどのスクリーンサイズを調べる方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 3.5インチかどうかの判断</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isSmallSizeScreen</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">CGSize</span> <span class="n">screenSize</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span><span class="n">bounds</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
-</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">screenSize</span><span class="p">.</span><span class="n">height</span> <span class="o">==</span> <span class="mf">480.0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -865,6 +868,10 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/breakpoint-automessage/">NSLog()を記述せずに、ブレークポイントでログを出力する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/nslog-macro/">NSLog()のリリース時停止漏れを防ぐマクロ</a>
@@ -902,15 +909,11 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
         <a href="/blog/2014/addchiledviewcontroller/">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (45)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (46)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

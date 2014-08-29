@@ -9,15 +9,18 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="アプリの起動イメージを表示する時間を制御する方法。
-AppDelegate.m のアプリ起動時処理部分に、スレッドをスリープさせるコードを追記する。 1
+  <meta name="description" content="iPhone・iPadなどのスクリーンサイズを調べる方法。 1
 2
 3
 4
 5
 6
 7
-- (BOOL)application:(UIApplication *)application &hellip;">
+8
+9
+// 3.5インチかどうかの判断
+- (BOOL)isSmallSizeScreen
+{ CGSize screenSize = [[UIScreen mainScreen]bounds].size; &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +79,63 @@ AppDelegate.m のアプリ起動時処理部分に、スレッドをスリープ
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/check-screensize/">iPhoneのスクリーンサイズを調べる方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-12T16:15:35+09:00" pubdate data-updated="true">2014.08.12</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>iPhone・iPadなどのスクリーンサイズを調べる方法。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 3.5インチかどうかの判断</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isSmallSizeScreen</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">CGSize</span> <span class="n">screenSize</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span><span class="n">bounds</span><span class="p">].</span><span class="n">size</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">screenSize</span><span class="p">.</span><span class="n">height</span> <span class="o">==</span> <span class="mf">480.0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -807,49 +867,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/margin/">marginの記法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T19:15:54+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>marginの省略記法</p>
-
-<p>marginの値を省略してコーディングした時の意味合い。</p>
-
-<p>margin: 0;  →  （上下左右）<br/>
-margin: 0 0;  →  （上下）（左右）<br/>
-margin: 0 0 0;  →  （上）（左右）（下）<br/>
-margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -869,6 +886,10 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/breakpoint-automessage/">NSLog()を記述せずに、ブレークポイントでログを出力する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/nslog-macro/">NSLog()のリリース時停止漏れを防ぐマクロ</a>
@@ -906,15 +927,11 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
         <a href="/blog/2014/addchiledviewcontroller/">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (45)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (46)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

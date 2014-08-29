@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-29T15:24:06+09:00</updated>
+  <updated>2014-08-29T15:35:33+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -14,12 +14,42 @@
 
   
   <entry>
+    <title type="html"><![CDATA[NSLog()を記述せずに、ブレークポイントでログを出力する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/breakpoint-automessage/"/>
+    <updated>2014-08-29T15:26:02+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/breakpoint-automessage</id>
+    <content type="html"><![CDATA[<p>ちょっとした確認をしたいときや、NSLog()を残したくない場合などに、ブレークポイントを使ってコンソールにログを出力する方法。<br/>
+Xcodeのブレークポイントの設定だけで、停止せずにログを出力できる。</p>
+
+<!-- more -->
+
+
+<h2>ブレークポイント</h2>
+
+<ul>
+<li>ブレークポイントを設定</li>
+<li>右クリック &ndash;> Edit Breakpoint&hellip;</li>
+<li>Action &ndash;> Log Message</li>
+<li>入力欄に出力したい文言を記述</li>
+<li>変数の値を出力したい場合は、@変数名@</li>
+<li>Options &ndash;> Automatically〜にチェックを入れると止まらずにコンソールに出力する</li>
+</ul>
+
+
+<p><img src="/images/2014/0829/breakpoint.png" alt="設定方法" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[NSLog()のリリース時停止漏れを防ぐマクロ]]></title>
     <link href="http://mzgk.github.io/blog/2014/nslog-macro/"/>
     <updated>2014-08-29T15:03:40+09:00</updated>
     <id>http://mzgk.github.io/blog/2014/nslog-macro</id>
     <content type="html"><![CDATA[<p>リリース時にNSLog()が仕込まれたままの状態を防ぐ。<br/>
 デバッグ時のみ、ログ出力（関数名・行番号をつけて）を行う。</p>
+
+<!-- more -->
+
 
 <h2>アプリ名-prefix.pch</h2>
 
@@ -292,119 +322,6 @@ for (NSString *path in list) {
 
 <p>}
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[１つの画面の上下で同じViewControllerを使う方法（addChildViewController）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/addchiledviewcontroller/"/>
-    <updated>2014-08-22T18:18:14+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/addchiledviewcontroller</id>
-    <content type="html"><![CDATA[<ul>
-<li>１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった</li>
-<li>画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒</li>
-<li>同じ処理なので１つのViewController（UIImageViewとUISliderを持った）を作成（MovieVCとする）</li>
-<li>大元の画面（A-ViewController）で、上下に作成したMovieVCを呼べばいいのでは？</li>
-<li>Container ViewController？</li>
-</ul>
-
-
-<!-- more -->
-
-
-<p>テスト用にMovieViewはWebを表示するようにして、作成してみた。こんな感じ。<br/>
-<img src="/images/2014/0822/image.png" alt="image" /></p>
-
-<p>StoryBoardは、こんな感じで設定。<br/>
-<img src="/images/2014/0822/storyboard.png" alt="image" /></p>
-
-<h2>大元の画面（A-ViewController）</h2>
-
-<p>.m</p>
-
-<p>```objective-c
-// MovieVCをインポート</p>
-
-<h1>import &ldquo;MovieViewController.h&rdquo;</h1>
-
-<p>@interface DetailViewController ()
-// 画面の上下にUIViewを配置して接続
-@property (weak, nonatomic) IBOutlet UIView <em>upperView;
-@property (weak, nonatomic) IBOutlet UIView </em>lowerView;</p>
-
-<p>// MovieVCのプロパティを用意
-@property (nonatomic) MovieViewController <em>upperMovieVC;
-@property (nonatomic) MovieViewController </em>lowerMovieVC;
-@end</p>
-
-<p>@implementation DetailViewController
-&ndash; (void)viewDidLoad
-{</p>
-
-<pre><code>[super viewDidLoad];
-
-// MovieVCのインスタンスを生成（[MovieViewController new]ではダメ）
-_upperMovieVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieScene"];
-_lowerMovieVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MovieScene"];
-
-// 自身のVCの子とする
-[self addChildViewController:_upperMovieVC];
-[self addChildViewController:_lowerMovieVC];
-
-// 用意してあるUIViewに生成した子（MovieVC）のviewを追加
-[_upperView addSubview:_upperMovieVC.view];
-[_lowerView addSubview:_lowerMovieVC.view];
-
-// 子に追加した旨を通知
-[_upperMovieVC didMoveToParentViewController:self];
-[_lowerMovieVC didMoveToParentViewController:self];
-
-// テストのために用意したMovieVCのメソッドに違うURLを渡す
-[_upperMovieVC connectURL:@"http://google.co.jp"];
-[_lowerMovieVC connectURL:@"http://yahoo.co.jp"];
-</code></pre>
-
-<p>}
-@end
-```</p>
-
-<h2>MovieVC</h2>
-
-<p>.h</p>
-
-<p><code>objective-c
-@interface MovieViewController : UIViewController&lt;UIWebViewDelegate&gt;
-- (void)connectURL:(NSString *)urlString;
-@end
-</code></p>
-
-<p>.m</p>
-
-<p>```objective-c
-&ndash; (void)viewDidLoad
-{</p>
-
-<pre><code>[super viewDidLoad];
-NSLog(@"MovieView viewDidLoad");
-</code></pre>
-
-<p>}</p>
-
-<ul>
-<li><p>(void)connectURL:(NSString <em>)urlString
-{
-  NSURL </em>url = [NSURL URLWithString:urlString];
-  NSURLRequest *request = [NSURLRequest requestWithURL:url];
-  <em>webView.delegate = self;
-  [</em>webView loadRequest:request];
-}</p></li>
-<li><p>(void)willMoveToParentViewController:(UIViewController *)parent
-{
-  NSLog(@&ldquo;MovieVC&rdquo;);
-}
-```</p></li>
-</ul>
-
 ]]></content>
   </entry>
   
