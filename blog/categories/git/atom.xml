@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-29T14:05:58+09:00</updated>
+  <updated>2014-08-29T14:12:00+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,73 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Homebrewでgitをインストールする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/install-git-by-homebrew/"/>
+    <updated>2014-08-29T13:35:54+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/install-git-by-homebrew</id>
+    <content type="html"><![CDATA[<p>Homebrewで最新のgitをインストールする。</p>
+
+<!-- more -->
+
+
+<h2>環境</h2>
+
+<ul>
+<li>OS X 10.9.2</li>
+<li>Homebrewインストール済み</li>
+<li>Macのデフォルトgit version 1.8.5.2(Apple Git-48)</li>
+</ul>
+
+
+<h2>gitをインストール</h2>
+
+<p>```bash Terminal.app
+// Terminalを起動し、現在のgit versionを確認
+$ git &mdash;version
+git version 1.8.5.2(Apple Git-48)</p>
+
+<p>// Homebrewで最新をインストールする
+$ brew install git
+&hellip;
+==> Summary
+/usr/local/Cellar/git/1.9.2: 1324 files, 31M</p>
+
+<p>// インストールしたバージョンを確認
+$ /usr/local/bin/git &mdash;version
+git version 1.9.2
+```</p>
+
+<h2>Homebrewでインストールしたgitを使用する</h2>
+
+<p>Homebrewでインストールしたgitを使用するように設定する。<br/>
+/etc/pathsの順番で、/usr/local/binが一番上にくるようにする。</p>
+
+<p><code>bash Terminal.app
+$ vi /etc/paths
+↓
+/usr/local/bin
+/usr/bin
+/bin
+/usr/sbin
+/sbin
+</code></p>
+
+<h2>バージョンを確認する</h2>
+
+<p>切り替わったかを確認する。</p>
+
+<p><code>bash Terminal.app
+$ git --version
+git version 1.9.2
+</code></p>
+
+<h2>参考</h2>
+
+<p><a href="http://blog.glidenote.com/blog/2014/04/20/change-command-path-priority/">http://blog.glidenote.com/blog/2014/04/20/change-command-path-priority/</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[.gitignoreをあとから適用する]]></title>
@@ -77,6 +144,74 @@ Change the message displayed by hello.py</p>
 <h3>参考</h3>
 
 <p><a href="https://www.atlassian.com/ja/git/tutorial/git-basics#!commit">https://www.atlassian.com/ja/git/tutorial/git-basics#!commit</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git / GitHubからいらないファイルを削除する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/remove-file-from-github/"/>
+    <updated>2014-08-05T19:22:41+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/remove-file-from-github</id>
+    <content type="html"><![CDATA[<p>GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。<br/>
+ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。</p>
+
+<h2>削除方法</h2>
+
+<p>ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。</p>
+
+<h3>1. ローカルファイルを削除</h3>
+
+<p><code>
+$ git rm ファイル名
+</code>
+※ただしこれだと、ワーキングエリアからも削除されてしまう。<br/>
+ワーキングエリアには残しておき、Git管理対象外としたい場合は、.gitignoreに追記し<br/>
+<code>
+$ git rm --cached ファイル名
+</code></p>
+
+<h3>2. ステージング</h3>
+
+<p><code>
+$ git add .
+</code></p>
+
+<h3>3. コミット</h3>
+
+<p><code>
+$ git commit -m "メッセージ"
+</code></p>
+
+<h3>4. プッシュ</h3>
+
+<p><code>
+$ git push
+</code></p>
+
+<p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[bashでgitコマンドの補完をする]]></title>
+    <link href="http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash/"/>
+    <updated>2014-08-05T18:53:04+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/complement-gitcommand-in-bash</id>
+    <content type="html"><![CDATA[<ul>
+<li>補完用のファイルをダウンロード
+
+<ul>
+<li><a href="https://github.com/git/git/blob/master/contrib/completion/git-completion.bash">https://github.com/git/git/blob/master/contrib/completion/git-completion.bash</a></li>
+</ul>
+</li>
+<li>~/.git-completion.bashとして設置</li>
+<li>~/.bash_profileにパスを記述</li>
+</ul>
+
+
+<p><code>bash
+source ~/.git-completion.bash
+</code></p>
 ]]></content>
   </entry>
   
