@@ -9,11 +9,11 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="前回はHomebrewのインストールまでだったので、続きから。
-Rubyのバージョン管理を行うrbenvやその他必要モジュールをインストール。 Homebrewのインストール
-rbenvのインストール　&lt;&ndash; いまここ
-Ruby1.9.3のインストール
-SSH鍵の設定（GitHub &hellip;">
+  <meta name="description" content="Macも新しくなったので、SSH鍵の設定をあらためて実施。
+GitHub, Biubucketに対して行う。
+別々の鍵ファイルを用意した方がいいのかもしれないが、今回は一つのファイルでやってみる。 Homebrewのインストール
+rbenvのインストール
+Ruby1.9.3のインストール &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +72,108 @@ SSH鍵の設定（GitHub &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-4/">Octopressブログ環境の再構築：第４回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:38:07+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Macも新しくなったので、SSH鍵の設定をあらためて実施。<br/>
+GitHub, Biubucketに対して行う。<br/>
+別々の鍵ファイルを用意した方がいいのかもしれないが、今回は一つのファイルでやってみる。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）　&lt;&ndash; <strong>いまここ</strong></li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-4/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-3/">Octopressブログ環境の再構築：第３回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:27:31+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>前回のrbenvインストールでRubyインストールの準備が整ったので、Ruby1.9.3-p484をインストールする。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール　&lt;&ndash; <strong>いまここ</strong></li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-3/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -448,111 +550,6 @@ GitHub flavoredも適用できるが、独自CSSをあてたかった。<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/sublimetext-settings-2/">SublimeText3 設定２ PackageContorl</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-07T06:08:57+09:00" pubdate data-updated="true">2014.01.07</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sublime Text 3の設定について（Mac）。</p>
-
-<ul>
-<li>Package Controlの手動インストールの方法</li>
-<li>GitHub FlavoredでのMarkdown Previewの方法</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/sublimetext-settings-2/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/sublimetext-settings-1/">SublimeText3 設定１ キーバインド設定</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-03T08:29:34+09:00" pubdate data-updated="true">2014.01.03</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Sublime Text3を使いはじめたので、その際の設定について。<br/>
-Tabキーでの日本語予測変換の設定。<br/>
-F7でのカタカナ変換の設定。<br/>
-このエディタはvimモードが使えたり、設定を自分でいじれたりで心地がいい。<br/>
-行間の設定ができるのはうれしい限り。</p>
-
-<h2>キーバインドの変更の準備</h2>
-
-<ol>
-<li>メニューバー → Preferences → KeyBind(Default)からファイルを開く</li>
-<li>内容をすべてコピー</li>
-<li>新規ファイルを作成し、ペースト</li>
-<li>名前をつけて保存<br/>
-ファイル名：<code>Default (OSX).sublime-keymap</code><br/>
-パス：<code>~/Library/Application Support/Sublime Text 3/Packages/Default/</code><br/>
-Defaultディレクトリが存在しない場合は作成。</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/sublimetext-settings-1/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/8/">&larr; Older</a>
@@ -572,6 +569,14 @@ Defaultディレクトリが存在しない場合は作成。</li>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/nslog-macro/">NSLog()のリリース時停止漏れを防ぐマクロ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/property-place/">プロパティやインスタンス変数を宣言する場所</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a>
@@ -605,19 +610,11 @@ Defaultディレクトリが存在しない場合は作成。</li>
         <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (43)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (45)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

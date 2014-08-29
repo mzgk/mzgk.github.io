@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-29T14:25:17+09:00</updated>
+  <updated>2014-08-29T15:24:06+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[NSLog()のリリース時停止漏れを防ぐマクロ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/nslog-macro/"/>
+    <updated>2014-08-29T15:03:40+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/nslog-macro</id>
+    <content type="html"><![CDATA[<p>リリース時にNSLog()が仕込まれたままの状態を防ぐ。<br/>
+デバッグ時のみ、ログ出力（関数名・行番号をつけて）を行う。</p>
+
+<h2>アプリ名-prefix.pch</h2>
+
+<p>アプリ名-prefix.pchに以下を記載する。</p>
+
+<p>```objective-c アプリ名-prefix.pch</p>
+
+<h1>ifdef DEBUG</h1>
+
+<h1>define dLog(fmt, &hellip;) NSLog((@&ldquo;%s [Line %d] &rdquo; fmt), <strong>PRETTY_FUNCTION</strong>, <strong>LINE</strong>, ##<strong>VA_ARGS</strong>);</h1>
+
+<h1>else</h1>
+
+<h1>define dLog(&hellip;)</h1>
+
+<h1>endif</h1>
+
+<p>// ALog always displays output regardless of the DEBUG alarm</p>
+
+<h1>define aLog(fmt, &hellip;) NSLog((@&ldquo;%s [Line %d] &rdquo; fmt), <strong>PRETTY_FUNCTION</strong>, <strong>LINE</strong>, ##<strong>VA_ARGS</strong>);</h1>
+
+<p>```</p>
+
+<h2>使用方法</h2>
+
+<ul>
+<li>dLog(@“TEST!”);　→　デバッグ時のみNSLogで出力（[関数名] [Line 25] TEST!）</li>
+<li>dLog();　→　これも可（[関数名] [Line 25]）</li>
+<li>aLog();　→　デバッグ・リリースに関係なく出力される。</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<p><a href="http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473">http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[プロパティやインスタンス変数を宣言する場所]]></title>
+    <link href="http://mzgk.github.io/blog/2014/property-place/"/>
+    <updated>2014-08-29T14:56:41+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/property-place</id>
+    <content type="html"><![CDATA[<p>記述方法は３つある。<br/>
+見やすさから言えばヘッダーファイルにあるといいが、ドキュメントを読むと2. 3. が推奨されているっぽい。</p>
+
+<ol>
+<li>ヘッダーファイル</li>
+<li>実装ファイル：クラスエクステンション内</li>
+<li>実装ファイル：@implementation</li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2>1. ヘッダーファイル</h2>
+
+<p>ヘッダー内に記述する。とくにグローバルでなければ非推奨。</p>
+
+<p><code>objective-c sampleClass.h
+@interface SampleClass : NSObject
+{
+@property (nonatomic) NSString *name;
+}
+</code></p>
+
+<h2>2. 実装ファイル：クラスエクステンション内</h2>
+
+<p>実装ファイルにクラスエクステンションを作成し、そこに記述。</p>
+
+<p>```objective-c sampleClass.m
+@interface SampleClass ()
+// クラスエクステンション内に記述する
+@property (nonatomic) NSString *name;
+@end</p>
+
+<p>@implementation SampleClass
++ (id)init
+{</p>
+
+<pre><code>メソッドの実装
+</code></pre>
+
+<p>}
+@end
+```</p>
+
+<h2>3. 実装ファイル：@implementation</h2>
+
+<p>@implementation内に{}を記述し、その中に書く。</p>
+
+<p>```objective-c sampleClass.m
+@implementation SampleClass
+{
+// {}を記述し、その中に記述する
+@property (nonatomic) NSString *name;
+}</p>
+
+<p>// メソッドの実装
++ (id)init
+{
+&hellip;
+}
+@end
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[AppID・証明書の作成方法（Push通知あり）]]></title>
@@ -287,124 +403,6 @@ NSLog(@"MovieView viewDidLoad");
   NSLog(@&ldquo;MovieVC&rdquo;);
 }
 ```</p></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIActionSheetでタップされたボタンのタイトルを取得する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle/"/>
-    <updated>2014-08-22T13:52:26+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/uiactionsheet-tapped-buttontitle</id>
-    <content type="html"><![CDATA[<p>UIActionSheetで、タップされたボタンのタイトルを取得する方法。</p>
-
-<p>```objective-c
-&ndash; (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{</p>
-
-<pre><code>// キャンルボタンかどうかの判断（おまけ）
-if (buttonIndex != actionSheet.cancelButtonIndex) {
-    // タップされたボタンのタイトルを取得
-    _label.text = [actionSheet buttonTitleAtIndex:buttonIndex];
-}
-</code></pre>
-
-<p>}
-```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CoreDataのマイグレーション（その１）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/coredata-migration/"/>
-    <updated>2014-08-22T13:35:20+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/coredata-migration</id>
-    <content type="html"><![CDATA[<p>CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。<br/>
-もちろん、今のデータを保持したままマイグレーションさせるのが前提。</p>
-
-<ul>
-<li>MagicalRecord使用済み</li>
-<li>アプリリリース後にエンティティに属性を追加する</li>
-<li>当然、今保存されているデータは引継がれることが前提</li>
-</ul>
-
-
-<h2>MagicalRecord</h2>
-
-<p>セットアップ部分。<br/>
-AppDelegate.m</p>
-
-<p>```objective-c
-&ndash; (BOOL)application:(UIApplication <em>)application didFinishLaunchingWithOptions:(NSDictionary </em>)launchOptions
-{</p>
-
-<pre><code>...
-// .xcdatamodelがプロジェクト名と違うし、自動マイグレーションしてほしい（最初から設定済み）
-[MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Model.sqlite"];
-...
-</code></pre>
-
-<p>}
-```</p>
-
-<h3>どのセットアップメソッドを使用するか</h3>
-
-<p>ここを参考：<a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></p>
-
-<p>CoreDataを作成した際の <code>{任意の名前}.xcdatamodel</code> が、プロジェクト名と同じであれば</p>
-
-<ul>
-<li>setupCoreDataStack</li>
-<li>setupCoreDataStackWithInMemoryStore</li>
-<li>setupAutoMigratingCoreDataStack</li>
-</ul>
-
-
-<p>違うならば</p>
-
-<ul>
-<li>setupCoreDataStackWithStoreNamed:</li>
-<li>setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</li>
-</ul>
-
-
-<p><code>AutoMigrating</code> がついている方は、属性追加などをした際に可能であれば自動でマイグレーションしてくれる。</p>
-
-<h2>Xcode</h2>
-
-<h3>Modelのバージョンを追加</h3>
-
-<p><code>{任意の名前}.xcdatamodel</code> を選択し、Editor &ndash;> Add Model Version&hellip;<br/>
-<img src="/images/2014/0822/addmodelversion.png" alt="Model Version" /></p>
-
-<p><img src="images/2014/0822/addModel2.png" alt="Model2" /></p>
-
-<h3>新しく追加したModelに属性を追加</h3>
-
-<p>新しく追加した方のモデル（Model2）に属性を追加する。</p>
-
-<h3>Current Versionの変更</h3>
-
-<ul>
-<li>Model.xcdatamodeledを選択する</li>
-<li>File inspectorを選択し、<code>Model Version -&gt; Current</code> で、追加した方（Model2）を選択する</li>
-<li>Model2.xcdatamodeledにチェックマークがつく</li>
-</ul>
-
-
-<p><img src="/images/2014/0822/changeCurrent.png" alt="changeVersion" /></p>
-
-<h2>属性名の変更など</h2>
-
-<p>属性名の変更などについては、Lightweightマイグレーションという手法を使用するらしい（未検証）  。<br/>
-また、マッピングモデルを使ったマイグレーションも存在するらしい（未検証）。</p>
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></li>
-<li>iOS Core Data 徹底入門（10章）</li>
 </ul>
 
 ]]></content>

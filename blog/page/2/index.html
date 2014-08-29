@@ -9,9 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="カスタムセルに追加したボタンの処理を、ViewControllerで行う方法。
-タップされたボタンのセルのインデックスの取得。 Cell StoryBoard上でセル内にボタンを追加する
-Attribute inspector &ndash; view &ndash; Tag に値を設定する &hellip;">
+  <meta name="description" content="CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。
+もちろん、今のデータを保持したままマイグレーションさせるのが前提。 MagicalRecord使用済み
+アプリリリース後にエンティティに属性を追加する
+当然、今保存されているデータは引継がれることが前提 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +71,243 @@ Attribute inspector &ndash; view &ndash; Tag に値を設定する &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T13:35:20+09:00" pubdate data-updated="true">2014.08.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。<br/>
+もちろん、今のデータを保持したままマイグレーションさせるのが前提。</p>
+
+<ul>
+<li>MagicalRecord使用済み</li>
+<li>アプリリリース後にエンティティに属性を追加する</li>
+<li>当然、今保存されているデータは引継がれることが前提</li>
+</ul>
+
+
+<h2>MagicalRecord</h2>
+
+<p>セットアップ部分。<br/>
+AppDelegate.m</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="c1">// .xcdatamodelがプロジェクト名と違うし、自動マイグレーションしてほしい（最初から設定済み）</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">MagicalRecord</span> <span class="nl">setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</span><span class="s">@&quot;Model.sqlite&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>どのセットアップメソッドを使用するか</h3>
+
+<p>ここを参考：<a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></p>
+
+<p>CoreDataを作成した際の <code>{任意の名前}.xcdatamodel</code> が、プロジェクト名と同じであれば</p>
+
+<ul>
+<li>setupCoreDataStack</li>
+<li>setupCoreDataStackWithInMemoryStore</li>
+<li>setupAutoMigratingCoreDataStack</li>
+</ul>
+
+
+<p>違うならば</p>
+
+<ul>
+<li>setupCoreDataStackWithStoreNamed:</li>
+<li>setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</li>
+</ul>
+
+
+<p><code>AutoMigrating</code> がついている方は、属性追加などをした際に可能であれば自動でマイグレーションしてくれる。</p>
+
+<h2>Xcode</h2>
+
+<h3>Modelのバージョンを追加</h3>
+
+<p><code>{任意の名前}.xcdatamodel</code> を選択し、Editor &ndash;> Add Model Version&hellip;<br/>
+<img src="/images/2014/0822/addmodelversion.png" alt="Model Version" /></p>
+
+<p><img src="images/2014/0822/addModel2.png" alt="Model2" /></p>
+
+<h3>新しく追加したModelに属性を追加</h3>
+
+<p>新しく追加した方のモデル（Model2）に属性を追加する。</p>
+
+<h3>Current Versionの変更</h3>
+
+<ul>
+<li>Model.xcdatamodeledを選択する</li>
+<li>File inspectorを選択し、<code>Model Version -&gt; Current</code> で、追加した方（Model2）を選択する</li>
+<li>Model2.xcdatamodeledにチェックマークがつく</li>
+</ul>
+
+
+<p><img src="/images/2014/0822/changeCurrent.png" alt="changeVersion" /></p>
+
+<h2>属性名の変更など</h2>
+
+<p>属性名の変更などについては、Lightweightマイグレーションという手法を使用するらしい（未検証）  。<br/>
+また、マッピングモデルを使ったマイグレーションも存在するらしい（未検証）。</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></li>
+<li>iOS Core Data 徹底入門（10章）</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-21T15:03:05+09:00" pubdate data-updated="true">2014.08.21</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UITextViewなどでキーボードを閉じたい時に、キーボードの上部に閉じるボタンを追加して閉じる方法。<br/>
+inputAccessoryViewといって、キーボード上部にボタンなどを配置できる。<br/>
+キーボードの表示／非表示に合わせて、表示／非表示される。</p>
+
+<h2>生成</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ボタンを配置するUIViewを作成（幅320／高さ44・背景色：透明）</span>
+</span><span class='line'>    <span class="n">UIView</span><span class="o">*</span> <span class="n">accessoryView</span> <span class="o">=</span><span class="p">[[</span><span class="n">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">44</span><span class="p">)];</span>
+</span><span class='line'>    <span class="n">accessoryView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">clearColor</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ボタンを作成（accessoryView内で、X:270 Y:5 Width:40 Height:30にイメージ有りボタン）</span>
+</span><span class='line'>    <span class="n">UIButton</span><span class="o">*</span> <span class="n">closeButton</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIButton</span> <span class="nl">buttonWithType:</span><span class="n">UIButtonTypeCustom</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">closeButton</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;hideKeyboard&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">closeButton</span><span class="p">.</span><span class="n">contentMode</span> <span class="o">=</span> <span class="n">UIViewContentModeScaleAspectFit</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">closeButton</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">270</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// ボタンタップ時のメソッドを指定（closeKeyboard:　→　自作メソッド）</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">closeButton</span> <span class="nl">addTarget:</span><span class="n">self</span> <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">closeKeyboard:</span><span class="p">)</span> <span class="nl">forControlEvents:</span><span class="n">UIControlEventTouchUpInside</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ボタンをViewに追加</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">accessoryView</span> <span class="nl">addSubview:</span><span class="n">closeButton</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// ビューをUITextFieldのinputAccessoryViewに設定</span>
+</span><span class='line'>    <span class="n">_textView</span><span class="p">.</span><span class="n">inputAccessoryView</span> <span class="o">=</span> <span class="n">accessoryView</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ボタンタップ時の処理</h2>
+
+<p>Closeボタン実行時の処理も記述する。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">closeKeyboard:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">endEditing:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>関連</h2>
+
+<p>UITextView関連では、以下もあり。<br/>
+<a href="http://mzgk.github.io/blog/2014/uiscrollview-tapevent/">http://mzgk.github.io/blog/2014/uiscrollview-tapevent/</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -608,167 +846,6 @@ Attribute inspector &ndash; view &ndash; Tag に値を設定する &hellip;">
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/launch-image/">アプリの起動イメージを指定時間表示する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-11T16:59:06+09:00" pubdate data-updated="true">2014.08.11</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>アプリの起動イメージを表示する時間を制御する方法。<br/>
-<code>AppDelegate.m</code> のアプリ起動時処理部分に、スレッドをスリープさせるコードを追記する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'>    <span class="c1">// 2秒間停止する</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">NSThread</span> <span class="nl">sleepForTimeInterval:</span><span class="mf">2.0</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/font-standardize/">アプリ内のフォントを統一させる方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-11T15:05:04+09:00" pubdate data-updated="true">2014.08.11</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>アプリ内のフォントを統一させる方法。<br/>
-今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。</p>
-
-<h2>プロジェクトへフォントを追加する</h2>
-
-<p>Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&#8221;）で、ファイルをプロジェクトに追加する。<br/>
-<img src="/images/2014/0811/add-fontfile.png" alt="add fontfile" /></p>
-
-<h2>.plistへの情報追加</h2>
-
-<p>Supporting Files &ndash;> プロジェクト名.plistへ追加したフォントの情報を追加する。<br/>
-<code>Fonts provided by application</code> &ndash;> item0 にフォントの「PostScript 名」を記述する。<br/>
-※PostScript名は、FontBook.appを起動し、対象フォントのinfoボタンから確認<br/>
-<img src="/images/2014/0811/add-plist.png" alt="plist" /></p>
-
-<h2>AppDelegate.m</h2>
-
-<p><code>AppDelegate.m</code> の <code>didFinishLaunchingWithOptions:</code> 等で、<code>appearance</code> を使い設定する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// フォント</span>
-</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseInputFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">16.0f</span><span class="p">];</span>
-</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseTitleFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">18.0f</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// フォント・カラー</span>
-</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">barItemInfo</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="n">baseTitleFont</span><span class="p">,</span> <span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UILabel</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UILabel</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UINavigationBar</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span><span class="p">];</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setBarTintColor:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRed:</span><span class="mf">0.2</span> <span class="nl">green:</span><span class="mf">0.6</span> <span class="nl">blue:</span><span class="mf">0.86</span> <span class="nl">alpha:</span><span class="mi">1</span><span class="p">]];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UINavigationBarItem</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UITextField</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UITextField</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UITextView</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UITextView</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/">http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/</a></li>
-<li><a href="http://qiita.com/yimajo/items/a7ed557d382077498181">http://qiita.com/yimajo/items/a7ed557d382077498181</a></li>
-<li><a href="http://seesaakyoto.seesaa.net/article/366291271.html">http://seesaakyoto.seesaa.net/article/366291271.html</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -788,6 +865,14 @@ Attribute inspector &ndash; view &ndash; Tag に値を設定する &hellip;">
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/nslog-macro/">NSLog()のリリース時停止漏れを防ぐマクロ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/property-place/">プロパティやインスタンス変数を宣言する場所</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a>
@@ -821,19 +906,11 @@ Attribute inspector &ndash; view &ndash; Tag に値を設定する &hellip;">
         <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (43)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (45)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

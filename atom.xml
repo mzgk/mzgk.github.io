@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-29T14:25:17+09:00</updated>
+  <updated>2014-08-29T15:24:06+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,147 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[NSLog()のリリース時停止漏れを防ぐマクロ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/nslog-macro/"/>
+    <updated>2014-08-29T15:03:40+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/nslog-macro</id>
+    <content type="html"><![CDATA[<p>リリース時にNSLog()が仕込まれたままの状態を防ぐ。<br/>
+デバッグ時のみ、ログ出力（関数名・行番号をつけて）を行う。</p>
+
+<h2>アプリ名-prefix.pch</h2>
+
+<p>アプリ名-prefix.pchに以下を記載する。</p>
+
+<figure class='code'><figcaption><span>アプリ名-prefix.pch</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#ifdef DEBUG</span>
+</span><span class='line'><span class="cp">#define dLog(fmt, ...) NSLog((@&quot;%s [Line %d] &quot; fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);</span>
+</span><span class='line'><span class="cp">#else</span>
+</span><span class='line'><span class="cp">#define dLog(...)</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// ALog always displays output regardless of the DEBUG alarm</span>
+</span><span class='line'><span class="cp">#define aLog(fmt, ...) NSLog((@&quot;%s [Line %d] &quot; fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用方法</h2>
+
+<ul>
+<li>dLog(@“TEST!”);　→　デバッグ時のみNSLogで出力（[関数名] [Line 25] TEST!）</li>
+<li>dLog();　→　これも可（[関数名] [Line 25]）</li>
+<li>aLog();　→　デバッグ・リリースに関係なく出力される。</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<p><a href="http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473">http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[プロパティやインスタンス変数を宣言する場所]]></title>
+    <link href="http://mzgk.github.io/blog/2014/property-place/"/>
+    <updated>2014-08-29T14:56:41+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/property-place</id>
+    <content type="html"><![CDATA[<p>記述方法は３つある。<br/>
+見やすさから言えばヘッダーファイルにあるといいが、ドキュメントを読むと2. 3. が推奨されているっぽい。</p>
+
+<ol>
+<li>ヘッダーファイル</li>
+<li>実装ファイル：クラスエクステンション内</li>
+<li>実装ファイル：@implementation</li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2>1. ヘッダーファイル</h2>
+
+<p>ヘッダー内に記述する。とくにグローバルでなければ非推奨。</p>
+
+<figure class='code'><figcaption><span>sampleClass.h</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">SampleClass</span> : <span class="nc">NSObject</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>2. 実装ファイル：クラスエクステンション内</h2>
+
+<p>実装ファイルにクラスエクステンションを作成し、そこに記述。</p>
+
+<figure class='code'><figcaption><span>sampleClass.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">SampleClass</span> <span class="p">()</span>
+</span><span class='line'><span class="c1">// クラスエクステンション内に記述する</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">SampleClass</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">init</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="err">メソッドの実装</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>3. 実装ファイル：@implementation</h2>
+
+<p>@implementation内に{}を記述し、その中に書く。</p>
+
+<figure class='code'><figcaption><span>sampleClass.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@implementation</span> <span class="nc">SampleClass</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="c1">// {}を記述し、その中に記述する</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// メソッドの実装</span>
+</span><span class='line'><span class="o">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">init</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'><span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Homebrewでgitをインストールする]]></title>
@@ -1150,113 +1291,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 </span><span class='line'>    <span class="k">return</span> <span class="n">NO</span><span class="p">;</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[アプリの起動イメージを指定時間表示する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/launch-image/"/>
-    <updated>2014-08-11T16:59:06+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/launch-image</id>
-    <content type="html"><![CDATA[<p>アプリの起動イメージを表示する時間を制御する方法。<br/>
-<code>AppDelegate.m</code> のアプリ起動時処理部分に、スレッドをスリープさせるコードを追記する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'>    <span class="c1">// 2秒間停止する</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">NSThread</span> <span class="nl">sleepForTimeInterval:</span><span class="mf">2.0</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[アプリ内のフォントを統一させる方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/font-standardize/"/>
-    <updated>2014-08-11T15:05:04+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/font-standardize</id>
-    <content type="html"><![CDATA[<p>アプリ内のフォントを統一させる方法。<br/>
-今回は、カスタムフォントとして「Rounded-L M+ 2p regular」を使用。</p>
-
-<h2>プロジェクトへフォントを追加する</h2>
-
-<p>Xcodeを開き、追加したいフォントファイルをドラッグ＆ドロップ（または、右クリック等から&#8221;Add Files to 〜&#8221;）で、ファイルをプロジェクトに追加する。<br/>
-<img src="http://mzgk.github.io/images/2014/0811/add-fontfile.png" alt="add fontfile" /></p>
-
-<h2>.plistへの情報追加</h2>
-
-<p>Supporting Files &ndash;> プロジェクト名.plistへ追加したフォントの情報を追加する。<br/>
-<code>Fonts provided by application</code> &ndash;> item0 にフォントの「PostScript 名」を記述する。<br/>
-※PostScript名は、FontBook.appを起動し、対象フォントのinfoボタンから確認<br/>
-<img src="http://mzgk.github.io/images/2014/0811/add-plist.png" alt="plist" /></p>
-
-<h2>AppDelegate.m</h2>
-
-<p><code>AppDelegate.m</code> の <code>didFinishLaunchingWithOptions:</code> 等で、<code>appearance</code> を使い設定する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// フォント</span>
-</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseInputFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">16.0f</span><span class="p">];</span>
-</span><span class='line'><span class="n">UIFont</span> <span class="o">*</span><span class="n">baseTitleFont</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIFont</span> <span class="nl">fontWithName:</span><span class="s">@&quot;rounded-l-mplus-2p-regular&quot;</span> <span class="nl">size:</span><span class="mf">18.0f</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// フォント・カラー</span>
-</span><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">barItemInfo</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="n">NSFontAttributeName</span> <span class="o">:</span> <span class="n">baseTitleFont</span><span class="p">,</span> <span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UILabel</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UILabel</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UINavigationBar</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span><span class="p">];</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UINavigationBar</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setBarTintColor:</span><span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRed:</span><span class="mf">0.2</span> <span class="nl">green:</span><span class="mf">0.6</span> <span class="nl">blue:</span><span class="mf">0.86</span> <span class="nl">alpha:</span><span class="mi">1</span><span class="p">]];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UINavigationBarItem</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setTitleTextAttributes:</span><span class="n">barItemInfo</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UITextField</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UITextField</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// UITextView</span>
-</span><span class='line'><span class="p">[[</span><span class="n">UITextView</span> <span class="n">appearance</span><span class="p">]</span> <span class="nl">setFont:</span><span class="n">baseInputFont</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/">http://dev.classmethod.jp/smartphone/iphone/uifont-packagesetup/</a></li>
-<li><a href="http://qiita.com/yimajo/items/a7ed557d382077498181">http://qiita.com/yimajo/items/a7ed557d382077498181</a></li>
-<li><a href="http://seesaakyoto.seesaa.net/article/366291271.html">http://seesaakyoto.seesaa.net/article/366291271.html</a></li>
-</ul>
 
 ]]></content>
   </entry>

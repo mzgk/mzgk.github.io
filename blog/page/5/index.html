@@ -9,9 +9,14 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="通常に設定（コード or Interface Builder）からだけでは、反応しない。
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte &hellip;">
+  <meta name="description" content="2014.8.5現在の最新版は 1.0.1h。 バージョン確認 1
+2
+3
+4
+5
+$ openssl version
+OpenSSL 1.0.1g 7 Apr 2014 ← Macにインストールされているバージョンが表示される $ brew info openssl
+openssl: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +75,246 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/openssl-versionup/">OpenSSLのバージョンアップ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:16:03+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>2014.8.5現在の最新版は 1.0.1h。</p>
+
+<h2>バージョン確認</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
+</span><span class='line'>OpenSSL 1.0.1g 7 Apr 2014  ← Macにインストールされているバージョンが表示される
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>brew info openssl
+</span><span class='line'>openssl: stable 1.0.1g <span class="o">(</span>bottled<span class="o">)</span>  ←　HomeBrewのデータベース上の情報
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Homebrewのデータベースを更新</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew update
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>brew info openssl
+</span><span class='line'>openssl: stable 1.0.1h <span class="o">(</span>bottled<span class="o">)</span>　←　更新された
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>OpenSSLの更新</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew upgrade openssl
+</span><span class='line'>...
+</span><span class='line'>...
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>利用可能か確認</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>openssl version
+</span><span class='line'>...
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>which openssl
+</span><span class='line'>/usr/bin/openssl　←　Homebrewでインストールしたものではない
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>$ brew upgrade openssl</code> のログに
+<code>This formula is keg-only, so it was not symlinked into /usr/local.</code> とあるように、まだリンクされていない。</p>
+
+<h2>HoembrewでインストールしたOpenSSLの使用設定</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>brew link openssl --force
+</span><span class='line'>...
+</span><span class='line'><span class="nv">$ </span>openssl version
+</span><span class='line'>OpenSSL 1.0.1h 5 Jun 2014　←　変わらない場合は、一度Terminalを再起動
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>which openssl
+</span><span class='line'>/usr/local/bin/openssl
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/change-image-of-button-to-tap-each/">UIButtonでタップ毎にボタン画像を切替える</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:11:27+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UIButtonをトグルスイッチのように使う方法。<br/>
+プレイボタン　→　タップ　→　ストップボタン　→　タップ　→　プレイボタン</p>
+
+<h2>ボタンに画像を設定する</h2>
+
+<p>viewDidLoadなど。画像はアセットカタログに登録済み。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 通常（プレイ）</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// プレイでボタンをタップ中</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ストップ</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;stopButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// ストップでボタンをタップ中</span>
+</span><span class='line'><span class="p">[</span><span class="n">_button</span> <span class="nl">setImage:</span><span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageNamed:</span><span class="s">@&quot;playButton&quot;</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateHighlighted</span> <span class="o">|</span> <span class="n">UIControlStateSelected</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ボタンタップアクション</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">userButtonTapped:</span><span class="p">(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">sender</span><span class="p">.</span><span class="n">selected</span> <span class="o">=</span> <span class="o">!</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">;</span>   <span class="c1">// これが重要（状態を入れ替える）</span>
+</span><span class='line'>    <span class="c1">// プレイをタップ</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">selected</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">_userTimer</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="p">[</span><span class="n">_userFrameSpeedInfos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">floatValue</span><span class="p">]</span>
+</span><span class='line'>                                                      <span class="nl">target:</span><span class="n">self</span>
+</span><span class='line'>                                                    <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">timerUserView:</span><span class="p">)</span>
+</span><span class='line'>                                                    <span class="nl">userInfo:</span><span class="nb">nil</span>
+</span><span class='line'>                                                     <span class="nl">repeats:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// ストップをタップ</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_userTimer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>おまけ</h2>
+
+<p>タイマーが停止した時にボタンをプレイに戻す。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'> <span class="o">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nl">timerUserView:</span><span class="p">(</span><span class="n">NSTimer</span><span class="o">*</span><span class="p">)</span><span class="n">timer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">++</span><span class="n">_userFramIndex</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="p">[</span><span class="n">_userFrameImageInfos</span> <span class="n">count</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="nl">displayFrameImageAtIndex:</span><span class="n">index</span> <span class="nl">userDistinction:</span><span class="n">USER</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="c1">// タイマーを止める</span>
+</span><span class='line'>    <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">timer</span> <span class="n">invalidate</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">_userFramIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_userButton</span> <span class="nl">setSelected:</span><span class="n">NO</span><span class="p">];</span>   <span class="c1">// これでプレイに戻る</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -586,355 +831,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/video-devide/">カメラで撮影した動画をフレーム分割する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T16:24:50+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>UIImagePickerで撮影した動画を1秒30フレーム程度で、分割し静止画にする方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cm">/*!</span>
-</span><span class='line'><span class="cm"> * 撮影ボタン（作成する）</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">shutterButtonTapped:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
-</span><span class='line'>    <span class="c1">// UIImagePickerで動画の撮影をする</span>
-</span><span class='line'>    <span class="n">UIImagePickerController</span> <span class="o">*</span><span class="n">picker</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIImagePickerController</span> <span class="n">alloc</span><span class="p">]</span><span class="n">init</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">sourceType</span> <span class="o">=</span> <span class="n">UIImagePickerControllerSourceTypeCamera</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">mediaTypes</span> <span class="o">=</span> <span class="err">@</span><span class="p">[(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">kUTTypeMovie</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">cameraCaptureMode</span> <span class="o">=</span> <span class="n">UIImagePickerControllerCameraCaptureModeVideo</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">videoQuality</span> <span class="o">=</span> <span class="n">UIImagePickerControllerQualityType640x480</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">videoMaximumDuration</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">allowsEditing</span> <span class="o">=</span> <span class="n">NO</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">picker</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">presentViewController:</span><span class="n">picker</span> <span class="nl">animated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/*!</span>
-</span><span class='line'><span class="cm"> * 撮影終了のタイミング</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">imagePickerController:</span><span class="p">(</span><span class="n">UIImagePickerController</span> <span class="o">*</span><span class="p">)</span><span class="nv">picker</span> <span class="nf">didFinishPickingMediaWithInfo:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">info</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// UIImagePickerをしまう</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">picker</span> <span class="nl">dismissViewControllerAnimated:</span><span class="n">YES</span> <span class="nl">completion:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// ~/Documentsディレクトリの取得</span>
-</span><span class='line'>    <span class="n">NSArray</span> <span class="o">*</span><span class="n">directories</span> <span class="o">=</span> <span class="n">NSSearchPathForDirectoriesInDomains</span><span class="p">(</span><span class="n">NSDocumentDirectory</span><span class="p">,</span> <span class="n">NSUserDomainMask</span><span class="p">,</span> <span class="n">YES</span><span class="p">);</span>
-</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">documentDirectory</span> <span class="o">=</span> <span class="n">directories</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 撮影した動画をAssetに格納</span>
-</span><span class='line'>    <span class="n">NSURL</span> <span class="o">*</span><span class="n">assetURL</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="n">UIImagePickerControllerMediaURL</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">AVURLAsset</span> <span class="o">*</span><span class="n">asset</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AVURLAsset</span> <span class="n">alloc</span><span class="p">]</span><span class="nl">initWithURL:</span><span class="n">assetURL</span> <span class="nl">options:</span><span class="nb">nil</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 動画を切り出す間隔を配列に格納する</span>
-</span><span class='line'>    <span class="n">Float64</span> <span class="n">frameParSecond</span> <span class="o">=</span> <span class="mf">0.033f</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">Float64</span> <span class="n">durationSeconds</span> <span class="o">=</span> <span class="n">CMTimeGetSeconds</span><span class="p">([</span><span class="n">asset</span> <span class="n">duration</span><span class="p">]);</span>   <span class="c1">// 動画の長さ</span>
-</span><span class='line'>    <span class="n">Float64</span> <span class="n">frameTimeStamp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">times</span>  <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
-</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="n">frameTimeStamp</span> <span class="o">&lt;=</span> <span class="n">durationSeconds</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="p">[</span><span class="n">times</span> <span class="nl">addObject:</span><span class="p">[</span><span class="n">NSValue</span> <span class="nl">valueWithCMTime:</span><span class="n">CMTimeMakeWithSeconds</span><span class="p">(</span><span class="n">frameTimeStamp</span><span class="p">,</span> <span class="mi">600</span><span class="p">)]];</span>
-</span><span class='line'>        <span class="n">CMTime</span> <span class="n">nextTime</span> <span class="o">=</span> <span class="n">CMTimeMakeWithSeconds</span><span class="p">(</span><span class="n">frameTimeStamp</span><span class="p">,</span> <span class="mi">600</span><span class="p">);</span>
-</span><span class='line'>        <span class="n">frameTimeStamp</span> <span class="o">=</span> <span class="n">CMTimeGetSeconds</span><span class="p">(</span><span class="n">nextTime</span><span class="p">)</span> <span class="o">+</span> <span class="n">frameParSecond</span><span class="p">;</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 画像ジェネレーターを生成</span>
-</span><span class='line'>    <span class="n">AVAssetImageGenerator</span> <span class="o">*</span><span class="n">generator</span> <span class="o">=</span> <span class="p">[[</span><span class="n">AVAssetImageGenerator</span> <span class="n">alloc</span><span class="p">]</span><span class="nl">initWithAsset:</span><span class="n">asset</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">generator</span><span class="p">.</span><span class="n">appliesPreferredTrackTransform</span> <span class="o">=</span> <span class="n">YES</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">generator</span><span class="p">.</span><span class="n">requestedTimeToleranceBefore</span> <span class="o">=</span> <span class="n">kCMTimeZero</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">generator</span><span class="p">.</span><span class="n">requestedTimeToleranceAfter</span> <span class="o">=</span> <span class="n">kCMTimeZero</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// 一連の画像を生成（timesに格納されている分だけ、第２引数がコールバックされる）</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">generator</span> <span class="nl">generateCGImagesAsynchronouslyForTimes:</span><span class="n">times</span>
-</span><span class='line'>                                    <span class="nl">completionHandler:</span><span class="o">^</span><span class="p">(</span><span class="n">CMTime</span> <span class="n">requestedTime</span><span class="p">,</span> <span class="n">CGImageRef</span> <span class="n">image</span><span class="p">,</span> <span class="n">CMTime</span> <span class="n">actualTime</span><span class="p">,</span> <span class="n">AVAssetImageGeneratorResult</span> <span class="n">result</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                                        <span class="n">NSString</span> <span class="o">*</span><span class="n">requestedTimeString</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">CFBridgingRelease</span><span class="p">(</span><span class="n">CMTimeCopyDescription</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">requestedTime</span><span class="p">));</span>
-</span><span class='line'>                                        <span class="n">NSString</span> <span class="o">*</span><span class="n">acturalTimeString</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="n">CFBridgingRelease</span><span class="p">(</span><span class="n">CMTimeCopyDescription</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="n">actualTime</span><span class="p">));</span>
-</span><span class='line'>                                        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Requested: %@; actual: %@&quot;</span><span class="p">,</span> <span class="n">requestedTimeString</span><span class="p">,</span> <span class="n">acturalTimeString</span><span class="p">);</span>
-</span><span class='line'>                                        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">AVAssetImageGeneratorSucceeded</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                                            <span class="c1">// JPEG画像を生成し、保存する</span>
-</span><span class='line'>                                            <span class="p">[</span><span class="n">self</span> <span class="nl">writeCGImageTo:</span><span class="n">documentDirectory</span> <span class="nl">image:</span><span class="n">image</span><span class="p">];</span>
-</span><span class='line'>                                            <span class="c1">// iCnt++;</span>
-</span><span class='line'>                                            <span class="c1">// 完了した判断はtimesの個数と保存した個数でする？</span>
-</span><span class='line'>                                            <span class="c1">// [times count] == iCntだったら、SVProgressHub停止みたいな</span>
-</span><span class='line'>                                        <span class="p">}</span>
-</span><span class='line'>                                        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">AVAssetImageGeneratorFailed</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                                            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Failed with error: %@&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">error</span> <span class="n">localizedDescription</span><span class="p">]);</span>
-</span><span class='line'>                                        <span class="p">}</span>
-</span><span class='line'>                                        <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">AVAssetImageGeneratorCancelled</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                                            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Cancelled&quot;</span><span class="p">);</span>
-</span><span class='line'>                                        <span class="p">}</span>
-</span><span class='line'>                                    <span class="p">}];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="cm">/*!</span>
-</span><span class='line'><span class="cm"> * 動画から切り出されたCGImageRef形式のデータをJPEG画像（ファイル名は連番：imageNameNumber）に生成し、指定ディレクトリに書き出す</span>
-</span><span class='line'><span class="cm"> */</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">writeCGImageTo:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">path</span> <span class="nf">image:</span><span class="p">(</span><span class="n">CGImageRef</span><span class="p">)</span><span class="nv">cgImage</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Called&quot;</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">str</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;img_%@.jpg&quot;</span><span class="p">,</span> <span class="err">@</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">imageNameNumber</span><span class="o">++</span><span class="p">)];</span>
-</span><span class='line'>    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="nl">stringByAppendingPathComponent:</span><span class="n">str</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">UIImage</span> <span class="o">*</span><span class="n">saveImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIImage</span> <span class="nl">imageWithCGImage:</span><span class="n">cgImage</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">NSData</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">UIImageJPEGRepresentation</span><span class="p">(</span><span class="n">saveImage</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>   <span class="c1">// 0.0（低水準）〜1.0（高水準）</span>
-</span><span class='line'>    <span class="kt">BOOL</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span> <span class="nl">writeToFile:</span><span class="n">path</span> <span class="nl">atomically:</span><span class="n">YES</span><span class="p">];</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>参考：公式の「AVFoundationプログラミングガイド」P17 アセットの使用　ビデオから静止画像の取得　一連の画像の生成</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/singleton/">シングルトン（singleton）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T16:14:13+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>シングルトンとは？</p>
-
-<ul>
-<li>デザインパターンの１つ</li>
-<li>「ただ１つの」インスタンスしか持たない→どこからアクセスしても同じインスタンス</li>
-<li>複数のクラス間での変数やオブジェクトの共有が可能</li>
-<li>複数のクラス間でメソッドの共有ができる</li>
-<li>NSUserdefaultsと同様</li>
-</ul>
-
-
-<h3>SingletonManager.h</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">SingletonSample</span> : <span class="nc">NSObject</span>
-</span><span class='line'><span class="c1">// このシングルトンが管理するプロパティ</span>
-</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSInteger</span> <span class="n">managedParam</span><span class="p">;</span>
-</span><span class='line'><span class="k">@property</span><span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">catName</span><span class="p">;</span>
-</span><span class='line'><span class="p">...</span>
-</span><span class='line'><span class="c1">// インスタンス作成のためのクラスメソッド</span>
-</span><span class='line'><span class="o">+</span> <span class="p">(</span><span class="n">SingletonSample</span> <span class="o">*</span><span class="p">)</span><span class="n">sharedManager</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// このシングルトンが保有するメソッド</span>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sampleMethod:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">name</span><span class="p">;</span>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>SingletonManager.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@implementation</span> <span class="nc">SingletonManager</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">static</span> <span class="kt">id</span> <span class="n">sharedManager_</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">sharedManager</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="k">static</span> <span class="n">dispatch_once_t</span> <span class="n">onceToken</span><span class="p">;</span>
-</span><span class='line'>    <span class="n">dispatch_once</span><span class="p">(</span><span class="o">&amp;</span><span class="n">onceToken</span><span class="p">,</span> <span class="o">^</span><span class="p">{</span>
-</span><span class='line'>        <span class="n">sharedData_</span> <span class="o">=</span> <span class="p">[</span><span class="n">SingletonManager</span> <span class="n">new</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">sharedManager_</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sampleMethod:</span><span class="p">(</span><span class="n">NSString</span><span class="o">*</span><span class="p">)</span><span class="nv">name</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">@end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ViewController.m</h3>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;SingletonManager.h&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">SingletonManager</span> <span class="o">*</span><span class="n">single</span> <span class="o">=</span> <span class="p">[</span><span class="n">SingletonManager</span> <span class="n">sharedManager</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">single</span><span class="p">.</span><span class="n">managedParam</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// 変数に値をセット</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">single</span> <span class="nl">sampleMethod:</span><span class="n">name</span><span class="p">];</span> <span class="c1">// メソッドを使用</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>参考：<br/>
-<a href="http://ylb.jp/iOSDev/SingletonSample.pdf  ">http://ylb.jp/iOSDev/SingletonSample.pdf  </a>
-<a href="http://qiita.com/yuky_az/items/27031ec5ca55a95d6209">http://qiita.com/yuky_az/items/27031ec5ca55a95d6209</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -954,6 +850,14 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/nslog-macro/">NSLog()のリリース時停止漏れを防ぐマクロ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/property-place/">プロパティやインスタンス変数を宣言する場所</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a>
@@ -987,19 +891,11 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
         <a href="/blog/2014/uiactionsheet-tapped-buttontitle/">UIActionSheetでタップされたボタンのタイトルを取得する</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/keyboard-close-inputaccessoryview/">キーボードの上に閉じるボタンを表示する（inputAccessoryView）</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (43)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (45)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 
