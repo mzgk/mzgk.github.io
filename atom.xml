@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-02T11:09:40+09:00</updated>
+  <updated>2014-09-02T11:11:52+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -43,7 +43,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>単純に等しいかどうかの判断であれば &lsquo; isEqualToString: &rsquo; を使用。</p>
+<p>単純に等しいかどうかの判断であれば <code>isEqualToString:</code> を使用。</p>
 ]]></content>
   </entry>
   
