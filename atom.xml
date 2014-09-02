@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-29T15:35:33+09:00</updated>
+  <updated>2014-09-02T11:09:40+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[文字列の大小比較]]></title>
+    <link href="http://mzgk.github.io/blog/2014/string-compare/"/>
+    <updated>2014-09-01T19:14:57+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/string-compare</id>
+    <content type="html"><![CDATA[<p>文字列を大小比較する場合は、以下を使用する。</p>
+
+<figure class='code'><figcaption><span>文字列の大小比較</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSComparisonResult</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="err">比較元</span> <span class="nl">compare:</span><span class="err">比較相手</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedAscending</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">結果：元　＜　相手：</span><span class="o">-</span><span class="mi">1</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedSame</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">結果：元　＝　相手：</span><span class="mi">0</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedDescending</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">結果：元　＞　相手：</span><span class="mi">1</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>単純に等しいかどうかの判断であれば &lsquo; isEqualToString: &rsquo; を使用。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[NSLog()を記述せずに、ブレークポイントでログを出力する方法]]></title>
@@ -1256,42 +1290,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <li><a href="http://www.slideshare.net/YoshinoriImajo/ios7-30039408">http://www.slideshare.net/YoshinoriImajo/ios7-30039408</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIScrollViewをスクロールさせる方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/uiscrollview-checkpoint1/"/>
-    <updated>2014-08-12T16:32:58+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/uiscrollview-checkpoint1</id>
-    <content type="html"><![CDATA[<p>UIScrollViewを設定したのに、スクロールしない時は以下を確認する。</p>
-
-<h2>contentSize</h2>
-
-<ul>
-<li>UIScrollViewのconntentSizeをUIScrollViewの大きさよりも、大きくしているか？</li>
-<li>conntentSizeをセットするタイミング</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// このタイミングで行う</span>
-</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLayoutSubviews</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// UIScrollView:320,568で作成済み</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">_sceneScrollView</span> <span class="nl">setContentSize:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">680</span><span class="p">)];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<p><a href="http://blog.livedoor.jp/manjumanju/archives/3323842.html">http://blog.livedoor.jp/manjumanju/archives/3323842.html</a></p>
 ]]></content>
   </entry>
   

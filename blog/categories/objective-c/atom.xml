@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-08-29T15:35:33+09:00</updated>
+  <updated>2014-09-02T11:09:40+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[文字列の大小比較]]></title>
+    <link href="http://mzgk.github.io/blog/2014/string-compare/"/>
+    <updated>2014-09-01T19:14:57+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/string-compare</id>
+    <content type="html"><![CDATA[<p>文字列を大小比較する場合は、以下を使用する。</p>
+
+<p>```objective-c 文字列の大小比較
+NSComparisonResult result = [比較元 compare:比較相手];
+if (result == NSOrderedAscending) {</p>
+
+<pre><code>結果：元　＜　相手：-1
+</code></pre>
+
+<p>}
+else if (result == NSOrderedSame) {</p>
+
+<pre><code>結果：元　＝　相手：0
+</code></pre>
+
+<p>}
+else if (result == NSOrderedDescending) {</p>
+
+<pre><code>結果：元　＞　相手：1
+</code></pre>
+
+<p>}
+```</p>
+
+<p>単純に等しいかどうかの判断であれば &lsquo; isEqualToString: &rsquo; を使用。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[NSLog()を記述せずに、ブレークポイントでログを出力する方法]]></title>
@@ -288,40 +321,6 @@ Enter Import Password: 証明書の書き出しで作成したパスワード
 // 完了
 MAC Verified OK
 </code></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除]]></title>
-    <link href="http://mzgk.github.io/blog/2014/search-and-delete/"/>
-    <updated>2014-08-26T17:01:43+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/search-and-delete</id>
-    <content type="html"><![CDATA[<p>~/tmpディレクトリ内に存在する「capture」の文字列を含むディレクトリ・ファイルを削除したい。<br/>
-ワイルドカードが使えないみたいなので、以下で対応。</p>
-
-<p>```objective-c
-&ndash; (void)deleteTmpCaptureDir
-{</p>
-
-<pre><code>NSFileManager *manager = [NSFileManager defaultManager];
-NSError *error = nil;
-// ~/tmpディレクトリの取得
-NSString *tmpDir = NSTemporaryDirectory();
-// tmpディレクトリ内の一覧取得
-NSArray *list = [manager contentsOfDirectoryAtPath:tmpDir error:&amp;error];
-// 一覧の中から「capture」を含むディレクトリ・ファイルを検索
-for (NSString *path in list) {
-    NSRange range = [path rangeOfString:@"capture"];
-    // 存在したならば削除
-    if (NSNotFound != range.location) {
-        NSString *target = [tmpDir stringByAppendingPathComponent:path];
-        [manager removeItemAtPath:target error:&amp;error];
-    }
-}
-</code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   

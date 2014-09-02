@@ -9,8 +9,18 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="ちょっとした確認をしたいときや、NSLog()を残したくない場合などに、ブレークポイントを使ってコンソールにログを出力する方法。
-Xcodeのブレークポイントの設定だけで、停止せずにログを出力できる。 ">
+  <meta name="description" content="文字列を大小比較する場合は、以下を使用する。 文字列の大小比較1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+NSComparisonResult result = [比較元 compare:比較相手];
+if (result == NSOrderedAscending) { 結果：元　＜　相手：-1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +79,67 @@ Xcodeのブレークポイントの設定だけで、停止せずにログを出
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/string-compare/">文字列の大小比較</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-01T19:14:57+09:00" pubdate data-updated="true">2014.09.01</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>文字列を大小比較する場合は、以下を使用する。</p>
+
+<figure class='code'><figcaption><span>文字列の大小比較</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSComparisonResult</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="err">比較元</span> <span class="nl">compare:</span><span class="err">比較相手</span><span class="p">];</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedAscending</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">結果：元　＜　相手：</span><span class="o">-</span><span class="mi">1</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedSame</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">結果：元　＝　相手：</span><span class="mi">0</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedDescending</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="err">結果：元　＞　相手：</span><span class="mi">1</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>単純に等しいかどうかの判断であれば &lsquo; isEqualToString: &rsquo; を使用。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -536,54 +607,6 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/addchiledviewcontroller/">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-22T18:18:14+09:00" pubdate data-updated="true">2014.08.22</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><ul>
-<li>１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった</li>
-<li>画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒</li>
-<li>同じ処理なので１つのViewController（UIImageViewとUISliderを持った）を作成（MovieVCとする）</li>
-<li>大元の画面（A-ViewController）で、上下に作成したMovieVCを呼べばいいのでは？</li>
-<li>Container ViewController？</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/addchiledviewcontroller/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -601,6 +624,10 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/string-compare/">文字列の大小比較</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/breakpoint-automessage/">NSLog()を記述せずに、ブレークポイントでログを出力する方法</a>
@@ -638,15 +665,11 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
         <a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/addchiledviewcontroller/">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (46)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (47)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 
