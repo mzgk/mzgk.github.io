@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-02T11:11:52+09:00</updated>
+  <updated>2014-09-02T18:41:09+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,107 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UITextFieldでキーボード閉じる方法３つ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/textfield-hide-keyboard/"/>
+    <updated>2014-09-02T18:08:54+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/textfield-hide-keyboard</id>
+    <content type="html"><![CDATA[<p>UITextFieldで、表示されているキーボードを閉じる方法のまとめ。<br/>
+パターン的には３つ。</p>
+
+<ol>
+<li>UITextFieldのアクションを使用（リターンキーで閉じる）</li>
+<li>UITextFieldのデリゲートを使用（リターンキーで閉じる）</li>
+<li>Tap Gestureを使用（他の場所をタップで閉じる）</li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2>UITextFieldのアクションを使用（リターンキーで閉じる）</h2>
+
+<p>StoryBoardを使った、一番お手軽なパターン。<br/>
+キーボードのリターンキーで、キーボードが閉じる。</p>
+
+<ul>
+<li>StoryBoard上でUITextFieldを右クリック</li>
+<li>Sent Events &ndash;> Did End On Exitを選択</li>
+<li>Ctrl + ドラッグでアクション接続</li>
+<li>IBActionのメソッド内に処理は不要</li>
+</ul>
+
+
+<h2>UITextFieldのアクションを使用（リターンキーで閉じる）</h2>
+
+<p>よく見かけるパターン。<br/>
+キーボードのリターンキーで、キーボードが閉じる。</p>
+
+<ul>
+<li><UITextFieldDelegate>プロトコルを接続（.hの@interface部分）</li>
+<li>.mにデリゲートメソッドを追加</li>
+<li>処理を記述</li>
+</ul>
+
+
+<p>```objective-c ViewController.h
+@interface ViewController : UIViewController<UITextFieldDelegate></p>
+
+<p>@end
+```</p>
+
+<p>```objective-c ViewController.m
+&ndash; (void)viewDidLoad
+{</p>
+
+<pre><code>[super viewDidLoad];
+// デリゲートを設定
+_textField.delegate = self;
+</code></pre>
+
+<p>}</p>
+
+<ul>
+<li>(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  // これか
+  [self.view endEditing:YES];
+  // これ
+  [_textField resignFirstResponder];
+  return YES;
+}
+```</li>
+</ul>
+
+
+<h2>Tap Gestureを使用（他の場所をタップで閉じる）</h2>
+
+<p>キーボードのリターンキーではなく、他の場所をタップした際にキーボードを閉じる。</p>
+
+<ul>
+<li>StoryBoard上で、ViewControllerに Tap GestureRecognizer を追加</li>
+<li>Ctrl + ドラッグでアクション接続</li>
+<li>処理を記述</li>
+</ul>
+
+
+<p>```objective-c ViewController.m
+&ndash; (IBAction)onTapView:(id)sender
+{</p>
+
+<pre><code>// これか
+[self.view endEditing:YES];
+// こんな感じ
+if ([_textField isFirstResponder]) {
+    [_textField resignFirstResponder];
+}
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[文字列の大小比較]]></title>
@@ -189,138 +290,6 @@ Xcodeのブレークポイントの設定だけで、停止せずにログを出
 }
 @end
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[AppID・証明書の作成方法（Push通知あり）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/make-appid-certificate-for-pushnotification/"/>
-    <updated>2014-08-28T16:42:34+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/make-appid-certificate-for-pushnotification</id>
-    <content type="html"><![CDATA[<p>作成しているアプリ用に、App ID・証明書等の作成が必要になったので手順のメモ。<br/>
-Push通知ありのアプリ。以下で作業が必要になる。</p>
-
-<ul>
-<li>Web（Safari &ndash;> iOS Developer Center）</li>
-<li>Mac（キーチェーン・ターミナル）</li>
-</ul>
-
-
-<!-- more -->
-
-
-<h2>App IDの作成（Web）</h2>
-
-<ul>
-<li>Safari &ndash;> iOS Developer Centerにアクセス</li>
-<li>Certificates, Identifiers &amp; Profiles</li>
-<li>iOS Apps</li>
-<li>Identifiers &ndash;> App IDs</li>
-<li>＋ボタンで作成開始</li>
-<li>App ID Description
-
-<ul>
-<li>Name: 名前を入れる（判別しやすいように）</li>
-</ul>
-</li>
-<li>App ID Prefix
-
-<ul>
-<li>Value: 自動生成されている（入力不可）</li>
-</ul>
-</li>
-<li>App ID Suffix
-
-<ul>
-<li>Explicit App ID</li>
-<li>Bundle ID: jp.co.ast-net.アプリ名（小文字）</li>
-</ul>
-</li>
-<li>App Services
-
-<ul>
-<li>使用するものにチェックを入れる（今回はPush Notifications）</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>証明書の作成（Mac）</h2>
-
-<ul>
-<li>キーチェーンアクセス.appを起動</li>
-<li>メニューから、キーチェーンアクセス &ndash;> 証明書アシスタント &ndash;> 認証局に証明書を要求</li>
-<li>入力欄
-
-<ul>
-<li>メールアドレス：入力</li>
-<li>通称：入力</li>
-<li>CAのメールアドレス：未入力</li>
-</ul>
-</li>
-<li>チェック欄
-
-<ul>
-<li>ディスクに保存</li>
-<li>鍵ペア情報を指定</li>
-</ul>
-</li>
-<li>作成される「CertificateSigningRequest.certSigningRequest」（CSR）を任意の場所に保存</li>
-<li>鍵サイズ：2048</li>
-<li>アルゴリズム：RSA</li>
-</ul>
-
-
-<h2>App IDと証明書の設定（Web）</h2>
-
-<ul>
-<li>ここからは開発用（Development）と製品用（Distribution）の２回作業が必要</li>
-<li>Safari &ndash;> iOS Developer Centerにアクセス</li>
-<li>Certificates, Identifiers &amp; Profiles</li>
-<li>iOS Apps</li>
-<li>Identifiers &ndash;> App IDs</li>
-<li>先ほど作成したApp IDを選択 &ndash;> Edit（Push Notificationsが黄色になっている）</li>
-<li>Push Notificationsの「Development SSL Certificate &ndash;> Create Certificate&hellip;」をクリック</li>
-<li>Continueをクリック</li>
-<li>Chose File&hellip; で、作成した証明書（CSR）を選択</li>
-<li>Generateをクリック</li>
-<li>作成されたら、Downloadをクリックしダウンロードする</li>
-<li>aps_development.cer（aps_production.cer）がダウンロードされる</li>
-<li>Certificates &ndash;> Allには設定した分が増えている（Name: Bundle ID）</li>
-</ul>
-
-
-<h2>証明書の書き出し（Mac）</h2>
-
-<ul>
-<li>ダウンロードしたファイル（aps_development.cer）をダブルクリックして、キーチェーンに登録する</li>
-<li>キーチェーン.appを起動</li>
-<li>Apple Development IOS Push Services: Bundle IDが登録されているので選択し、右クリック</li>
-<li>&ldquo;Apple Development IOS Push Services: Bundle ID"を書き出すをクリック</li>
-<li>名前をつけて、任意の場所に保存。フォーマット：個人情報交換（.p12）</li>
-<li>パスワードを作成</li>
-</ul>
-
-
-<h2>証明書の変換（Mac）</h2>
-
-<ul>
-<li>ターミナルを起動</li>
-<li>ファイルのあるディレクトリに移動</li>
-<li>コマンドを入力し、パスワードを入力</li>
-<li>終了すると、証明書の名前.pemが作成される</li>
-<li>作成された.pemファイルを通知処理を行うサーバーに置いておく</li>
-</ul>
-
-
-<p><code>bash
-// 入力
-$ openssl pkcs12 -in 証明書の名前.p12 -out 証明書の名前（p12と別でも可）.pem -nodes -clcerts
-// 聞かれる
-Enter Import Password: 証明書の書き出しで作成したパスワード
-// 完了
-MAC Verified OK
-</code></p>
 ]]></content>
   </entry>
   

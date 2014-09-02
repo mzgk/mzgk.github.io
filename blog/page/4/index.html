@@ -9,9 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Macでゴミ箱を空にしようとしても、「ファイルを使用中のため削除できません」が
-表示された時でも、確実に削除する方法。 ゴミ箱をCmd + 右クリック
-「確実にゴミ箱を空にする」を選択。 ">
+  <meta name="description" content="GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。
+ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。 削除方法 ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。 1. ローカルファイルを削除 1
+$ git rm &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +70,80 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/remove-file-from-github/">git / GitHubからいらないファイルを削除する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T19:22:41+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。<br/>
+ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。</p>
+
+<h2>削除方法</h2>
+
+<p>ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。</p>
+
+<h3>1. ローカルファイルを削除</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm ファイル名</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※ただしこれだと、ワーキングエリアからも削除されてしまう。<br/>
+ワーキングエリアには残しておき、Git管理対象外としたい場合は、.gitignoreに追記し</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm --cached ファイル名</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2. ステージング</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3. コミット</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git commit -m "メッセージ"</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>4. プッシュ</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git push</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -544,175 +618,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/analyze-json/">JSONからデータを取得する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:31:45+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>以下のようなJSONデータから指定したデータを取得する方法。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>meta = 
-</span><span class='line'>{
-</span><span class='line'>    method = POST;
-</span><span class='line'>    url = "/app/ApiPosts/post.json";
-</span><span class='line'>};
-</span><span class='line'>response =    /// (1)
-</span><span class='line'>{
-</span><span class='line'>    "comment_id" = 144;   /// (2)
-</span><span class='line'>    "video_id" = 144;
-</span><span class='line'>    Adviser = {
-</span><span class='line'>        name = "&lt;null&gt;";
-</span><span class='line'>    };
-</span><span class='line'>    Post = {
-</span><span class='line'>        "adviser_id" = "-1";
-</span><span class='line'>        "video_id" = 144;   /// (3)
-</span><span class='line'>    };
-</span><span class='line'>    User = {
-</span><span class='line'>        id = 1;
-</span><span class='line'>        username = taro;
-</span><span class='line'>    };
-</span><span class='line'>    Comments =  /// ここは配列でComment-Videoが１セットで複数セットくる
-</span><span class='line'>    (
-</span><span class='line'>        {
-</span><span class='line'>            Comment = {
-</span><span class='line'>                comment = "\U305d\U305d\U305d\U305d\n";   /// (4)
-</span><span class='line'>                id = 144;
-</span><span class='line'>            };
-</span><span class='line'>            Video = {
-</span><span class='line'>                hash = 266d1a0ccabc501149322446e49e274a;    /// (4)
-</span><span class='line'>                id = 144;
-</span><span class='line'>            };
-</span><span class='line'>        }
-</span><span class='line'>    );
-</span><span class='line'>};</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(1) response = 以下のデータを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">responseDataDic</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSDictionary</span><span class="o">*</span><span class="p">)</span><span class="n">responseObject</span><span class="p">[</span><span class="s">@&quot;response&quot;</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(2) comment_idのデータを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;commnt_id : %@&quot;</span><span class="p">,</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;comment_id&quot;</span><span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(3) Post の video_idのデータを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Post video_id: %@&quot;</span><span class="p">,</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;Post&quot;</span><span class="p">][</span><span class="s">@&quot;video_id&quot;</span><span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>(4) Commentsの中のComment-commentとVideo-hashを取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">/// 高速列挙で辞書に抜き出し</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">dic</span> <span class="k">in</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;Comments&quot;</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Comment id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Comment&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Video id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Video&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>もしくは２ステップで</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">/// 可変配列を用意</span>
-</span><span class='line'><span class="n">NSMutableArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
-</span><span class='line'><span class="c1">/// 高速列挙でComments部分を辞書に抜き出し、それを可変配列に追加</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">dic</span> <span class="k">in</span> <span class="n">responseDataDic</span><span class="p">[</span><span class="s">@&quot;Comments&quot;</span><span class="p">])</span> <span class="p">{</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">array</span> <span class="nl">addObject:</span><span class="n">dic</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="c1">/// 可変配列から辞書に抜き出し</span>
-</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="n">dic</span> <span class="k">in</span> <span class="n">array</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Comment id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Comment&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Video id: %@&quot;</span><span class="p">,</span> <span class="n">dic</span><span class="p">[</span><span class="s">@&quot;Video&quot;</span><span class="p">][</span><span class="s">@&quot;id&quot;</span><span class="p">]);</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -732,6 +637,10 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/string-compare/">文字列の大小比較</a>
@@ -769,15 +678,11 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
         <a href="/blog/2014/git-commit-message/">Git コミットのメッセージ書き方</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (47)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

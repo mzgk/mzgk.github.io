@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-02T11:11:52+09:00</updated>
+  <updated>2014-09-02T18:41:09+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,127 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UITextFieldでキーボード閉じる方法３つ]]></title>
+    <link href="http://mzgk.github.io/blog/2014/textfield-hide-keyboard/"/>
+    <updated>2014-09-02T18:08:54+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/textfield-hide-keyboard</id>
+    <content type="html"><![CDATA[<p>UITextFieldで、表示されているキーボードを閉じる方法のまとめ。<br/>
+パターン的には３つ。</p>
+
+<ol>
+<li>UITextFieldのアクションを使用（リターンキーで閉じる）</li>
+<li>UITextFieldのデリゲートを使用（リターンキーで閉じる）</li>
+<li>Tap Gestureを使用（他の場所をタップで閉じる）</li>
+</ol>
+
+
+<!-- more -->
+
+
+<h2>UITextFieldのアクションを使用（リターンキーで閉じる）</h2>
+
+<p>StoryBoardを使った、一番お手軽なパターン。<br/>
+キーボードのリターンキーで、キーボードが閉じる。</p>
+
+<ul>
+<li>StoryBoard上でUITextFieldを右クリック</li>
+<li>Sent Events &ndash;> Did End On Exitを選択</li>
+<li>Ctrl + ドラッグでアクション接続</li>
+<li>IBActionのメソッド内に処理は不要</li>
+</ul>
+
+
+<h2>UITextFieldのアクションを使用（リターンキーで閉じる）</h2>
+
+<p>よく見かけるパターン。<br/>
+キーボードのリターンキーで、キーボードが閉じる。</p>
+
+<ul>
+<li><UITextFieldDelegate>プロトコルを接続（.hの@interface部分）</li>
+<li>.mにデリゲートメソッドを追加</li>
+<li>処理を記述</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>ViewController.h</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">ViewController</span> : <span class="nc">UIViewController</span><span class="o">&lt;</span><span class="n">UITextFieldDelegate</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>ViewController.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// デリゲートを設定</span>
+</span><span class='line'>    <span class="n">_textField</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">textFieldShouldReturn:</span><span class="p">(</span><span class="n">UITextField</span> <span class="o">*</span><span class="p">)</span><span class="nv">textField</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// これか</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">endEditing:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// これ</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">_textField</span> <span class="n">resignFirstResponder</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">YES</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Tap Gestureを使用（他の場所をタップで閉じる）</h2>
+
+<p>キーボードのリターンキーではなく、他の場所をタップした際にキーボードを閉じる。</p>
+
+<ul>
+<li>StoryBoard上で、ViewControllerに Tap GestureRecognizer を追加</li>
+<li>Ctrl + ドラッグでアクション接続</li>
+<li>処理を記述</li>
+</ul>
+
+
+<figure class='code'><figcaption><span>ViewController.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">onTapView:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// これか</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">endEditing:</span><span class="n">YES</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// こんな感じ</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">([</span><span class="n">_textField</span> <span class="n">isFirstResponder</span><span class="p">])</span> <span class="p">{</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">_textField</span> <span class="n">resignFirstResponder</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[文字列の大小比較]]></title>
@@ -1266,29 +1387,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 </span><span class='line'><span class="n">newRect</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">=</span> <span class="mf">165.0f</span><span class="p">;</span>
 </span><span class='line'><span class="p">[</span><span class="n">_sampleView</span> <span class="nl">setFrame:</span><span class="n">newRect</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIScrollViewに配置したViewが下にズレる時の対応]]></title>
-    <link href="http://mzgk.github.io/blog/2014/uiscrollview-checkpoint-2/"/>
-    <updated>2014-08-12T16:44:48+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/uiscrollview-checkpoint-2</id>
-    <content type="html"><![CDATA[<p>NavigationBarなどが存在し、UIScrollViewの上にviewを配置した画面の場合に、ビルドして確認するとviewが下にズレて表示されることがある。</p>
-
-<h2>ViewController &ndash; Attribute inspector</h2>
-
-<p>このときは、ViewControllerのAttribute inspector &ndash; Adjubst Scroll View Insets　のチェックを外す。<br/>
-<code>automaticallyAdjustsScrollViewInsets = NO</code></p>
-
-<p><img src="http://mzgk.github.io/images/2014/0812/attribute-inspector.png" alt="inspector" /></p>
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://www.slideshare.net/YoshinoriImajo/ios7-30039408">http://www.slideshare.net/YoshinoriImajo/ios7-30039408</a></li>
-</ul>
 
 ]]></content>
   </entry>

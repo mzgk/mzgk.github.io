@@ -9,9 +9,26 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった
-画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒
-同じ処理なので１つのViewController（ &hellip;">
+  <meta name="description" content="~/tmpディレクトリ内に存在する「capture」の文字列を含むディレクトリ・ファイルを削除したい。
+ワイルドカードが使えないみたいなので、以下で対応。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+- (void) &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +87,82 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-26T17:01:43+09:00" pubdate data-updated="true">2014.08.26</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>~/tmpディレクトリ内に存在する「capture」の文字列を含むディレクトリ・ファイルを削除したい。<br/>
+ワイルドカードが使えないみたいなので、以下で対応。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteTmpCaptureDir</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSFileManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// ~/tmpディレクトリの取得</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">tmpDir</span> <span class="o">=</span> <span class="n">NSTemporaryDirectory</span><span class="p">();</span>
+</span><span class='line'>    <span class="c1">// tmpディレクトリ内の一覧取得</span>
+</span><span class='line'>    <span class="n">NSArray</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="n">manager</span> <span class="nl">contentsOfDirectoryAtPath:</span><span class="n">tmpDir</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// 一覧の中から「capture」を含むディレクトリ・ファイルを検索</span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="k">in</span> <span class="n">list</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">NSRange</span> <span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="nl">rangeOfString:</span><span class="s">@&quot;capture&quot;</span><span class="p">];</span>
+</span><span class='line'>        <span class="c1">// 存在したならば削除</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">NSNotFound</span> <span class="o">!=</span> <span class="n">range</span><span class="p">.</span><span class="n">location</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="n">NSString</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmpDir</span> <span class="nl">stringByAppendingPathComponent:</span><span class="n">path</span><span class="p">];</span>
+</span><span class='line'>            <span class="p">[</span><span class="n">manager</span> <span class="nl">removeItemAtPath:</span><span class="n">target</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -778,56 +871,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/uiscrollview-checkpoint-2/">UIScrollViewに配置したViewが下にズレる時の対応</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-12T16:44:48+09:00" pubdate data-updated="true">2014.08.12</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>NavigationBarなどが存在し、UIScrollViewの上にviewを配置した画面の場合に、ビルドして確認するとviewが下にズレて表示されることがある。</p>
-
-<h2>ViewController &ndash; Attribute inspector</h2>
-
-<p>このときは、ViewControllerのAttribute inspector &ndash; Adjubst Scroll View Insets　のチェックを外す。<br/>
-<code>automaticallyAdjustsScrollViewInsets = NO</code></p>
-
-<p><img src="/images/2014/0812/attribute-inspector.png" alt="inspector" /></p>
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://www.slideshare.net/YoshinoriImajo/ios7-30039408">http://www.slideshare.net/YoshinoriImajo/ios7-30039408</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -847,6 +890,10 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/string-compare/">文字列の大小比較</a>
@@ -884,15 +931,11 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
         <a href="/blog/2014/git-commit-message/">Git コミットのメッセージ書き方</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (47)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

@@ -9,18 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="文字列を大小比較する場合は、以下を使用する。 文字列の大小比較1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-NSComparisonResult result = [比較元 compare:比較相手];
-if (result == NSOrderedAscending) { 結果：元　＜　相手：-1 &hellip;">
+  <meta name="description" content="UITextFieldで、表示されているキーボードを閉じる方法のまとめ。
+パターン的には３つ。 UITextFieldのアクションを使用（リターンキーで閉じる）
+UITextFieldのデリゲートを使用（リターンキーで閉じる）
+Tap Gestureを使用（他の場所をタップで閉じる） ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +71,55 @@ if (result == NSOrderedAscending) { 結果：元　＜　相手：-1 &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-02T18:08:54+09:00" pubdate data-updated="true">2014.09.02</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UITextFieldで、表示されているキーボードを閉じる方法のまとめ。<br/>
+パターン的には３つ。</p>
+
+<ol>
+<li>UITextFieldのアクションを使用（リターンキーで閉じる）</li>
+<li>UITextFieldのデリゲートを使用（リターンキーで閉じる）</li>
+<li>Tap Gestureを使用（他の場所をタップで閉じる）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/textfield-hide-keyboard/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -531,82 +572,6 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-26T17:01:43+09:00" pubdate data-updated="true">2014.08.26</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>~/tmpディレクトリ内に存在する「capture」の文字列を含むディレクトリ・ファイルを削除したい。<br/>
-ワイルドカードが使えないみたいなので、以下で対応。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteTmpCaptureDir</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="n">NSFileManager</span> <span class="o">*</span><span class="n">manager</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSFileManager</span> <span class="n">defaultManager</span><span class="p">];</span>
-</span><span class='line'>    <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
-</span><span class='line'>    <span class="c1">// ~/tmpディレクトリの取得</span>
-</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">tmpDir</span> <span class="o">=</span> <span class="n">NSTemporaryDirectory</span><span class="p">();</span>
-</span><span class='line'>    <span class="c1">// tmpディレクトリ内の一覧取得</span>
-</span><span class='line'>    <span class="n">NSArray</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">[</span><span class="n">manager</span> <span class="nl">contentsOfDirectoryAtPath:</span><span class="n">tmpDir</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>    <span class="c1">// 一覧の中から「capture」を含むディレクトリ・ファイルを検索</span>
-</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">path</span> <span class="k">in</span> <span class="n">list</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>        <span class="n">NSRange</span> <span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="nl">rangeOfString:</span><span class="s">@&quot;capture&quot;</span><span class="p">];</span>
-</span><span class='line'>        <span class="c1">// 存在したならば削除</span>
-</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">NSNotFound</span> <span class="o">!=</span> <span class="n">range</span><span class="p">.</span><span class="n">location</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>            <span class="n">NSString</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmpDir</span> <span class="nl">stringByAppendingPathComponent:</span><span class="n">path</span><span class="p">];</span>
-</span><span class='line'>            <span class="p">[</span><span class="n">manager</span> <span class="nl">removeItemAtPath:</span><span class="n">target</span> <span class="nl">error:</span><span class="o">&amp;</span><span class="n">error</span><span class="p">];</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -624,6 +589,10 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/string-compare/">文字列の大小比較</a>
@@ -661,15 +630,11 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
         <a href="/blog/2014/git-commit-message/">Git コミットのメッセージ書き方</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/search-and-delete/">ディレクトリ内を検索し、対象の文字列を含むディレクトリ・ファイルを削除</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (47)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (4)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 
