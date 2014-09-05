@@ -9,10 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="BetterTouch Toolの設定を変更したら、XcodeでUI部品のコントロール＋ドラッグ接続が効かなくなった。
-その対処法。ちなみに原因は不明。 環境 OS X : 10.9.4
-Xcode : 5.1.1
-BetterTouch Tool : 0.9977 経緯 BetterTouch &hellip;">
+  <meta name="description" content="TestFlightにユーザーを招待する方法。
+身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
+配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。
+まずは、ユーザーの招待まで。 管理者 管理者は、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +71,89 @@ BetterTouch Tool : 0.9977 経緯 BetterTouch &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/invite-to-testflight/">TestFlightにユーザーを招待する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-05T10:54:38+09:00" pubdate data-updated="true">2014.09.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>TestFlightにユーザーを招待する方法。<br/>
+身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
+配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。<br/>
+まずは、ユーザーの招待まで。</p>
+
+<h2>管理者</h2>
+
+<ol>
+<li>管理者は、ブラウザを起動しTestFlightにログインする</li>
+<li>Invite Peopleから招待状を送付する</li>
+</ol>
+
+
+<p><img src="/images/2014/0905/1_invite_%20people.png" title="招待" alt="invite_people1" />
+<img src="/images/2014/0905/2_invite_a_teammate.png" title="メールの送付" alt="invite_people2" />
+<img src="/images/2014/0905/3_manage_invites_in.png" title="ステータス" alt="invite_people3" /></p>
+
+<h2>招待を受けたユーザー</h2>
+
+<p>テストに使う端末で操作を行う。<br/>
+操作はSafariでやらないとエラーになる（chrome等はダメ）。<br/>
+gmail.appで受けてchromeが開いた場合は、アドレスをコピー &ndash;> safariで開いて操作<br/>
+safariもプライベートブラウジングはオフにしておくこと</p>
+
+<ol>
+<li>ユーザーにメールが届く</li>
+<li>メールのAcceptをタップ</li>
+<li>ユーザーの情報を入力し、Sign UP</li>
+<li>デバイスの登録を行う</li>
+<li>プロファイルのインストールを促されるのでインストール</li>
+<li>管理者からアプリインストールのメールがくるのを待つ</li>
+<li>プロファイルの確認は、設定アプリ起動 &ndash;> 一般 &ndash;> プロファイルで確認できる</li>
+</ol>
+
+
+<p><img src="/images/2014/0905/4_user_mail.png" title="メール受信" alt="user_signup" />
+<img src="/images/2014/0905/5_user_sign_up.png" title="Sign Up" alt="user_signup" />
+<img src="/images/2014/0905/7_user_connect_your_device.png" title="デバイス登録" alt="user_signup" />
+<img src="/images/2014/0905/8_profile_install.png" title="インストール" alt="user_signup" />
+<img src="/images/2014/0905/9_profile_installed.png" title="インストール完了" alt="user_signup" />
+<img src="/images/2014/0905/10_view_all_apps.png" title="アプリインストール待ち" alt="user_signup" />
+<img src="/images/2014/0905/11_setting_profile.png" title="プロファイルの確認" alt="user_signup" /></p>
+
+<h2>管理者</h2>
+
+<p>ユーザーがSign Upしたかどうかは、この画面で確認できる。</p>
+
+<p><img src="/images/2014/0905/6_manage_invites_in.png" title="Status" alt="user_signup" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -510,75 +593,6 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/gitignore-apply-after-add/">.gitignoreをあとから適用する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-28T10:44:36+09:00" pubdate data-updated="true">2014.08.28</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>.gitignoreファイルはgit管理対象外とするディレクトリ・ファイルを登録するファイルだが、すでに管理対象として登録されたものに対しては無視される。<br/>
-すでに管理対象となっているものを、後から.gitginoreに登録し適用させる方法。</p>
-
-<h2>例：draftsディレクトリを対象外としたい</h2>
-
-<p>下書きディレクトリとして <code>draftsディレクトリ</code> を管理対象としていたが、DropBoxで運用したいのでGit管理からは外したい。</p>
-
-<h3>.gitignoreに追記</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># ディレクトリの最後に「/（スラッシュ）」をつける
-</span><span class='line'>drafts/</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ターミナル</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// --cachedをつけることで、ファイル自体はローカルから削除しない
-</span><span class='line'>$ git rm --cached -r drafts/
-</span><span class='line'>
-</span><span class='line'>// ちなみにファイルの場合は以下
-</span><span class='line'>$ git rm --cached A.txt
-</span><span class='line'>
-</span><span class='line'>// ローカルからファイルも削除する場合は以下
-</span><span class='line'>$ git rm A.txt</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -596,6 +610,10 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/invite-to-testflight/">TestFlightにユーザーを招待する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/xcode-bettertouchtool/">XcodeのCtrl＋ドラッグとBetterTouch Tool</a>
@@ -633,15 +651,11 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
         <a href="/blog/2014/make-appid-certificate-for-pushnotification/">AppID・証明書の作成方法（Push通知あり）</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/gitignore-apply-after-add/">.gitignoreをあとから適用する</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (1)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 
