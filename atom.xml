@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-05T12:03:04+09:00</updated>
+  <updated>2014-09-05T12:04:43+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -40,10 +40,10 @@
 
 <h2>招待を受けたユーザー</h2>
 
-<p><strong>テストに使う端末</strong> で操作を行う。<br/>
+<p>操作は <strong>テストに使う端末</strong> で行う。<br/>
 操作は <strong>Safari</strong> でやらないとエラーになる（chrome等はダメ）。<br/>
 gmail.appで受けてchromeが開いた場合は、アドレスをコピー &ndash;> safariで開いて操作<br/>
-safariも<strong> プライベートブラウジングはオフ</strong> にしておくこと</p>
+safariも <strong>プライベートブラウジングはオフ</strong> にしておくこと</p>
 
 <ol>
 <li>ユーザーにメールが届く</li>
