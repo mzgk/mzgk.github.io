@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-05T11:46:34+09:00</updated>
+  <updated>2014-09-05T11:49:07+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -22,6 +22,9 @@
 身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
 配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。<br/>
 まずは、ユーザーの招待まで。</p>
+
+<!-- more -->
+
 
 <h2>管理者</h2>
 
