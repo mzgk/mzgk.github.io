@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-05T14:08:39+09:00</updated>
+  <updated>2014-09-05T15:39:32+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,120 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AdHocビルド版のビルドを行う]]></title>
+    <link href="http://mzgk.github.io/blog/2014/adhoc-build/"/>
+    <updated>2014-09-05T15:30:03+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/adhoc-build</id>
+    <content type="html"><![CDATA[<p>TestFlightで配布できるように、アプリをAdHoc版でビルドする方法。</p>
+
+<!-- more -->
+
+
+<h2>AdHoc用のプロビジョニングプロファイルを作成する</h2>
+
+<h3>デバイス登録</h3>
+
+<p>配布したいデバイスが未登録の場合に実施。<br/>
+端末がそばにない場合は、Test Flightで収集しあとから登録でも可。</p>
+
+<ol>
+<li>Apple Developer にログイン</li>
+<li>Certificates, Identifiers &amp; Profiles &ndash;> iOS Apps &ndash;> Devices</li>
+<li>右上の＋をクリック</li>
+<li>Register DeviceでName:（任意）とUDIDを登録</li>
+<li>Register Multiple Devicesでは、ファイルに書くことで一括登録が可能</li>
+</ol>
+
+
+<h3>プロビジョニングプロファイルの作成</h3>
+
+<ol>
+<li>Apple Developer にログイン</li>
+<li>Certificates, Identifiers &amp; Profiles &ndash;> iOS Apps &ndash;> Provisioning Profiles</li>
+<li>Distribution &ndash;> 右上の＋</li>
+<li>Distribution &ndash;> Ad Hocを選択 &ndash;> App IDを選択</li>
+<li>Select certificates. &ndash;> 証明書を選択（タイプはApp Store and ad Hoc）</li>
+<li>Select devices. &ndash;> 配布したい端末を選択</li>
+<li>Name this profile and generate. &ndash;> Profile Name:（任意の名前）</li>
+<li>Generate</li>
+<li>Download</li>
+<li>ダウンロードした〜.mobileprovisionをクリックし、キーチェーンへ登録</li>
+</ol>
+
+
+<h3>確認</h3>
+
+<ol>
+<li>Xcode &ndash;> Preferences &ndash;> Accounts &ndash;> ViewDetails</li>
+<li>プロビジョニングプロファイルの一覧に表示されること</li>
+</ol>
+
+
+<h2>アドホック用の.ipaをビルド</h2>
+
+<ol>
+<li>ビルドするプロジェクトでXcodeを起動</li>
+<li>Product &ndash;> Archive（実機接続、またはiOS Deviceを選択していれば可。シュミレーター不可）</li>
+<li>Organaizerが開いたら、ビルドしたアプリを選択</li>
+<li>Distribute&hellip;をクリック</li>
+<li>Save for Enterprise or Ad Hoc Deploymentを選択</li>
+<li>Provisioning Profile: 作成したAdHoc用のプロビジョニングプロファイルを選択</li>
+<li>Exportで.ipaが作成される</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS端末のUDIDの確認方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/confirm-udid/"/>
+    <updated>2014-09-05T14:19:31+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/confirm-udid</id>
+    <content type="html"><![CDATA[<p>iOS端末のUDIDを確認する方法。以下３パターン。</p>
+
+<ul>
+<li>Xcode</li>
+<li>iTunes</li>
+<li>TestFlight</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>Xcodeを使用する方法</h2>
+
+<ol>
+<li>Xcodeを起動し、端末を接続</li>
+<li>Window &ndash;> Organizer &ndash;> Devicesタブ</li>
+<li>左側のDEVICESから該当端末を選択</li>
+<li>Identifierの横の文字列がUDID</li>
+</ol>
+
+
+<h2>iTunesを使用する方法</h2>
+
+<ol>
+<li>iTunesを起動し、端末を接続</li>
+<li>右側のデバイスから該当の端末を選択</li>
+<li>表示されたiPhoneの概要画面で、シリアル番号をクリック</li>
+<li>UDIDに表示が変わる</li>
+</ol>
+
+
+<h2>TestFlightを使用する方法</h2>
+
+<p>詳細は以下を参照</p>
+
+<ul>
+<li>ここ：<a href="http://mzgk.github.io/blog/2014/invite-to-testflight/">http://mzgk.github.io/blog/2014/invite-to-testflight/</a></li>
+<li>ここ：<a href="http://mzgk.github.io/blog/2014/invite-testflight2/">http://mzgk.github.io/blog/2014/invite-testflight2/</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[TestFlight：2（プロビジョニングプロファイル〜アプリ配信）]]></title>

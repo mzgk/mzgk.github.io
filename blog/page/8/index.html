@@ -9,9 +9,11 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Macではカット＆ペーストはできないと思い込んでいたが、実は標準機能で可能だったのでメモ。
-カット＆ペーストのためだけに、『XtraFinder』などのアプリをインストールする必要もなかった…
-Windowsに慣れていると、ついついMacでもカット＆ペーストを Cmd+x Cmd+v &hellip;">
+  <meta name="description" content="前回はHomebrewのインストールまでだったので、続きから。
+Rubyのバージョン管理を行うrbenvやその他必要モジュールをインストール。 Homebrewのインストール
+rbenvのインストール　&lt;&ndash; いまここ
+Ruby1.9.3のインストール
+SSH鍵の設定（GitHub &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +72,110 @@ Windowsに慣れていると、ついついMacでもカット＆ペーストを 
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-2/">Octopressブログ環境の再構築：第２回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T12:18:26+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>前回はHomebrewのインストールまでだったので、続きから。<br/>
+Rubyのバージョン管理を行うrbenvやその他必要モジュールをインストール。</p>
+
+<ol>
+<li>Homebrewのインストール</li>
+<li>rbenvのインストール　&lt;&ndash; <strong>いまここ</strong></li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-2/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/restart-octopress-1/">Octopressブログ環境の再構築：第１回</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-22T11:27:04+09:00" pubdate data-updated="true">2014.02.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Macを新しくしたので、Octopressブログ環境を再構築する必要がでてきた。<br/>
+前のローカル環境はBitbucketで管理しているので $ git clone すればいいが、Rubyその他もろもろのセットアップは必要。<br/>
+前のMacではRubyをさわったりで、前準備ができていた状態での構築だったが、今回はゼロからの構築。<br/>
+まずは、パッケージ管理のHomebrewをインストールまでが目標。</p>
+
+<ol>
+<li>Homebrewのインストール　&lt;&ndash; <strong>いまここ</strong></li>
+<li>rbenvのインストール</li>
+<li>Ruby1.9.3のインストール</li>
+<li>SSH鍵の設定（GitHub, Bitbucket）</li>
+<li>Octopressブログ環境の構築（From Bitbucket）</li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/restart-octopress-1/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -447,112 +553,9 @@ Defaultディレクトリが存在しない場合は作成。</li>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/procedure-to-post/">Start Octopress Blogへの投稿手順</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-31T12:25:41+09:00" pubdate data-updated="true">2013.12.31</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Octopressでの投稿手順（基本的な）。<br/>
-ファイルの作成→編集→確認→デプロイ→プッシュまで。</p>
-
-<h2>手順</h2>
-
-<h3>1. ポストファイルの生成</h3>
-
-<p><code>source/_post</code> ディレクトリにファイルが作成される。<br/>
-yyyy-mm-dd-title.markdown<br/>
-titleは英数のみ。文字間に半角空白の使用が可能（-に変換される）。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post["title"]</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/procedure-to-post/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/start-octopress/">Start Octopress OctopressとGitHub・Bitbucket</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-30T06:30:08+09:00" pubdate data-updated="true">2013.12.30</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>OctopressでBolg開設。GitHub・Bitbucket・localの環境構築とブログの表示まで。</p>
-
-<h2>なぜOctopressを選んだか？</h2>
-
-<ul>
-<li>ポストファイルを静的ファイルとして管理したかった</li>
-<li>Markdownで記述→generate→deploy→pushの手軽さ</li>
-<li>Git・GitHub・Markdownのスキルを身につけたい</li>
-<li>A blogging framework for hackers.</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/start-octopress/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/9/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -569,6 +572,14 @@ titleは英数のみ。文字間に半角空白の使用が可能（-に変換�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/adhoc-build/">AdHocビルド版のビルドを行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/confirm-udid/">iOS端末のUDIDの確認方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/invite-testflight2/">TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</a>
@@ -602,19 +613,11 @@ titleは英数のみ。文字間に半角空白の使用が可能（-に変換�
         <a href="/blog/2014/property-place/">プロパティやインスタンス変数を宣言する場所</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/install-homebrew/">Homebrewのインストール</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (2)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (4)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

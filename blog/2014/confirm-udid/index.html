@@ -5,12 +5,16 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: iOS - jubilee</title>
+  <title>iOS端末のUDIDの確認方法 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Category: iOS">
-  
+  <meta name="description" content="iOS端末のUDIDを確認する方法。以下３パターン。 Xcode
+iTunes
+TestFlight Xcodeを使用する方法 Xcodeを起動し、端末を接続
+Window &ndash;> Organizer &ndash;> Devicesタブ
+左側のDEVICESから該当端末を選択 &hellip;">
+  <meta name="keywords" content="iOS, UDID">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.ioblog/categories/ios">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/confirm-udid">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -67,77 +71,126 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: iOS</h1>
+    
+      <h1 class="entry-title">iOS端末のUDIDの確認方法</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-05T14:19:31+09:00" pubdate data-updated="true">2014.09.05</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>iOS端末のUDIDを確認する方法。以下３パターン。</p>
 
-  
-  <h2>2014</h2>
-
-<article>
-  
-<h1><a href="/blog/2014/adhoc-build/">AdHocビルド版のビルドを行う</a></h1>
-<time datetime="2014-09-05T15:30:03+09:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>iOS</a></span>
-</footer>
+<ul>
+<li>Xcode</li>
+<li>iTunes</li>
+<li>TestFlight</li>
+</ul>
 
 
-</article>
+<!-- more -->
 
 
+<h2>Xcodeを使用する方法</h2>
 
-<article>
-  
-<h1><a href="/blog/2014/confirm-udid/">iOS端末のUDIDの確認方法</a></h1>
-<time datetime="2014-09-05T14:19:31+09:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>iOS</a></span>
-</footer>
-
-
-</article>
+<ol>
+<li>Xcodeを起動し、端末を接続</li>
+<li>Window &ndash;> Organizer &ndash;> Devicesタブ</li>
+<li>左側のDEVICESから該当端末を選択</li>
+<li>Identifierの横の文字列がUDID</li>
+</ol>
 
 
+<h2>iTunesを使用する方法</h2>
 
-<article>
-  
-<h1><a href="/blog/2014/invite-testflight2/">TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</a></h1>
-<time datetime="2014-09-05T13:02:28+09:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>iOS</a></span>
-</footer>
-
-
-</article>
+<ol>
+<li>iTunesを起動し、端末を接続</li>
+<li>右側のデバイスから該当の端末を選択</li>
+<li>表示されたiPhoneの概要画面で、シリアル番号をクリック</li>
+<li>UDIDに表示が変わる</li>
+</ol>
 
 
+<h2>TestFlightを使用する方法</h2>
 
-<article>
-  
-<h1><a href="/blog/2014/invite-to-testflight/">TestFlight：1（ユーザーを招待する）</a></h1>
-<time datetime="2014-09-05T10:54:38+09:00" pubdate><span class='month'>Sep</span> <span class='day'>05</span> <span class='year'>2014</span></time>
+<p>詳細は以下を参照</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>iOS</a></span>
-</footer>
-
-
-</article>
+<ul>
+<li>ここ：<a href="http://mzgk.github.io/blog/2014/invite-to-testflight/">http://mzgk.github.io/blog/2014/invite-to-testflight/</a></li>
+<li>ここ：<a href="http://mzgk.github.io/blog/2014/invite-testflight2/">http://mzgk.github.io/blog/2014/invite-testflight2/</a></li>
+</ul>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">mzgk</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-05T14:19:31+09:00" pubdate data-updated="true">2014.09.05</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/confirm-udid/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/confirm-udid/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/invite-testflight2/" title="Previous Post: TestFlight：2（プロビジョニングプロファイル〜アプリ配信）">&laquo; TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/adhoc-build/" title="Next Post: AdHocビルド版のビルドを行う">AdHocビルド版のビルドを行う &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
 </div>

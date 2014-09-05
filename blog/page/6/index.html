@@ -9,8 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UIScrollViewはタップを検知しないため、レスポンダチェーンでVIewControllerまでtouchesBegan:withEventが通知されない。
-なので、TextView入力時にキーボードに隠れないようにView位置を押し上げ、 &hellip;">
+  <meta name="description" content="通常に設定（コード or Interface Builder）からだけでは、反応しない。
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +70,101 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/applied-to-uiimageview-swipe/">UIImageViewにスワイプジェスチャーを適用させる</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
+UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
+以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/set-navigationbar-color/">UINavigationBarの色を制御する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:01:40+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>NavigationBarのカラーやアイテムの色を制御する方法。<br/>
+NavigationControllerの次のViewControllerで設定を行う。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 背景色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">barTintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithHex:</span><span class="s">@&quot;2F78B7&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// アイテムの色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
+</span><span class='line'><span class="c1">// タイトルの色</span>
+</span><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">navigationController</span><span class="p">.</span><span class="n">navigationBar</span><span class="p">.</span><span class="n">titleTextAttributes</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="nl">NSForegroundColorAttributeName:</span><span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">]};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -839,145 +935,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/chage-view-overlap/">ビューの重なり順を変更する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T15:34:39+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ビューの重なり順をコードで変更する方法。</p>
-
-<h2>自分に追加されているサブビューの配列を取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">self</span><span class="p">.</span><span class="n">subviews</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>自分と同じスーパービューをもつサブビューの配列を取得</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">superview</span><span class="p">.</span><span class="n">subviews</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>挿入位置をインデックス番号で指定する</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">atIndex:</span><span class="mi">1</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>指定ビューの前／後ろに挿入する</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// _targetViewの下にする</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">belowSubview:</span><span class="n">_targetView</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// _targetViewの上にする</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">insertSubview:</span><span class="n">_imageView</span> <span class="nl">aboveSubview:</span><span class="n">_targetView</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ビューを最前面／再背面に移動させる</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 最前面</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">bringSubviewToFront:</span><span class="n">_imageView</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// 再背面</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">sendSubviewToBack:</span><span class="n">_imageView</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>指定したインデックスのビューの重なりを入れ替える</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 1番目と3番目を入れ替える</span>
-</span><span class='line'><span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">exchangeSubviewAtIndex:</span><span class="mi">1</span> <span class="nl">withSubviewAtIndex:</span><span class="mi">3</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/filepath-nsurl/">ファイルパス（NSString）をNSURLに変換する方法（日本語OK）</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T15:07:00+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span><span class="o">*</span> <span class="n">string</span> <span class="o">=</span> <span class="s">@&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">fileURLWithPath:</span><span class="n">string</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// NGケース（nilが返る）</span>
-</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">nilUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">string</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -997,6 +954,14 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/adhoc-build/">AdHocビルド版のビルドを行う</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/confirm-udid/">iOS端末のUDIDの確認方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/invite-testflight2/">TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</a>
@@ -1030,19 +995,11 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
         <a href="/blog/2014/property-place/">プロパティやインスタンス変数を宣言する場所</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/install-git-by-homebrew/">Homebrewでgitをインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/install-homebrew/">Homebrewのインストール</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (2)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (4)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 
