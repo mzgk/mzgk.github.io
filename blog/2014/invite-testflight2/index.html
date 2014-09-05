@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>UITableViewのカスタマイズ方法 - jubilee</title>
+  <title>TestFlight：2（プロビジョニングプロファイル〜アプリ配信） - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UITableViewをカスタマイズする方法。 ">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="TestFlightにユーザーを招待する方法。
+身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
+配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。 招待したユーザーの端末のUDIDを追加 &hellip;">
+  <meta name="keywords" content="TestFlight">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/customize-uitableview">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/invite-testflight2">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -71,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">UITableViewのカスタマイズ方法</h1>
+      <h1 class="entry-title">TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</h1>
     
     
       <p class="meta">
@@ -87,16 +89,105 @@
   
 
 
-<time datetime="2014-08-05T19:04:52+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-09-05T13:02:28+09:00" pubdate data-updated="true">2014.09.05</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>UITableViewをカスタマイズする方法。</p>
+<div class="entry-content"><p>TestFlightにユーザーを招待する方法。<br/>
+身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
+配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。</p>
 
-<p><img src="/images/2014/0805/UITableView.png" alt="Xcode" /></p>
+<ul>
+<li>招待したユーザーの端末のUDIDを追加</li>
+<li>プロビジョニングプロファイルをアップロード</li>
+<li>ユーザーに配信</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>管理者：iOS Developerにデバイス登録</h2>
+
+<ol>
+<li>招待したユーザーがTest Flightにサインアップし端末を登録すると、管理者にメールが届く</li>
+<li>Apple Developer にログイン</li>
+<li>Certificates, Identifiers &amp; Profiles &ndash;> iOS Apps &ndash;> Devices</li>
+<li>右上の＋をクリック</li>
+<li>Register DeviceでName:（任意）とUDIDを登録</li>
+<li>Register Multiple Devicesでは、ファイルに書くことで一括登録が可能</li>
+</ol>
+
+
+<p><img src="/images/2014/0905/12_mail_added_a_device.png" title="メール受信" alt="add device" />
+<img src="/images/2014/0905/13_ios_developer_device_add.png" title="デバイス登録" alt="add device" />
+<img src="/images/2014/0905/14_register_device.png" title="デバイス登録" alt="add device" /></p>
+
+<h2>管理者：プロビジョニングプロファイルの作成</h2>
+
+<ol>
+<li>Apple Developer にログイン</li>
+<li>Certificates, Identifiers &amp; Profiles &ndash;> iOS Apps &ndash;> Provisioning Profiles</li>
+<li>対象のアプリで使用するプロビジョニングプロファイルを選択し、Edit</li>
+<li>端末を追加し、Generate &ndash;> Download</li>
+</ol>
+
+
+<p><img src="/images/2014/0905/15_edit_provisioning_profile.png" title="プロビジョニングプロファイル" alt="provisioning profile" />
+<img src="/images/2014/0905/16_provisioning_download.png" title="ダウンロード" alt="provisioning profile" /></p>
+
+<h2>管理者：Test Flightへアップロード</h2>
+
+<p>アプリの内容に変更がないのであれば、プロビジョニングプロファイルのアップロードのみで可。</p>
+
+<ol>
+<li>Test Flightへログイン</li>
+<li>Apps &ndash;> Manage Your Apps &ndash;> 対象のアプリをクリック</li>
+<li>Builds &ndash;> アプリをクリック</li>
+<li>Permission &ndash;> ダウンロードしたプロビジョニングプロファイルをアップロード</li>
+</ol>
+
+
+<p><img src="/images/2014/0905/17_testflight_apps.png" title="アプリ選択" alt="update" />
+<img src="/images/2014/0905/18_builds.png" title="アプリ選択" alt="update" />
+<img src="/images/2014/0905/19_permission.png" title="アップロード" alt="update" />
+<img src="/images/2014/0905/20_profile_upload.png" title="アップロード" alt="update" /></p>
+
+<h2>管理者：ユーザーにアプリ配信のメール</h2>
+
+<ol>
+<li>プロビジョニングプロファイルをアップロード</li>
+<li>招待したユーザーの名前がTeammates in The Provisioning Profileに表示される</li>
+<li>招待したユーザーにチェックをつけて、Update &amp; Notifyをクリックでメールが送信される</li>
+</ol>
+
+
+<p><img src="/images/2014/0905/21_uploaded.png" title="メール送信" alt="send mail" />
+<img src="/images/2014/0905/22_status.png" title="ステータス" alt="status" /></p>
+
+<h2>ユーザー：アプリのインストール</h2>
+
+<p>操作は <em>Safari</em> で行うこと。</p>
+
+<ol>
+<li>管理者からメールが届く</li>
+<li>届いたメールのINSTALLをクリック</li>
+<li>端末にプロビジョニングプロファイルがインストールされ、アプリもインストールされる
+<img src="/images/2014/0905/23_user_install_mail.png" title="インストールメール" alt="mail" />
+<img src="/images/2014/0905/24_profile.png" title="プロビジョニングプロファイル" alt="profile" /></li>
+</ol>
+
+
+<h2>管理者：確認</h2>
+
+<ol>
+<li>Test Flight上で、ユーザーがインストールしたかどうかの確認ができる
+<img src="/images/2014/0905/25_activity.png" title="ステータスの確認" alt="status" /></li>
+</ol>
+
 </div>
 
 
@@ -119,12 +210,12 @@
   
 
 
-<time datetime="2014-08-05T19:04:52+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-09-05T13:02:28+09:00" pubdate data-updated="true">2014.09.05</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+    <a class='category' href='/blog/categories/ios/'>iOS</a>
   
 </span>
 
@@ -133,7 +224,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/customize-uitableview/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/customize-uitableview/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/invite-testflight2/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/invite-testflight2/" >Tweet</a>
   
   
   
@@ -142,10 +233,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/alfred-setting/" title="Previous Post: Alfredで自分の作成したファイル等を検索結果として表示させない方法">&laquo; Alfredで自分の作成したファイル等を検索結果として表示させない方法</a>
+        <a class="basic-alignment left" href="/blog/2014/invite-to-testflight/" title="Previous Post: TestFlight：1（ユーザーを招待する）">&laquo; TestFlight：1（ユーザーを招待する）</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/margin/" title="Next Post: marginの記法">marginの記法 &raquo;</a>
       
     </p>
   </footer>

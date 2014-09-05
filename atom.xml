@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-05T12:04:43+09:00</updated>
+  <updated>2014-09-05T14:08:39+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -14,7 +14,107 @@
 
   
   <entry>
-    <title type="html"><![CDATA[TestFlightにユーザーを招待する]]></title>
+    <title type="html"><![CDATA[TestFlight：2（プロビジョニングプロファイル〜アプリ配信）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/invite-testflight2/"/>
+    <updated>2014-09-05T13:02:28+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/invite-testflight2</id>
+    <content type="html"><![CDATA[<p>TestFlightにユーザーを招待する方法。<br/>
+身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
+配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。</p>
+
+<ul>
+<li>招待したユーザーの端末のUDIDを追加</li>
+<li>プロビジョニングプロファイルをアップロード</li>
+<li>ユーザーに配信</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h2>管理者：iOS Developerにデバイス登録</h2>
+
+<ol>
+<li>招待したユーザーがTest Flightにサインアップし端末を登録すると、管理者にメールが届く</li>
+<li>Apple Developer にログイン</li>
+<li>Certificates, Identifiers &amp; Profiles &ndash;> iOS Apps &ndash;> Devices</li>
+<li>右上の＋をクリック</li>
+<li>Register DeviceでName:（任意）とUDIDを登録</li>
+<li>Register Multiple Devicesでは、ファイルに書くことで一括登録が可能</li>
+</ol>
+
+
+<p><img src="http://mzgk.github.io/images/2014/0905/12_mail_added_a_device.png" title="メール受信" alt="add device" />
+<img src="http://mzgk.github.io/images/2014/0905/13_ios_developer_device_add.png" title="デバイス登録" alt="add device" />
+<img src="http://mzgk.github.io/images/2014/0905/14_register_device.png" title="デバイス登録" alt="add device" /></p>
+
+<h2>管理者：プロビジョニングプロファイルの作成</h2>
+
+<ol>
+<li>Apple Developer にログイン</li>
+<li>Certificates, Identifiers &amp; Profiles &ndash;> iOS Apps &ndash;> Provisioning Profiles</li>
+<li>対象のアプリで使用するプロビジョニングプロファイルを選択し、Edit</li>
+<li>端末を追加し、Generate &ndash;> Download</li>
+</ol>
+
+
+<p><img src="http://mzgk.github.io/images/2014/0905/15_edit_provisioning_profile.png" title="プロビジョニングプロファイル" alt="provisioning profile" />
+<img src="http://mzgk.github.io/images/2014/0905/16_provisioning_download.png" title="ダウンロード" alt="provisioning profile" /></p>
+
+<h2>管理者：Test Flightへアップロード</h2>
+
+<p>アプリの内容に変更がないのであれば、プロビジョニングプロファイルのアップロードのみで可。</p>
+
+<ol>
+<li>Test Flightへログイン</li>
+<li>Apps &ndash;> Manage Your Apps &ndash;> 対象のアプリをクリック</li>
+<li>Builds &ndash;> アプリをクリック</li>
+<li>Permission &ndash;> ダウンロードしたプロビジョニングプロファイルをアップロード</li>
+</ol>
+
+
+<p><img src="http://mzgk.github.io/images/2014/0905/17_testflight_apps.png" title="アプリ選択" alt="update" />
+<img src="http://mzgk.github.io/images/2014/0905/18_builds.png" title="アプリ選択" alt="update" />
+<img src="http://mzgk.github.io/images/2014/0905/19_permission.png" title="アップロード" alt="update" />
+<img src="http://mzgk.github.io/images/2014/0905/20_profile_upload.png" title="アップロード" alt="update" /></p>
+
+<h2>管理者：ユーザーにアプリ配信のメール</h2>
+
+<ol>
+<li>プロビジョニングプロファイルをアップロード</li>
+<li>招待したユーザーの名前がTeammates in The Provisioning Profileに表示される</li>
+<li>招待したユーザーにチェックをつけて、Update &amp; Notifyをクリックでメールが送信される</li>
+</ol>
+
+
+<p><img src="http://mzgk.github.io/images/2014/0905/21_uploaded.png" title="メール送信" alt="send mail" />
+<img src="http://mzgk.github.io/images/2014/0905/22_status.png" title="ステータス" alt="status" /></p>
+
+<h2>ユーザー：アプリのインストール</h2>
+
+<p>操作は <em>Safari</em> で行うこと。</p>
+
+<ol>
+<li>管理者からメールが届く</li>
+<li>届いたメールのINSTALLをクリック</li>
+<li>端末にプロビジョニングプロファイルがインストールされ、アプリもインストールされる
+<img src="http://mzgk.github.io/images/2014/0905/23_user_install_mail.png" title="インストールメール" alt="mail" />
+<img src="http://mzgk.github.io/images/2014/0905/24_profile.png" title="プロビジョニングプロファイル" alt="profile" /></li>
+</ol>
+
+
+<h2>管理者：確認</h2>
+
+<ol>
+<li>Test Flight上で、ユーザーがインストールしたかどうかの確認ができる
+<img src="http://mzgk.github.io/images/2014/0905/25_activity.png" title="ステータスの確認" alt="status" /></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[TestFlight：1（ユーザーを招待する）]]></title>
     <link href="http://mzgk.github.io/blog/2014/invite-to-testflight/"/>
     <updated>2014-09-05T10:54:38+09:00</updated>
     <id>http://mzgk.github.io/blog/2014/invite-to-testflight</id>
@@ -40,15 +140,15 @@
 
 <h2>招待を受けたユーザー</h2>
 
-<p>操作は <strong>テストに使う端末</strong> で行う。<br/>
-操作は <strong>Safari</strong> でやらないとエラーになる（chrome等はダメ）。<br/>
+<p>操作は <em>テストに使う端末</em> で行う。<br/>
+操作は <em>Safari</em> でやらないとエラーになる（chrome等はダメ）。<br/>
 gmail.appで受けてchromeが開いた場合は、アドレスをコピー &ndash;> safariで開いて操作<br/>
-safariも <strong>プライベートブラウジングはオフ</strong> にしておくこと</p>
+safariも <em>プライベートブラウジングはオフ</em> にしておくこと</p>
 
 <ol>
 <li>ユーザーにメールが届く</li>
 <li>メールのAcceptをタップ</li>
-<li>ユーザーの情報を入力し、Sign UP</li>
+<li>ユーザーの情報を入力し、Sign Up</li>
 <li>デバイスの登録を行う</li>
 <li>プロファイルのインストールを促されるのでインストール</li>
 <li>管理者からアプリインストールのメールがくるのを待つ</li>
@@ -1383,57 +1483,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <li>UITableViewRowAnimationNone</li>
 <li>UITableViewRowAnimationMiddle</li>
 </ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UIImageView内に表示する画像の表示モード]]></title>
-    <link href="http://mzgk.github.io/blog/2014/uiimageview-contentmode/"/>
-    <updated>2014-08-14T20:09:19+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/uiimageview-contentmode</id>
-    <content type="html"><![CDATA[<p>UIImageView内に表示する画像の表示モードを指定する方法。</p>
-
-<h2>指定方法</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">_imageView</span><span class="p">.</span><span class="n">contentMode</span> <span class="o">=</span> <span class="n">UIViewContentModeCenter</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>モード</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">typedef</span> <span class="nf">NS_ENUM</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">,</span> <span class="n">UIViewContentMode</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="n">UIViewContentModeScaleToFill</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeScaleAspectFit</span><span class="p">,</span>      <span class="c1">// contents scaled to fit with fixed aspect. remainder is transparent</span>
-</span><span class='line'>    <span class="n">UIViewContentModeScaleAspectFill</span><span class="p">,</span>     <span class="c1">// contents scaled to fill with fixed aspect. some portion of content may be clipped.</span>
-</span><span class='line'>    <span class="n">UIViewContentModeRedraw</span><span class="p">,</span>              <span class="c1">// redraw on bounds change (calls -setNeedsDisplay)</span>
-</span><span class='line'>    <span class="n">UIViewContentModeCenter</span><span class="p">,</span>              <span class="c1">// contents remain same size. positioned adjusted.</span>
-</span><span class='line'>    <span class="n">UIViewContentModeTop</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeBottom</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeLeft</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeRight</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeTopLeft</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeTopRight</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeBottomLeft</span><span class="p">,</span>
-</span><span class='line'>    <span class="n">UIViewContentModeBottomRight</span><span class="p">,</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
