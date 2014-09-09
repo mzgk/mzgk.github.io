@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-09T15:57:42+09:00</updated>
+  <updated>2014-09-09T17:28:04+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[指定時間後に処理を行う]]></title>
+    <link href="http://mzgk.github.io/blog/2014/run-at-a-specified-time-after/"/>
+    <updated>2014-09-09T17:21:18+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/run-at-a-specified-time-after</id>
+    <content type="html"><![CDATA[<p>NSTimerを使用して、指定時間後に処理を実行させる方法。<br/>
+サンプルは、ボタンをタップしたら１秒後に処理を実行するサンプル。</p>
+
+<figure class='code'><figcaption><span>ViewController.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">adjustButton:</span><span class="p">(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// タイマー処理に引継ぐデータを格納</span>
+</span><span class='line'>    <span class="n">NSDictionary</span> <span class="o">*</span><span class="n">userInfo</span> <span class="o">=</span> <span class="err">@</span><span class="p">{</span><span class="s">@&quot;duration&quot;</span><span class="o">:</span><span class="n">_durationField</span><span class="p">.</span><span class="n">text</span><span class="p">,</span>
+</span><span class='line'>                               <span class="s">@&quot;delay&quot;</span><span class="o">:</span><span class="n">_delayField</span><span class="p">.</span><span class="n">text</span><span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// タイマー設定</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">NSTimer</span> <span class="nl">scheduledTimerWithTimeInterval:</span><span class="mf">1.0</span>                     <span class="c1">// 1秒後</span>
+</span><span class='line'>                                     <span class="nl">target:</span><span class="n">self</span>                    <span class="c1">// 呼び出すメソッドのインスタンス</span>
+</span><span class='line'>                                   <span class="nl">selector:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">doTimer:</span><span class="p">)</span>     <span class="c1">// 呼び出すメソッド</span>
+</span><span class='line'>                                   <span class="nl">userInfo:</span><span class="n">userInfo</span>                <span class="c1">// 引き渡すデータ</span>
+</span><span class='line'>                                    <span class="nl">repeats:</span><span class="n">NO</span><span class="p">];</span>                    <span class="c1">// 繰り返し</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">/// タイマー処理（この形式であること）</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">doTimer:</span><span class="p">(</span><span class="n">NSTimer</span> <span class="o">*</span><span class="p">)</span><span class="nv">timer</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// データの取り出し</span>
+</span><span class='line'>    <span class="kt">float</span> <span class="n">duration</span> <span class="o">=</span> <span class="p">[(</span><span class="n">timer</span><span class="p">.</span><span class="n">userInfo</span><span class="p">)[</span><span class="s">@&quot;duration&quot;</span><span class="p">]</span><span class="n">floatValue</span><span class="p">];</span>
+</span><span class='line'>    <span class="kt">float</span> <span class="n">delay</span> <span class="o">=</span> <span class="p">[(</span><span class="n">timer</span><span class="p">.</span><span class="n">userInfo</span><span class="p">)[</span><span class="s">@&quot;delay&quot;</span><span class="p">]</span><span class="n">floatValue</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// やりたい処理</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">goalAnimationWithDuration:</span><span class="n">duration</span> <span class="nl">andDelay:</span><span class="n">delay</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Viewのプロパティ値を変化させてアニメーションをつくる]]></title>
@@ -1357,105 +1416,6 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 </span><span class='line'>    <span class="p">}</span>
 </span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CoreDataのマイグレーション（その１）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/coredata-migration/"/>
-    <updated>2014-08-22T13:35:20+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/coredata-migration</id>
-    <content type="html"><![CDATA[<p>CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。<br/>
-もちろん、今のデータを保持したままマイグレーションさせるのが前提。</p>
-
-<ul>
-<li>MagicalRecord使用済み</li>
-<li>アプリリリース後にエンティティに属性を追加する</li>
-<li>当然、今保存されているデータは引継がれることが前提</li>
-</ul>
-
-
-<h2>MagicalRecord</h2>
-
-<p>セットアップ部分。<br/>
-AppDelegate.m</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'>    <span class="c1">// .xcdatamodelがプロジェクト名と違うし、自動マイグレーションしてほしい（最初から設定済み）</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">MagicalRecord</span> <span class="nl">setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</span><span class="s">@&quot;Model.sqlite&quot;</span><span class="p">];</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>どのセットアップメソッドを使用するか</h3>
-
-<p>ここを参考：<a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></p>
-
-<p>CoreDataを作成した際の <code>{任意の名前}.xcdatamodel</code> が、プロジェクト名と同じであれば</p>
-
-<ul>
-<li>setupCoreDataStack</li>
-<li>setupCoreDataStackWithInMemoryStore</li>
-<li>setupAutoMigratingCoreDataStack</li>
-</ul>
-
-
-<p>違うならば</p>
-
-<ul>
-<li>setupCoreDataStackWithStoreNamed:</li>
-<li>setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</li>
-</ul>
-
-
-<p><code>AutoMigrating</code> がついている方は、属性追加などをした際に可能であれば自動でマイグレーションしてくれる。</p>
-
-<h2>Xcode</h2>
-
-<h3>Modelのバージョンを追加</h3>
-
-<p><code>{任意の名前}.xcdatamodel</code> を選択し、Editor &ndash;> Add Model Version&hellip;<br/>
-<img src="http://mzgk.github.io/images/2014/0822/addmodelversion.png" alt="Model Version" /></p>
-
-<p><img src="images/2014/0822/addModel2.png" alt="Model2" /></p>
-
-<h3>新しく追加したModelに属性を追加</h3>
-
-<p>新しく追加した方のモデル（Model2）に属性を追加する。</p>
-
-<h3>Current Versionの変更</h3>
-
-<ul>
-<li>Model.xcdatamodeledを選択する</li>
-<li>File inspectorを選択し、<code>Model Version -&gt; Current</code> で、追加した方（Model2）を選択する</li>
-<li>Model2.xcdatamodeledにチェックマークがつく</li>
-</ul>
-
-
-<p><img src="http://mzgk.github.io/images/2014/0822/changeCurrent.png" alt="changeVersion" /></p>
-
-<h2>属性名の変更など</h2>
-
-<p>属性名の変更などについては、Lightweightマイグレーションという手法を使用するらしい（未検証）  。<br/>
-また、マッピングモデルを使ったマイグレーションも存在するらしい（未検証）。</p>
-
-<h2>参考</h2>
-
-<ul>
-<li><a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></li>
-<li>iOS Core Data 徹底入門（10章）</li>
-</ul>
 
 ]]></content>
   </entry>

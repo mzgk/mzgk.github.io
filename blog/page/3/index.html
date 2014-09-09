@@ -9,18 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UITextViewなどでキーボードを閉じたい時に、キーボードの上部に閉じるボタンを追加して閉じる方法。
-inputAccessoryViewといって、キーボード上部にボタンなどを配置できる。
-キーボードの表示／非表示に合わせて、表示／非表示される。 生成 1
-2
-3
-4
-5
-6
-7
-8
-9
-10 &hellip;">
+  <meta name="description" content="CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。
+もちろん、今のデータを保持したままマイグレーションさせるのが前提。 MagicalRecord使用済み
+アプリリリース後にエンティティに属性を追加する
+当然、今保存されているデータは引継がれることが前提 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +71,132 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/coredata-migration/">CoreDataのマイグレーション（その１）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T13:35:20+09:00" pubdate data-updated="true">2014.08.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>CoreDataを使ったアプリで、リリース後にエンティティに属性を追加したい場合の対応方法。<br/>
+もちろん、今のデータを保持したままマイグレーションさせるのが前提。</p>
+
+<ul>
+<li>MagicalRecord使用済み</li>
+<li>アプリリリース後にエンティティに属性を追加する</li>
+<li>当然、今保存されているデータは引継がれることが前提</li>
+</ul>
+
+
+<h2>MagicalRecord</h2>
+
+<p>セットアップ部分。<br/>
+AppDelegate.m</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'>    <span class="c1">// .xcdatamodelがプロジェクト名と違うし、自動マイグレーションしてほしい（最初から設定済み）</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">MagicalRecord</span> <span class="nl">setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</span><span class="s">@&quot;Model.sqlite&quot;</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>どのセットアップメソッドを使用するか</h3>
+
+<p>ここを参考：<a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></p>
+
+<p>CoreDataを作成した際の <code>{任意の名前}.xcdatamodel</code> が、プロジェクト名と同じであれば</p>
+
+<ul>
+<li>setupCoreDataStack</li>
+<li>setupCoreDataStackWithInMemoryStore</li>
+<li>setupAutoMigratingCoreDataStack</li>
+</ul>
+
+
+<p>違うならば</p>
+
+<ul>
+<li>setupCoreDataStackWithStoreNamed:</li>
+<li>setupCoreDataStackWithAutoMigratingSqliteStoreNamed:</li>
+</ul>
+
+
+<p><code>AutoMigrating</code> がついている方は、属性追加などをした際に可能であれば自動でマイグレーションしてくれる。</p>
+
+<h2>Xcode</h2>
+
+<h3>Modelのバージョンを追加</h3>
+
+<p><code>{任意の名前}.xcdatamodel</code> を選択し、Editor &ndash;> Add Model Version&hellip;<br/>
+<img src="/images/2014/0822/addmodelversion.png" alt="Model Version" /></p>
+
+<p><img src="images/2014/0822/addModel2.png" alt="Model2" /></p>
+
+<h3>新しく追加したModelに属性を追加</h3>
+
+<p>新しく追加した方のモデル（Model2）に属性を追加する。</p>
+
+<h3>Current Versionの変更</h3>
+
+<ul>
+<li>Model.xcdatamodeledを選択する</li>
+<li>File inspectorを選択し、<code>Model Version -&gt; Current</code> で、追加した方（Model2）を選択する</li>
+<li>Model2.xcdatamodeledにチェックマークがつく</li>
+</ul>
+
+
+<p><img src="/images/2014/0822/changeCurrent.png" alt="changeVersion" /></p>
+
+<h2>属性名の変更など</h2>
+
+<p>属性名の変更などについては、Lightweightマイグレーションという手法を使用するらしい（未検証）  。<br/>
+また、マッピングモデルを使ったマイグレーションも存在するらしい（未検証）。</p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios">http://www.raywenderlich.com/56879/magicalrecord-tutorial-ios</a></li>
+<li>iOS Core Data 徹底入門（10章）</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -728,60 +846,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/launch-image/">アプリの起動イメージを指定時間表示する方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-11T16:59:06+09:00" pubdate data-updated="true">2014.08.11</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>アプリの起動イメージを表示する時間を制御する方法。<br/>
-<code>AppDelegate.m</code> のアプリ起動時処理部分に、スレッドをスリープさせるコードを追記する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">UIApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">application</span> <span class="nf">didFinishLaunchingWithOptions:</span><span class="p">(</span><span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="nv">launchOptions</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'>    <span class="p">...</span>
-</span><span class='line'>    <span class="c1">// 2秒間停止する</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">NSThread</span> <span class="nl">sleepForTimeInterval:</span><span class="mf">2.0</span><span class="p">];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -801,6 +865,10 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/run-at-a-specified-time-after/">指定時間後に処理を行う</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/view-animation/">Viewのプロパティ値を変化させてアニメーションをつくる</a>
@@ -838,15 +906,11 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
         <a href="/blog/2014/breakpoint-automessage/">NSLog()を記述せずに、ブレークポイントでログを出力する方法</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/nslog-macro/">NSLog()のリリース時停止漏れを防ぐマクロ</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (4)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (49)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (4)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (50)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

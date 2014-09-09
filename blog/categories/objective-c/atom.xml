@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-09T15:57:42+09:00</updated>
+  <updated>2014-09-09T17:28:04+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[指定時間後に処理を行う]]></title>
+    <link href="http://mzgk.github.io/blog/2014/run-at-a-specified-time-after/"/>
+    <updated>2014-09-09T17:21:18+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/run-at-a-specified-time-after</id>
+    <content type="html"><![CDATA[<p>NSTimerを使用して、指定時間後に処理を実行させる方法。<br/>
+サンプルは、ボタンをタップしたら１秒後に処理を実行するサンプル。</p>
+
+<p>```objective-c ViewController.m
+&ndash; (IBAction)adjustButton:(UIButton *)sender {</p>
+
+<pre><code>// タイマー処理に引継ぐデータを格納
+NSDictionary *userInfo = @{@"duration":_durationField.text,
+                           @"delay":_delayField.text};
+
+// タイマー設定
+[NSTimer scheduledTimerWithTimeInterval:1.0                     // 1秒後
+                                 target:self                    // 呼び出すメソッドのインスタンス
+                               selector:@selector(doTimer:)     // 呼び出すメソッド
+                               userInfo:userInfo                // 引き渡すデータ
+                                repeats:NO];                    // 繰り返し
+</code></pre>
+
+<p>}</p>
+
+<p>/// タイマー処理（この形式であること）
+&ndash; (void)doTimer:(NSTimer *)timer
+{</p>
+
+<pre><code>// データの取り出し
+float duration = [(timer.userInfo)[@"duration"]floatValue];
+float delay = [(timer.userInfo)[@"delay"]floatValue];
+
+// やりたい処理
+[self goalAnimationWithDuration:duration andDelay:delay];
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Viewのプロパティ値を変化させてアニメーションをつくる]]></title>
@@ -224,54 +266,6 @@ Xcodeのブレークポイントの設定だけで、停止せずにログを出
 
 
 <p><img src="/images/2014/0829/breakpoint.png" alt="設定方法" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[NSLog()のリリース時停止漏れを防ぐマクロ]]></title>
-    <link href="http://mzgk.github.io/blog/2014/nslog-macro/"/>
-    <updated>2014-08-29T15:03:40+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/nslog-macro</id>
-    <content type="html"><![CDATA[<p>リリース時にNSLog()が仕込まれたままの状態を防ぐ。<br/>
-デバッグ時のみ、ログ出力（関数名・行番号をつけて）を行う。</p>
-
-<!-- more -->
-
-
-<h2>アプリ名-prefix.pch</h2>
-
-<p>アプリ名-prefix.pchに以下を記載する。</p>
-
-<p>```objective-c アプリ名-prefix.pch</p>
-
-<h1>ifdef DEBUG</h1>
-
-<h1>define dLog(fmt, &hellip;) NSLog((@&ldquo;%s [Line %d] &rdquo; fmt), <strong>PRETTY_FUNCTION</strong>, <strong>LINE</strong>, ##<strong>VA_ARGS</strong>);</h1>
-
-<h1>else</h1>
-
-<h1>define dLog(&hellip;)</h1>
-
-<h1>endif</h1>
-
-<p>// ALog always displays output regardless of the DEBUG alarm</p>
-
-<h1>define aLog(fmt, &hellip;) NSLog((@&ldquo;%s [Line %d] &rdquo; fmt), <strong>PRETTY_FUNCTION</strong>, <strong>LINE</strong>, ##<strong>VA_ARGS</strong>);</h1>
-
-<p>```</p>
-
-<h2>使用方法</h2>
-
-<ul>
-<li>dLog(@“TEST!”);　→　デバッグ時のみNSLogで出力（[関数名] [Line 25] TEST!）</li>
-<li>dLog();　→　これも可（[関数名] [Line 25]）</li>
-<li>aLog();　→　デバッグ・リリースに関係なく出力される。</li>
-</ul>
-
-
-<h2>参考</h2>
-
-<p><a href="http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473">http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473</a></p>
 ]]></content>
   </entry>
   
