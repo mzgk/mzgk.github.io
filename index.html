@@ -9,7 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="TestFlightで配布できるように、アプリをAdHoc版でビルドする方法。 ">
+  <meta name="description" content="UIViewクラスの animateWithDuration:delay:options:animations:completion メソッドを使うと、ビューのプロパティを変化させてアニメーションを作成することができる。
+このサンプルでは、ビューが下に50移動する動きを繰り返すアニメーション。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +69,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/view-animation/">Viewのプロパティ値を変化させるアニメーション</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-09T15:29:12+09:00" pubdate data-updated="true">2014.09.09</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UIViewクラスの <code>animateWithDuration:delay:options:animations:completion</code> メソッドを使うと、ビューのプロパティを変化させてアニメーションを作成することができる。<br/>
+このサンプルでは、ビューが下に50移動する動きを繰り返すアニメーション。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/view-animation/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -511,55 +554,6 @@ Xcodeのブレークポイントの設定だけで、停止せずにログを出
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/property-place/">プロパティやインスタンス変数を宣言する場所</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-29T14:56:41+09:00" pubdate data-updated="true">2014.08.29</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>記述方法は３つある。<br/>
-見やすさから言えばヘッダーファイルにあるといいが、ドキュメントを読むと2. 3. が推奨されているっぽい。</p>
-
-<ol>
-<li>ヘッダーファイル</li>
-<li>実装ファイル：クラスエクステンション内</li>
-<li>実装ファイル：@implementation</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/property-place/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -577,6 +571,10 @@ Xcodeのブレークポイントの設定だけで、停止せずにログを出
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/view-animation/">Viewのプロパティ値を変化させるアニメーション</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/adhoc-build/">AdHocビルド版のビルドを行う</a>
@@ -614,15 +612,11 @@ Xcodeのブレークポイントの設定だけで、停止せずにログを出
         <a href="/blog/2014/nslog-macro/">NSLog()のリリース時停止漏れを防ぐマクロ</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/property-place/">プロパティやインスタンス変数を宣言する場所</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (4)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (48)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (4)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (49)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

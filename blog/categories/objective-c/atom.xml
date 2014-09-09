@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-09T09:36:15+09:00</updated>
+  <updated>2014-09-09T15:52:55+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Viewのプロパティ値を変化させるアニメーション]]></title>
+    <link href="http://mzgk.github.io/blog/2014/view-animation/"/>
+    <updated>2014-09-09T15:29:12+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/view-animation</id>
+    <content type="html"><![CDATA[<p>UIViewクラスの <code>animateWithDuration:delay:options:animations:completion</code> メソッドを使うと、ビューのプロパティを変化させてアニメーションを作成することができる。<br/>
+このサンプルでは、ビューが下に50移動する動きを繰り返すアニメーション。</p>
+
+<!-- more -->
+
+
+<p>```objective-c ViewController.m
+&ndash; (void)viewDidAppear:(BOOL)animated
+{</p>
+
+<pre><code>// 座標がとれるのはviewDidAppearのとき
+CGFloat centerX = _baseView.center.x;
+CGFloat centerY = _baseView.center.y;
+
+UIViewAnimationOptions animeOptions =
+UIViewAnimationOptionCurveEaseInOut |   // 加速して開始・減速して終了（イーズインアウト）
+UIViewAnimationOptionAutoreverse |      // 自動逆再生
+UIViewAnimationOptionRepeat;            // 繰り返し
+
+[UIView animateWithDuration:1.0     // アニメの秒数
+                      delay:2.0     // 開始待ち時間
+                    options:animeOptions
+                 animations:^{      // 変化させるプロパティ
+                     _baseView.center = CGPointMake(centerX, centerY+50);
+                 }
+                 completion:nil     // アニメーション完了時に行う処理
+                 ];
+</code></pre>
+
+<p>}
+```</p>
+
+<h3>変化させることができるプロパティ</h3>
+
+<ul>
+<li>frame</li>
+<li>bounds</li>
+<li>center</li>
+<li>transform</li>
+<li>backgroundColor</li>
+<li>contentStretch</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UITextFieldでキーボード閉じる方法３つ]]></title>
@@ -219,77 +270,6 @@ Xcodeのブレークポイントの設定だけで、停止せずにログを出
 <h2>参考</h2>
 
 <p><a href="http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473">http://d.hatena.ne.jp/k2_k_hei/20120511/1336750473</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[プロパティやインスタンス変数を宣言する場所]]></title>
-    <link href="http://mzgk.github.io/blog/2014/property-place/"/>
-    <updated>2014-08-29T14:56:41+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/property-place</id>
-    <content type="html"><![CDATA[<p>記述方法は３つある。<br/>
-見やすさから言えばヘッダーファイルにあるといいが、ドキュメントを読むと2. 3. が推奨されているっぽい。</p>
-
-<ol>
-<li>ヘッダーファイル</li>
-<li>実装ファイル：クラスエクステンション内</li>
-<li>実装ファイル：@implementation</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>1. ヘッダーファイル</h2>
-
-<p>ヘッダー内に記述する。とくにグローバルでなければ非推奨。</p>
-
-<p><code>objective-c sampleClass.h
-@interface SampleClass : NSObject
-{
-@property (nonatomic) NSString *name;
-}
-</code></p>
-
-<h2>2. 実装ファイル：クラスエクステンション内</h2>
-
-<p>実装ファイルにクラスエクステンションを作成し、そこに記述。</p>
-
-<p>```objective-c sampleClass.m
-@interface SampleClass ()
-// クラスエクステンション内に記述する
-@property (nonatomic) NSString *name;
-@end</p>
-
-<p>@implementation SampleClass
-+ (id)init
-{</p>
-
-<pre><code>メソッドの実装
-</code></pre>
-
-<p>}
-@end
-```</p>
-
-<h2>3. 実装ファイル：@implementation</h2>
-
-<p>@implementation内に{}を記述し、その中に書く。</p>
-
-<p>```objective-c sampleClass.m
-@implementation SampleClass
-{
-// {}を記述し、その中に記述する
-@property (nonatomic) NSString *name;
-}</p>
-
-<p>// メソッドの実装
-+ (id)init
-{
-&hellip;
-}
-@end
-```</p>
 ]]></content>
   </entry>
   
