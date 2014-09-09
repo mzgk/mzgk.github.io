@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-09T17:28:04+09:00</updated>
+  <updated>2014-09-09T17:29:19+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -20,6 +20,11 @@
     <id>http://mzgk.github.io/blog/2014/run-at-a-specified-time-after</id>
     <content type="html"><![CDATA[<p>NSTimerを使用して、指定時間後に処理を実行させる方法。<br/>
 サンプルは、ボタンをタップしたら１秒後に処理を実行するサンプル。</p>
+
+<!-- more -->
+
+
+
 
 <figure class='code'><figcaption><span>ViewController.m</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
