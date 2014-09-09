@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-09T15:52:55+09:00</updated>
+  <updated>2014-09-09T15:57:42+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Viewのプロパティ値を変化させるアニメーション]]></title>
+    <title type="html"><![CDATA[Viewのプロパティ値を変化させてアニメーションをつくる]]></title>
     <link href="http://mzgk.github.io/blog/2014/view-animation/"/>
     <updated>2014-09-09T15:29:12+09:00</updated>
     <id>http://mzgk.github.io/blog/2014/view-animation</id>
@@ -32,11 +32,13 @@
 CGFloat centerX = _baseView.center.x;
 CGFloat centerY = _baseView.center.y;
 
+// アニメーションのオプション
 UIViewAnimationOptions animeOptions =
 UIViewAnimationOptionCurveEaseInOut |   // 加速して開始・減速して終了（イーズインアウト）
 UIViewAnimationOptionAutoreverse |      // 自動逆再生
 UIViewAnimationOptionRepeat;            // 繰り返し
 
+// 処理
 [UIView animateWithDuration:1.0     // アニメの秒数
                       delay:2.0     // 開始待ち時間
                     options:animeOptions

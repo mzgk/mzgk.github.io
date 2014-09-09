@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-09T15:52:55+09:00</updated>
+  <updated>2014-09-09T15:57:42+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Viewのプロパティ値を変化させるアニメーション]]></title>
+    <title type="html"><![CDATA[Viewのプロパティ値を変化させてアニメーションをつくる]]></title>
     <link href="http://mzgk.github.io/blog/2014/view-animation/"/>
     <updated>2014-09-09T15:29:12+09:00</updated>
     <id>http://mzgk.github.io/blog/2014/view-animation</id>
@@ -46,17 +46,21 @@
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidAppear:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">animated</span>
 </span><span class='line'><span class="p">{</span>
 </span><span class='line'>    <span class="c1">// 座標がとれるのはviewDidAppearのとき</span>
 </span><span class='line'>    <span class="n">CGFloat</span> <span class="n">centerX</span> <span class="o">=</span> <span class="n">_baseView</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
 </span><span class='line'>    <span class="n">CGFloat</span> <span class="n">centerY</span> <span class="o">=</span> <span class="n">_baseView</span><span class="p">.</span><span class="n">center</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
 </span><span class='line'>
+</span><span class='line'>    <span class="c1">// アニメーションのオプション</span>
 </span><span class='line'>    <span class="n">UIViewAnimationOptions</span> <span class="n">animeOptions</span> <span class="o">=</span>
 </span><span class='line'>    <span class="n">UIViewAnimationOptionCurveEaseInOut</span> <span class="o">|</span>   <span class="c1">// 加速して開始・減速して終了（イーズインアウト）</span>
 </span><span class='line'>    <span class="n">UIViewAnimationOptionAutoreverse</span> <span class="o">|</span>      <span class="c1">// 自動逆再生</span>
 </span><span class='line'>    <span class="n">UIViewAnimationOptionRepeat</span><span class="p">;</span>            <span class="c1">// 繰り返し</span>
 </span><span class='line'>
+</span><span class='line'>    <span class="c1">// 処理</span>
 </span><span class='line'>    <span class="p">[</span><span class="n">UIView</span> <span class="nl">animateWithDuration:</span><span class="mf">1.0</span>     <span class="c1">// アニメの秒数</span>
 </span><span class='line'>                          <span class="nl">delay:</span><span class="mf">2.0</span>     <span class="c1">// 開始待ち時間</span>
 </span><span class='line'>                        <span class="nl">options:</span><span class="n">animeOptions</span>
