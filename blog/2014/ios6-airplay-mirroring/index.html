@@ -5,17 +5,17 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ファイルパス（NSString）をNSURLに変換する方法（日本語OK） - jubilee</title>
+  <title>iOS6でAirPlay（ミラーリング） - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。 1
-2
-3
-4
-NSString* string = @&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;;
-NSURL* url = [NSURL fileURLWithPath &hellip;">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="iOS6でAirPlayのミラーリング機能を使用する。
+iOS7とは起動場所が違うので注意。 ミラーリング iOS6デバイスとAppleTVを同一WiFiに接続する
+接続が完了したら、iOS6デバイスで以下の操作 ホームボタンx2
+右スワイプx2
+AirPlayマークをタップ
+AppleTVを選択 &hellip;">
+  <meta name="keywords" content="iOS, AirPlay">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -23,7 +23,7 @@ NSURL* url = [NSURL fileURLWithPath &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/filepath-nsurl">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/ios6-airplay-mirroring">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -76,7 +76,7 @@ NSURL* url = [NSURL fileURLWithPath &hellip;">
   
   <header>
     
-      <h1 class="entry-title">ファイルパス（NSString）をNSURLに変換する方法（日本語OK）</h1>
+      <h1 class="entry-title">iOS6でAirPlay（ミラーリング）</h1>
     
     
       <p class="meta">
@@ -92,25 +92,40 @@ NSURL* url = [NSURL fileURLWithPath &hellip;">
   
 
 
-<time datetime="2014-08-05T15:07:00+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-09-30T17:22:09+09:00" pubdate data-updated="true">2014.09.30</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>日本語のディレクトリ名が入るとおかしくなるが、この方法だとOK。</p>
+<div class="entry-content"><p>iOS6でAirPlayのミラーリング機能を使用する。<br/>
+iOS7とは起動場所が違うので注意。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span><span class="o">*</span> <span class="n">string</span> <span class="o">=</span> <span class="s">@&quot;/Users/abt/Documents/日本語のフォルダ名/file.txt&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">url</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">fileURLWithPath:</span><span class="n">string</span><span class="p">];</span>
-</span><span class='line'><span class="c1">// NGケース（nilが返る）</span>
-</span><span class='line'><span class="n">NSURL</span><span class="o">*</span> <span class="n">nilUrl</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSURL</span> <span class="nl">URLWithString:</span><span class="n">string</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
 
+
+<h2>ミラーリング</h2>
+
+<ul>
+<li>iOS6デバイスとAppleTVを同一WiFiに接続する</li>
+<li>接続が完了したら、iOS6デバイスで以下の操作
+
+<ul>
+<li>ホームボタンx2</li>
+<li>右スワイプx2</li>
+<li>AirPlayマークをタップ</li>
+<li>AppleTVを選択</li>
+<li>ミラーリングをON</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>ポケットWiFi</h2>
+
+<p>URoadの契約が切れたモバイルWiFiを使用する場合、WiFiの接続は「設定 &ndash;> Wi-Fi &ndash;> ネットワークを選択 &ndash;> URoad〜 &ndash;> 自動ログインをオフ」。<br/>
+最後の「自動ログインをオフ」がキモ。</p>
 </div>
 
 
@@ -133,12 +148,12 @@ NSURL* url = [NSURL fileURLWithPath &hellip;">
   
 
 
-<time datetime="2014-08-05T15:07:00+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-09-30T17:22:09+09:00" pubdate data-updated="true">2014.09.30</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+    <a class='category' href='/blog/categories/ios/'>iOS</a>
   
 </span>
 
@@ -147,7 +162,7 @@ NSURL* url = [NSURL fileURLWithPath &hellip;">
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/filepath-nsurl/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/filepath-nsurl/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/ios6-airplay-mirroring/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/ios6-airplay-mirroring/" >Tweet</a>
   
   
   
@@ -156,10 +171,8 @@ NSURL* url = [NSURL fileURLWithPath &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/uirefreshcontrol/" title="Previous Post: 引っ張って更新を使う（UITableViewController / UITableView）">&laquo; 引っ張って更新を使う（UITableViewController / UITableView）</a>
+        <a class="basic-alignment left" href="/blog/2014/run-at-a-specified-time-after/" title="Previous Post: 指定時間後に処理を行う">&laquo; 指定時間後に処理を行う</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/chage-view-overlap/" title="Next Post: ビューの重なり順を変更する">ビューの重なり順を変更する &raquo;</a>
       
     </p>
   </footer>

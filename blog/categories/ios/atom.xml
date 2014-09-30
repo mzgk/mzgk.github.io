@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-09T17:29:19+09:00</updated>
+  <updated>2014-09-30T18:15:05+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,41 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[iOS6でAirPlay（ミラーリング）]]></title>
+    <link href="http://mzgk.github.io/blog/2014/ios6-airplay-mirroring/"/>
+    <updated>2014-09-30T17:22:09+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/ios6-airplay-mirroring</id>
+    <content type="html"><![CDATA[<p>iOS6でAirPlayのミラーリング機能を使用する。<br/>
+iOS7とは起動場所が違うので注意。</p>
+
+<!-- more -->
+
+
+<h2>ミラーリング</h2>
+
+<ul>
+<li>iOS6デバイスとAppleTVを同一WiFiに接続する</li>
+<li>接続が完了したら、iOS6デバイスで以下の操作
+
+<ul>
+<li>ホームボタンx2</li>
+<li>右スワイプx2</li>
+<li>AirPlayマークをタップ</li>
+<li>AppleTVを選択</li>
+<li>ミラーリングをON</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>ポケットWiFi</h2>
+
+<p>URoadの契約が切れたモバイルWiFiを使用する場合、WiFiの接続は「設定 &ndash;> Wi-Fi &ndash;> ネットワークを選択 &ndash;> URoad〜 &ndash;> 自動ログインをオフ」。<br/>
+最後の「自動ログインをオフ」がキモ。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[AdHocビルド版のビルドを行う]]></title>
