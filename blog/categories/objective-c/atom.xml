@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-10-02T13:27:30+09:00</updated>
+  <updated>2014-10-02T13:58:58+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[NSUserDefaultsの中身を確認する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/see-nsuserdefaults-data/"/>
+    <updated>2014-10-02T13:52:39+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/see-nsuserdefaults-data</id>
+    <content type="html"><![CDATA[<p>アプリ内で処理したNSUserDefaultsの中身を確認する方法。</p>
+
+<!-- more -->
+
+
+<ol>
+<li>デバイスをXcodeに接続する</li>
+<li>メニューバー &ndash;> Window &ndash;> OrganizerからOrganizerを起動</li>
+<li>左ペインのDEVICESで接続しているデバイスを選択し、Applicationsをクリック</li>
+<li>右ペインに表示されたアプリから対象のアプリを選択</li>
+<li>下ペインの Download をクリック &ndash;> 適当な場所に保存（"Bundle Identifier 日付時刻".xcappdata）</li>
+<li>ダウンロードしたファイルを右クリック &ndash;> パッケージの内容を表示</li>
+<li>AppData/Library/Preferences/&ldquo;Bundle Identifier&rdquo;.plist をダブルクリック</li>
+<li>Xcodeが起動し、中身（Key , Type , Value）が確認できる</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIButtonのタイトル位置を調整する方法]]></title>
@@ -243,39 +267,6 @@ if ([_textField isFirstResponder]) {
 
 <p>}
 ```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[文字列の大小比較]]></title>
-    <link href="http://mzgk.github.io/blog/2014/string-compare/"/>
-    <updated>2014-09-01T19:14:57+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/string-compare</id>
-    <content type="html"><![CDATA[<p>文字列を大小比較する場合は、以下を使用する。</p>
-
-<p>```objective-c 文字列の大小比較
-NSComparisonResult result = [比較元 compare:比較相手];
-if (result == NSOrderedAscending) {</p>
-
-<pre><code>結果：元　＜　相手：-1
-</code></pre>
-
-<p>}
-else if (result == NSOrderedSame) {</p>
-
-<pre><code>結果：元　＝　相手：0
-</code></pre>
-
-<p>}
-else if (result == NSOrderedDescending) {</p>
-
-<pre><code>結果：元　＞　相手：1
-</code></pre>
-
-<p>}
-```</p>
-
-<p>単純に等しいかどうかの判断であれば <code>isEqualToString:</code> を使用。</p>
 ]]></content>
   </entry>
   

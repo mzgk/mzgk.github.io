@@ -9,14 +9,7 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UIScrollViewを設定したのに、スクロールしない時は以下を確認する。 contentSize UIScrollViewのconntentSizeをUIScrollViewの大きさよりも、大きくしているか？
-conntentSizeをセットするタイミング 1
-2
-3
-4
-5
-6
-// &hellip;">
+  <meta name="description" content="NavigationBarなどが存在し、UIScrollViewの上にviewを配置した画面の場合に、ビルドして確認するとviewが下にズレて表示されることがある。 ViewController &ndash; Attribute inspector このときは、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +68,56 @@ conntentSizeをセットするタイミング 1
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/uiscrollview-checkpoint-2/">UIScrollViewに配置したViewが下にズレる時の対応</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-12T16:44:48+09:00" pubdate data-updated="true">2014.08.12</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>NavigationBarなどが存在し、UIScrollViewの上にviewを配置した画面の場合に、ビルドして確認するとviewが下にズレて表示されることがある。</p>
+
+<h2>ViewController &ndash; Attribute inspector</h2>
+
+<p>このときは、ViewControllerのAttribute inspector &ndash; Adjubst Scroll View Insets　のチェックを外す。<br/>
+<code>automaticallyAdjustsScrollViewInsets = NO</code></p>
+
+<p><img src="/images/2014/0812/attribute-inspector.png" alt="inspector" /></p>
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://www.slideshare.net/YoshinoriImajo/ios7-30039408">http://www.slideshare.net/YoshinoriImajo/ios7-30039408</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -809,80 +852,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/remove-file-from-github/">git / GitHubからいらないファイルを削除する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T19:22:41+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>GitHubに誤ってプッシュした、またはいらなくなったファイルを削除する方法。<br/>
-ワーキングエリア（作業ディレクトリ）からも削除する方法と、残す方法。</p>
-
-<h2>削除方法</h2>
-
-<p>ローカルで対象のファイルを削除し（ステージングエリアから）、コミット後にプッシュ。</p>
-
-<h3>1. ローカルファイルを削除</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm ファイル名</span></code></pre></td></tr></table></div></figure>
-
-
-<p>※ただしこれだと、ワーキングエリアからも削除されてしまう。<br/>
-ワーキングエリアには残しておき、Git管理対象外としたい場合は、.gitignoreに追記し</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git rm --cached ファイル名</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>2. ステージング</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>3. コミット</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git commit -m "メッセージ"</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>4. プッシュ</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ git push</span></code></pre></td></tr></table></div></figure>
-
-
-<p>※以前に  <code>push -u</code> していない場合は、宛先が必要</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -902,6 +871,10 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/see-nsuserdefaults-data/">NSUserDefaultsの中身を確認する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/uibutton-title-align/">UIButtonのタイトル位置を調整する方法</a>
@@ -939,15 +912,11 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
         <a href="/blog/2014/xcode-bettertouchtool/">XcodeのCtrl＋ドラッグとBetterTouch Tool</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (51)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (52)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 
