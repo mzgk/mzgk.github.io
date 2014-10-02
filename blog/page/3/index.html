@@ -9,15 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="UIActionSheetで、タップされたボタンのタイトルを取得する方法。 1
-2
-3
-4
-5
-6
-7
-8
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex &hellip;">
+  <meta name="description" content="１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった
+画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒
+同じ処理なので１つのViewController（ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +70,54 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/addchiledviewcontroller/">１つの画面の上下で同じViewControllerを使う方法（addChildViewController）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T18:18:14+09:00" pubdate data-updated="true">2014.08.22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><ul>
+<li>１つの画面（A-ViewController）の上下にImageViewとスライダーを表示し、 同じ処理をさせる必要があった</li>
+<li>画面上に２つずつUIImageViewとUISliderを配置して制御してもいいけど、同じことするのは面倒</li>
+<li>同じ処理なので１つのViewController（UIImageViewとUISliderを持った）を作成（MovieVCとする）</li>
+<li>大元の画面（A-ViewController）で、上下に作成したMovieVCを呼べばいいのでは？</li>
+<li>Container ViewController？</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/addchiledviewcontroller/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -786,69 +828,6 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/uiscrollview-checkpoint1/">UIScrollViewをスクロールさせる方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-12T16:32:58+09:00" pubdate data-updated="true">2014.08.12</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>UIScrollViewを設定したのに、スクロールしない時は以下を確認する。</p>
-
-<h2>contentSize</h2>
-
-<ul>
-<li>UIScrollViewのconntentSizeをUIScrollViewの大きさよりも、大きくしているか？</li>
-<li>conntentSizeをセットするタイミング</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// このタイミングで行う</span>
-</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLayoutSubviews</span>
-</span><span class='line'><span class="p">{</span>
-</span><span class='line'>    <span class="c1">// UIScrollView:320,568で作成済み</span>
-</span><span class='line'>    <span class="p">[</span><span class="n">_sceneScrollView</span> <span class="nl">setContentSize:</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span><span class="mi">680</span><span class="p">)];</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>参考</h2>
-
-<p><a href="http://blog.livedoor.jp/manjumanju/archives/3323842.html">http://blog.livedoor.jp/manjumanju/archives/3323842.html</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -868,6 +847,10 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/uibutton-title-align/">UIButtonのタイトル位置を調整する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/ios6-airplay-mirroring/">iOS6でAirPlay（ミラーリング）</a>
@@ -905,15 +888,11 @@ inputAccessoryViewといって、キーボード上部にボタンなどを配�
         <a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/string-compare/">文字列の大小比較</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (50)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (51)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

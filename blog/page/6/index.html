@@ -9,13 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="通常はBOOLなのでこっちを使う 真：YES : 1
-偽：NO : 0 Booleanの場合 真：TRUE : 1
-偽：FALSE : 0 1
-2
-3
-if (!new_flg) { 偽の判断（new_flgの値はNO = 0）
-} ">
+  <meta name="description" content="MagicalRecord2.2はmogeneratorとの使用を想定しているらしく、mogeneratorを使用しない場合はWarningが12個ばかり表示される。
+参考：https://github.com/magicalpanda/MagicalRecord/issues/652 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +69,48 @@ if (!new_flg) { 偽の判断（new_flgの値はNO = 0）
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/magicalrecord-warning/">MagicalRecordのWarningの消し方</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T18:23:49+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>MagicalRecord2.2はmogeneratorとの使用を想定しているらしく、mogeneratorを使用しない場合はWarningが12個ばかり表示される。<br/>
+参考：<a href="https://github.com/magicalpanda/MagicalRecord/issues/652">https://github.com/magicalpanda/MagicalRecord/issues/652</a></p>
+
+<p>動作に特に問題はないが、気持ち悪いのでワーニングを消す方法。<br/>
+参考：<a href="http://hayatomo.com/2013/10/03/1122">http://hayatomo.com/2013/10/03/1122</a></p>
+
+<p><img src="/images/2014/0805/MagicalRecord_Warning.png" alt="Xcode" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -781,75 +818,6 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/get-app-version/">アプリのバージョン取得</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T17:07:29+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ソース内でアプリのバージョンを取得する方法。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// バージョン：TARGET- General - Identity - Version（Info.plist : Bundle version strings short）</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">version</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span><span class="n">infoDictionary</span><span class="p">][</span><span class="s">@&quot;CFBundleShortVersionString&quot;</span><span class="p">];</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">// バンドル：TARGET- General - Identity - Bundle（Info.plist : Bundle version）</span>
-</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">bundle</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSBundle</span> <span class="n">mainBundle</span><span class="p">]</span><span class="n">infoDictionary</span><span class="p">][</span><span class="s">@&quot;CFBundleVersion&quot;</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>VersionとBundleの違いについては、理解不足。</p>
-
-<ul>
-<li>Version
-
-<ul>
-<li>表記用のリリースバージョン</li>
-</ul>
-</li>
-<li>Bundle
-
-<ul>
-<li>内部開発用のビルドバージョン</li>
-</ul>
-</li>
-</ul>
-
-
-<p>とのことみたいだが、リリース時は両方が一致している必要があるらしいとのこと。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -869,6 +837,10 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/uibutton-title-align/">UIButtonのタイトル位置を調整する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/ios6-airplay-mirroring/">iOS6でAirPlay（ミラーリング）</a>
@@ -906,15 +878,11 @@ UITableViewControllerを使用しているぶんには、特に意識する必�
         <a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/string-compare/">文字列の大小比較</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (50)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (51)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

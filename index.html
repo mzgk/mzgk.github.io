@@ -9,8 +9,7 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="iOS6でAirPlayのミラーリング機能を使用する。
-iOS7とは起動場所が違うので注意。 ">
+  <meta name="description" content="UIButtonのタイトルはデフォルトでは中央配置になっているが、これを左詰めや右詰めにする方法。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +68,47 @@ iOS7とは起動場所が違うので注意。 ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/uibutton-title-align/">UIButtonのタイトル位置を調整する方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-02T13:13:05+09:00" pubdate data-updated="true">2014.10.02</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UIButtonのタイトルはデフォルトでは中央配置になっているが、これを左詰めや右詰めにする方法。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/uibutton-title-align/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -493,67 +533,6 @@ iOS7とは起動場所が違うので注意。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/string-compare/">文字列の大小比較</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-01T19:14:57+09:00" pubdate data-updated="true">2014.09.01</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>文字列を大小比較する場合は、以下を使用する。</p>
-
-<figure class='code'><figcaption><span>文字列の大小比較</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSComparisonResult</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="err">比較元</span> <span class="nl">compare:</span><span class="err">比較相手</span><span class="p">];</span>
-</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedAscending</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="err">結果：元　＜　相手：</span><span class="o">-</span><span class="mi">1</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedSame</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="err">結果：元　＝　相手：</span><span class="mi">0</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">NSOrderedDescending</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="err">結果：元　＞　相手：</span><span class="mi">1</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>単純に等しいかどうかの判断であれば <code>isEqualToString:</code> を使用。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -571,6 +550,10 @@ iOS7とは起動場所が違うので注意。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/uibutton-title-align/">UIButtonのタイトル位置を調整する方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/ios6-airplay-mirroring/">iOS6でAirPlay（ミラーリング）</a>
@@ -608,15 +591,11 @@ iOS7とは起動場所が違うので注意。</p>
         <a href="/blog/2014/textfield-hide-keyboard/">UITextFieldでキーボード閉じる方法３つ</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/string-compare/">文字列の大小比較</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (50)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (51)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

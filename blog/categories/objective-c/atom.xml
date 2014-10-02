@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-09-30T18:15:05+09:00</updated>
+  <updated>2014-10-02T13:27:30+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIButtonのタイトル位置を調整する方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/uibutton-title-align/"/>
+    <updated>2014-10-02T13:13:05+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/uibutton-title-align</id>
+    <content type="html"><![CDATA[<p>UIButtonのタイトルはデフォルトでは中央配置になっているが、これを左詰めや右詰めにする方法。</p>
+
+<!-- more -->
+
+
+<h2>StoryBoard</h2>
+
+<p>StoryBoardでは、スクリーンショットに書いてある部分で設定が可能。
+<img src="/images/2014/1002/UIButton-title.png" title="ボタンタイトル位置" alt="attribute" /></p>
+
+<h2>Code</h2>
+
+<p>コードでは以下で設定。</p>
+
+<p>```objective-c
+// 左詰め
+_button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;</p>
+
+<p>// 右詰め
+_button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+```</p>
+
+<h2>参考</h2>
+
+<p>その他の設定方法はここが参考になりました。<br/>
+<a href="http://web-terminal.blogspot.jp/2013/01/uibutton.html">http://web-terminal.blogspot.jp/2013/01/uibutton.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[指定時間後に処理を行う]]></title>
@@ -242,33 +276,6 @@ else if (result == NSOrderedDescending) {</p>
 ```</p>
 
 <p>単純に等しいかどうかの判断であれば <code>isEqualToString:</code> を使用。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[NSLog()を記述せずに、ブレークポイントでログを出力する方法]]></title>
-    <link href="http://mzgk.github.io/blog/2014/breakpoint-automessage/"/>
-    <updated>2014-08-29T15:26:02+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/breakpoint-automessage</id>
-    <content type="html"><![CDATA[<p>ちょっとした確認をしたいときや、NSLog()を残したくない場合などに、ブレークポイントを使ってコンソールにログを出力する方法。<br/>
-Xcodeのブレークポイントの設定だけで、停止せずにログを出力できる。</p>
-
-<!-- more -->
-
-
-<h2>ブレークポイント</h2>
-
-<ul>
-<li>ブレークポイントを設定</li>
-<li>右クリック &ndash;> Edit Breakpoint&hellip;</li>
-<li>Action &ndash;> Log Message</li>
-<li>入力欄に出力したい文言を記述</li>
-<li>変数の値を出力したい場合は、@変数名@</li>
-<li>Options &ndash;> Automatically〜にチェックを入れると止まらずにコンソールに出力する</li>
-</ul>
-
-
-<p><img src="/images/2014/0829/breakpoint.png" alt="設定方法" /></p>
 ]]></content>
   </entry>
   
