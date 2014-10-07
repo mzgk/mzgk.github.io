@@ -1,0 +1,11 @@
+@font-face {
+    font-family: minmoji;
+    src: url('https://minmoji.ucda.jp/fontseot/http%3A__mzgk.github.io_');
+    src: local('minmoji'),
+        url('https://minmoji.ucda.jp/fontswoff/http%3A__mzgk.github.io_') format('woff'),
+        url('https://minmoji.ucda.jp/fonts/http%3A__mzgk.github.io_') format('opentype');
+}
+
+body {
+    font-family: minmoji;
+}
