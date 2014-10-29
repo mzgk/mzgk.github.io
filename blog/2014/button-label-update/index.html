@@ -5,17 +5,23 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>iOS6でAirPlay（ミラーリング） - jubilee</title>
+  <title>UIButtonのタイトルを更新する - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="iOS6でAirPlayのミラーリング機能を使用する。
-iOS7とは起動場所が違うので注意。 ミラーリング iOS6デバイスとAppleTVを同一WiFiに接続する
-接続が完了したら、iOS6デバイスで以下の操作 ホームボタンx2
-右スワイプx2
-AirPlayマークをタップ
-AppleTVを選択 &hellip;">
-  <meta name="keywords" content="iOS, AirPlay">
+  <meta name="description" content="UIButtonのタイトルを動的に更新する方法。
+ドット記法ではダメ。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+- (IBAction)scoreTapped:(UIButton *)sender { // ボタンのタイトルの値を取得し、タップ毎にカウントアップする NSInteger &hellip;">
+  <meta name="keywords" content="Objective-C, UIButton">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -23,7 +29,7 @@ AppleTVを選択 &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/ios6-airplay-mirroring">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/button-label-update">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -77,7 +83,7 @@ AppleTVを選択 &hellip;">
   
   <header>
     
-      <h1 class="entry-title">iOS6でAirPlay（ミラーリング）</h1>
+      <h1 class="entry-title">UIButtonのタイトルを更新する</h1>
     
     
       <p class="meta">
@@ -93,40 +99,43 @@ AppleTVを選択 &hellip;">
   
 
 
-<time datetime="2014-09-30T17:22:09+09:00" pubdate data-updated="true">2014.09.30</time>
+<time datetime="2014-10-29T19:18:09+09:00" pubdate data-updated="true">2014.10.29</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>iOS6でAirPlayのミラーリング機能を使用する。<br/>
-iOS7とは起動場所が違うので注意。</p>
+<div class="entry-content"><p>UIButtonのタイトルを動的に更新する方法。<br/>
+ドット記法ではダメ。</p>
 
 <!-- more -->
 
 
-<h2>ミラーリング</h2>
-
-<ul>
-<li>iOS6デバイスとAppleTVを同一WiFiに接続する</li>
-<li>接続が完了したら、iOS6デバイスで以下の操作
-
-<ul>
-<li>ホームボタンx2</li>
-<li>右スワイプx2</li>
-<li>AirPlayマークをタップ</li>
-<li>AppleTVを選択</li>
-<li>ミラーリングをON</li>
-</ul>
-</li>
-</ul>
 
 
-<h2>ポケットWiFi</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">scoreTapped:</span><span class="p">(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// ボタンのタイトルの値を取得し、タップ毎にカウントアップする</span>
+</span><span class='line'>    <span class="n">NSInteger</span> <span class="n">score</span> <span class="o">=</span> <span class="p">[</span><span class="n">sender</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">text</span> <span class="n">integerValue</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// これが正解</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">sender</span> <span class="nl">setTitle:</span><span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;%ld&quot;</span><span class="p">,</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// これだと更新されない</span>
+</span><span class='line'>    <span class="n">sender</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;%ld&quot;</span><span class="p">,</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>URoadの契約が切れたモバイルWiFiを使用する場合、WiFiの接続は「設定 &ndash;> Wi-Fi &ndash;> ネットワークを選択 &ndash;> URoad〜 &ndash;> 自動ログインをオフ」。<br/>
-最後の「自動ログインをオフ」がキモ。</p>
 </div>
 
 
@@ -149,12 +158,12 @@ iOS7とは起動場所が違うので注意。</p>
   
 
 
-<time datetime="2014-09-30T17:22:09+09:00" pubdate data-updated="true">2014.09.30</time>
+<time datetime="2014-10-29T19:18:09+09:00" pubdate data-updated="true">2014.10.29</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ios/'>iOS</a>
+    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
   
 </span>
 
@@ -163,7 +172,7 @@ iOS7とは起動場所が違うので注意。</p>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/ios6-airplay-mirroring/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/ios6-airplay-mirroring/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/button-label-update/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/button-label-update/" >Tweet</a>
   
   
   
@@ -172,10 +181,8 @@ iOS7とは起動場所が違うので注意。</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/run-at-a-specified-time-after/" title="Previous Post: 指定時間後に処理を行う">&laquo; 指定時間後に処理を行う</a>
+        <a class="basic-alignment left" href="/blog/2014/see-nsuserdefaults-data/" title="Previous Post: NSUserDefaultsの中身を確認する方法">&laquo; NSUserDefaultsの中身を確認する方法</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/uibutton-title-align/" title="Next Post: UIButtonのタイトル位置を調整する方法">UIButtonのタイトル位置を調整する方法 &raquo;</a>
       
     </p>
   </footer>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Objective-C | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/objective-c/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-10-10T15:21:24+09:00</updated>
+  <updated>2014-10-29T19:25:28+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIButtonのタイトルを更新する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/button-label-update/"/>
+    <updated>2014-10-29T19:18:09+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/button-label-update</id>
+    <content type="html"><![CDATA[<p>UIButtonのタイトルを動的に更新する方法。<br/>
+ドット記法ではダメ。</p>
+
+<!-- more -->
+
+
+<p>```objective-c
+&ndash; (IBAction)scoreTapped:(UIButton *)sender {</p>
+
+<pre><code>// ボタンのタイトルの値を取得し、タップ毎にカウントアップする
+NSInteger score = [sender.titleLabel.text integerValue];
+
+// これが正解
+[sender setTitle:[NSString stringWithFormat:@"%ld", score + 1] forState:UIControlStateNormal];
+
+// これだと更新されない
+sender.titleLabel.text = [NSString stringWithFormat:@"%ld", score + 1];
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[NSUserDefaultsの中身を確認する方法]]></title>
@@ -166,107 +195,6 @@ UIViewAnimationOptionRepeat;            // 繰り返し
 <li>contentStretch</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[UITextFieldでキーボード閉じる方法３つ]]></title>
-    <link href="http://mzgk.github.io/blog/2014/textfield-hide-keyboard/"/>
-    <updated>2014-09-02T18:08:54+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/textfield-hide-keyboard</id>
-    <content type="html"><![CDATA[<p>UITextFieldで、表示されているキーボードを閉じる方法のまとめ。<br/>
-パターン的には３つ。</p>
-
-<ol>
-<li>UITextFieldのアクションを使用（リターンキーで閉じる）</li>
-<li>UITextFieldのデリゲートを使用（リターンキーで閉じる）</li>
-<li>Tap Gestureを使用（他の場所をタップで閉じる）</li>
-</ol>
-
-
-<!-- more -->
-
-
-<h2>UITextFieldのアクションを使用（リターンキーで閉じる）</h2>
-
-<p>StoryBoardを使った、一番お手軽なパターン。<br/>
-キーボードのリターンキーで、キーボードが閉じる。</p>
-
-<ul>
-<li>StoryBoard上でUITextFieldを右クリック</li>
-<li>Sent Events &ndash;> Did End On Exitを選択</li>
-<li>Ctrl + ドラッグでアクション接続</li>
-<li>IBActionのメソッド内に処理は不要</li>
-</ul>
-
-
-<h2>UITextFieldのアクションを使用（リターンキーで閉じる）</h2>
-
-<p>よく見かけるパターン。<br/>
-キーボードのリターンキーで、キーボードが閉じる。</p>
-
-<ul>
-<li><UITextFieldDelegate>プロトコルを接続（.hの@interface部分）</li>
-<li>.mにデリゲートメソッドを追加</li>
-<li>処理を記述</li>
-</ul>
-
-
-<p>```objective-c ViewController.h
-@interface ViewController : UIViewController<UITextFieldDelegate></p>
-
-<p>@end
-```</p>
-
-<p>```objective-c ViewController.m
-&ndash; (void)viewDidLoad
-{</p>
-
-<pre><code>[super viewDidLoad];
-// デリゲートを設定
-_textField.delegate = self;
-</code></pre>
-
-<p>}</p>
-
-<ul>
-<li>(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  // これか
-  [self.view endEditing:YES];
-  // これ
-  [_textField resignFirstResponder];
-  return YES;
-}
-```</li>
-</ul>
-
-
-<h2>Tap Gestureを使用（他の場所をタップで閉じる）</h2>
-
-<p>キーボードのリターンキーではなく、他の場所をタップした際にキーボードを閉じる。</p>
-
-<ul>
-<li>StoryBoard上で、ViewControllerに Tap GestureRecognizer を追加</li>
-<li>Ctrl + ドラッグでアクション接続</li>
-<li>処理を記述</li>
-</ul>
-
-
-<p>```objective-c ViewController.m
-&ndash; (IBAction)onTapView:(id)sender
-{</p>
-
-<pre><code>// これか
-[self.view endEditing:YES];
-// こんな感じ
-if ([_textField isFirstResponder]) {
-    [_textField resignFirstResponder];
-}
-</code></pre>
-
-<p>}
-```</p>
 ]]></content>
   </entry>
   

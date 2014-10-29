@@ -9,7 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="アプリ内で処理したNSUserDefaultsの中身を確認する方法。 ">
+  <meta name="description" content="UIButtonのタイトルを動的に更新する方法。
+ドット記法ではダメ。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +70,48 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/button-label-update/">UIButtonのタイトルを更新する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-29T19:18:09+09:00" pubdate data-updated="true">2014.10.29</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>UIButtonのタイトルを動的に更新する方法。<br/>
+ドット記法ではダメ。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/button-label-update/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -461,71 +504,6 @@ iOS7とは起動場所が違うので注意。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/xcode-bettertouchtool/">XcodeのCtrl＋ドラッグとBetterTouch Tool</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-02T19:14:18+09:00" pubdate data-updated="true">2014.09.02</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>BetterTouch Toolの設定を変更したら、XcodeでUI部品のコントロール＋ドラッグ接続が効かなくなった。<br/>
-その対処法。ちなみに原因は不明。</p>
-
-<h3>環境</h3>
-
-<ul>
-<li>OS X : 10.9.4</li>
-<li>Xcode : 5.1.1</li>
-<li>BetterTouch Tool : 0.9977</li>
-</ul>
-
-
-<h3>経緯</h3>
-
-<ul>
-<li>BetterTouch Toolで、ChromeとSafariに以下のジェスチャーを設定</li>
-<li>Two Finger Tap Tip Right / Left：タブの移動</li>
-<li>三本指のうち二本指をトラックパッドに置いた状態で、一本指でタップで表示するタブを移動</li>
-</ul>
-
-
-<h3>解決方法</h3>
-
-<p>XCodeではBetterTouch Toolを使用していないので、XCodeを使用中はBTTが無視するように設定。</p>
-
-<ul>
-<li>XCodeを起動（アクティブ状態）</li>
-<li>メニューバー &ndash;> BetterTouch Toolのアイコン &ndash;> Disable BTT For Current Appをクリック</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -543,6 +521,10 @@ iOS7とは起動場所が違うので注意。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/button-label-update/">UIButtonのタイトルを更新する</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/see-nsuserdefaults-data/">NSUserDefaultsの中身を確認する方法</a>
@@ -580,15 +562,11 @@ iOS7とは起動場所が違うので注意。</p>
         <a href="/blog/2014/invite-to-testflight/">TestFlight：1（ユーザーを招待する）</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/xcode-bettertouchtool/">XcodeのCtrl＋ドラッグとBetterTouch Tool</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (52)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (53)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

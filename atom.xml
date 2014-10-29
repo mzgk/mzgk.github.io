@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-10-10T15:21:24+09:00</updated>
+  <updated>2014-10-29T19:25:28+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,44 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[UIButtonのタイトルを更新する]]></title>
+    <link href="http://mzgk.github.io/blog/2014/button-label-update/"/>
+    <updated>2014-10-29T19:18:09+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/button-label-update</id>
+    <content type="html"><![CDATA[<p>UIButtonのタイトルを動的に更新する方法。<br/>
+ドット記法ではダメ。</p>
+
+<!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">scoreTapped:</span><span class="p">(</span><span class="n">UIButton</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// ボタンのタイトルの値を取得し、タップ毎にカウントアップする</span>
+</span><span class='line'>    <span class="n">NSInteger</span> <span class="n">score</span> <span class="o">=</span> <span class="p">[</span><span class="n">sender</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">text</span> <span class="n">integerValue</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// これが正解</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">sender</span> <span class="nl">setTitle:</span><span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;%ld&quot;</span><span class="p">,</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="nl">forState:</span><span class="n">UIControlStateNormal</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// これだと更新されない</span>
+</span><span class='line'>    <span class="n">sender</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;%ld&quot;</span><span class="p">,</span> <span class="n">score</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[NSUserDefaultsの中身を確認する方法]]></title>
@@ -1248,37 +1286,6 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 </span><span class='line'>// ローカルからファイルも削除する場合は以下
 </span><span class='line'>$ git rm A.txt</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Git コミットのメッセージ書き方]]></title>
-    <link href="http://mzgk.github.io/blog/2014/git-commit-message/"/>
-    <updated>2014-08-28T09:51:50+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/git-commit-message</id>
-    <content type="html"><![CDATA[<p>Gitではコミットメッセージの形式に関して制約はないが、標準的な形式は以下となる。</p>
-
-<ul>
-<li>１行目にコミットの全体的説明を５０字以内で記述</li>
-<li>２行目は空行</li>
-<li>３行目以降に変更内容の詳細を記述</li>
-<li>現在形で記述</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Change the message displayed by hello.py
-</span><span class='line'>
-</span><span class='line'>- Update the sayHello() function to output the user's name
-</span><span class='line'>- Change the sayGoodbye() function to a friendlier message</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>参考</h3>
-
-<p><a href="https://www.atlassian.com/ja/git/tutorial/git-basics#!commit">https://www.atlassian.com/ja/git/tutorial/git-basics#!commit</a></p>
 ]]></content>
   </entry>
   
