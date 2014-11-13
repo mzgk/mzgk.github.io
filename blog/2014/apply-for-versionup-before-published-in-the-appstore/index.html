@@ -5,14 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>UIImageViewにスワイプジェスチャーを適用させる - jubilee</title>
+  <title>App Storeへの公開前にバージョンアップ申請をする方法 - jubilee</title>
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="通常に設定（コード or Interface Builder）からだけでは、反応しない。
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte &hellip;">
-  <meta name="keywords" content="Objective-C,iOS">
+  <meta name="description" content="まだ一回もApp Storeへ公開していない段階（申請が通り、デベロッパーリリース待ち状態）で、アプリのバージョンアップ申請をしたい場合の手順。
+とりあえず申請が通るかを確かめて、その裏でバージョンアップ作業を実施し、バージョンアップ版を初公開とする目論み。
+ただ、リリースしないと「新規バージョン &hellip;">
+  <meta name="keywords" content="iOS, App Store, 申請">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +20,7 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe">
+  <link rel="canonical" href="http://mzgk.github.io/blog/2014/apply-for-versionup-before-published-in-the-appstore">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="jubilee" type="application/atom+xml">
@@ -74,7 +74,7 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   
   <header>
     
-      <h1 class="entry-title">UIImageViewにスワイプジェスチャーを適用させる</h1>
+      <h1 class="entry-title">App Storeへの公開前にバージョンアップ申請をする方法</h1>
     
     
       <p class="meta">
@@ -90,20 +90,37 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   
 
 
-<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-11-13T10:52:42+09:00" pubdate data-updated="true">2014.11.13</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>通常に設定（コード or Interface Builder）からだけでは、反応しない。<br/>
-UIImageViewの初期値が「User Interaction Enabled = NO」になっているので、
-以下を設定。（Interface Builderからでも、Attributte Inspector &ndash; View &ndash; User Interaction Enabledのチェックで可）</p>
+<div class="entry-content"><p>まだ一回もApp Storeへ公開していない段階（申請が通り、デベロッパーリリース待ち状態）で、アプリのバージョンアップ申請をしたい場合の手順。<br/>
+とりあえず申請が通るかを確かめて、その裏でバージョンアップ作業を実施し、バージョンアップ版を初公開とする目論み。<br/>
+ただ、リリースしないと「新規バージョン」申請のためのボタンがでなかったので回避策のメモ。<br/>
+素直に申請取下げて、バージョンアップ版で再申請でもいいかと思う。<br/>
+手順の８が回避策。</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">_imageView</span> <span class="n">setUserInteractionEnabled</span> <span class="o">=</span> <span class="n">YES</span><span class="p">];</span>
-</span></code></pre></td></tr></table></div></figure>
+<!-- more -->
+
+
+<ol>
+<li>アプリができた</li>
+<li>まだApp Storeで公開したくないけど、申請が通るか確認したい</li>
+<li>リリースをデベロッパー側でコントロールするようして申請（今までと変わらず）</li>
+<li>申請が通って「デベロッパーリリース待ち」の状態になった</li>
+<li>アプリのバージョンアップをしたので、申請をしたい</li>
+<li>iTunes Connectの画面で右上に「新規バージョン」のボタンがでていない</li>
+<li>申請取り下げたくない</li>
+<li>「価格」のタブで、App Storeの公開地域のチェックをすべて外す（これでどの地域のApp Storeでも非公開になる）</li>
+<li>「このアプリをリリース」ボタンをクリックしてリリース</li>
+<li>「App Storeへの処理中」ステータスになる</li>
+<li>数分後に「デベロッパによりストアから削除済み」のステータスになる</li>
+<li>「新規バージョン」のボタンが使用可能になる</li>
+<li>バージョンアップ版の申請ができる</li>
+</ol>
 
 </div>
 
@@ -127,12 +144,12 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
   
 
 
-<time datetime="2014-08-05T18:06:46+09:00" pubdate data-updated="true">2014.08.05</time>
+<time datetime="2014-11-13T10:52:42+09:00" pubdate data-updated="true">2014.11.13</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/objective-c/'>Objective-C</a>
+    <a class='category' href='/blog/categories/ios/'>iOS</a>
   
 </span>
 
@@ -141,7 +158,7 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/applied-to-uiimageview-swipe/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://mzgk.github.io/blog/2014/apply-for-versionup-before-published-in-the-appstore/" data-via="" data-counturl="http://mzgk.github.io/blog/2014/apply-for-versionup-before-published-in-the-appstore/" >Tweet</a>
   
   
   
@@ -150,10 +167,8 @@ UIImageViewの初期値が「User Interaction Enabled = NO」になっている�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/set-navigationbar-color/" title="Previous Post: UINavigationBarの色を制御する">&laquo; UINavigationBarの色を制御する</a>
+        <a class="basic-alignment left" href="/blog/2014/button-label-update/" title="Previous Post: UIButtonのタイトルを更新する">&laquo; UIButtonのタイトルを更新する</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/change-image-of-button-to-tap-each/" title="Next Post: UIButtonでタップ毎にボタン画像を切替える">UIButtonでタップ毎にボタン画像を切替える &raquo;</a>
       
     </p>
   </footer>

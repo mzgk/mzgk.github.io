@@ -9,8 +9,8 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="Mac標準のカラーピッカーである『DigitalColor Mater』。
-このアプリで色をピックした際にカラー値を16進数で取得したいんだけど、どこに値が表示されるのかわからなかった。 メニュー &ndash;> カラー &ndash;> カラーをテキストでコピー（Shift + Cmd + C &hellip;">
+  <meta name="description" content="font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。
+このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。 (font-size + 上余白 + 下余白) / font-size &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,6 +70,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/css-line-height/">[CSS] 文字の高さを指定する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-05T19:30:03+09:00" pubdate data-updated="true">2014.08.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。<br/>
+このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。</p>
+
+<p>(font-size + 上余白 + 下余白) / font-size = line-heightの値（小数点4位切り上げ）</p>
+
+<p>例えば、<br/>
+文字サイズ16pxで上下に3pxずつ余裕をもたせる場合<br/>
+(16 + 3 + 3) / 16 = 1.375</p>
+
+<p>文字サイズ14pxで上下に3pxずつ余裕をもたせる場合<br/>
+(14 + 3 + 3) / 14 = 1.42857&hellip; &ndash;> 1.429</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -499,132 +545,6 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/git-branch/">git branchのメモ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T18:44:02+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>分岐させると、他のブランチの影響を受けないので、同じリポジトリ内で複数の変更を進めることができる。<br/>
-例えば、<br/>
-「masterブランチ：大本の開発中」に機能を追加したいが、うまくできるかわからないのでちょっと試験的にやってみたい。<br/>
-だけど、ダメだった時に追加前に戻せるかが不安。<br/>
-こんな時にブランチをきって、そっちで機能追加をする。<br/>
-うまく行けばmasterにマージし、だめならブランチを削除すればmasterに影響はない。</p>
-
-<h2>ブランチの一覧を表示</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'>* master  // masterしかない状態
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ブランチを作成</h2>
-
-<p>masterの状態を複製して、ブランチが作成される。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch ブランチ名
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'> ブランチ名
-</span><span class='line'>*master // masterブランチにいる
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ブランチを切り替える</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout ブランチ名
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'>*ブランチ名  // このブランチにいる
-</span><span class='line'> master
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>作業</h2>
-
-<p>このブランチで作業し、add, commit</p>
-
-<h2>masterにマージする</h2>
-
-<p>ブランチで作業した内容をmasterにマージする。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>// 一旦、masterに切り替える
-</span><span class='line'><span class="nv">$ </span>git checkout master
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'> ブランチ名
-</span><span class='line'>*master // masterブランチにいる
-</span><span class='line'>// マージする
-</span><span class='line'><span class="nv">$ </span>git merge ブランチ名
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ブランチを削除する</h2>
-
-<p>不要になったブランチは削除する。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git branch -d ブランチ名
-</span><span class='line'>// 状態を表示
-</span><span class='line'><span class="nv">$ </span>git branch
-</span><span class='line'>*master
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>参考：<a href="http://www.backlog.jp/git-guide/stepup/stepup1_1.html">http://www.backlog.jp/git-guide/stepup/stepup1_1.html</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -644,6 +564,10 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/apply-for-versionup-before-published-in-the-appstore/">App Storeへの公開前にバージョンアップ申請をする方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/button-label-update/">UIButtonのタイトルを更新する</a>
@@ -681,15 +605,11 @@ margin: 0 0 0 0;  →  （上）（右）（下）（左）※時計回り</p>
         <a href="/blog/2014/invite-testflight2/">TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/invite-to-testflight/">TestFlight：1（ユーザーを招待する）</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (53)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (53)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

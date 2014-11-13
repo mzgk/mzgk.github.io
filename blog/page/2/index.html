@@ -9,10 +9,10 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="BetterTouch Toolの設定を変更したら、XcodeでUI部品のコントロール＋ドラッグ接続が効かなくなった。
-その対処法。ちなみに原因は不明。 環境 OS X : 10.9.4
-Xcode : 5.1.1
-BetterTouch Tool : 0.9977 経緯 BetterTouch &hellip;">
+  <meta name="description" content="TestFlightにユーザーを招待する方法。
+身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
+配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。
+まずは、ユーザーの招待まで。 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,6 +72,50 @@ BetterTouch Tool : 0.9977 経緯 BetterTouch &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/invite-to-testflight/">TestFlight：1（ユーザーを招待する）</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-05T10:54:38+09:00" pubdate data-updated="true">2014.09.05</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>TestFlightにユーザーを招待する方法。<br/>
+身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
+配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。<br/>
+まずは、ユーザーの招待まで。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/invite-to-testflight/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -511,75 +555,6 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/gitignore-apply-after-add/">.gitignoreをあとから適用する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-28T10:44:36+09:00" pubdate data-updated="true">2014.08.28</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>.gitignoreファイルはgit管理対象外とするディレクトリ・ファイルを登録するファイルだが、すでに管理対象として登録されたものに対しては無視される。<br/>
-すでに管理対象となっているものを、後から.gitginoreに登録し適用させる方法。</p>
-
-<h2>例：draftsディレクトリを対象外としたい</h2>
-
-<p>下書きディレクトリとして <code>draftsディレクトリ</code> を管理対象としていたが、DropBoxで運用したいのでGit管理からは外したい。</p>
-
-<h3>.gitignoreに追記</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># ディレクトリの最後に「/（スラッシュ）」をつける
-</span><span class='line'>drafts/</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ターミナル</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// --cachedをつけることで、ファイル自体はローカルから削除しない
-</span><span class='line'>$ git rm --cached -r drafts/
-</span><span class='line'>
-</span><span class='line'>// ちなみにファイルの場合は以下
-</span><span class='line'>$ git rm --cached A.txt
-</span><span class='line'>
-</span><span class='line'>// ローカルからファイルも削除する場合は以下
-</span><span class='line'>$ git rm A.txt</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -599,6 +574,10 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/apply-for-versionup-before-published-in-the-appstore/">App Storeへの公開前にバージョンアップ申請をする方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/button-label-update/">UIButtonのタイトルを更新する</a>
@@ -636,15 +615,11 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
         <a href="/blog/2014/invite-testflight2/">TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/invite-to-testflight/">TestFlight：1（ユーザーを招待する）</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (53)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (53)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

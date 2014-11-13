@@ -4,7 +4,7 @@
   <title><![CDATA[Category: iOS | jubilee]]></title>
   <link href="http://mzgk.github.io/blog/categories/ios/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-10-30T10:05:58+09:00</updated>
+  <updated>2014-11-13T11:13:09+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[App Storeへの公開前にバージョンアップ申請をする方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/apply-for-versionup-before-published-in-the-appstore/"/>
+    <updated>2014-11-13T10:52:42+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/apply-for-versionup-before-published-in-the-appstore</id>
+    <content type="html"><![CDATA[<p>まだ一回もApp Storeへ公開していない段階（申請が通り、デベロッパーリリース待ち状態）で、アプリのバージョンアップ申請をしたい場合の手順。<br/>
+とりあえず申請が通るかを確かめて、その裏でバージョンアップ作業を実施し、バージョンアップ版を初公開とする目論み。<br/>
+ただ、リリースしないと「新規バージョン」申請のためのボタンがでなかったので回避策のメモ。<br/>
+素直に申請取下げて、バージョンアップ版で再申請でもいいかと思う。<br/>
+手順の８が回避策。</p>
+
+<!-- more -->
+
+
+<ol>
+<li>アプリができた</li>
+<li>まだApp Storeで公開したくないけど、申請が通るか確認したい</li>
+<li>リリースをデベロッパー側でコントロールするようして申請（今までと変わらず）</li>
+<li>申請が通って「デベロッパーリリース待ち」の状態になった</li>
+<li>アプリのバージョンアップをしたので、申請をしたい</li>
+<li>iTunes Connectの画面で右上に「新規バージョン」のボタンがでていない</li>
+<li>申請取り下げたくない</li>
+<li>「価格」のタブで、App Storeの公開地域のチェックをすべて外す（これでどの地域のApp Storeでも非公開になる）</li>
+<li>「このアプリをリリース」ボタンをクリックしてリリース</li>
+<li>「App Storeへの処理中」ステータスになる</li>
+<li>数分後に「デベロッパによりストアから削除済み」のステータスになる</li>
+<li>「新規バージョン」のボタンが使用可能になる</li>
+<li>バージョンアップ版の申請ができる</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[iOS6でAirPlay（ミラーリング）]]></title>
@@ -259,65 +292,6 @@ iOS7とは起動場所が違うので注意。</p>
 <img src="/images/2014/0905/25_activity.png" title="ステータスの確認" alt="status" /></li>
 </ol>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[TestFlight：1（ユーザーを招待する）]]></title>
-    <link href="http://mzgk.github.io/blog/2014/invite-to-testflight/"/>
-    <updated>2014-09-05T10:54:38+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/invite-to-testflight</id>
-    <content type="html"><![CDATA[<p>TestFlightにユーザーを招待する方法。<br/>
-身近にユーザーがいて、端末のUDID登録等がすぐにできる場合は一緒に進められるが、
-配布したいユーザーが近くにおらず、端末のUDIDを教えてもらうことができない場合の方法。<br/>
-まずは、ユーザーの招待まで。</p>
-
-<!-- more -->
-
-
-<h2>管理者</h2>
-
-<ol>
-<li>管理者は、ブラウザを起動しTestFlightにログインする</li>
-<li>Invite Peopleから招待状を送付する</li>
-</ol>
-
-
-<p><img src="/images/2014/0905/1_invite_people.png" title="招待" alt="invite_people1" />
-<img src="/images/2014/0905/2_invite_a_teammate.png" title="メールの送付" alt="invite_people2" />
-<img src="/images/2014/0905/3_manage_invites_in.png" title="ステータス" alt="invite_people3" /></p>
-
-<h2>招待を受けたユーザー</h2>
-
-<p>操作は <em>テストに使う端末</em> で行う。<br/>
-操作は <em>Safari</em> でやらないとエラーになる（chrome等はダメ）。<br/>
-gmail.appで受けてchromeが開いた場合は、アドレスをコピー &ndash;> safariで開いて操作<br/>
-safariも <em>プライベートブラウジングはオフ</em> にしておくこと</p>
-
-<ol>
-<li>ユーザーにメールが届く</li>
-<li>メールのAcceptをタップ</li>
-<li>ユーザーの情報を入力し、Sign Up</li>
-<li>デバイスの登録を行う</li>
-<li>プロファイルのインストールを促されるのでインストール</li>
-<li>管理者からアプリインストールのメールがくるのを待つ</li>
-<li>プロファイルの確認は、設定アプリ起動 &ndash;> 一般 &ndash;> プロファイルで確認できる</li>
-</ol>
-
-
-<p><img src="/images/2014/0905/4_user_mail.png" title="メール受信" alt="user_signup" />
-<img src="/images/2014/0905/5_user_sign_up.png" title="Sign Up" alt="user_signup" />
-<img src="/images/2014/0905/7_user_connect_your_device.png" title="デバイス登録" alt="user_signup" />
-<img src="/images/2014/0905/8_profile_install.png" title="インストール" alt="user_signup" />
-<img src="/images/2014/0905/9_profile_installed.png" title="インストール完了" alt="user_signup" />
-<img src="/images/2014/0905/10_view_all_apps.png" title="アプリインストール待ち" alt="user_signup" />
-<img src="/images/2014/0905/11_setting_profile.png" title="プロファイルの確認" alt="user_signup" /></p>
-
-<h2>管理者</h2>
-
-<p>ユーザーがSign Upしたかどうかは、この画面で確認できる。</p>
-
-<p><img src="/images/2014/0905/6_manage_invites_in.png" title="Status" alt="user_signup" /></p>
 ]]></content>
   </entry>
   

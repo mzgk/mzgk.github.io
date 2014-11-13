@@ -9,14 +9,9 @@
   <meta name="author" content="mzgk">
 
   
-  <meta name="description" content="viewのサイズを変更する方法。 1
-2
-3
-4
-// 高さを変更
-CGRect newRect = _sampleView.frame;
-newRect.size.height = 165.0f;
-[_sampleView setFrame:newRect]; ">
+  <meta name="description" content="日本国内のみの配布などで、アプリの標準言語を日本語のみにする設定する方法。
+アプリ作成時のデフォルトは英語になっており、UIImagePickerなどを使用してカメラ機能を実装した場合には、Cancel / Retakeなど英語で表示がされる。 これを日本語に変える。
+ただし、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +71,63 @@ newRect.size.height = 165.0f;
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/localization-japanese-only/">アプリの標準言語を日本語のみにする方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-12T17:39:06+09:00" pubdate data-updated="true">2014.08.12</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>日本国内のみの配布などで、アプリの標準言語を日本語のみにする設定する方法。<br/>
+アプリ作成時のデフォルトは英語になっており、UIImagePickerなどを使用してカメラ機能を実装した場合には、Cancel / Retakeなど英語で表示がされる。 これを日本語に変える。
+ただし、通常のlocalization対応と違い日本語オンリーにする対応。</p>
+
+<h2>Localization native development</h2>
+
+<ol>
+<li>プロジェクトナビゲーターでプロジェクトを選択 &ndash; Target &ndash; Infoを開く</li>
+<li>Localization native development region &ndash; en → Japanに変更する
+<img src="/images/2014/0812/localization-1.png" alt="localization-1" /></li>
+</ol>
+
+
+<h2>Localizations</h2>
+
+<ol>
+<li>上記の設定後に、そのままの場所で右クリック → Add Row</li>
+<li>Keyに「Localizations」を追加する</li>
+<li>Item0を選択し、Valueの値を「Japanese」に変更する
+<img src="/images/2014/0812/localization-2.png" alt="localization-2" /></li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -815,52 +867,6 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/css-line-height/">[CSS] 文字の高さを指定する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-05T19:30:03+09:00" pubdate data-updated="true">2014.08.05</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>font-sizeで指定した文字の大きさに対し、上下にどれくらいの余裕を持たせるかを指定するline-heightの指定のしかた。<br/>
-このline-heightプロパティの値はpxではなく、文字サイズに対する割合で指定する。</p>
-
-<p>(font-size + 上余白 + 下余白) / font-size = line-heightの値（小数点4位切り上げ）</p>
-
-<p>例えば、<br/>
-文字サイズ16pxで上下に3pxずつ余裕をもたせる場合<br/>
-(16 + 3 + 3) / 16 = 1.375</p>
-
-<p>文字サイズ14pxで上下に3pxずつ余裕をもたせる場合<br/>
-(14 + 3 + 3) / 14 = 1.42857&hellip; &ndash;> 1.429</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -880,6 +886,10 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/apply-for-versionup-before-published-in-the-appstore/">App Storeへの公開前にバージョンアップ申請をする方法</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/button-label-update/">UIButtonのタイトルを更新する</a>
@@ -917,15 +927,11 @@ Apple公式の「LocalおよびPush Notificationプログラミングガイド�
         <a href="/blog/2014/invite-testflight2/">TestFlight：2（プロビジョニングプロファイル〜アプリ配信）</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/invite-to-testflight/">TestFlight：1（ユーザーを招待する）</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Categories</h1>
-    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (5)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (53)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
+    <ul id="category-list"><li><a href='/blog/categories/git/'>Git (6)</a></li><li><a href='/blog/categories/ios/'>iOS (6)</a></li><li><a href='/blog/categories/mac/'>Mac (7)</a></li><li><a href='/blog/categories/objective-c/'>Objective-C (53)</a></li><li><a href='/blog/categories/octopress/'>Octopress (9)</a></li><li><a href='/blog/categories/setting/'>Setting (5)</a></li><li><a href='/blog/categories/web/'>Web (2)</a></li><li><a href='/blog/categories/ge-yan/'>格言 (1)</a></li></ul>
 </section>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[jubilee]]></title>
   <link href="http://mzgk.github.io/atom.xml" rel="self"/>
   <link href="http://mzgk.github.io/"/>
-  <updated>2014-10-30T10:05:58+09:00</updated>
+  <updated>2014-11-13T11:13:09+09:00</updated>
   <id>http://mzgk.github.io/</id>
   <author>
     <name><![CDATA[mzgk]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[App Storeへの公開前にバージョンアップ申請をする方法]]></title>
+    <link href="http://mzgk.github.io/blog/2014/apply-for-versionup-before-published-in-the-appstore/"/>
+    <updated>2014-11-13T10:52:42+09:00</updated>
+    <id>http://mzgk.github.io/blog/2014/apply-for-versionup-before-published-in-the-appstore</id>
+    <content type="html"><![CDATA[<p>まだ一回もApp Storeへ公開していない段階（申請が通り、デベロッパーリリース待ち状態）で、アプリのバージョンアップ申請をしたい場合の手順。<br/>
+とりあえず申請が通るかを確かめて、その裏でバージョンアップ作業を実施し、バージョンアップ版を初公開とする目論み。<br/>
+ただ、リリースしないと「新規バージョン」申請のためのボタンがでなかったので回避策のメモ。<br/>
+素直に申請取下げて、バージョンアップ版で再申請でもいいかと思う。<br/>
+手順の８が回避策。</p>
+
+<!-- more -->
+
+
+<ol>
+<li>アプリができた</li>
+<li>まだApp Storeで公開したくないけど、申請が通るか確認したい</li>
+<li>リリースをデベロッパー側でコントロールするようして申請（今までと変わらず）</li>
+<li>申請が通って「デベロッパーリリース待ち」の状態になった</li>
+<li>アプリのバージョンアップをしたので、申請をしたい</li>
+<li>iTunes Connectの画面で右上に「新規バージョン」のボタンがでていない</li>
+<li>申請取り下げたくない</li>
+<li>「価格」のタブで、App Storeの公開地域のチェックをすべて外す（これでどの地域のApp Storeでも非公開になる）</li>
+<li>「このアプリをリリース」ボタンをクリックしてリリース</li>
+<li>「App Storeへの処理中」ステータスになる</li>
+<li>数分後に「デベロッパによりストアから削除済み」のステータスになる</li>
+<li>「新規バージョン」のボタンが使用可能になる</li>
+<li>バージョンアップ版の申請ができる</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[UIButtonのタイトルを更新する]]></title>
@@ -1243,48 +1276,6 @@ Push通知ありのアプリ。以下で作業が必要になる。</p>
 </span><span class='line'>// 完了
 </span><span class='line'>MAC Verified OK
 </span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[.gitignoreをあとから適用する]]></title>
-    <link href="http://mzgk.github.io/blog/2014/gitignore-apply-after-add/"/>
-    <updated>2014-08-28T10:44:36+09:00</updated>
-    <id>http://mzgk.github.io/blog/2014/gitignore-apply-after-add</id>
-    <content type="html"><![CDATA[<p>.gitignoreファイルはgit管理対象外とするディレクトリ・ファイルを登録するファイルだが、すでに管理対象として登録されたものに対しては無視される。<br/>
-すでに管理対象となっているものを、後から.gitginoreに登録し適用させる方法。</p>
-
-<h2>例：draftsディレクトリを対象外としたい</h2>
-
-<p>下書きディレクトリとして <code>draftsディレクトリ</code> を管理対象としていたが、DropBoxで運用したいのでGit管理からは外したい。</p>
-
-<h3>.gitignoreに追記</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># ディレクトリの最後に「/（スラッシュ）」をつける
-</span><span class='line'>drafts/</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ターミナル</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>// --cachedをつけることで、ファイル自体はローカルから削除しない
-</span><span class='line'>$ git rm --cached -r drafts/
-</span><span class='line'>
-</span><span class='line'>// ちなみにファイルの場合は以下
-</span><span class='line'>$ git rm --cached A.txt
-</span><span class='line'>
-</span><span class='line'>// ローカルからファイルも削除する場合は以下
-</span><span class='line'>$ git rm A.txt</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
