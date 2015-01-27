@@ -136,9 +136,15 @@ pod install / pod update するたびに自動作成してくれるので、ラ�
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>post_install do | installer |
 </span><span class='line'>require 'fileutils'
-</span><span class='line'>FileUtils.cp_r('Pods/Pods-acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
+</span><span class='line'>//FileUtils.cp_r('Pods/Pods-acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
+</span><span class='line'>// 2015.1.27追記
+</span><span class='line'>// いつの間にかこっちの表記に変わってた
+</span><span class='line'>FileUtils.cp_r('Pods/Target Support Files/Pods/Pods-Acknowledgements.plist', 'SampleLicense/Settings.bundle/Acknowledgements.plist', :remove_destination =&gt; true)
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
